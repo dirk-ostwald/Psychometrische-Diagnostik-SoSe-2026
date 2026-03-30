@@ -1,0 +1,201 @@
+---
+fontsize: 8pt
+format:
+    beamer:
+        include-in-header: "0-Header.tex"
+bibliography: 0-Referenzen.bib
+---
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics("0-Abbildungen/psd-0-otto.png")
+```
+
+\huge
+Psychometrische Diagnostik
+\vspace{3mm}
+
+\large
+MSc Psychologie
+
+MSc Umweltpsychologie / Mensch-Technik-Interaktion
+
+\vspace{2mm}
+SoSe 2026
+
+\vspace{1mm}
+\normalsize
+Prof. Dr. Dirk Ostwald
+
+#  {.plain}
+
+\vfill
+\center
+\Huge
+\textcolor{red}{Aufnahme läuft!}
+\vfill
+
+#  {.plain}
+\vfill
+\center
+\huge
+\textcolor{black}{(0) Formalia}
+\vfill
+
+
+# Formalia
+\setstretch{1.2}
+\footnotesize
+
+**MSc Psychologie (Modulhandbuch 01.03.2024)**
+
+Modul B. Psychologische Diagnostik - Teilmodul B1: Testen und Entscheiden (2 SWS)
+
+Die Studierenden sollen ihre grundlegenden Kenntnisse und Kompetenzen in
+Psychologischer Diagnostik vertiefen und erweitern. Sie sollen in der Lage sein,
+psychodiagnostische Verfahren, insbesondere Fragebögen und Tests, mit
+psychometrischen Methoden zu entwickeln und zu optimieren. Sie sollen in der
+Lage sein, diagnostische Verfahren fachgerecht anzuwenden, diagnostische
+Informationen fach- und sachgemäß aufzubereiten, zu interpretieren und
+vielfältige diagnostische Informationen zu einem diagnostischen Urteil zu
+integrieren sowie die Folgen diagnostischer Entscheidungen abzuschätzen,
+z.B. durch Kosten-Nutzenanalysen.
+
+Inhalte Teilmodul B1
+\vspace{-1mm}
+
+* Messtheoretische Grundlagen und Methoden der Skalierung
+* Item-Response-Theorien
+* Unterschiede zur Klassischen Testtheorie
+* Innovative Methoden der Item- und Testgestaltung und Erhebungsstrategien
+* Diagnostische Urteilsbildung, entscheidungsorientierte Diagnostik, Kosten-Nutzenanalysen
+
+Prüfungsleistungen Modul B
+\vspace{-1mm}
+
+* Modulklausur am Ende des 2. Semesters (8 CP)
+* **Die Seminarinhalte sind \underline{nicht} klausurrelevant**
+* Teilmodul B2: Seminar/Übung mit aktiver Teilnahme
+
+# Formalia
+\setstretch{1.2}
+\footnotesize
+
+**MSc Umweltpsychologie/Mensch-Technik-Interaktion (Modulhandbuch 19.02.2025)**
+
+Modul B: Psychologische Diagnostik - Teilmodul B1: Testen und Entscheiden (2 SWS)
+
+Die Studierenden sollen ihre grundlegenden Kenntnisse und Kompetenzen in Psychologischer
+Diagnostik vertiefen und erweitern. Sie sollen in der Lage sein, psychodiagnostische
+Verfahren, insbesondere Fragebögen und Tests, mit psychometrischen Methoden zu
+entwickeln und zu optimieren. Sie sollen in der Lage sein, diagnostische Verfahren
+fachgerecht anzuwenden, diagnostische Informationen fach- und sachgemäß aufzubereiten,
+zu interpretieren und vielfältige diagnostische Informationen zu einem diagnostischen
+Urteil zu integrieren sowie die Folgen diagnostischer Entscheidungen abzuschätzen,
+z.B. durch Kosten- Nutzenanalysen.
+
+Inhalte Teilmodul B1
+\vspace{-1mm}
+
+* Messtheoretische Grundlagen und Methoden der Skalierung
+* Item-Response-Theorien
+* Unterschiede zur Klassischen Testtheorie
+* Innovative Methoden der Item- und Testgestaltung und Erhebungsstrategien
+* Diagnostische Urteilsbildung, entscheidungsorientierte Diagnostik, Kosten-Nutzenanalysen
+
+Prüfungsleistungen Modul B
+\vspace{-1mm}
+
+* Modulklausur am Ende des 2. Semesters (10 CP)
+* **Die Seminarinhalte sind \underline{nicht} klausurrelevant**
+* Seminar/Übung mit aktiver Teilnahme
+* Regelmäßige Teilnahme für B2 erforderlich
+
+
+# Formalia
+\footnotesize
+\vspace{1mm}
+Vorlesung Psychometrische Diagnostik SoSe 2026 (2 SWS)
+\vspace{-1mm}
+
+* Begleitvorlesung zum Seminar Testtheorie und Testkonstruktion
+* Freitags 7 - 9 Uhr in G22A-020
+* Kursmaterialien (Folien, Videos) auf der [\textcolor{darkblue}{Kurswebseite}](https://tinyurl.com/252ch9t9)
+* Quarto und R Code der Kursmaterialien auf der [\textcolor{darkblue{Githubseite}]()
+* Ankündigungen, weiterführende Literatur und Seminarmaterialien auf der [\textcolor{darkblue}{Moodleseite}](https://elearning.ovgu.de/course/view.php?id=21016)
+
+Vorwissen aus dem BSc Psychologie
+\vspace{-1mm}
+
+* [\textcolor{darkblue}{Probabilistische Datenwissenschaft für die Psychologie}](https://dirk-ostwald.github.io/)
+* [\textcolor{darkblue}{Mathematische Grundlagen}](https://tinyurl.com/2d9ptjso)
+* [\textcolor{darkblue}{Wahrscheinlichkeitstheorie und Frequentistische Inferenz}](https://tinyurl.com/29dcsqah)
+* [\textcolor{darkblue}{Allgemeines Lineares Modell}](https://tinyurl.com/24a7nj9b)
+* [\textcolor{darkblue}{Programmierung und Deskriptive Statistik}](https://tinyurl.com/2aanpg4r)
+
+
+Prüfungsmodalitäten
+\vspace{-1mm}
+
+* Vorlesungsfolien inklusive Selbstkontrollfragen sind klausurrelevant
+* Selbstkontrollfragen fokussieren den Kursinhalt
+* Selbstkontrollfragen sind Grundlage für Prüfungsfragen
+* Benotete digitale Multiple Choice Klausur (30 Fragen) im Universitätstestzentrum
+* Klausurwiederholungstermin am Ende des WiSee 2026/27
+
+
+# Formalia
+\vfill
+\footnotesize
+\center
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+Datum           & Thema					       	    \\\hline
+10.04.2026      & (0) Formalia                      \\
+17.04.2026      & (1) Messtheorie                   \\
+24.04.2026      & (1) Messtheorie                   \\
+01.05.2026      & Feiertag                          \\
+08.05.2026      & (2) Item-Response-Theorie         \\
+15.05.2026      & (2) Item-Response-Theorie         \\
+22.05.2026      & (2) Item-Response-Theorie         \\
+29.05.2026      & (3) Faktorenanalyse               \\
+05.06.2026      & (3) Faktorenanalyse               \\
+12.06.2026      & (3) Faktorenanalyse               \\
+19.06.2026      & (3) Faktorenanalyse               \\
+26.06.2026      & (4) Klassische Testtheorie        \\
+03.07.2026      & (4) Klassische Testtheorie        \\
+10.07.2026      & (4) Klassische Testtheorie        \\\hline
+17.07.2026      & Klausurtermin                     \\
+Februar 2027    & Klausurwiederholungstermin        \\
+\end{tabular}
+\vfill
+
+
+# Formalia
+Literatur
+
+\footnotesize
+
+Krauth, Joachim (1995) Testkonstruktion und Testtheorie. Weinheim: Beltz, Psychologie Verl.-Union
+
+Rencher, Alvin C., and William F. Christensen (2012) Methods of Multivariate Analysis. Third Edition. Wiley Seriesin Probability and Statistics. Hoboken, New Jersey: Wiley
+
+Lord, Frederic M., and Melvin R. Novick (1968) Statistical Theories of Mental Test Scores. The Addison-Wesley Series in Behavioral Science: Quantitative Methods. Charlotte
+
+Rost, Jürgen (2004) Lehrbuch Testtheorie, Testkonstruktion. Aus dem Programm Huber. Bern: H. Huber
+
+Pospeschill, Markus (2022) Testtheorie, Testkonstruktion, Testevaluation. München: Ernst Reihnhardt Verlag
+
+Bühner, Markus (2010) Einführung in die Test- und Fragebogenkonstruktion. Pearson Studium Psychologie. München: Pearson Studium
+
+Moosbrugger, Helfried, and Augustin Kelava (2021) Testtheorie und Fragebogenkonstruktion. Springer-Lehrbuch. Berlin Heidelberg: Springer
+
+
+# Formalia
+\Huge
+\vfill
+\center
+Q & A
+\vfill
+
