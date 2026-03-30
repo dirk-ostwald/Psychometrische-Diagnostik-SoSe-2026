@@ -134,7 +134,6 @@ Vorwissen aus dem BSc Psychologie
 * [\textcolor{darkblue}{Allgemeines Lineares Modell}](https://tinyurl.com/24a7nj9b)
 * [\textcolor{darkblue}{Programmierung und Deskriptive Statistik}](https://tinyurl.com/2aanpg4r)
 
-
 Prüfungsmodalitäten
 \vspace{-1mm}
 
@@ -142,7 +141,7 @@ Prüfungsmodalitäten
 * Selbstkontrollfragen fokussieren den Kursinhalt
 * Selbstkontrollfragen sind Grundlage für Prüfungsfragen
 * Benotete digitale Multiple Choice Klausur (30 Fragen) im Universitätstestzentrum
-* Klausurwiederholungstermin am Ende des WiSee 2026/27
+* Klausurwiederholungstermin am Ende des WiSe 2026/27
 
 # Formalia
 \vfill
