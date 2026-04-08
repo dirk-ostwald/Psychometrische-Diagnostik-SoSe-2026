@@ -1,0 +1,1910 @@
+---
+fontsize: 8pt
+format:
+    beamer:
+        include-in-header: "1-Header.tex"
+bibliography: 1-Referenzen.bib
+csl: https://www.zotero.org/styles/apa
+---
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics("1-Abbildungen/psd-1-otto.png")
+```
+
+\huge
+Psychometrische Diagnostik
+\vspace{3mm}
+
+\large
+MSc Psychologie
+
+MSc Umweltpsychologie / Mensch-Technik-Interaktion
+
+\vspace{2mm}
+SoSe 2026
+
+\vspace{1mm}
+\normalsize
+Prof. Dr. Dirk Ostwald
+
+
+# {.plain}
+\vfill
+\center
+\huge
+\textcolor{black}{(1) Repräsentationstheorie}
+\vfill
+
+#
+\vfill
+\setstretch{2.7}
+\large
+**Einordnung**
+
+Repräsentationstheoretische Grundlagen
+
+Repräsentation additiv-konjunkter Strukturen
+
+Diskussion
+
+Selbstkontrollfragen
+\vfill
+
+# Einordnung
+\setstretch{1.6}
+\small
+Repräsentationstheorie = Messtheorie = Quantifizierungstheorie
+
+Additive Konjunktmessung - Intervallskalenrepräsentation qualitativer Ordnungen ohne Konkatenation
+
+\footnotesize
+* Zentraler Beitrag der Repräsentationstheorie des Messens (@luce1964)
+* Entwicklung moderner anwendungsorientierter Verfahren zur Voraussetzungsprüfung (z.B. @karabatsos2005)
+* Postulierte Verbindungen zur Item-Response-Theorie (z.B. @kyngdon2008)
+* Zur aktuellen Relevanz, siehe z.B. @pedersen2025
+* Zu messtheoretischen Grundbetrachtungen siehe [\textcolor{darkblue}{Einführung in die Forschungsmethoden}](https://tinyurl.com/ylmzvnwy)
+
+\small
+Repräsentationstheorie
+\footnotesize
+
+* Anwendung des Programms des Logischen Positivismus mit Hochphase 1950 - 2000
+* Begründet um 1950 durch [\textcolor{darkblue}{Patrick Suppes}](https://en.wikipedia.org/wiki/Patrick_Suppes)
+* Klärung des Begriffs des Messens über den Stand der Physik von 1950 hinaus
+* Ausarbeitung und Differenzierung der Stevensschen Skalenklassifikation (@stevens1946)
+* Zentrale Arbeiten durch @scott1958, @luce1964,
+* Gesamtwerk in @krantz1971, @suppes1989, @luce1990
+
+Für ein einführendes vertieftes Verständnis wird @roberts1984 empfohlen.
+
+
+
+# Einordnung
+Modellbasierter Realismus
+\vspace{3mm}
+
+```{r, echo = FALSE, out.width = "90%", fig.align = "center"}
+knitr::include_graphics("1-Abbildungen/psd-1-modellbasierter-realismus.pdf")
+```
+\small
+\vspace{3mm}
+
+Für eine Einführung zum modellbasierten Realismus siehe
+[\textcolor{darkblue}{Einführung in die Forschungsmethoden}](https://tinyurl.com/ylmzvnwy)
+
+# Einordnung
+\vspace{2mm}
+Repräsentationstheorie
+
+```{r, echo = FALSE, out.width = "100%", fig.align = "center"}
+knitr::include_graphics("1-Abbildungen/psd-1-repräsentationstheorie.pdf")
+```
+
+\footnotesize
+
+\setstretch{1.2}
+Die Repräsentationstheorie setzt die Existenz qualitativer Relationssysteme als Datengrundlage voraus
+
+Welche Eigenschaften müssen qualitative Relationssysteme für eine numerische Repräsentation haben?
+
+\vspace{1mm}
+\small
+Mathematische Theorie aus Axiomen/Definitionen, Theoremen und Beweisen
+
+Mengen und spezielle Mengen (Relationen, Operationen, Abbildungen) als Gegenstände
+
+# Einordnung
+\vspace{2mm}
+\small
+Der Skalenbegriff  der Psychologie
+
+```{r, echo = FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("1-Abbildungen/psd-1-skalen-psy.pdf")
+```
+
+# Einordnung
+\vspace{2mm}
+\small
+Der eigentliche Skalenbegriff der Repräsentationstheorie
+
+```{r, echo = FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("1-Abbildungen/psd-1-skalen-rtm.pdf")
+```
+
+#
+\vfill
+\setstretch{2.7}
+\large
+Einordnung
+
+**Repräsentationstheoretische Grundbegriffe**
+
+Repräsentation additiv-konjunkter Strukturen
+
+Diskussion
+
+Selbstkontrollfragen
+\vfill
+
+
+# Repräsentationstheoretische Grundlagen
+\small
+Relationen und Operationen
+
+\footnotesize
+Relationen
+\vspace{-1mm}
+
+* Relationen sind Beziehungen zwischen zwei Dingen (Objekten, Objekteigenschaften, Zahlen).
+* Im qualitativen Relationssystem betrachtet die RT qualitative Relationen von empirischen Eigenschaften.
+* Beispiele für qualitative Relationen sind "nicht wahrnehmbar kürzer als" oder "wärmer als".
+* Qualitative Relationen werden oft mit $\sce$ oder $\sim$ bezeichnet.
+* Im quantitativen Relationssystem betrachtet die RT quantitative Relationen von Zahlen.
+* Beispiel für quantitative Relationen sind $\ge$ oder $=$.
+* Formal sind Relationen Teilmengen des Kartesischen Produkts einer Menge mit sich selbst.
+
+\footnotesize
+Operationen
+\vspace{-1mm}
+
+* Operationen sind Verknüpfungen zwischen zwei Dingen (Objekten, Objekteigenschaften, Zahlen).
+* Operationen verknüpfen zwei Dinge zu einem resultierenden dritten Ding.
+* Im qualitativen Relationssystem betrachtet die RT empirische Konkatenationen als Operationen.
+* Ein Beispiel für eine qualitative Operationen ist das Hintereinander legen zweier Stäbe.
+* Qualitative Operationen werden oft mit $\circ$ bezeichnet.
+* Im qualitativen Relationssystem betrachtet die RT mathematische Verknüpfungen als Operationen.
+* Ein Beispiel für eine qualitative Operationen ist die Addition zweier reeller Zahlen.
+* Quantitative Operationen werden mit den Standardsymbolen +, -, $\cdot$, / bezeichnet.
+
+# Repräsentationstheoretische Grundlagen
+\small
+Qualitatives und Quantitatives Relationssystem
+
+\footnotesize
+Qualitatives Relationssystem
+
+* $(M,\sce,...,\circ,...)$ mit Objekteigenschaftsmenge $M$, qualitativen Relationen und qualitativen Operationen.
+* Das qualitative Relationssystem wird in der Repräsentationstheorie als bekannte Datengrundlage voraussgesetzt.
+* Die qualitativen empirischen Eigenschaften von Dingen sind also nach Voraussetzung bekannt.
+* Je nach Art des qualitativen Relationssystems haben Relationen und Operationen verschiedene Eigenschaften.
+* Ein Beispiel für eine Relationseigenschaft ist die *Transititivät*
+\begin{equation}
+\mbox{ Wenn } m \sce n \mbox{ und } n \sce p \mbox{, dann gilt } m \sce p \mbox{ für alle } m,n,p \in M.
+\end{equation}
+* Ein Beispiel für eine Operationseigenschaften ist die *Assoziativität*
+\begin{equation}
+(m \circ n) \circ p = m \circ (n \circ p).
+\end{equation}
+
+Quantitatives Relationssystem
+\footnotesize
+
+* Einheit $(\mathbb{R},\ge,...,+,...)$ aus Zahlen $\mathbb{R}$, quantitativen Relationen $\ge,...$ und quantitativen Operationen $+,...$.
+* Das quantitative Relationssystem entspricht meist den vetrauten Zahlräumen und Zahlenoperationen.
+* Je nach Art des quantitativen Relationssystems haben Relationen und Operationen verschiedene Eigenschaften.
+* In $(\mathbb{R},\ge,+)$ gelten zum Beispiel auch die *Transitivität* und *Assoziativität*, denn
+\begin{equation}
+x \ge y \mbox{ und } y \ge z \Rightarrow x \ge z \mbox{ und }
+(x + y) + z = x + (y + z) \mbox{ für alle } x,y,z \in \mathbb{R}.
+\end{equation}
+
+# Repräsentationstheoretische Grundlagen
+\small
+Homomorphismen und Skalen
+
+\footnotesize
+Homomorphismen
+
+* Homomorphismen sind "strukturerhaltende" Abbildungen zwischen den Relationssystemen.
+* Eine Abbildung $f: M \to \mathbb{R}$ heißt beispielsweise strukturerhaltend, wenn gilt dass,
+\begin{equation}
+m \sce n \Rightarrow f(m) \ge f(n)
+\mbox{ und }
+f(m \circ n) = f(m) + f(n)
+\mbox{ für alle } m,n\in M.
+\end{equation}
+* $\Rightarrow$ Die Funktionswerte von $m$ und $n$ in $\mathbb{R}$ steht "in der gleichen Relation" wie $m$ und $n$ in $M$.
+* $\ge$ im quantitativen Relationssystem spiegelt dann $\sce$ im qualitativen Relationssystem.
+* $\Rightarrow$ Der Funktionswert der Verknüpfung von $m$ und $n$ gleicht der Verknüpfung der Funktionswerte von $m$,$n$.
+* $+$ im quantitativen Relationssystem spiegelt dann $\circ$ im qualitativen Relationssystem.
+* Die Betrachtung von $(M,\sce,\circ)$ und $(\mathbb{R},\ge, +)$ ist allerdings nur ein Beispiel.
+* $\Rightarrow$ In der Repräsentationstheorie ist man an Spiegelungen beliebiger Relationen und Operationen interessiert.
+
+Skalen
+
+* Die Einheit $(\mathcal{M},\mathcal{N},f)$ aus einem qualitativen Relationssystem $\mathcal{M}$, einem quantitativen Relationssystem
+$\mathcal{N}$ und einem Homomorphismus $f$ zwischen ihnen wird in der Repräsentationstheorie als *Skala* bezeichnet.
+* Der Skalenbegriff der Repräsentationstheorie erweitert und schärft den Skalenbegriff nach @stevens1946.
+* Der Skalenbegriff der Repräsentationstheorie hat mit dem Wort "Skala" für einen Fragebogen wenig zu tun.
+
+# Repräsentationstheoretische Grundlagen
+\small
+Repräsentationsproblem und Eindeutigkeitsproblem
+
+\footnotesize
+Repräsentationsproblem
+\footnotesize
+
+* Die Analyse von notwendigen und hinreichenden Bedingungen für die Existenz eines Homomorphismus
+zwischen den Relationssystemen wird Repräsentationsproblem genannt.
+* Notwendige Bedingungen sind Eigenschaften der Relationssysteme, wenn ein Homomorphismus existiert.
+* Hinreichende Bedingungen sind Eigenschaften der Relationssysteme zur Konstruktion eines Homomorphismus.
+* Theoreme, die besagen, dass bestimmte Eigenschaften des qualitativen Relationssystems
+für die Existenz eines Homomorphismus notwendig und hinreichend sind, werden *Repräsentationstheoreme* genannt.
+* Wenn ein Homomorphismus existiert, dann ist im Sinne der Repräsentationstheorie eine "Messung" möglich.
+
+Eindeutigkeitsproblem
+
+* Das Eindeutigkeitsproblem der Repräsentationstheorie besteht darin, zu bestimmen,
+  ob ein existierender Homomorphismus der einzige mögliche ist.
+* Die Antworten auf Eindeutigkeitsprobleme legen die Skalenarten fest, insbesondere
+sind die Homomorphismen dort nicht eindeutig, sondern durch sogenannte *zulässige Transformationen* ineinander überführbar.
+* Eine Abbildung $\phi$ heißt *zulässige Transformation*, wenn gilt, dass bei gegebenen Relationssystemen
+wenn $f$ ein Homomorphismus ist, $\phi \circ f$ auch ein Homomorphismus ist.
+
+# Repräsentationstheoretische Grundlagen
+Skalenarten
+\footnotesize
+
+Gegeben sei eine Skala $(\mathcal{M},\mathcal{N},f)$ mit zugrundeliegenden Mengen
+$M$ und $\mathbb{R}$ und Homomorphismus $f$. Weiterhin sei
+\begin{equation}
+\Phi := \{\phi| \phi : f(M) \to \mathbb{R} \}
+\end{equation}
+die Menge der zulässigen Transformationen von $(\mathcal{M},\mathcal{N},f)$. Dann ist die
+*Skalenart* von $(\mathcal{M},\mathcal{N},f)$ durch $\Phi$ bestimmt. Insbesondere gelten:
+
+(1) Wenn die Menge der zulässigen Transformationen der Skala die Menge der *streng monoton steigenden Funktionen*
+\begin{equation}
+\Phi := \{\phi| \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x)  \mbox{ mit } x > y \Leftrightarrow \phi(x) > \phi(y) \mbox{ für alle } x,y \in f(M)\}
+\end{equation}
+ist, dann heißt $(\mathcal{M},\mathcal{N},f)$ *Ordinalskala*.
+(2) Wenn die Menge der zulässigen Transformationen der Skala  die Menge der *positiv linear-affinen Funktionen*
+\begin{equation}
+\Phi := \{\phi| \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta  \mbox{ mit } \alpha > 0\}
+\end{equation}
+ist, dann heißt $(\mathcal{M},\mathcal{N},f)$ *Intervallskala*.
+(3) Wenn die Menge der zulässigen Transformationen der Skala die Menge der *Ähnlichkeitstransformationen*
+\begin{equation}
+\Phi := \{\phi| \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x \mbox{ mit } \alpha > 0\}
+\end{equation}
+ist, dann heißt $(\mathcal{M},\mathcal{N},f)$ *Verhältnisskala*.
+
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Ordinalmessung
+\footnotesize
+
+*Definition (Schwache Ordnung)*
+
+$M$ sei eine Menge und $\sce$ sei eine Binärrelation auf $M$. $\sce$
+heißt \textit{schwache Ordnung} auf $M$, wenn $\sce$ vollständig und
+transitiv ist. Eine Binärrelation $\sce$ auf einer Menge $M$ heißt
+\textit{vollständig}, wenn für alle $m,n \in M$ gilt: $m \sce n$ oder
+$n \sce m$ (oder beides). Eine Binärrelation $\sce$ auf einer Menge
+$M$ heißt \textit{transitiv}, wenn für alle $m,n,p \in M$ gilt: aus
+$m \sce n$ und $n \sce p$ folgt $m \sce p$.
+
+*Theorem (Repräsentation)*
+
+$\mathcal{M} := (M,\sce)$ sei ein qualitatives Relationssystem mit einer
+endlichen Menge $M$ und einer Binärrelation $\sce$ auf $M$, und
+$\mathcal{N} := (\mathbb{R},\geq)$ sei ein quantitatives Relationssystem.
+Dann existiert ein Homomorphismus $f$ von $\mathcal{M}$ nach $\mathcal{N}$,
+also eine Funktion der Form
+\begin{equation}
+f : M \to \mathbb{R},\; m \mapsto f(m)
+\mbox{ mit der Eigenschaft }
+m \sce n \Leftrightarrow f(m) \geq f(n),
+\end{equation}
+dann und nur dann, wenn $\sce$ eine schwache Ordnung ist.
+
+*Theorem (Eindeutigkeit)*
+
+$\mathcal{M} := (M,\sce)$ sei ein qualitatives Relationssystem aus einer
+endlichen Menge $M$ und einer schwachen Ordnung $\sce$ auf $M$,
+$\mathcal{N} := (\mathbb{R},\geq)$ sei ein quantitatives Relationssystem,
+und es sei $f \in \mathcal{H}(\mathcal{M},\mathcal{N})$.
+Dann ist $(\mathcal{M},\mathcal{N},f)$ eine Ordinalskala; die Klasse der
+zulässigen Transformationen von $f$ ist also die Klasse der streng monoton steigenden
+Funktionen.
+
+Für Beweise des Repräsentationstheorems und des Eindeutigkeitstheorems verweisen wir auf @roberts1984.
+
+
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Ordinalmessung
+\footnotesize
+
+Als Beispiel betrachten wir die Messung der Präferenz einer Patientin bezüglich
+eines psychotherapeutischen Settings. Dazu sei zunächst $M := \{\mbox{P}, \mbox{H}, \mbox{O}\}$
+die Menge der möglichen Settings Präsenz, Hybrid und Online. Eine schwache Ordnung auf $M$ wird dann durch Befragung der Patientin bezüglich aller Paare $(m,m') \in M^2$
+etabliert. Die Vollständigkeit wird dabei dadurch garantiert, dass tatsächlich alle
+Paare abgefragt werden. Die Transitivität wird dadurch garantiert, dass inkonsistente
+Präferenzen nicht zugelassen sind.
+
+Nehmen wir an, die Patientin äußert folgendes Präferenzmuster:
+
+\begin{center}
+\begin{tabular}{l|lll}
+            & \mbox{P}  & \mbox{H}  & \mbox{O} \\\hline
+\mbox{P}    & $\sce$    & $\sce$    & $\sce$   \\
+\mbox{H}    & $\pce$    & $\sce$    & $\sce$   \\
+\mbox{O}    & $\pce$    & $\sce$    & $\sce$   \\
+\end{tabular}
+\end{center}
+
+\begin{flushleft}
+Für die Patientin gilt also $\mbox{P} \succ \mbox{H} \sim \mbox{O}$, denn
+\begin{equation}
+\mbox{P} \sce \mbox{H} \wedge \neg\, (\mbox{H} \sce \mbox{P}) \Rightarrow \mbox{P} \succ \mbox{H}, \quad
+\mbox{P} \sce \mbox{O} \wedge \neg\, (\mbox{O} \sce \mbox{P}) \Rightarrow \mbox{P} \succ \mbox{O}, \quad
+\mbox{H} \sce \mbox{O} \wedge \mbox{O} \sce \mbox{H} \Rightarrow \mbox{H} \sim \mbox{O}.
+\end{equation}
+Eine mögliche numerische Repräsentation der Präferenzordnung dieser Patientin ist
+\begin{equation}
+f : M \to \mathbb{R}, m \mapsto f(m) :=
+\begin{cases}
+1 & (m = \mbox{O}) \\
+1 & (m = \mbox{H}) \\
+2 & (m = \mbox{P})
+\end{cases}.
+\end{equation}
+Denn dann gilt für alle $m,m' \in M$:
+\begin{equation}
+m \sce m' \Leftrightarrow f(m) \geq f(m').
+\end{equation}
+\end{flushleft}
+
+
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Ordinalmessung
+\footnotesize
+
+Dies lässt sich durch vollständige Fallunterscheidung zeigen. Es ergibt sich
+\begin{equation}
+\begin{array}{c|c|c|c}
+(m,m')              & m \sce m'     & (f(m), f(m'))  & f(m)\geq f(m')\\\hline
+(\mbox{P},\mbox{P}) & w             & (2, 2)         & w \\
+(\mbox{P},\mbox{H}) & w             & (2, 1)         & w \\
+(\mbox{P},\mbox{O}) & w             & (2, 1)         & w \\
+(\mbox{H},\mbox{P}) & f             & (1, 2)         & f \\
+(\mbox{H},\mbox{H}) & w             & (1, 1)         & w \\
+(\mbox{H},\mbox{O}) & w             & (1, 1)         & w \\
+(\mbox{O},\mbox{P}) & f             & (1, 2)         & f \\
+(\mbox{O},\mbox{H}) & w             & (1, 1)         & w \\
+(\mbox{O},\mbox{O}) & w             & (1, 1)         & w
+\end{array}
+\end{equation}
+Also stimmen für alle Paare $(m,m') \in M^2$ die Wahrheitswerte von
+$m \sce m'$ und $f(m)\geq f(m')$ überein.
+
+Allerdings ist diese Repräsentation natürlich nicht eindeutig. Sei etwa mit
+\begin{equation}
+\phi : \mathbb{R}_{>0} \to \mathbb{R}, x \mapsto \phi(x) := x^2
+\end{equation}
+eine streng monoton steigende Funktion gegeben. Dann gilt für $g := \phi \circ f$, dass
+\begin{equation}
+g : M \to \mathbb{R}, m \mapsto g(m) := (\phi \circ f)(m) = \phi(f(m)) =
+\begin{cases}
+1 & (m = \mbox{O}) \\
+1 & (m = \mbox{H}) \\
+4 & (m = \mbox{P})
+\end{cases}.
+\end{equation}
+
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Ordinalmessung
+\footnotesize
+
+Aber auch für $g$ gilt dann für alle $m,m' \in M$, dass
+\begin{equation}
+m \sce m' \Leftrightarrow g(m) \geq g(m').
+\end{equation}
+denn
+\begin{equation}
+\begin{array}{c|c|c|c}
+(m,m')              & m \sce m'     & (g(m), g(m'))  & g(m)\geq g(m')\\\hline
+(\mbox{P},\mbox{P}) & w             & (4, 4)         & w \\
+(\mbox{P},\mbox{H}) & w             & (4, 1)         & w \\
+(\mbox{P},\mbox{O}) & w             & (4, 1)         & w \\
+(\mbox{H},\mbox{P}) & f             & (1, 4)         & f \\
+(\mbox{H},\mbox{H}) & w             & (1, 1)         & w \\
+(\mbox{H},\mbox{O}) & w             & (1, 1)         & w \\
+(\mbox{O},\mbox{P}) & f             & (1, 4)         & f \\
+(\mbox{O},\mbox{H}) & w             & (1, 1)         & w \\
+(\mbox{O},\mbox{O}) & w             & (1, 1)         & w
+\end{array}
+\end{equation}
+und somit ist auch $g$ eine zulässige Repräsentation der Präferenzordnung der Patientin.
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Aussagen
+\footnotesize
+
+* Eine Aussage bezüglich zweier (Mess)Werte im quantitativen Relationssystem heißt
+im Sinne der Repräsentationstheorie bedeutsam, wenn sie bezüglich der gewählten
+Skalenrepräsentation invariant ist, sich mit Änderung der Skala also nicht ändert.
+
+* Ein klassisches Beispiel für *nicht* bedeutsame Aussagen sind Verhältnisaussagen
+bei Intervallskalen zur Temperaturmessung wie Celsius (T$_{\mbox{\tiny C}}$) und Fahrenheit (T$_{\mbox{\tiny F}}$ = $\frac{9}{5}$ T$_{\mbox{\tiny C}}$ + 32). Seien zum Beispiel zwei
+Objekten $m$ und $n$ durch  die Celsius-Skala die Temperaturen 40°C und 20°C
+zugeordnet. Dann gilt
+\begin{equation}
+\frac{\mbox{Temperatur von } m}{\mbox{Temperatur von } n} =
+\frac{40^{\circ} \mbox{C}}{20^{\circ} \mbox{C}} = 2
+\text{, aber }
+\frac{104^{\circ} \mbox{ F}}{68^{\circ} \mbox{ F}} = 1.52 \neq 2
+\end{equation}
+
+* Formaler gilt: $(\mathcal{M},\mathcal{N},f)$ sei eine Skala.
+Eine Aussage heißt *bedeutsam bezüglich* $(\mathcal{M},\mathcal{N},f)$, wenn der Wahrheitsgehalt der Aussage unter allen zulässigen Transformationen von
+$(\mathcal{M},\mathcal{N},f)$ unverändert bleibt.
+
+* Im Folgenden zeigen wir, dass für $m,n,p,q\in M$ die Aussage $f(m) - f(n) = f(p) - f(q)$
+also die Gleicheit von Differenzen im Allgemeinen nicht bedeutsam ist, wenn $f$
+eine Ordinalskala ist, und bedeutsam ist, wenn $f$ eine Intervallskala ist.
+
+* Weiterhin zeigen wir, dass für $m,n \in M$ und $c\neq 0$ die Aussage $f(m)/f(n) = c$
+im Allgemeinen nicht bedeutsam, wenn $f$ eine Intervallskala ist und bedeutsam ist,
+wenn $f$ eine Verhältnisskala ist.
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Aussagen
+\footnotesize
+
+*Beweis der Nicht-Bedeutsamkeit von Aussagen zur Gleichheit von Differenzen bei Ordinalskalen*
+
+$f$ sei eine Ordinalskala. Dann ist die Menge $\Phi$ der zulässigen Transformationen
+von $f$ die Menge der monoton steigenden Funktionen. Wir zeigen durch ein Gegenbeispiel,
+dass die Differenzengleichheitsaussage nicht unter allen zulässigen Transformationen von $f$ wahr bleibt.
+Beispielsweise sei $M := \{m,n,p,q\}$ die Menge des qualitativen Relationssystems
+und ein Homomorphismus von $\mathcal{M}$ nach $(\mathbb{R},\ge)$
+definiert durch
+\begin{equation}
+f : M \to \mathbb{R} \mbox{ mit } f(m) := 8,  f(n) := 4,  f(p) := 6 \mbox{ und }  f(q) := 2
+\end{equation}
+Dann gilt
+\begin{equation}
+f(m) - f(n) = f(p) - f(q)
+\Leftrightarrow
+8 - 4 = 6 - 2
+\Leftrightarrow
+4 = 4
+\end{equation}
+Sei nun eine monoton steigende Funktion $\phi$ auf $\mathbb{R}$ definiert mit den speziellen Werten
+\begin{equation}
+\phi : \mathbb{R} \to \mathbb{R}, x \mapsto \phi(x) \mbox{ mit }
+\phi(2) := 3,\ \phi(4) := 5,\ \phi(6) := 8,\ \phi(8) := 9.
+\end{equation}
+$\phi$ ist auf $\{2,4,6,8\}$ monoton steigend, denn für alle $x,y \in \{2,4,6,8\}$ gilt
+$x > y \Leftrightarrow \phi(x) > \phi(y)$. Dann gilt aber
+\begin{equation}
+(\phi \circ f)(m) - (\phi \circ f)(n)
+= 9 - 5
+= 4
+\neq 5
+= 8 - 3
+= (\phi \circ f)(p) - (\phi \circ f)(q)
+\end{equation}
+Damit bleibt die Aussage $f(m) - f(n) = f(p) - f(q)$ aber nicht für alle $\phi \in \Phi$ wahr.
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Aussagen
+\footnotesize
+
+*Beweis der Bedeutsamkeit von Aussagen zur Gleichheit von Differenzen bei Intervallskalen*
+
+$f$ sei eine Intervallskala. Dann ist die Menge $\Phi$ der zulässigen Transformationen
+von $f$ die Menge der positiv linear-affinen Funktionen. Für jede Transformation
+$\phi \circ f$ mit $\phi \in \Phi$ gilt mit $\alpha > 0, \beta \in \mathbb{R}$
+\begin{align}
+\begin{split}
+f(m) - f(n) = f(p) - f(q)
+& \Leftrightarrow
+\alpha(f(m) - f(n)) = \alpha(f(p) - f(q)) \\
+& \Leftrightarrow
+(\alpha f(m) + \beta) - (\alpha f(n) + \beta) \\
+& \quad = (\alpha f(p) + \beta) - (\alpha f(q) + \beta) \\
+& \Leftrightarrow
+(\phi \circ f)(m) - (\phi \circ f)(n) \\
+& \quad = (\phi \circ f)(p) - (\phi \circ f)(q).
+\end{split}
+\end{align}
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Aussagen
+\footnotesize
+\setstretch{1.2}
+
+*Beweis der Nicht-Bedeutsamkeit von Verhältnisaussagen bei Intervallskalen*
+
+Wir betrachten die Aussage
+\begin{equation}
+\frac{f(m)}{f(n)} = c
+\Leftrightarrow
+f(m) = c f(n)
+\end{equation}
+Dann gilt im Allgemeinen für eine positiv linear-affine Funktion $\phi$, dass
+\begin{equation}
+(\phi \circ f)(m) \neq c (\phi \circ f) (n)
+\end{equation}
+Zum Beispiel seien $f(m) := 2, f(n) := 1$ (also $c = 2$) und $\phi$ sei die positiv linear-affine Funktion
+\begin{equation}
+\phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta \mbox{ mit } \alpha := 1 \mbox{ und } \beta := 1.
+\end{equation}
+Dann gilt offenbar
+\begin{equation}
+\frac{f(m)}{f(n)} = \frac{2}{1} = 2
+\end{equation}
+also
+\begin{equation}
+f(m) = 2f(n),
+\end{equation}
+aber
+\begin{equation}
+(\phi \circ f)(m) \neq 2 (\phi \circ f) (n)
+\end{equation}
+denn
+\begin{equation}
+(\phi \circ f)(m) = \alpha f(m) + \beta = 1\cdot 2 + 1 = 3
+\end{equation}
+und
+\begin{equation}
+2(\phi \circ f)(n) =  2(\alpha f(n) + \beta) = 2\alpha f(n) + 2 \beta =  2\cdot 1 + 2 \cdot 1 = 4.
+\end{equation}
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Aussagen
+\footnotesize
+
+
+*Beweis der Bedeutsamkeit von Aussagen zu Verhältnissen bei Verhältnisskalen*
+
+$f$ sei eine Verhältnisskala. Dann ist die Menge $\Phi$ der zulässigen Transformationen
+von $f$ die Menge der Ähnlichkeitstransformationen. Für jede Transformation
+von $\phi \circ f$ von $f$ mit $\phi \in \Phi$ gilt mit $\alpha > 0$ also
+\begin{align}
+\begin{split}
+\frac{f(m)}{f(n)} = c
+\Leftrightarrow
+\alpha \left(\frac{f(m)}{f(n)}\right) = \alpha c
+\Leftrightarrow
+\frac{\alpha f(m)}{\alpha f(n)} =  c
+ \Leftrightarrow
+\frac{(\phi \circ f)(m)}{(\phi \circ f)(n)} =  c.
+\end{split}
+\end{align}
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Statistiken
+\footnotesize
+
+* Eine Statistik heißt im Sinne der Repräsentationstheorie *bedeutsam*, wenn
+für ihren Wert irrelevant ist, ob eine Skalentransformation auf der Ebene
+der Werte des Homomorphismus oder auf der Ebene der Werte der Statistik durchgeführt wird.
+
+* Formaler gilt folgende Definition: $(\mathcal{M}, \mathcal{N},f)$ sei eine Skala
+und es seien $m_1,...,m_n \in M$, wobei $M$ die dem qualitativen Relationssystem
+$\mathcal{M}$ zugrundeliegende Menge bezeichne. $\phi$ sei eine zulässige Transformation
+von $f$ und $\gamma$ sei eine *reellwertige Statistik*, d.h. eine Abbildung der Form
+\begin{equation}
+\gamma : f(M)^n \subset \mathbb{R}^n \to \mathbb{R}, (f(m_1),...,f(m_n)) \mapsto \gamma(f(m_1),...,f(m_n))
+\end{equation}
+Dann wird $\gamma$ eine *bedeutsame Statistik* genannt, wenn
+\begin{equation}
+\phi\left(\gamma\left(f(m_1),...,f(m_n)\right) \right) = \gamma\left(\phi(f(m_1)),...,\phi(f(m_n))\right)
+\end{equation}
+
+* Im Folgenden zeigen wir, dass zum Beispiel der Mittelwert
+\begin{equation}
+\gamma : f(M)^n \to \mathbb{R}, (f(m_1),...,f(m_n)) \mapsto \gamma(f(m_1),...,f(m_n)) := \frac{1}{n}\sum_{i=1}^n f(m_i)
+\end{equation}
+im Allgemeinen keine bedeutsame Statistik ist, wenn $f$ eine Ordinalskala ist, aber
+eine bedeutsame Statistik, wenn $f$ eine Intervall- oder Verhältnisskala ist.
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Statistiken
+\footnotesize
+
+*Beweis der Nicht-Bedeutsamkeit des Mittelwerts bei Ordinalskala*
+
+Es sei $(\mathcal{M}, \mathcal{N},f)$ sei eine Ordinalskala und $\phi$ eine
+zulässige Transformation von $f$, also eine streng monoton steigende Funktion. Für
+$f(M) \subset \mathbb{R}_{>0}$ und $n := 2$ seien $f(m_1) = 1$ und $f(m_2) = 3$
+und es sei $\phi$ die streng monotone Funktion
+\begin{equation}
+\phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := x^2.
+\end{equation}
+Dann gilt
+\begin{equation}
+\phi(\gamma(f(m_1),f(m_2)))
+= \phi\left(\frac{1}{2}(1+3)\right)
+= \phi(2)
+= 2^2
+= 4.
+\end{equation}
+Es gilt aber auch
+\begin{equation}
+\gamma(\phi(f(m_1),\phi(f(m_2))))
+= \gamma(\phi(1),\phi(3))
+= \gamma\left(1^2,3^2\right)
+= \frac{1}{2}(1 + 9)
+= 5.
+\end{equation}
+Also gilt
+\begin{equation}
+\phi(\gamma(f(m_1),f(m_2))) = 4 \neq 5 = \gamma(\phi(f(m_1),\phi(f(m_2)))).
+\end{equation}
+
+# Repräsentationstheoretische Grundlagen
+\small
+Bedeutsame Statistiken
+\footnotesize
+
+*Beweis der Bedeutsamkeit des Mittelwerts bei Intervallskala*
+
+Es sei $(\mathcal{M}, \mathcal{N},f)$ sei eine Intervallskala und $\phi$ eine
+zulässige Transformation von $f$, also eine Funktion der Form
+\begin{equation}
+\phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta \mbox{ mit } \alpha > 0
+\end{equation}
+Dann gilt
+\begin{align*}
+\begin{split}
+\phi(\gamma(f(m_1),..., f(m_n)))
+&  = \phi\left(\frac{1}{n}\sum_{i=1}^n f(m_i)\right)                             \\
+& = \alpha\left(\frac{1}{n}\sum_{i=1}^n f(m_i)\right) +  \beta                   \\
+& = \frac{1}{n}\sum_{i=1}^n \alpha f(m_i) + \frac{1}{n}\sum_{i=1}^n\beta         \\
+& = \frac{1}{n}\left(\sum_{i=1}^n \alpha f(m_i) + \sum_{i=1}^n \beta \right)     \\
+& = \frac{1}{n}\sum_{i=1}^n (\alpha f(m_i) + \beta)                              \\
+& = \frac{1}{n}\sum_{i=1}^n \phi(f(m_i))                                         \\
+&  = \gamma(\phi(f(m_1)), ...,\phi(f(m_n))).
+\end{split}
+\end{align*}
+
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Extensivmessung nach Hölder
+\footnotesize
+
+*Definition (Archimedisch geordnete Gruppe)*
+
+$M$ sei eine Menge, $\sce$ sei eine Binärrelation auf $M$ und $\circ$
+sei eine Operation auf $M$. Dann heißt das Relationssystem
+$(M,\sce,\circ)$ \textit{archimedisch geordnete Gruppe}, wenn
+die folgenden Bedingungen gelten:
+
+(1) $\sce$ ist eine schwache Ordnung auf $M$, also vollständig und transitiv.
+
+(2) $(M,\circ)$ ist eine Gruppe. Für alle $m,n,p \in M$ gelten also die *Assoziativität*
+$(m \circ n) \circ p = m \circ (n \circ p)$; es gibt ein *neutrales Element* $e \in M$, so dass für alle $m\in M$ gilt,
+$m \circ e = e \circ m = m$; für alle $m \in M$ existiert ein *inverses Element* $n \in M$, so dass
+$m \circ n = n \circ m = e$.
+
+(3) Für alle $m,n,p \in M$ gilt:
+\begin{equation}
+m \sce n \Leftrightarrow m \circ p \sce n \circ p
+\Leftrightarrow p \circ m \sce p \circ n.
+\end{equation}
+
+(4) Definiert man die zu $\sce$ gehörige strikte Ordnung $\succ$ durch
+\begin{equation}
+m \succ n \Leftrightarrow m \sce n \mbox{ und nicht } n \sce m,
+\end{equation}
+so gilt für alle $m,m' \in M$: Aus $m \succ e$, wobei $e$ das neutrale
+Element von $(M,\circ)$ bezeichnet, folgt, dass eine natürliche Zahl
+$n$ existiert, so dass
+\begin{equation}
+n m \succ m'.
+\end{equation}
+
+Das Standardbeispiel für eine archimedisch geordnete Gruppe ist
+$(\mathbb{R},\geq,+)$.
+
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Extensivmessung nach Hölder
+\footnotesize
+
+*Theorem (Repräsentation nach Hölder)*
+
+$\mathcal{M} := (M,\sce,\circ)$ sei ein qualitatives Relationssystem
+und $\mathcal{N} := (\mathbb{R},\geq,+)$ sei ein quantitatives
+Relationssystem. Dann existiert ein Homomorphismus $f$ von
+$\mathcal{M}$ nach $\mathcal{N}$, also eine Funktion der Form
+\begin{equation}
+f : M \to \mathbb{R},\; m \mapsto f(m),
+\end{equation}
+mit den Eigenschaften
+\begin{equation}
+m \sce n \Leftrightarrow f(m) \geq f(n)
+\end{equation}
+und
+\begin{equation}
+f(m \circ n) = f(m) + f(n),
+\end{equation}
+genau dann, wenn $(M,\sce,\circ)$ eine archimedisch geordnete Gruppe ist.
+
+*Theorem (Eindeutigkeit)*
+
+$\mathcal{M} := (M,\sce,\circ)$ sei ein qualitatives Relationssystem
+mit einer archimedisch geordneten Gruppe $(M,\sce,\circ)$,
+$\mathcal{N} := (\mathbb{R},\geq,+)$ sei ein quantitatives Relationssystem,
+und es sei $f \in \mathcal{H}(\mathcal{M},\mathcal{N})$.
+Dann ist $(\mathcal{M},\mathcal{N},f)$ eine Verhältnis; die Klasse der zulässigen Transformationen von $f$ ist also die Klasse der positiven linearen Transformationen
+\begin{equation}
+\phi : \mathbb{R} \to \mathbb{R}, x \mapsto \phi(x) = \alpha x
+\quad \mbox{mit } \alpha > 0.
+\end{equation}
+
+Für Beweise verweisen wir auf @holder1901 und @krantz1971.
+
+# Repräsentationstheoretische Grundlagen
+\vspace{2mm}
+\small
+Extensivmessung und Psychologie
+\footnotesize
+
+* Die Extensivmessung mit Verhältnisskalenrepräsentation basiert auf einer
+Konkatenationsoperation $\circ$, die unter geeigneten Axiomen additiv
+repräsentiert werden kann.
+* In klassischen extensiven Strukturen (z.B. Länge, Masse) ist $\circ$ operational
+interpretierbar und intersubjektiv reproduzierbar, z.B. als "Stäbe aneinanderlegen"
+oder "Gewichte zusammenlegen".
+* @stevens1946 zitiert dazu aus dem Abschlussbericht der Kommission der British
+Association for the Advancement of Science zur Frage der Messbarkeit psychologischer
+Phänomene ein Kommissionsmitglied mit: "that any law purporting to express a q
+uantitative relation between sensation intensity and stimulus intensity is
+not merely false but is in fact meaningless unless and until a meaning can be
+given to the concept of addition as applied to sensation* (Final Report, p. 245).
+Damit wird die klassische Forderung zum Ausdruck gebracht, dass Messung im strengen
+Sinne eine interpretierbare Additionsoperation voraussetzt.
+* Hinter dieser Aussage steht die Frage, welche empirische Operation überhaupt
+die Rolle von $m \circ n$ spielen könnte, wenn ein menschlicher Beobachter die
+Perzepte $m$ und $n$ wahrnehmen kann.
+* Selbst wenn Reize im physikalischen Sinne additiv kombiniert werden, verhalten
+sich die resultierenden Perzepte typischerweise nicht additiv, etwa im Sinne
+des Weber-Fechner-Gesetzes oder des Stevens’schen Potenzgesetzes.
+* Wenn man in der Psychologie also keine Konkatenationsoperation im qualitativen
+Relationssystem angeben kann, wie kann man dennoch zu einer Repräsentation
+mindestens auf Intervallskalenniveau gelangen?
+
+\flushright
+\small
+$\Rightarrow$ Dies ist der Ansatzpunkt der additiven Konjunktmessung.
+
+
+#
+\vfill
+\setstretch{2.7}
+\large
+Einordnung
+
+Repräsentationstheoretische Grundbegriffe
+
+**Repräsentation additiv-konjunkter Strukturen**
+
+Diskussion
+
+Selbstkontrollfragen
+\vfill
+
+# Repräsentation additiv-konjunkter Strukturen
+Additive Konjunktmessung
+
+\small
+* Quantitative Repräsentation qualitativer Attribute auf Intervallskalenniveau
+* Keine Konkatenationsoperation im qualitativen Relationssystem erforderlich
+* Ordnungsrelation auf einem zweidimensionalen qualitativen Relationssystem als Grundlage
+
+\small
+Beispiel
+
+\footnotesize
+
+Ziel ist die quantitative Repräsentation von intrasubjektiven Stimmungs- und
+Antriebszuständen einer Patientin. *Stimmung (Affektivität)* bezeichne hier
+subjektives emotionales Erleben mit den qualitativen Zuständen *traurig*, *neutral*,
+*fröhlich*. *Antrieb (psychomotorische Aktivität)* bezeichnee hier subjektives
+Energie- und Handlungsbereitschaftserleben mit den qualitativen Zuständen
+*gehemmt*, *normal*, *gesteigert*.
+
+Um die qualitativen Zustände der Stimmung in Zahlen auf Intervallskalenniveau zu
+repräsentieren, erhebt man in der additiven Konjunktmessung die Ordnungsrelation
+auf der Menge der Tupel (Stimmung, Antrieb). Man fragt also die Patientin für
+alle Kombinationen der neun Tupel aus Stimmungs-und Antriebszuständen, was schlimmer ist.
+Ist zum Beispiel die Kombination aus trauriger Stimmung und gehemmtem Antrieb
+schlimmer als die Kombination aus fröhlicher Stimmung und gesteigertem Antrieb?
+
+Man lässt dabei natürlich alle Kombinationen zu, zum Beispiel auch die Frage,
+ob die Kombination aus fröhlicher Stimmung und gehemmtem Antrieb (Energielosigkeit)
+schlimmer ist als die Kombination aus trauriger Stimmung und gesteigertem Antrieb (Unruhe).
+
+# Repräsentation additiv-konjunkter Strukturen
+
+\small
+Beispiel (fortgesetzt)
+\setstretch{1.2}
+
+\footnotesize
+
+Formal fragt man dabei, welche Zahlen man
+\vspace{-1mm}
+
+* den Ausprägungen *traurig*, *neutral*, *fröhlich* des Konstrukts *Stimmung* sowie
+* den Ausprägungen *gehemmt*, *normal*, *gesteigert* des Konstrukts *Antrieb*
+\vspace{-1mm}
+
+sinnvollerweise zuordnen kann, sodass quantitative Differenzen qualitativ
+sinnvoll interpretiert werden können.
+
+Man fragt also nach der Form der Funktionen
+\begin{equation}
+\phi : \{\text{traurig}, \text{neutral}, \text{fröhlich}\} \to \mathbb{R}
+\quad \text{und} \quad
+\varphi : \{\text{gehemmt}, \text{normal}, \text{gesteigert}\} \to \mathbb{R}
+\end{equation}
+Man fragt also zum Beispiel, ob die Definitionen
+\begin{equation}
+\phi(\text{traurig})  := 1 \quad
+\phi(\text{neutral})  := 2 \quad
+\phi(\text{fröhlich}) := 3
+\end{equation}
+und
+\begin{equation}
+\varphi(\text{gehemmt}) := -10 \quad
+\varphi(\text{normal})   := 0 \quad
+\varphi(\text{gesteigert}) := 10
+\end{equation}
+sinnvoll sind. Insbesondere fragt man, ob, wenn man dann mit den Zahlen wie gewohnt
+Differenzrechnung betreibt, die Ergebnisse im Qualitativen sinnvoll sind, ob in der
+Tat zum Beispiel in Bezug auf die Stimmung die quantitative Gleichheit von
+\begin{equation}
+3 - 2 = 2 - 1
+\end{equation}
+also im Sinne der Stimmungsdifferenzstruktur
+\begin{equation}
+\text{fröhlich} - \text{neutral} = \text{neutral} - \text{traurig}
+\end{equation}
+interpretiert werden kann.
+
+
+# Repräsentation additiv-konjunkter Strukturen
+
+\small
+Beispiel (fortgesetzt)
+
+\footnotesize
+Die Hauptaussage der Theoreme der additiven Konjunktmessung ist, dass dies in
+der Tat der Fall ist, sofern die Ordnungsrelation auf der Menge der Tupel
+(Stimmung, Antrieb) die dafür notwendige Regelmäßigkeit aufweist. Diese
+*Regelmäßigkeit* wird durch die Eigenschaften einer additiv-konjunkten Struktur
+ausgedrückt.
+
+Schließlich ist festzuhalten, dass, auch wenn in vielen Fragebögen sicherlich
+Zuordnungen der Form
+\begin{equation}
+\text{(1) leicht} \quad \text{(2) mittel} \quad \text{(3) schwer}
+\end{equation}
+genutzt und dann auch zur quantitativen Datenauswertung verwendet werden, in den
+allermeisten Fällen davon auszugehen ist, dass diese \underline{nicht} durch den
+hier beschriebenen Vorgang einer additiven Konjunktmessung validiert wurden.
+
+Man spricht dann auch von einer *per fiat*-Quantifizierung, hätte sich aber schon
+etwas mehr Mühe in der Fragebogenentwicklung geben können. Wissenschaftssoziologisch
+sind jedoch repräsentationstheoretische Überlegungen gegenüber Reliabilitäts- und
+faktoriellen Validitätsanalysen klar unterinzentiviert.
+
+\small
+Überblick
+\footnotesize
+
+(1) Hauptaussage zur Repräsentation und Eindeutigkeit additiv-konjunkter Strukturen
+(2) Bedeutung der wesentlichen Eigenschaften einer additiv-konjunkten Struktur
+(3) Beweisskizzen zur Hauptaussage zur Repräsentation und Eindeutigkeit additiv-konjunkter Strukturen
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{theorem}[Repräsentation und Eindeutigkeit additiv-konjunkter Strukturen]
+\justifying
+\normalfont
+$(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Dann existieren Funktionen
+\begin{equation}
+\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R}
+\end{equation}
+so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+\end{equation}
+Weiterhin gilt, dass wenn $\phi'$ und $\varphi'$ zwei weitere Funktionen mit den
+gleichen Eigenschaften wie $\phi$ und $\varphi$ sind, Konstanten $\alpha > 0$ und
+$\beta_1, \beta_2\in \mathbb{R}$ existieren, so dass für alle $x \in X$ und $y \in Y$
+\begin{equation}
+\phi'(x) = \alpha\phi(x) + \beta_1 \mbox{ und } \varphi'(y) = \alpha\varphi(y) + \beta_2
+\end{equation}
+gilt.
+\end{theorem}
+
+Bemerkungen
+
+* Im Folgenden skizzieren wir zunächst das Wesen einer additiv-konjunkten Struktur.
+* Im Anschluss skizzieren wir einen Beweis obigen Theorems durch Konstruktion von $\phi$ und $\varphi$.
+* Schließlich beweisen wir den Intervallskalencharakter der Repräsentation.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{definition}[Additiv-konjunkte Struktur]
+\justifying
+$X$ und $Y$ seien nicht-leere Mengen und $\sce$ sei eine binäre Relation
+auf $X \times Y$. $(X,Y,\sce)$ heißt \textit{additiv-konjunkte Struktur},
+wenn die Binärrelation $\sce$ folgende sechs Eigenschaften erfüllt
+\begin{enumerate}
+\item[(1)] $\sce$ ist eine schwache Ordnung.
+\item[(2)] $\sce$ ist eine unabhängige konjunkte Relation.
+\item[(3)] $\sce$ erfüllt die Doppelaufhebung.
+\item[(4)] $\sce$ ist unrestringiert lösbar.
+\item[(5)] $\sce$ besitzt die Archimedische Eigenschaft.
+\item[(6)] Die Komponenten von $\sce$ sind essentiell.
+\end{enumerate}
+\end{definition}
+
+Bemerkungen
+
+* Wir erläutern die mehr oder weniger "intuitiven" Eigenschaften (1) bis (3) im Folgenden.
+* Wir zeigen die Notwendigkeit von (1) bis (3) bei Vorliegen einer additiv-konjunkten Repräsentation.
+* \noindent (4) bis (6) sind technische Bedingungen, deren Bedeutung sich in der Intervallskalenkonstruktion erschließt.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{definition}[Schwache Ordnung]
+Sei $X$ eine Menge und $\sce$ sei eine Binärrelation auf $X$. $\sce$ heißt \textit{schwache Ordnung} auf $X$, wenn $\sce$ \textit{vollständig} und \textit{transitiv} ist.
+Dabei heißt $\sce$ \textit{vollständig}, wenn für alle $x_1,x_2 \in X$ gilt:
+\begin{equation}
+x_1 \sce x_2 \vee x_2 \sce x_1.
+\end{equation}
+Weiterhin heißt $\sce$ \textit{transitiv}, wenn für alle $x_1,x_2,x_3 \in X$ gilt:
+\begin{equation}
+(x_1\sce x_2 \wedge x_2 \sce x_3) \Rightarrow x_1\sce x_3.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* Die Vollständigkeit von $\sce$ besagt zum einen, dass \textit{alle} $x_1,x_2$ in Relation stehen.
+* In der Definition der Vollständigkeit bezeichnet $\vee$ das nicht-exklusive logische *oder*.
+* Den Fall $x_1 \sce x_2$ und $x_2 \sce x_1$ bezeichnen wir mit $x_1 \sim x_2$ (Äquivalenz, Indifferenz).
+* Den Fall $x_1 \sce x_2$ und $\neg\,(x_2 \sce x_1)$ bezeichnen wir mit $x_1 \sce x_2$ (Strikte Ordnung).
+* Den Fall $\neg\, (x_1 \sce x_2)$ und $x_2 \sce x_1$  bezeichnen wir mit $x_2 \sce x_1$ (Strikte Ordnung).
+
+
+# Repräsentation additiv-konjunkter Strukturen
+
+Beispiel (Schwache Ordnung)
+
+\footnotesize
+Es sei $X$ eine Menge von Patient:innen, deren BDI-II-Wert bestimmt wurde.
+Auf $X$ sei dann die Binärrelation $\sce$ definiert als
+\begin{equation}
+x_1 \sce x_2 \Leftrightarrow \mbox{$x_1$ hat einen geringeren oder den gleichen BDI-II-Wert wie $x_2$}
+\end{equation}
+Intuitiv besagt $x_1 \sce x_2$ also, dass es Patient:in $x_1$ mindestens so gut geht wie Patient:in $x_2$.
+
+*Vollständigkeit*
+
+Für zwei beliebige Patient:innen $x_1$ und $x_2$ gilt dann, dass $x_1$ einen geringeren
+oder den gleichen BDI-II-Wert wie $x_2$ hat, oder dass $x_2$ einen geringeren oder den gleichen
+BDI-II-Wert wie $x_1$ hat, oder beides, nämlich dann, wenn $x_1$ und $x_2$ den
+gleichen BDI-II-Wert haben. Es gilt also die Vollständigkeit $x_1 \sce x_2 \vee x_2 \sce x_1$.
+Gleichzeitig folgt hier aus $x_1 \sce x_2 \wedge x_2 \sce x_1$, also der
+Gleichheit der BDI-II-Werte von $x_1$ und $x_2$ aber nicht, dass $x_1 = x_2$, denn es
+kann verschiedene Patient:innen mit gleichem BDI-II-Wert geben. Das ist z.B. bei
+der $\ge$ Relation auf $\mathbb{R}$ anders. Für alle $x,y \in \mathbb{R}$ folgt aus
+$x \ge y$ und $y \ge x$ immer, dass $x = y$. Dies ist die sogenannte *Antisymmetrie*
+einer sogenannten *linearen Ordnung*. Ordnungen auf unterschiedlichen Mengen (Patient:innen,
+Zahlen) können also unterschiedlich beschaffen sein.
+
+*Transitivität*
+
+Für drei beliebige Patient:innen $x_1,x_2,x_3$ gilt, dass wenn $x_2$ einen geringeren
+oder  den gleichen BDI-II-Wert wie $x_1$ hat und $x_2$ einen geringeren oder
+den gleichen BDI-II-Wert wie $x_3$ hat, dass $x_1$ auch eine geringeren oder
+den gleichen BDI-II-Wert wie $x_3$ hat.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{theorem}[Schwache Ordnung bei additiv-konjunkter Repräsentation]
+\justifying
+\normalfont
+Für $(X,Y,\sce)$ seien
+\begin{equation}
+\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R},
+\end{equation}
+so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2)
+\Leftrightarrow
+\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2).
+\end{equation}
+Dann ist $\sce$ eine schwache Ordnung auf $X \times Y$.
+\end{theorem}
+
+Bemerkung
+
+* Aus der Existenz einer additiv-konjunkten Repräsentation folgen Vollständigkeit und Transitivität von $\sce$.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis}
+
+\textit{Vollständigkeit}
+
+Seien $x_1,x_2 \in X$ und $y_1,y_2 \in Y$. Dann gilt
+\begin{align}
+\begin{split}
+\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+\vee
+\phi(x_2) + \varphi(y_2) \ge \phi(x_1) + \varphi(y_1)
+\\
+\Leftrightarrow
+(x_1,y_1) \sce (x_2,y_2)
+\vee
+(x_2,y_2) \sce (x_1,y_1).
+\end{split}
+\end{align}
+
+Also ist $\sce$ vollständig.
+
+\textit{Transitivität}
+
+Seien $x_1,x_2,x_3 \in X$ und $y_1,y_2,y_3 \in Y$. Dann gilt
+\begin{align}
+\begin{split}
+(x_1,y_1) \sce (x_2,y_2)
+& \wedge
+(x_2,y_2) \sce (x_3,y_3)
+\\
+\Leftrightarrow
+\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+& \wedge
+\phi(x_2) + \varphi(y_2) \ge \phi(x_3) + \varphi(y_3)
+\\
+\Rightarrow
+\phi(x_1) + \varphi(y_1) & \ge \phi(x_3) + \varphi(y_3)
+\\
+\Leftrightarrow
+(x_1,y_1) & \sce (x_3,y_3).
+\end{split}
+\end{align}
+Also ist $\sce$ transitiv.
+$\hfill\Box$
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{definition}[Unabhängige Relation]
+\justifying
+ $(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Die Relation $\sce$
+ heißt \textit{unabhängig}, wenn für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt:
+\begin{equation}
+(x_1,y_1)\sce (x_2,y_1) \Rightarrow (x_1,y_2)\sce (x_2,y_2),
+\end{equation}
+und
+\begin{equation}
+(x_1,y_1)\sce (x_1,y_2) \Rightarrow (x_2,y_1)\sce (x_2,y_2).
+\end{equation}
+\end{definition}
+
+
+Bemerkungen
+
+* Bei einer unabhängigen Relation ist bei Fixierung einer Komponente die Ordnung
+auf der jeweils anderen Komponente unabhängig von der konkreten Ausprägung der
+fixierten Komponente. Wird eine Komponente konstant gehalten, so hängt die Ordnung
+bezüglich der anderen Komponente also nicht von der gewählten Ausprägung der
+konstanten Komponente ab.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+
+Beispiel (Unabhängigkeit)
+
+Wir betrachten die Unabhängigkeit von Komponentenrelationen bei einer
+Präferenzrelation bezüglich Therapiedauer und Therapieform. Seien dazu
+$X := \{24 \mbox{h}, 80 \mbox{h} \}$ und $Y := \{\mbox{Verhaltenstherapie}, \mbox{Psychoanalyse}\}$.
+
+Konform mit der Unabhängigkeit der Komponentenrelationen wären dann die Präferenzen
+\begin{equation}
+(24 \mbox{h}, \mbox{Verhaltenstherapie}) \sce (80 \mbox{h}, \mbox{Verhaltenstherapie})
+\end{equation}
+und
+\begin{equation}
+(24 \mbox{h}, \mbox{Psychoanalyse}) \sce (80 \mbox{h}, \mbox{Psychoanalyse})
+\end{equation}
+Unabhängig von der Therapieform with hier also eine Kurzzeittherapie über eine
+Langzeittherapie präferiert.
+
+Nicht konform mit der Unabhängigkeit der Komponentenrelationen wären dagegen
+die Präferenzen
+\begin{equation}
+(24 \mbox{h}, \mbox{Verhaltenstherapie}) \sce (80 \mbox{h}, \mbox{Verhaltenstherapie})
+\end{equation}
+und
+\begin{equation}
+(80 \mbox{h}, \mbox{Psychoanalyse}) \sce (24 \mbox{h}, \mbox{Psychoanalyse})
+\end{equation}
+In diesem Fall hängt die Präferenz über Therapiedauern von der Therapieform ab
+und die Komponentenrelationen sind nicht unabhängig.
+
+# Repräsentation additiv-konjunkter Strukturen
+
+\footnotesize
+\begin{theorem}[Unabhängigkeit bei additiv-konjunkter Repräsentation]
+\justifying
+\normalfont
+Für $(X,Y,\sce)$ seien
+\begin{equation}
+\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R},
+\end{equation}
+so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2)
+\Leftrightarrow
+\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+\end{equation}
+Dann gilt
+\begin{equation}
+(x_1,y_1)\sce (x_2,y_1) \Leftrightarrow (x_1,y_2)\sce (x_2,y_2),
+\end{equation}
+\end{theorem}
+
+Bemerkungen
+
+* Aus der Existenz einer additiv-konjunkten Repräsentation folgt die Unabhängigkeit der Komponentenrelationen.
+
+# Repräsentation additiv-konjunkter Strukturen
+
+\footnotesize
+\underline{Beweis}
+
+Nach Annahme gilt für alle $x_1,x_2 \in X$ und $y_1 \in Y$, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_1)
+\Leftrightarrow
+\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_1)
+\end{equation}
+Dann folgt
+\begin{align}
+\begin{split}
+(x_1,y_1) \sce (x_2,y_1)
+& \Leftrightarrow
+\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_1)
+\\
+& \Leftrightarrow
+\phi(x_1)   \ge \phi(x_2)
+\\
+& \Leftrightarrow
+\phi(x_1) + \varphi(y_2) \ge \phi(x_2) + \varphi(y_2)
+\\
+& \Leftrightarrow
+(x_1,y_2) \sce (x_2,y_2)
+\end{split}
+\end{align}
+$\hfill\Box$
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{definition}[Komponentenordnungen]
+\justifying
+$(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Dann sind die zu $(X,Y,\sce)$
+gehörenden \textit{Komponentenordnungen} $(X,\sce_x)$ und $(Y,\sce_y)$ für
+alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ definiert durch
+\begin{equation}
+x_1 \sce_x x_2 \Leftrightarrow (x_1,y) \sce (x_2,y) \mbox{ für ein } y \in Y
+\end{equation}
+und
+\begin{equation}
+y_1 \sce_y y_2 \Leftrightarrow (x,y_1) \sce (x,y_2) \mbox{ für ein } x \in X
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* Der Intervallskalencharakter bei additiver Konjunktmessung bezieht sich auf $(X, \sce_x)$ und $(Y, \sce_y)$.
+* Mit der Unabhängigkeit der additiv-konjunkten Struktur gelten äquivalent
+\begin{equation}
+x_1 \sce_x x_2 \Leftrightarrow (x_1,y) \sce (x_2,y) \mbox{ für alle } y \in Y
+\end{equation}
+und
+\begin{equation}
+y_1 \sce_y y_2 \Leftrightarrow (x,y_1) \sce (x,y_2) \mbox{ für alle } x \in X
+\end{equation}
+da die Unabhängigkeit der additiv-konjunkten Struktur ja gerade besagt, dass
+die Ordnung bezüglich einer Komponente nicht von der gewählten Ausprägung der
+konstanten Komponente abhängt.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{theorem}[Komponentenordnungen]
+\justifying
+\normalfont
+$(X,Y,\sce)$ sei eine additiv-konjunkte Struktur $(X,\sce_x)$ und $(Y,\sce_y)$
+seien die zu $(X,Y,\sce)$ gehörenden Komponentenordnungen. Dann sind $(X,\sce_x)$
+und $(Y,\sce_y)$ schwache Ordnungen.
+\end{theorem}
+
+Bemerkungen
+
+* Es ist sinnvoll, für die qualitativen Ordnungen auf $X$ und $Y$ nach Repräsentationen zu fragen.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+
+\underline{Beweis}
+
+Mit der Definition der Schwachen Ordnung sind die Vollständigkeit und die Transitivität
+von $(X,\sce_x)$ und $(Y,\sce_y)$ zu zeigen. Wir beschränken uns auf $(X,\sce_x)$,
+der Beweis für $(Y,\sce_y)$ erfolgt analog.
+
+\noindent (1) Mit der Vollständigkeit von $(X,Y,\sce)$ gilt mit $x_1,x_2 \in X$ und
+$y_1,y_2 \in Y$ für alle $(x_1,y_1),(x_2,y_2) \in X \times Y$, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2) \vee (x_2,y_2) \sce (x_1,y_1).
+\end{equation}
+Entsprechend gilt für ein $y \in Y$, dass
+\begin{equation}
+(x_1,y) \sce (x_2,y) \vee (x_2,y) \sce (x_1,y).
+\end{equation}
+Dies ist aber nach Definition von $\sce_x$ äquivalent zu
+\begin{equation}
+x_1 \sce_x x_2 \vee x_2 \sce_x x_1
+\end{equation}
+und damit der Vollständigkeit von $(X,\sce_x)$.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis (fortgesetzt)}
+
+\noindent (2) Mit der Transitivität von $(X,Y,\sce)$ gilt mit $x_1,x_2,x_3 \in X$ und
+$y_1,y_2,y_3 \in Y$ für alle $(x_1,y_1), (x_2,y_2), (x_3,y_3) \in X \times Y$, dass
+\begin{equation}
+\left((x_1,y_1) \sce (x_2,y_2) \wedge (x_2,y_2) \sce (x_3,y_3) \right)
+\Rightarrow
+(x_1,y_1) \sce (x_3,y_3)
+\end{equation}
+Entsprechend gilt für ein $y \in Y$, dass
+\begin{equation}
+\left((x_1,y) \sce (x_2,y) \wedge (x_2,y) \sce (x_3,y) \right)
+\Rightarrow
+(x_1,y) \sce (x_3,y).
+\end{equation}
+Dies ist aber nach Definition von $\sce_x$ äquivalent zu
+\begin{equation}
+\left(x_1 \sce_x x_2  \wedge x_2 \sce_x x_3 \right)
+\Rightarrow
+x_1 \sce_x x_3
+\end{equation}
+und damit der Transitivität von $(X,\sce_x)$.
+
+$\hfill\Box$
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{definition}[Doppelaufhebung]
+\justifying
+ $(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Die Relation $\sce$
+erfüllt die \textit{Doppelaufhebung}, wenn für alle $x_1,x_2,x_3 \in X$ und $y_1,y_2,y_3 \in Y$ gilt:
+\begin{equation}
+(x_1,y_2)\sce (x_2,y_3) \wedge (x_2,y_1) \sce (x_3,y_2) \Rightarrow (x_1,y_1) \sce (x_3,y_3)
+\end{equation}
+\end{definition}
+
+Bemerkung
+
+* Die Notwendigkeit der Doppelaufhebung ergibt sich bei additiv-konjunkter Repräsentation
+* Wirklich intuitiv wird die Doppelaufhebung dadurch nicht.
+* Visuell kann man sich die Doppelaufhebung anhand untenstehender Grafik merken.
+
+\vspace{2mm}
+\center
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics("1-Abbildungen/psd-1-doppelaufhebung.pdf")
+```
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{theorem}[Doppelaufhebung bei additiv-konjunkter Repräsentation]
+\justifying
+\normalfont
+Für $(X,Y,\sce)$ seien
+\begin{equation}
+\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R},
+\end{equation}
+so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2)
+\Leftrightarrow
+\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+\end{equation}
+Dann gilt für alle $x_1,x_2,x_3 \in X$ und $y_1,y_2,y_3 \in Y$
+\begin{equation}
+(x_1,y_2)\sce (x_2,y_3) \wedge (x_2,y_1) \sce (x_3,y_2) \Rightarrow (x_1,y_1) \sce (x_3,y_3)
+\end{equation}
+\end{theorem}
+
+Bemerkungen
+
+* Aus der Existenz einer additiv-konjunkten Repräsentation folgt die Doppelaufhebung
+
+# Repräsentation additiv-konjunkter Strukturen
+
+\footnotesize
+\underline{Beweis}
+
+Nach Annahme gelten
+\begin{equation}
+(x_1,y_2) \sce (x_2,y_3)
+\Leftrightarrow
+\phi(x_1) + \varphi(y_2) \ge \phi(x_2) + \varphi(y_3)
+\end{equation}
+und
+\begin{equation}
+(x_2,y_1) \sce (x_3,y_2)
+\Leftrightarrow
+\phi(x_2) + \varphi(y_1) \ge \phi(x_3) + \varphi(y_2)
+\end{equation}
+Addition der Ungleichungen ergibt dann
+\begin{equation}
+\phi(x_1) + \varphi(y_2) + \phi(x_2) + \varphi(y_1) \ge
+\phi(x_2) + \varphi(y_3) + \phi(x_3) + \varphi(y_2)
+\end{equation}
+Subtraktion von $\phi(x_2) + \varphi(y_2)$ auf beiden Seiten ergibt dann
+\begin{equation}
+\phi(x_1) + \varphi(y_1) \ge \phi(x_3) + \varphi(y_3)
+\Leftrightarrow
+(x_1,y_1) \sce (x_3,y_3)
+\end{equation}
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\begin{theorem}[Repräsentation und Eindeutigkeit additiv-konjunkter Strukturen]
+\justifying
+\normalfont
+$(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Dann existieren Funktionen
+\begin{equation}
+\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R}
+\end{equation}
+so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+\end{equation}
+Weiterhin gilt, dass wenn $\phi'$ und $\varphi'$ zwei weitere Funktionen mit den
+gleichen Eigenschaften wie $\phi$ und $\varphi$ sind, Konstanten $\alpha > 0$ und
+$\beta_1, \beta_2\in \mathbb{R}$ existieren, so dass für alle $x \in X$ und $y \in Y$
+\begin{equation}
+\phi'(x) = \alpha\phi(x) + \beta_1 \mbox{ und } \varphi'(y) = \alpha\varphi(y) + \beta_2
+\end{equation}
+gilt.
+\end{theorem}
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweisskizze der Repräsentation}
+
+Im Folgenden geben wir eine konstruktive Beweisskizze des Repräsentations- und Eindeutigkeitstheorems.
+*Konstruktiv* bedeutet dabei, dass wir basierend auf $(X,Y,\sce)$ die Repräsentationen $\phi$ und $\varphi$ konstruieren. *Beweisskizze* bedeutet, dass wir nicht den Anspruch haben, mathematisch vollständig vorzugehen.
+Das Vorgehen in der Beweisskizze der Repräsentation besteht im Wesentlichen aus drei Schritten:
+
+1. Konstruktion ganzzahliger Repräsentationswerte mithilfe von verzahnten Standardsequenzen
+1. Konstruktion rationaler Repräsentationswerte mithilfe dyadischer Verfeinerungen
+1. Konstruktion reeller Repräsentationswerte mithilfe von Dedekindschen Schnitten
+
+Zum Gelingen dieser Schritte sind  unter anderem die Eigenschaften (4), (5) und (6)
+additiv-konjunkter Strukturen wesentlich. Die einzelnen Schritte haben dabei mehr
+(Konstruktion ganzzahliger Repräsentationswerte) oder weniger (Konstruktion rationaler
+und reeller Repräsentationswerte) experimentelle Bedeutung.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweisskizze der Repräsentation (fortgeführt)}
+
+*(1) Konstruktion ganzzahliger Repräsentationswerte mithilfe von verzahnten Standardsequenzen*
+
+Wir wählen zunächst ein beliebiges $(x_0,y_0) \in X \times Y$ und definieren:
+\begin{equation}
+\phi(x_0) := 0 \quad \text{und} \quad \varphi(x_0) := 0
+\end{equation}
+Wir wählen ein $x_1 \in X$ mit $x_1 \sce_x x_0$ als Einheit und definieren:
+\begin{equation}
+\phi(x_1) := 1
+\end{equation}
+Die Existenz eines solchen $x_1$ ist dadurch gesichert, dass die Komponenten von
+$\sce$ *essentiell* sind (vgl. Eigenschaft (6) in der Definition einer additiv-konjunkten Struktur).
+Die Essentialität einer Komponente von $\sce$ ist wie folgt definiert: Für eine
+Relation $\sce$ auf $X \times Y$ heißt die Komponente $X$ *essentiell*, wenn $x_0,x_1 \in X$ und
+$y \in Y$ existieren, so dass $\neg\,\big((x_0,y) \sim (x_1,y)\big)$ gilt. Bei Unabhängigkeit der Komponenten
+(also der Wohldefiniertheit von $\sce_x$ und $\sce_y$) impliziert dies, dass $X$ essentiell ist,
+wenn $x_0,x_1 \in X$ existieren, so dass $1_0 \sce_x x_2$ gilt.
+
+Wir suchen nun ein ausgleichendes Element $y_1$, so dass gilt
+\begin{equation}
+(x_0,y_1) \sim (x_1, y_0)
+\end{equation}
+Bei $(x_0,y_0)$ und $(x_1,y_0)$ würde offenbar $(x_1,y_0) \sce (x_0,y_0)$ gelten.
+
+Der Unterschied von $y_1$ und $y_0$ kompensiert den Unterschied zwischen $x_0$ und $x_1$ also genau.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweisskizze der Repräsentation (fortgeführt)}
+
+Man müsste verschiedene $y_1$ ausprobieren, bis eine Beobachter:in bzgl. $(x_0,y_1)$ und $(x_1, y_0)$ indifferent ist.
+
+Die geforderte Additivität der Repräsentationen impliziert dann
+\begin{equation}
+(x_0,y_1) \sim (x_1, y_0) \Leftrightarrow \phi(x_0) + \varphi(y_1) = \phi(x_1) + \varphi(y_0)
+\end{equation}
+Mit den bisherigen Festlegungen gilt dann
+\begin{equation}
+\phi(x_0) + \varphi(y_1) = \phi(x_1) + \varphi(y_0)
+\Leftrightarrow
+0 + \varphi(y_1) = 1 + 0 \Rightarrow \varphi(y_1) = 1
+\end{equation}
+Die Existenz eines solchen $y_1$ wird bei einer additiv-konjunkten Struktur
+durch die Eigenschaft (4) der *unrestringierten Lösbarkeit* garantiert. Dabei
+ist eine additiv-konjunkte Struktur gerade dann als unrestringiert lösbar definiert,
+wenn für alle $x_0,x_1 \in X$ und $y_0 \in Y$ ein $y_1 \in Y$ existiert mit
+\begin{equation}
+(x_0,y_1) \sim (x_1,y_0),
+\end{equation}
+und symmetrisch für $X$.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweisskizze der Repräsentation (fortgeführt)}
+
+Wir nutzen nun $y_0, x_1, y_1$ und suchen ein $x_2$, für das die Beobachter:in die Indifferenz anzeigt:
+\begin{equation}
+(x_2,y_0) \sim (x_1,y_1)
+\end{equation}
+Die geforderte Additivität der Repräsentation impliziert dann:
+\begin{equation}
+(x_2,y_0) \sim (x_1,y_1)
+\;\Leftrightarrow\;
+\phi(x_2) + \varphi(y_0) = \phi(x_1) + \varphi(y_1)
+\;\Leftrightarrow\;
+\phi(x_2) + 0 = 1 + 1
+\;\Rightarrow\;
+\phi(x_2) = 2
+\end{equation}
+Wir erhalten also die nächste ganzzahlige Zuordnung zu einem $x \in X$.
+
+Schließlich setzen wir dieses Vorgehen induktiv fort und erhalten verzahnte Standardfolgen:
+\begin{align}
+\begin{split}
+(x_i,y_0) \sim (x_{i-1}, y_1) & \;\Rightarrow\; \phi(x_i) := i \in \mathbb{N}_0 \\
+(x_0,y_j) \sim (x_1, y_{j-1}) & \;\Rightarrow\; \varphi(y_j) := j \in \mathbb{N}_0 \\
+\end{split}
+\end{align}
+Die Doppelaufhebung garantiert dabei, dass dieses Vorgehen über mehrere Schritte hinweg funktioniert
+Dies wird auch als *strukturelle Konsistenz* bezeichnet, was wir aber nicht weiter vertiefen werden.
+
+
+*\noindent (2) Konstruktion rationaler Repräsentationswerte*
+
+Durch obiges Vorgehen erhalten wir ganzzahlige Repräsentation $\phi : X \to \mathbb{N}_0$ und $\varphi : Y \to \mathbb{N}_0$. Zur Konstruktion rationaler Repräsentationen $\phi : X \to \mathbb{Q}$ und $\varphi : Y \to \mathbb{Q}$ kann man wie folgt vorgehen.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweisskizze der Repräsentation (fortgeführt)}
+
+
+
+Wir wählen ein $x \in X$ und finden aufgrund der unrestringierten Lösbarkeit ein $y_{1/2} \in Y$, so dass
+\begin{align}
+\begin{split}
+(x,y_0) \sim (x_0,y_{1/2}) \wedge (x_1,y_0) \sim (x,y_{1/2})
+\end{split}
+\end{align}
+Die geforderte Additivität der Repräsentationen impliziert dann das lineare Gleichungssystem
+\begin{align}
+\begin{split}
+\phi(x) + \varphi(y_0)    = \phi(x_0) + \varphi(y_{1/2})
+& \wedge
+\phi(x_1) + \varphi(y_0)  = \phi(x)   + \varphi(y_{1/2})
+\\
+\Leftrightarrow
+\phi(x) + 0  = 0 + \varphi(y_{1/2})
+& \wedge
+1       + 0  = \phi(x)   + \varphi(y_{1/2})
+\\
+\Leftrightarrow
+\phi(x)  = \varphi(y_{1/2})
+& \wedge
+1  = \phi(x)  + \varphi(y_{1/2})
+\\
+\Leftrightarrow
+1 - \phi(x) & = \phi(x)  + \varphi(y_{1/2}) - \varphi(y_{1/2})
+\\
+\Leftrightarrow
+2\phi(x) & = 1
+\\
+\Leftrightarrow
+\phi(x) & = \frac{1}{2}
+\end{split}
+\end{align}
+Geht man iterativ auf diese Weise vor, so erhält man dyadisch rationale Repräsentationen.
+Über Standardsequenzen erhält man weiterhin allgemeine rationale Repräsentationen.
+
+*\noindent (3) Konstruktion reeller Repräsentationswerte*
+
+Reelle Repräsentationen $\phi : X \to \mathbb{R}$ und $\varphi : Y \to \mathbb{R}$ erhält man schließlich mithilfe *Dedekinscher Schnitte*.
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis der Eindeutigkeit}
+
+Wir zeigen, dass wenn sowohl für $\phi$ und $\varphi$ gilt, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+\end{equation}
+als auch für $\phi'$ und $\varphi'$ gilt, dass
+\begin{equation}
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi'(x_1) + \varphi'(y_1) \ge \phi'(x_2) + \varphi'(y_2),
+\end{equation}
+Konstanten $\alpha > 0, \beta_1, \beta_2 \in \mathbb{R}$ existieren, so dass
+\begin{equation}
+\phi'(x)    = \alpha\phi(x)     + \beta_1  \mbox{ für alle } x \in X
+\mbox{ und }
+\varphi'(y) = \alpha\varphi(y)  + \beta_2  \mbox{ für alle } y \in Y.
+\end{equation}
+Grundidee des Beweises ist es, dass die additive Struktur von $(X,Y,\sce)$ nicht
+die absoluten Werte von $\phi$ und $\varphi$ festlegt, sondern nur die Differenzen
+zwischen Werten $\phi(x)$ und $\phi(x')$ bzw. $\varphi(y)$ und $\varphi(y')$. Dies
+ist ja bekanntlich das charakterisierende Merkmal von Intervallskalen (man denke
+z.B. an die Temperaturmessung in Celsius ("$\phi(x)$") und Fahrenheit ("$\phi'(x)$")).
+Der Beweis besteht aus folgenden Schritten
+
+1. Folgerung von numerischen Differenzgleichungen aus qualitativen Indifferenzen
+1. Implikation der Gleichheit von $\phi'$-Differenzen in der Gleichheit von $\phi$-Differenzen
+1. Affin-lineare Eindeutigkeiten der Repräsentationen von $\sce_x$ und $\sce_y$
+1. Identität der affin-linearen Konstante $\alpha$
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis der Eindeutigkeit (fortgeführt)}
+
+*\noindent(1) Folgerung von numerischen Differenzgleichungen aus qualitativen Indifferenzen*
+
+Nach Annahme gilt
+\begin{align}
+\begin{split}
+(x,y') \sim (x',y)
+& \Leftrightarrow \phi(x) + \varphi(y') = \phi(x') + \varphi(y) \\
+& \Leftrightarrow \phi(x) - \phi(x') = \varphi(y) - \varphi(y')
+\end{split}
+\end{align}
+und ebenso
+\begin{align}
+\begin{split}
+(x,y') \sim (x',y)
+& \Leftrightarrow \phi'(x) + \varphi'(y') = \phi'(x') + \varphi'(y) \\
+& \Leftrightarrow \phi'(x) - \phi'(x') = \varphi'(y) - \varphi'(y')
+\end{split}
+\end{align}
+
+*\noindent(2) Implikation der Gleichheit von $\phi'$-Differenzen in der Gleichheit von $\phi$-Differenzen*
+
+Wir zeigen, dass wenn zwei Differenzen der Repräsentation $\phi$ von $\sce_x$
+gleich sind, dann auch die entsprechenden Differenzen der Repräsentation $\phi'$
+von $\sce_x$ gleich sind. Seien dazu zunächst
+\begin{equation}
+\phi(x) - \phi(x') = \phi(u) - \phi(u') \mbox{ für } x,x',u,u'\in X
+\end{equation}
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis der Eindeutigkeit (fortgeführt)}
+
+Aufgrund der Lösbarkeit von $(X,Y,\sce)$ gibt es $y,y'\in Y$, so dass
+\begin{equation}
+(x,y') \sim (x',y)
+\end{equation}
+Also gilt mit (1) und obiger Annahme, dass
+\begin{equation}
+\phi(x) - \phi(x') = \varphi(y) - \varphi(y')
+\end{equation}
+und mit obiger Annahme, dass
+\begin{equation}
+\phi(u) - \phi(u')  = \varphi(y) - \varphi(y')
+\end{equation}
+was wiederum äquivalent zu
+\begin{equation}
+(u,y') \sim (u',y)
+\end{equation}
+ist. Insgesamt folgen aus den Eigenschaften der additiven Struktur sowie
+der Annahme der Differenzidentität
+\begin{equation}
+\phi(x) - \phi(x') = \phi(u) - \phi(u') \mbox{ für } x,x',u,u'\in X
+\end{equation}
+also die qualitativen Indifferenzen
+\begin{equation}
+(x,y') \sim (x',y) \mbox{ und } (u,y') \sim (u',y)
+\end{equation}
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis der Eindeutigkeit (fortgeführt)}
+
+Wendet man nun die Repräsentationen $\phi'$ und $\varphi'$ auf diese qualitativen Indifferenzen an,
+erhält man
+\begin{equation}
+\phi'(x) + \varphi'(y') = \phi'(x') + \varphi'(y)
+\Leftrightarrow
+\phi'(x) - \phi'(x') = \varphi'(y)  - \varphi'(y')
+\end{equation}
+sowie
+\begin{equation}
+\phi'(u) + \varphi'(y') = \phi'(u') + \varphi'(y)
+\Leftrightarrow
+\phi'(u) - \phi'(u') = \varphi'(y)  - \varphi'(y'),
+\end{equation}
+also, über den "Umweg über $\sce_y$", die Identität der Differenzen
+\begin{equation}
+\phi'(x) - \phi'(x') = \phi'(u) - \phi'(u')
+\end{equation}
+Die Identität von Differenzen bezüglich der Repräsentation $\phi$ von $\sce_x$
+impliziert also die Identität von Differenzen bezüglich der Repräsentation $\phi'$ von $\sce_x$.
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis der Eindeutigkeit (fortgeführt)}
+
+*\noindent (3) Affin-lineare Eindeutigkeiten der Repräsentationen von $\sce_x$ und $\sce_y$*
+
+Wir zeigen als nächstes, dass für ein beliebiges $x \in X$ gilt, dass
+\begin{equation}
+\phi'(x) - \phi'(x_0) = \alpha\left(\phi(x) - \phi(x_0) \right),
+\end{equation}
+dass also eine Differenz $\phi'(x) - \phi'(x_0)$ bezüglich $\phi'$ eine positiv
+skalierte Differenz $\phi(x) - \phi(x_0)$ von $x$ und $x_0$ bezüglich $\phi$ ist.
+Dies ergibt sich durch folgende Argumentation. Jede Differenz $\phi(x) - \phi(x_0)$
+lässt sich durch ganzzahlige, rationale (und schließlich reelle) Vielfache der
+positiven Einheitsdifferenz $\phi(x_1) - \phi(x_0)$ aufbauen. Prinzipiell kann man
+für jede der dabei auftretenden Gleichheiten von Differenzen mit (2) fordern,
+dass sie auch unter $\phi'$ erhalten bleiben. Wichtig ist dabei, dass aus der
+Erhaltung von Gleichheiten von Differenzen nicht folgt, dass auch ihre numerischen
+Werte unter $\phi$ und $\phi'$ übereinstimmen. Insbesondere gibt es keinen Grund
+anzunehmen, dass \begin{equation}
+\phi(x_1) - \phi(x_0) = \phi'(x_1) - \phi'(x_0)
+\end{equation}
+gilt. Die additiv-konjunkte Struktur bedingt nur, dass gleiche Differenzen unter
+$\phi$ wieder auf gleiche Differenzen unter $\phi'$ abgebildet werden. Konkret ergibt
+sich bezüglich der Standardsequenzen bei ganzzahliger
+Repräsentation etwa:
+\begin{equation}
+\phi(x_1) - \phi(x_0) = \phi(x_2) - \phi(x_1)
+\;\Rightarrow\;
+\phi'(x_1) - \phi'(x_0) = \phi'(x_2) - \phi'(x_1).
+\end{equation}
+Durch Iteration folgt daraus für alle $n \in \mathbb{N}$:
+\begin{equation}
+\phi'(x_n) - \phi'(x_0)
+=
+n \cdot \big(\phi'(x_1) - \phi'(x_0)\big).
+\end{equation}
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis der Eindeutigkeit (fortgeführt)}
+
+Setzt man
+\begin{equation}
+a := \phi'(x_1) - \phi'(x_0),
+\end{equation}
+so erhält man
+\begin{equation}
+\phi'(x_n) - \phi'(x_0) = n a.
+\end{equation}
+Analog ergibt sich aus den dyadischen Verfeinerungen, dass für alle
+$r = \frac{m}{2^k}$ entsprechende Punkte $x_r \in X$ existieren mit
+\begin{equation}
+\phi'(x_r) - \phi'(x_0) = r a.
+\end{equation}
+Da die dyadischen rationalen Zahlen dicht in $\mathbb{R}$ liegen und
+jede Differenz $\phi(x) - \phi(x_0)$ durch geeignete dyadische
+Approximationen bestimmt ist, folgt schließlich für alle $x \in X$:
+\begin{align}
+\begin{split}
+\phi'(x) - \phi'(x_0) & = \alpha \left(\phi(x) - \phi(x_0)\right) \\
+\phi'(x)  & = \alpha\phi(x) - \alpha\phi(x_0) + \phi'(x_0) \\
+\phi'(x)  & = \alpha\phi(x) + \beta_1 \mbox{ mit } \beta_1 := \phi'(x_0) - \alpha\phi(x_0) \\
+\end{split}
+\end{align}
+Mit einer analogen Argumentation erhält man
+\begin{equation}
+\varphi'(y) = \tilde{\alpha}\varphi(y) + \beta_2
+\end{equation}
+
+
+# Repräsentation additiv-konjunkter Strukturen
+\footnotesize
+\underline{Beweis der Eindeutigkeit (fortgeführt)}
+
+*\noindent (4) Identität der affin-linearen Konstante $\alpha$*
+
+Wir betrachten eine beliebige Indifferenz
+\begin{equation}
+(x,y') \sim (x',y)
+\end{equation}
+Dann gelten, wie gesehen
+\begin{equation}
+\phi(x) - \phi(x')   = \varphi(y) - \varphi(y') \mbox{ und }
+\phi'(x) - \phi'(x') = \varphi'(y) - \varphi'(y')
+\end{equation}
+Mit (3) ergibt sich dann weiterhin
+\begin{align}
+\begin{split}
+\phi'(x) - \phi'(x') & = \varphi'(y) - \varphi'(y')
+\\ \Leftrightarrow
+\alpha \phi(x) + \beta_1 - \alpha\phi(x') - \beta_1
+& =
+\tilde{\alpha}\varphi(y) + \beta_2 - \tilde{\alpha}\varphi(y') - \beta_2
+\\\Leftrightarrow
+\alpha\left(\phi(x) - \phi(x')\right)
+& =
+\tilde{\alpha}\left(\varphi(y) - \varphi(y')\right)
+\\\Leftrightarrow
+\alpha\left(\phi(x) - \phi(x')\right)
+& =
+\tilde{\alpha}\left(\phi(x) - \phi(x')\right)
+\end{split}
+\end{align}
+Mit der Essentialität folgt dann, dass es von Null verschiedene Differenzen
+$\phi(x) - \phi(x')$ gibt und damit dann direkt
+\begin{equation}
+\alpha = \tilde{\alpha}
+\end{equation}
+
+
+#
+\vfill
+\setstretch{2.7}
+\large
+Einordnung
+
+Repräsentationstheoretische Grundbegriffe
+
+Repräsentation additiv-konjunkter Strukturen
+
+**Diskussion**
+
+Selbstkontrollfragen
+\vfill
+
+
+<!-- # Diskussion
+
+\hl{Don't forget: Multiplikation ist auf Intervallskalen nicht invariant - Zeige Beispiel}
+
+
+\hl{Unterschiede können interpretiert werden, Verhältnisse nicht - Zeige Beispiel}
+
+\hl{Ansatzpunkt der additiven Konjunktmessung war Extensivmessung = Verhältnisskala: Was ist mit XXX Messung und Intervallskala? Da wollen wir ja nur hin}
+
+\hl{Intervallskaleninduktion durch Differenzstrukturen}
+
+\hl{Warum ist gerade additive Konjunktmessung so "populär"}
+
+
+# Diskussion
+
+\hl{Praktische Anwendung - Überprüfung der definierenden Eigenschaften}
+
+\hl{Letztlich handelt es sich um die Konstruktion der natürlichen, rationalen, reellen Zahlen}
+
+\hl{Prinzipiell funktioniert das, defacto müsste man sehr, sehr viele Indifferenzen finden}
+
+\hl{Karabatsos, Kyngdon, etc. }
+
+
+# Diskussion
+
+\hl{Bezug zum Rasch-Modell}
+
+\hl{Perilineu, but really - no} -->
+
+
+#
+\vfill
+\setstretch{2.7}
+\large
+Einordnung
+
+Repräsentationstheoretische Grundbegriffe
+
+Repräsentation additiv-konjunkter Strukturen
+
+Diskussion
+
+**Selbstkontrollfragen**
+\vfill
+
+# Selbstkontrollfragen
+\footnotesize
+
+1. Erläutern Sie das Wesen der Repräsentationstheorie und ihre Einordnung im modellbasierten Realismus.
+1. Erläutern Sie den repräsentationstheoretischen Begriff der Relation.
+1. Erläutern Sie den repräsentationstheoretischen Begriff der Operation.
+1. Erläutern Sie den repräsentationstheoretischen Begriff des qualitativen Relationssystems.
+1. Erläutern Sie den repräsentationstheoretischen Begriff des quantitativen Relationssystems.
+1. Erläutern Sie den repräsentationstheoretischen Begriff des Homomorphismus.
+1. Erläutern Sie den repräsentationstheoretischen Begriff der Skala.
+1. Erläutern Sie das Repräsentationsproblem der Repräsentationstheorie.
+1. Erläutern Sie das Eindeutigkeitsproblem der Repräsentationstheorie.
+1. Erläutern Sie den repräsentationstheoretischen Begriff einer zulässigen Transformation eines Homomorphismus.
+1. Definieren Sie die repräsentationstheoretischen Begriffe der Ordinal-, Intervall- und Verhältnisskala.
+1. Erläutern Sie den repräsentationstheoretischen Begriff der bedeutsamen Aussage.
+1. Sind bei Ordinalskalen Aussagen zur Gleichheit von Messwertdifferenzen repräsentationstheoretisch bedeutsam?
+1. Sind bei Intervallskalen Aussagen zur Gleichheit von Messwertdifferenzen repräsentationstheoretisch bedeutsam?
+1. Sind bei Intervallskalen Aussagen zu Verhältnissen von Messwerten repräsentationstheoretisch bedeutsam?
+1. Sind bei Verhältnisskalen Aussagen zu Verhältnissen von Messwerten repräsentationstheoretisch bedeutsam?
+1. Erläutern Sie den repräsentationstheoretischen Begriff der bedeutsamen Statistik.
+1. Ist der Mittelwert bei einer Ordinalskala eine repräsentationstheoretisch bedeutsame Statistik?
+1. Ist der Mittelwert bei einer Intervallskala eine repräsentationstheoretisch bedeutsame Statistik?
+1. Erläutern Sie die Grundideen einer Extensivmessung nach Hölder.
+1. Erläutern Sie die Problematik für Extensivmessungen in der Psychologie.
+1. Erläutern Sie die Grundideen der additiven Konjunktmessung.
+
+# Referenzen {.allowframebreaks}
+\footnotesize

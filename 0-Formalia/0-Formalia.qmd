@@ -151,8 +151,8 @@ Prüfungsmodalitäten
 \begin{tabular}{lll}
 Datum           & Thema					       	    \\\hline
 10.04.2026      & (0) Formalia                      \\
-17.04.2026      & (1) Messtheorie                   \\
-24.04.2026      & (1) Messtheorie                   \\
+17.04.2026      & (1) Repräsentationstheorie        \\
+24.04.2026      & (1) Repräsentationstheorie        \\
 01.05.2026      & Feiertag                          \\
 08.05.2026      & (2) Item-Response-Theorie         \\
 15.05.2026      & (2) Item-Response-Theorie         \\
