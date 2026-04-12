@@ -164,7 +164,7 @@ Datum           & Thema					       	    \\\hline
 26.06.2026      & (4) Klassische Testtheorie        \\
 03.07.2026      & (4) Klassische Testtheorie        \\
 10.07.2026      & (4) Klassische Testtheorie        \\\hline
-17.07.2026      & Klausurtermin                     \\
+23.09.2026      & Klausurtermin                     \\
 Februar 2027    & Klausurwiederholungstermin        \\
 \end{tabular}
 \vfill

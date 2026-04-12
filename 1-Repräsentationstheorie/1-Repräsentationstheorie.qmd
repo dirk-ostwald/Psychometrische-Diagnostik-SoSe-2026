@@ -37,6 +37,22 @@ Prof. Dr. Dirk Ostwald
 \textcolor{black}{(1) Repräsentationstheorie}
 \vfill
 
+
+#
+\vfill
+\setstretch{2.7}
+\large
+Einordnung
+
+Repräsentationstheoretische Grundlagen
+
+Repräsentation additiv-konjunkter Strukturen
+
+Diskussion
+
+Selbstkontrollfragen
+\vfill
+
 #
 \vfill
 \setstretch{2.7}
@@ -73,7 +89,7 @@ Repräsentationstheorie
 * Anwendung des Programms des Logischen Positivismus mit Hochphase 1950 - 2000
 * Begründet um 1950 durch [\textcolor{darkblue}{Patrick Suppes}](https://en.wikipedia.org/wiki/Patrick_Suppes)
 * Klärung des Begriffs des Messens über den Stand der Physik von 1950 hinaus
-* Ausarbeitung und Differenzierung der Stevensschen Skalenklassifikation (@stevens1946)
+* Ausarbeitung und Differenzierung der Skalenklassifikation nach @stevens1946
 * Zentrale Arbeiten durch @scott1958, @luce1964,
 * Gesamtwerk in @krantz1971, @suppes1989, @luce1990
 
@@ -163,7 +179,6 @@ Relationen
 * Qualitative Relationen werden oft mit $\sce$ oder $\sim$ bezeichnet.
 * Im quantitativen Relationssystem betrachtet die RT quantitative Relationen von Zahlen.
 * Beispiel für quantitative Relationen sind $\ge$ oder $=$.
-* Formal sind Relationen Teilmengen des Kartesischen Produkts einer Menge mit sich selbst.
 
 \footnotesize
 Operationen
@@ -172,10 +187,10 @@ Operationen
 * Operationen sind Verknüpfungen zwischen zwei Dingen (Objekten, Objekteigenschaften, Zahlen).
 * Operationen verknüpfen zwei Dinge zu einem resultierenden dritten Ding.
 * Im qualitativen Relationssystem betrachtet die RT empirische Konkatenationen als Operationen.
-* Ein Beispiel für eine qualitative Operationen ist das Hintereinander legen zweier Stäbe.
+* Ein Beispiel für eine qualitative Operation ist das Hintereinanderlegen zweier Stäbe.
 * Qualitative Operationen werden oft mit $\circ$ bezeichnet.
-* Im qualitativen Relationssystem betrachtet die RT mathematische Verknüpfungen als Operationen.
-* Ein Beispiel für eine qualitative Operationen ist die Addition zweier reeller Zahlen.
+* Im quantitativen Relationssystem betrachtet die RT mathematische Verknüpfungen als Operationen.
+* Ein Beispiel für eine quantitative Operation ist die Addition zweier reeller Zahlen.
 * Quantitative Operationen werden mit den Standardsymbolen +, -, $\cdot$, / bezeichnet.
 
 # Repräsentationstheoretische Grundlagen
@@ -186,14 +201,14 @@ Qualitatives und Quantitatives Relationssystem
 Qualitatives Relationssystem
 
 * $(M,\sce,...,\circ,...)$ mit Objekteigenschaftsmenge $M$, qualitativen Relationen und qualitativen Operationen.
-* Das qualitative Relationssystem wird in der Repräsentationstheorie als bekannte Datengrundlage voraussgesetzt.
+* Das qualitative Relationssystem wird in der Repräsentationstheorie als bekannte Datengrundlage vorausgesetzt.
 * Die qualitativen empirischen Eigenschaften von Dingen sind also nach Voraussetzung bekannt.
 * Je nach Art des qualitativen Relationssystems haben Relationen und Operationen verschiedene Eigenschaften.
 * Ein Beispiel für eine Relationseigenschaft ist die *Transititivät*
 \begin{equation}
 \mbox{ Wenn } m \sce n \mbox{ und } n \sce p \mbox{, dann gilt } m \sce p \mbox{ für alle } m,n,p \in M.
 \end{equation}
-* Ein Beispiel für eine Operationseigenschaften ist die *Assoziativität*
+* Ein Beispiel für ein0e Operationseigenschaft ist die *Assoziativität*
 \begin{equation}
 (m \circ n) \circ p = m \circ (n \circ p).
 \end{equation}
@@ -261,7 +276,7 @@ Eindeutigkeitsproblem
   ob ein existierender Homomorphismus der einzige mögliche ist.
 * Die Antworten auf Eindeutigkeitsprobleme legen die Skalenarten fest, insbesondere
 sind die Homomorphismen dort nicht eindeutig, sondern durch sogenannte *zulässige Transformationen* ineinander überführbar.
-* Eine Abbildung $\phi$ heißt *zulässige Transformation*, wenn gilt, dass bei gegebenen Relationssystemen
+* Eine Abbildung $\phi$ heißt *zulässige Transformation*, wenn gilt, dass bei gegebenen Relationssystemen,
 wenn $f$ ein Homomorphismus ist, $\phi \circ f$ auch ein Homomorphismus ist.
 
 # Repräsentationstheoretische Grundlagen
@@ -281,7 +296,7 @@ die Menge der zulässigen Transformationen von $(\mathcal{M},\mathcal{N},f)$. Da
 \Phi := \{\phi| \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x)  \mbox{ mit } x > y \Leftrightarrow \phi(x) > \phi(y) \mbox{ für alle } x,y \in f(M)\}
 \end{equation}
 ist, dann heißt $(\mathcal{M},\mathcal{N},f)$ *Ordinalskala*.
-(2) Wenn die Menge der zulässigen Transformationen der Skala  die Menge der *positiv linear-affinen Funktionen*
+(2) Wenn die Menge der zulässigen Transformationen der Skala die Menge der *positiv linear-affinen Funktionen*
 \begin{equation}
 \Phi := \{\phi| \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta  \mbox{ mit } \alpha > 0\}
 \end{equation}
