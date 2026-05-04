@@ -1,0 +1,3220 @@
+---
+fontsize: 8pt
+format:
+    beamer:
+        include-in-header: "2-Header.tex"
+bibliography: 2-Referenzen.bib
+csl: https://www.zotero.org/styles/apa
+---
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics("2-Abbildungen/psd-2-otto.png")
+```
+
+\huge
+Psychometrische Diagnostik
+\vspace{3mm}
+
+\large
+MSc Psychologie
+
+MSc Umweltpsychologie / Mensch-Technik-Interaktion
+
+\vspace{2mm}
+SoSe 2026
+
+\vspace{1mm}
+\normalsize
+Prof. Dr. Dirk Ostwald
+
+
+# {.plain}
+\vfill
+\center
+\huge
+\textcolor{black}{(2) Item-Response-Theorie}
+\vfill
+
+
+#
+\vfill
+\setstretch{3}
+\large
+Grundlagen
+
+Birnbaum-Modell
+
+Rasch-Modell
+
+Selbstkontrollfragen
+\vfill
+
+#
+\vfill
+\setstretch{3}
+\large
+**Grundlagen**
+
+Birnbaum-Modell
+
+Rasch-Modell
+
+Selbstkontrollfragen
+\vfill
+
+# Grundlagen
+\vspace{2mm}
+Psychologische Datenwissenschaft
+\vspace{2mm}
+
+```{r, echo = FALSE, out.width = "100%", fig.align = "center"}
+knitr::include_graphics("2-Abbildungen/psd-2-modellbasierte-datenwissenschaft.pdf")
+```
+
+# Grundlagen
+\vspace{2mm}
+Psychologische Datenwissenschaft
+\vspace{2mm}
+```{r, echo = FALSE, out.width = "85%", fig.align = "center"}
+knitr::include_graphics("2-Abbildungen/psd-2-psychologische-datenwissenschaft.pdf")
+```
+
+# Grundlagen
+\vspace{2mm}
+
+Item-Response-Theorien
+\footnotesize
+
+Probabilistische Modelle für die funktionalen Beziehungen zwischen
+\vspace{-2mm}
+
+* latenten Personeneigenschaften,
+* Itemparametern und
+* Itemantwortwahrscheinlichkeiten
+
+Typische latente Personeneigenschaften sind dabei
+\vspace{-2mm}
+
+* Fähigkeiten in der Leistungsmessung
+* Einstellungen in der Persönlichkeitsmessung
+
+Typische Itemparameter sind dabei
+\vspace{-2mm}
+
+* Schwierigkeit, Diskriminationsfähigkeit, Ratewahrscheinlichkeit
+
+Item-Response-Theorien bilden eine große Modellfamilie
+\vspace{-2mm}
+
+* Von eindimensionalen Personeneigenschaften zu mehrdimensionalen Personeneigenschaften
+* Von dichotomen Antwortformaten zu polytomen Antwortformaten
+* Wir betrachten hier nur eindimensionale Personeneigenschaften und dichotome Antwortformate
+
+Weite Verbreitung in Bildungsforschung (PISA, GRE), Medizin (PROMIS), Psychometrie und Sozialwissenschaften
+
+Theoretische Grundlage für adaptive Testverfahren mit interaktiver Itemauswahl
+
+Eine grundlegende Einführung gibt das dreibändige *Handbook of Item Response Theory* von @linden2016
+
+# Grundlagen
+Traditionen
+\small
+
+\footnotesize
+Frühe Ansätze von Item-Response-Theorien unter anderem bei @binet1904
+
+\small
+Statistische Tradition
+\footnotesize
+\vspace{-1mm}
+
+* Datenanalytisch geprägter US-amerikanischer Ansatz nach @mosier1940, @richardson1936, @lawley1943, @lord1951
+* Seminale Arbeiten von Allan Birnbaum (1923 - 1976) in @lord1968 (vgl. auch @birnbaum1962)
+* 1PL-, 2PL- und 3PL-Modelle als Weiterentwicklung des Normal-Ogive-Modells
+* Marginal-Maximum-Likelihood / Expectation-Maximization
+* Frühe Implementationen in Programmen wie LOGIST, BILOG-MG, TESTFACT, MULTILOG
+* Recht klar im datenanalytischen Mainstream verortet
+
+\small
+Messtheoretische Tradition
+\footnotesize
+\vspace{-1mm}
+
+* Axiomatisch geprägter europäischer Ansatz nach Georg Rasch (1901–1980) (@rasch1960, @rasch1966)
+* Seminale Arbeiten von Erling Bernhard Andersen (1939-2004) in @andersen1970 und @andersen1977
+* Popularisierung in den USA unter anderem durch @wright1977 und @andrich1978
+* Europäische Weiterführung durch Fischer (1938 - ) und Molenaar (1935-2018) (vgl. @fischer1995)
+* Conditional-Maximum-Likelihood / Suffizienz
+* Frühe Implementation in Programmen wie WinSteps, ConQuest, RUMM
+* Nicht im datenanalytischen Mainstream verortet, aber bei psychologischen Anwendern populär
+
+\flushright
+vgl. @embretson2000
+
+
+# Grundlagen
+Anwendungsbeispiel
+\footnotesize
+
+Simulierter Datensatz basierend auf den 10 dichotomen Items
+
+\tiny
+\setstretch{1}
+\setlength{\tabcolsep}{1.5pt}
+```{r, echo = F, message = F}
+y               = read.csv("./2-Daten/2-irt.csv")               # Dateneinlesen
+n               = nrow(y)                                       # Personenanzahl
+m               = ncol(y)                                       # Itemanzahl
+rownames(y)     = paste("P", 1:n)                               # Personenlabel
+colnames(y)     = paste("I", 1:m, sep = "")                     # Itemlabel
+knitr::kable(y[1:20,], digits = 2, "pipe")                      # Visualisierung
+```
+
+\flushright
+$n = 20$ von $n = 1000$ Personen, keine KA-Antworten
+
+# Grundlagen
+Überblick
+\setstretch{1.6}
+
+\small
+Birnbaum-Modell
+\vspace{-1mm}
+
+* Logistische Funktion
+* Modellformulierung
+* Modelleigenschaften
+* Marginal-Maximum-Likelihood-Schätzung durch ELBO-Maximierung
+* Expectation-Maximization-Algorithmus nach @woodruff1996 und @bock1981
+
+Rasch-Modell
+\vspace{-1mm}
+
+* Objektive Messungen und spezifische Objektivität
+* Modellformulierung
+* Modelleigenschaften
+* Conditional-Maximum-Likelihood-Schätzung
+* Suffizienz und Parameterseparierbarkeit
+
+#
+\vfill
+\setstretch{3}
+\large
+Grundlagen
+
+**Birnbaum-Modell**
+
+Rasch-Modell
+
+Selbstkontrollfragen
+\vfill
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\begin{definition}[Logistische Funktion]\label{def:logistische-funktion}
+Die Funktion
+\begin{equation}
+f:\mathbb{R} \to ]0,1[, x \mapsto f(x) := \frac{1}{1 + \exp(-a(x-b))} \mbox{ mit }  a, b \in \mathbb{R}
+\end{equation}
+heißt \textit{logistische Funktion}.
+\end{definition}
+
+Bemerkungen
+
+* Die logistische Funktion geht auf @verhulst1845 zurück und findet breite mathematische Anwendung.
+* Sie wird zur Modellierung von Wachstumsprozessen, Kondensatorladung, Pharmakokinetik u.v.a.m genutzt.
+* Verwendung findet sie auch in der Logistischen Regression, dem Deep Learning und im Reinforcement Learning.
+* Wir betrachten im Folgenden immer den Fall einer ansteigenden logistischen Funktion mit $a > 0$.
+* Die **R** Funktion `plogis()` implementiert die *logistische Standardfunktion*
+\begin{equation}
+h:\mathbb{R} \to ]0,1[, x \mapsto h(x) := \frac{1}{1 + \exp(-x)}
+\end{equation}
+* Formal ist `plogis` dabei die KVF der *logistischen Verteilung*.
+* Es gilt also insbesondere $h(a(x-b)) = f(x)$.
+* Die logistische Funktion ist die zentrale Komponente von Birnbaum- und Rasch-Modell.
+
+
+```{r, eval = F, echo = F}
+# Parameter
+library(latex2exp)
+x_min     = -6
+x_max     = 6
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+a         = list(c( 1,  1,  1,  1,  1), c( 1,  2,  3,  4,  5))
+b         = list(c(-2, -1,  0,  1,  2), c( 0,  0,  0,  0,  0))
+cols      = gray.colors(5)
+
+# Visualisierung
+pdf(
+file      = "2-Abbildungen/psd-2-logistische-Funktion.pdf",
+width     = 10,
+height    = 5)
+par(
+family    = "sans",
+pty       = "m",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mfcol     = c(1,2),
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 1)
+for (i in 1:2){
+  plot(
+  x,
+  rep(NaN, length(x)),
+  type      = "n",
+  ylab      = TeX("$f(x)$"),
+  xlab      = TeX("$x$"),
+  ylim      = c(0, 1),
+  xlim      = c(-6,6),
+  main      = "")
+  for (j in 1:5){
+    lines(
+    x,
+    plogis(a[[i]][j]*(x - b[[i]][j])),
+    lwd       = 2,
+    lty       = 1,
+    col       = cols[j])
+  }
+  labs      =
+  sapply(1:5,
+  function(j) {TeX(sprintf("a = %1.3g, b = %1.3g",a[[i]][j],b[[i]][j]))})
+  legend(
+  "topleft",
+  legend    = labs,
+  lwd       = 1.5,
+  col       = cols,
+  bty       = "n",
+  cex       = 1)
+}
+dev.off()
+```
+
+# Birnbaum-Modell
+
+Logistische Funktion
+
+\centering
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("2-Abbildungen/psd-2-logistische-funktion.pdf")
+```
+
+\footnotesize
+$\Rightarrow$ $b$ verschiebt die logistische Funktion bezüglich der $x$-Achse, $a$ moduliert ihre Steigung
+
+# Birnbaum-Modell
+\footnotesize
+\setstretch{1.6}
+\begin{theorem}[Eigenschaften der logistischen Funktion]\label{thm:eigenschaften-der-logistischen-funktion}
+\justifying
+\normalfont
+Für $a > 0, b \in \mathbb{R}$ sei
+\begin{equation}
+f:\mathbb{R} \to ]0,1[, x \mapsto f(x) := \frac{1}{1 + \exp(-a(x-b))}
+\end{equation}
+die \textit{logistische Funktion}. Dann gelten
+\begin{itemize}
+\item[(1)] $f(x) \to 0$ für $x \to -\infty$ und $f(x) \to 1$ für $x \to \infty$ \hfill(Grenzwerte)
+\item[(2)] $f(x)  = \frac{\exp(a(x-b))}{1 + \exp(a(x-b))}$                      \hfill(Alternative Form)
+\item[(3)] $f(b)  = \frac{1}{2}$                                                \hfill(Spezieller Wert)
+\item[(4)] $f'(x) = a(1-f(x))f(x)$                                              \hfill(Ableitung)
+\item[(5)] $f'(x) > 0$ für alle $x \in \mathbb{R}$                              \hfill(Strenge Monotonie)
+\item[(6)] $f'(b) = \frac{1}{4}a$                                               \hfill(Spezieller Ableitungswert)
+\item[(7)] $\argmax f'(x) = b$                                                  \hfill(Maximalstelle der Ableitung)
+\end{itemize}
+\end{theorem}
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis}
+
+\noindent (1) Mit den Eigenschaften der Exponentialfunktion gilt
+\begin{equation}
+x \to -\infty \Rightarrow \exp(-a(x-b)) \to \infty \Rightarrow \frac{1}{1 + \exp(-a(x-b))} \to \frac{1}{1 + \infty} = 0
+\end{equation}
+sowie
+\begin{equation}
+x \to \infty \Rightarrow \exp(-a(x-b)) \to 0 \Rightarrow \frac{1}{1 + \exp(-a(x-b))} \to \frac{1}{1} = 1
+\end{equation}
+\noindent (2) Mit den Eigenschaften der Exponentialfunktion gilt
+\begin{equation}
+\frac{1}{1 + \exp(-a(x-b))}
+= \frac{1}{1 + \frac{1}{\exp(a(x-b))}}
+= \frac{\exp(a(x-b))}{\exp(a(x-b)) + \frac{\exp(a(x-b))}{\exp(a(x-b))}}
+= \frac{\exp(a(x-b))}{1 + \exp(a(x-b))}
+\end{equation}
+\noindent (3) Mit den Eigenschaften der Exponentialfunktion gilt
+\begin{equation}
+f(b) = \frac{1}{1 + \exp(-a(b-b))} = \frac{1}{1 + \exp(0)} = \frac{1}{1 + 1} = \frac{1}{2}
+\end{equation}
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (4) Es gilt
+\begin{align}
+\begin{split}
+f'(x)
+& = \frac{d}{dx} \left(1 + \exp(-a(x-b))\right)^{-1}           \\
+& = -\left(1 + \exp(-a(x-b))\right)^{-2} \frac{d}{dx} \left(1 + \exp(-a(x-b))\right)          \\
+& = -\left(1 + \exp(-a(x-b))\right)^{-2}\exp(-a(x-b))(-a)                     \\
+& = a\left(\frac{\exp(-a(x-b))}{\left(1 + \exp(-a(x-b))\right)^2}\right)             \\
+& = a\left(\frac{1+\exp(-a(x-b))-1}{\left(1 + \exp(-a(x-b))\right)^2}\right)              \\
+& = a\left(\frac{1+\exp(-a(x-b))}{\left(1 + \exp(-a(x-b))\right)^2} - \frac{1}{\left(1 + \exp(-a(x-b))\right)^2}\right)             \\
+& = a\left(\frac{1}{1 + \exp(-a(x-b))} - \frac{1}{\left(1 + \exp(-a(x-b))\right)^2}\right)             \\
+& = a\left(\frac{1}{1 + \exp(-a(x-b))}\left(1 - \frac{1}{1 + \exp(-a(x-b))}\right)\right)             \\
+& = af(x)(1 - f(x))             \\
+\end{split}
+\end{align}
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (5) Mit dem Beweis der für die Ableitung von $f$ gilt
+\begin{equation}
+f'(x) = a\left(\frac{\exp(-a(x-b))}{\left(1 + \exp(-a(x-b))\right)^2}\right)
+\end{equation}
+Dabei ist $a>0$ nach Voraussetzung, $\exp(-a(x-b)) > 0$ mit den Eigenschaften der
+Exponentialfunktion und $\left(1 + \exp(-a(x-b))\right)^2 > 0$ mit den Eigenschaften
+der Exponential- und Quadratfunktion. Also gilt $f'(x) > 0$ für alle $x \in \mathbb{R}$
+und $f$ ist damit streng monoton steigend.
+
+\noindent (6) Mit Eigenschaft (4) gilt
+\begin{equation}
+f'(b) = a(1 -f(b))f(b) = a\left(1 - \frac{1}{2}\right)\frac{1}{2} = \frac{1}{4}a
+\end{equation}
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (7) Da $a$ konstant ist, nimmt die Ableitung der logistischen Funktion
+ihr Maximum genau dann an, wenn $f(x)(1-f(x))$ ein Maximum annimmt. Wir setzen
+also $y := f(x)$ und betrachten die Funktion
+\begin{equation}
+g : \mathbb{R}\to \mathbb{R}, y \mapsto g(y) := (1 - y)y = y - y^2.
+\end{equation}
+Dann gilt
+\begin{equation}
+g'(y) = 1 - 2y \mbox{ und } g''(y) = -2.
+\end{equation}
+Nullsetzen der ersten Ableitung ergibt
+\begin{equation}
+g'(y^*) = 0 \Leftrightarrow 1 - 2y^* = 0 \Leftrightarrow y^* = \frac{1}{2}
+\end{equation}
+und mit $g''(y) < 0$ handelt es sich dabei um ein Maximum. Die Ableitung der logistischen
+Funktion nimmt also für den Wert $f(x) = \frac{1}{2}$ ein Maximum an. Offenbar
+gilt mit (3), dass dann $x = b$ gilt. Da $f$ nach Eigenschaft (5) streng monoton
+steigend ist, nimmt $f$ den Wert $\frac{1}{2}$ nur einmal an.
+
+
+# Birnbaum-Modell
+\vspace{2mm}
+\footnotesize
+\begin{definition}[Birnbaum-Modell]
+Für $i = 1,...,n$ Personen und $j = 1,...,m$ dichotome Items seien
+\begin{itemize}
+\item $x_i$ die Zufallsvariable zur Modellierung der Eigenschaft von Person $i$,
+\item $y_{ij}$ die Zufallsvariable zur Modellierung der $j$-ten Itemantwort von Person $i$ mit Wertebereich $\{0,1\}$,
+\item $y_i := \left(y_{i1},...,y_{im}\right)^T$ der Zufallsvektor der Itemantworten von Person $i$,
+\item $a_j \in \mathbb{R}_{>0}, b_j \in \mathbb{R}, c_j \in [0,1]$ die \textit{Itemdiskriminations-, Itemschwierigkeits- bzw. Itemrateparameter} von Item $j$
+\item $\kappa_j := \left(a_j, b_j, c_j\right)$ der Itemparametervektor von Item $j$,
+\item $\kappa := (\kappa_1,...,\kappa_m)$ die Gesamtheit der Itemparameter.
+\end{itemize}
+Dann heißt die bedingte Item-Response-Verteilung
+\begin{equation}
+p_\kappa(y_{i}|x_i) := \prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i)
+\end{equation}
+mit
+\begin{equation}
+p_{\kappa_j}(y_{ij}|x_i) := \mbox{Bern}\left(\mu_{ij}^{\kappa}\right) \mbox{ und }
+\mu_{ij}^{\kappa} := c_j + (1-c_j)\frac{1}{1 +\exp\left(-a_j(x_i - b_j)\right)}
+\end{equation}
+\textit{Birnbaum-Modell} oder \textit{3-Parameter-Logistisches-Modell (3PL-Modell)}.
+Weiterhin wird das Modell für
+\begin{itemize}
+\item $c_j:= 0$ \textit{2PL-Modell} und für
+\item $c_j:= 0$ und $a_j := 1$  \textit{1PL-Modell} oder \textit{Rasch-Modell}.
+\end{itemize}
+genannt.
+\end{definition}
+
+
+# Birnbaum-Modell
+\footnotesize
+Bemerkungen
+\setstretch{2}
+\vspace{-2mm}
+
+* Das Modell wird ausführlich in Kapiteln 17 - 20 von @lord1968 diskutiert.
+* Die Modellierung von Personeneigenschaften $x_i$ als Zufallsvariablen unterstellt MML-Schätzung.
+* $p_{\kappa_j}(y_{ij}|x_i)$ wird die *Item-Response-Funktion* oder *Item-Characteristic-Curve (ICC)* des Modells genannt.
+* $\prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i)$ enkodiert die bedingte Unabhängigkeit von Itemantworten bei gegebener Eigenschaft $x_i$.
+* Diese Faktorisierungseigenschaft des Modells über Items wird klassisch auch "lokale Unkorreliertheit" genannt.
+* Für den Parameterraum der Parameter eines Items gilt $(a_j, b_j, c_j) \in ]0,\infty[ \times ]-\infty,\infty[ \times [0,1]$.
+* In der Literatur findet man oft die Bezeichnung *ability* und das Symbol $\theta_i$ für $x_i$.
+* Die Bedeutung der Itemparameter verdeutlichen wir untenstehend.
+* @lord1951 entwickelte ursprünglich das sogenannte *Normal-Ogive-Modell* mit
+\begin{equation}
+\mu_{ij} := \int_{-\infty}^{a_j(x_i-b_j)} \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2} s^2\right) \,ds = \Phi(a_j(x_i-b_j))
+\end{equation}
+bei dem also die KVF der Standardnormalverteilung als Item-Response-Funktion diente.
+* Die logistische Funktion approximiert die KVF der Standardnormalverteilung und ist mathematisch einfacher.
+* Birnbaum adaptierte in @lord1968 frühere Arbeiten durch z.B. @finney1952 im Bereich Bioassays.
+
+# Birnbaum-Modell
+\footnotesize
+\vspace{2mm}
+Bemerkungen (Normal-Ogive-Modell und 2PL-Modell)
+
+* @haley1952 hat gezeigt, dass $|f(1.7x) - \Phi(x)| < 0.01$ für alle $x \in \mathbb{R}$.
+
+```{r, eval = F, echo = F}
+# Parameter
+library(latex2exp)
+x_min     = -6
+x_max     = 6
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+a         = 0.5
+b         = 1
+cols      = gray.colors(3)
+
+# Visualisierung
+pdf(
+file      = "2-Abbildungen/psd-2-haley-approximation.pdf",
+width     = 6,
+height    = 5)
+par(
+family    = "sans",
+pty       = "m",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mfcol     = c(1,1),
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 1)
+plot(
+x,
+pnorm(a*(x-b)),
+type      = "l",
+col       = cols[1],
+ylab      = "",
+xlab      = TeX("$x$"),
+ylim      = c(0, 1),
+xlim      = c(-6,6),
+main      = "a = 0.5, b = 1")
+lines(
+x,
+plogis(a*(x - b)),
+lwd       = 2,
+lty       = 1,
+col       = cols[2])
+lines(
+x,
+plogis(1.7*a*(x - b)),
+lwd       = 2,
+lty       = 1,
+col       = cols[3])
+
+# Legende
+labs      = c(TeX("$\\Phi(a(x-b))$"), TeX("$f(a(x-b))$"), TeX("$f(1.7a(x-b))$"))
+legend(
+"topleft",
+legend    = labs,
+lwd       = 1.5,
+col       = cols,
+bty       = "n",
+cex       = 1)
+dev.off()
+```
+
+\centering
+```{r, echo = FALSE, out.width = "65%"}
+knitr::include_graphics("2-Abbildungen/psd-2-haley-approximation.pdf")
+```
+
+# Birnbaum-Modell
+\vspace{3mm}
+\footnotesize
+Bemerkungen (Itemschwierigkeitsparameter)
+\vspace{-1mm}
+
+* Es seien $c_j = 0$ und $x_i = b_j$. Dann gilt
+\begin{equation}
+p_{\kappa_j}(y_{ij}|x_i)
+= 0 + (1-0)\frac{1}{1 +\exp(-a_j(b_j-b_j))}
+= \frac{1}{1 +\exp(0)}
+= \frac{1}{1 + 1}
+= \frac{1}{2}
+\end{equation}
+* Der Itemschwierigkeitsparameter $b_j$ entspricht hier dem Eigenschaftswert $x_i$, für den $p_{\kappa_j}(y_{ij} = 1|x_i) = \frac{1}{2}$ ist.
+* Höhere Schwierigkeitsparameter $b_j$ implizieren hier höhere Eigenschaften $x_i$, für die $p_{\kappa_j}(y_{ij} = 1|x_i) = \frac{1}{2}$ ist.
+
+\centering
+```{r, eval = F, echo = F}
+# Parameter
+library(latex2exp)
+x_min     = -6
+x_max     = 6
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+a_j       = c( 1,  1,  1,  1,  1)
+b_j       = c(-2, -1,  0,  1,  2)
+c_j       = c( 0,  0,  0,  0,  0)
+cols      = gray.colors(5)
+
+# Visualisierung
+pdf(
+file      = "2-Abbildungen/psd-2-3PL-bj.pdf",
+width     = 7,
+height    = 6)
+par(
+family    = "sans",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 1.2)
+plot(
+x,
+rep(NaN, length(x)),
+type      = "n",
+ylab      = TeX("$p_{\\kappa_j}(y_{ij} = 1|x_i)$"),
+xlab      = TeX("$x_i$"),
+ylim      = c(0, 1),
+xlim      = c(-6,6),
+main      = "Effekt des Itemschwierigkeitsparameters")
+abline(x,
+0,
+0.5,
+col       = "lightgray",
+lwd       = 1,
+lty       = 2)
+for (j in 1:5){
+  kappa     = c(a_j[j], b_j[j], c_j[j])
+  p_y_giv_x = mu(x,kappa)
+  lines(
+  x,
+  p_y_giv_x,
+  lwd       = 2,
+  lty       = 1,
+  col       = cols[j])
+  segments(
+  x0        = b_j[j],
+  y0        = 0,
+  x1        = b_j[j],
+  y1        = 0.5,
+  col       = cols[j],
+  lwd       = 1,
+  lty       = 2)
+}
+labs      =
+sapply(1:5,
+function(j) {TeX(sprintf("$b_{%d} = %1.3g",j,b_j[j]))})
+legend(
+"topleft",
+legend    = labs,
+lwd       = 1.5,
+col       = cols,
+bty       = "n")
+dev.off()
+```
+
+\centering
+```{r, echo = FALSE, out.width = "55%"}
+knitr::include_graphics("2-Abbildungen/psd-2-3PL-bj.pdf")
+```
+
+# Birnbaum-Modell
+\vspace{3mm}
+\footnotesize
+Bemerkungen (Itemdiskriminationsparameter)
+\vspace{-1mm}
+
+* Es seien $c_j = 0$. Dann gilt mit Aussage (6) von \thmref{thm:eigenschaften-der-logistischen-funktion}
+\begin{equation}
+\left.\frac{d}{dx_i} p_{\kappa_j}(y_{ij} = 1|x_i)\right|_{x_i = b_j} = \frac{1}{4}a_j.
+\end{equation}
+* Für $x_i^{(1)} < b_j < x_i^{(2)}$ gilt also
+\begin{equation}
+a_j \uparrow \, \Rightarrow p_{\kappa_j}\left(y_{ij} = 1|x_i^{(2)}\right) - p_{\kappa_j}\left(y_{ij} = 1|x_i^{(1)}\right) \uparrow
+\end{equation}
+bei identischer Differenz $x_i^{(2)} -  x_i^{(1)}$
+* In diesem Sinne diskriminiert ein Item mit höherem $a_j$ stärker zwischen zwei Eigenschaftswerten $x_i^{(1)}, x_i^{(2)}$.
+
+\centering
+```{r, eval = F, echo = F}
+# Parameter
+library(latex2exp)
+x_min     = -6
+x_max     = 6
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+a_j       = c(.1, .5,  1,  2  ,3)
+b_j       = c( 0,  0,  0,  0,  0)
+c_j       = c( 0,  0,  0,  0,  0)
+cols      = gray.colors(5)
+
+# Visualisierung
+pdf(
+file      = "2-Abbildungen/psd-2-3PL-aj.pdf",
+width     = 7,
+height    = 6)
+par(
+family    = "sans",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 1.2)
+plot(
+x,
+rep(NaN, length(x)),
+type      = "n",
+ylab      = TeX("$p_{\\kappa_j}(y_{ij} = 1|x_i)$"),
+xlab      = TeX("$x_i$"),
+ylim      = c(0, 1),
+xlim      = c(-6,6),
+main      = "Effekt des Itemdiskriminationsparameters")
+abline(x,
+0,
+0.5,
+col       = "lightgray",
+lwd       = 1,
+lty       = 2)
+for (j in 1:5){
+  kappa     = c(a_j[j], b_j[j], c_j[j])
+  p_y_giv_x = mu(x,kappa)
+  lines(
+  x,
+  p_y_giv_x,
+  lwd       = 2,
+  lty       = 1,
+  col       = cols[j])
+  segments(
+  x0        = b_j[j],
+  y0        = 0,
+  x1        = b_j[j],
+  y1        = 0.5,
+  col       = cols[j],
+  lwd       = 1,
+  lty       = 2)
+}
+labs      =
+sapply(1:5,
+function(j) {TeX(sprintf("$a_{%d} = %1.3g",j, a_j[j]))})
+legend(
+"topleft",
+legend    = labs,
+lwd       = 1.5,
+col       = cols,
+bty       = "n")
+dev.off()
+```
+
+```{r, echo = FALSE, out.width = "40%"}
+knitr::include_graphics("2-Abbildungen/psd-2-3PL-aj.pdf")
+```
+
+# Birnbaum-Modell
+\vspace{3mm}
+\footnotesize
+Bemerkungen (Itemrateparameter)
+\vspace{-2mm}
+
+\setstretch{1.6}
+* $c_j$ entspricht $p_{\kappa_j}(y_{ij}|x_i)$ für $x_i \to -\infty$.
+* Mit $c_j\neq 0$ ist das 3PL-Modell kein logistisches Modell.
+* $c_j$ wird sicherlich besser als "Pseudorateparameter" gedacht.
+
+\centering
+```{r, eval = F, echo = F}
+# Parameter
+library(latex2exp)
+x_min     = -6
+x_max     = 6
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+a_j       = c(  1,  1 ,  1,  1  ,1)
+b_j       = c(  0,  0 ,  0,  0,  0)
+c_j       = c( .0, .1,  .2, .3, .4)
+cols      = gray.colors(5)
+
+# Visualisierung
+pdf(
+file      = "2-Abbildungen/psd-2-3PL-cj.pdf",
+width     = 7,
+height    = 6)
+par(
+family    = "sans",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 1.2)
+plot(
+x,
+rep(NaN, length(x)),
+type      = "n",
+ylab      = TeX("$p_{\\kappa_j}(y_{ij} = 1|x_i)$"),
+xlab      = TeX("$x_i$"),
+ylim      = c(0, 1),
+xlim      = c(-6,6),
+main      = "Effekt des Itemrateparameters")
+abline(x,
+0,
+0.5,
+col       = "lightgray",
+lwd       = 1,
+lty       = 2)
+for (j in 1:5){
+  kappa     = c(a_j[j], b_j[j], c_j[j])
+  p_y_giv_x = mu(x,kappa)
+  lines(
+  x,
+  p_y_giv_x,
+  lwd       = 2,
+  lty       = 1,
+  col       = cols[j])
+  segments(
+  x0        = b_j[j],
+  y0        = 0,
+  x1        = b_j[j],
+  y1        = 0.5,
+  col       = cols[j],
+  lwd       = 1,
+  lty       = 2)
+}
+labs      =
+sapply(1:5,
+function(j) {TeX(sprintf("$c_{%d} = %1.3g",j, c_j[j]))})
+legend(
+"topleft",
+legend    = labs,
+lwd       = 1.5,
+col       = cols,
+bty       = "n")
+dev.off()
+```
+
+```{r, echo = FALSE, out.width = "55%"}
+knitr::include_graphics("2-Abbildungen/psd-2-3PL-cj.pdf")
+```
+
+# Birnbaum-Modell
+\footnotesize
+Bemerkungen (Itemrateparameter)
+\vspace{-2mm}
+\setstretch{2.7}
+
+* Das 3PL-Modell ist kein "logistisches Modell".
+* Die Parameterinterpretationen sind Parameterinteraktionen unterworfen:
+* $\Rightarrow$ Für $c_j \neq 0$ ist die Steigung in $b_j$ auch von $c_j$ abhängig.
+* $\Rightarrow$ Für $c_j \neq 0$ ist der Wert $x_i$ für $p_\kappa\left(y_{ij}|x_i\right) = 0.5$ auch von $c_j$ abhängig.
+* Die Interpretationen von $a_j$ und $b_j$ sind also nicht absolut.
+* Als *Item*parameter modelliert $c_j$ nicht das Raten von individuellen *Personen*.
+* $c_j > 0$ mag auch daran liegen, dass Distraktoren auffällig sein können.
+* $\Rightarrow$ "Welchen Durchmesser hat ein Mitochondrium?" (a) Etwa $1 \mu m$ (b) Känguru
+
+# Birnbaum-Modell
+\vspace{2mm}
+Birnbaum-Modell Datengeneration
+\tiny
+\vspace{2mm}
+\setstretch{1.2}
+```{r, echo = T}
+# 3PL Modell Bernoulli-Erwartungswertparameter
+mu = function(x,kappa){
+  a       = kappa[1]                                          # Diskriminationsparameter
+  b       = kappa[2]                                          # Schwierigkeitsparameter
+  c       = kappa[3]                                          # Rateparameter
+  mu      = c + (1-c)*plogis(a*(x-b))                         # Erwartungswertparameter
+}
+
+# Datengeneration
+set.seed(0)                                                   # Reproduzierbarkeit
+n         = 100                                               # Anzahl Personen
+m         = 10                                                # Anzahl Items
+kappa_tbu = rbind(runif(m,0,2), runif(m,-3,3), runif(m,0,1))  # True-but-unknown Itemparameter
+X_tbu     = matrix(rnorm(n,0,1), nrow = n)                    # True-but-unknown Personeneigenschaften
+Y         = matrix(rep(NaN, n*m), nrow = n)                   # Observierbare Item-Responses
+for(i in 1:n){                                                # Personeniterationen
+  for(j in 1:m){                                              # Itemiterationen
+    Y[i,j]  = rbinom(1,1, mu(X_tbu[i], kappa_tbu[,j]))        # y_{ij} \sim Bern(\mu_{ij}^\kappa)
+  }
+}
+colnames(Y) = paste("I", 1:m, sep = "")                       # Itemlabel
+write.csv(Y, "./2-Daten/2-irt.csv", row.names = FALSE)        # Datenspeicherung
+```
+
+# Birnbaum-Modell
+Anwendungsbeispiel
+\footnotesize
+
+Simulierter Datensatz basierend auf den 18 dichotomen Items der GEB Scale (@kaiser1998)
+
+\tiny
+\setstretch{1}
+\setlength{\tabcolsep}{1.5pt}
+```{r, echo = F, message = F}
+y               = read.csv("./2-Daten/2-irt.csv")               # Dateneinlesen
+n               = nrow(y)                                       # Personenanzahl
+m               = ncol(y)                                       # Itemanzahl
+rownames(y)     = paste("P", 1:n)                               # Personenlabel
+colnames(y)     = paste("I", 1:m)                               # Itemlabel
+knitr::kable(y[1:20,], digits = 2, "pipe")                      # Visualisierung
+```
+
+\flushright
+$n = 20$ von $n = 1000$ Personen, keine KA-Antworten
+
+# Birnbaum-Modell
+\setstretch{1.8}
+Überblick zur Parameterschätzung
+
+\small
+Joint-Maximum-Likelihood-Schätzung (JML)
+\footnotesize
+\vspace{-1mm}
+
+* Eher historische Anwendung nach Birnbaum in @lord1968 für 1PL und 2PL, selten 3PL
+* Personeneigenschaften $x_i$ als feste unbekannte Parameter, nicht als latente Zufallsvariablen konzeptualisiert
+* Iterative Maximierung der Likelihood-Funktion bezüglich Personeneigenschaften und Itemparameter
+* Personeneigenschaftsparameteranzahl $x_1,...,x_n$ steigt mit Stichprobenumfang
+* $\Rightarrow$ Keine Konsistenz der Itemparameterschätzer
+
+\small
+Marginal-Maximum-Likelihood-Schätzung (MML)
+\footnotesize
+\vspace{-1mm}
+
+* 1PL (weniger zentral bei Rasch-Modellen), 2PL, 3PL
+* Personeneigenschaften als latente Zufallsvariablen konzeptualisiert
+* Marginalisierung der Likelihood über Personeneigenschaften zur sogenannten *Marginalen Likelihood*
+* Itemparameterschätzung durch Maximierung der Marginalen Likelihood
+* $\Rightarrow$ Konsistente und asymptotisch unverzerrte Itemparameterschätzungen
+
+
+# Birnbaum-Modell
+
+\vspace{2mm}
+Überblick zur Marginal-Maximum-Likelihood-Schätzung
+\footnotesize
+\vspace{1mm}
+
+Im Rahmen der Marginal-Maximum-Likelihood (MML)-Schätzung wird das Birnbaum-Modell als
+parametrisiertes Modell mit latenten Zufallsvariablen konzipiert, wobei die Personeneigenschaften
+$x_i, i = 1,...,n$ die Rolle der latenten Zufallsvariablen einnehmen. Seien formal dazu
+
+* $y$ die Gesamtheit aller $nm$ beobachtbaren Datenpunkte,
+* $x$ die Gesamtheit aller $n$ latenten Personeneigenschaften,
+* $\theta$ die Gesamtheit aller Item- und Personenpopulationsparameter.
+
+Dann entspricht ein Birnbaum-Modell einer gemeinsamen Wahrscheinlichkeitsverteilung $p_{\theta}(x,y)$.
+Grundlegende Idee der MML-Schätzung ist es, über die latenten Variablen zu mitteln
+und analog zur Maximum-Likelihood-Schätzung zu fragen, welche Parameterwerte die sogenannte *Marginal-Likelihood-Funktion*
+\begin{equation}
+L : \theta \to \mathbb{R}_{\ge 0},
+\theta \mapsto L(\theta) := p_\theta(y) = \int p_\theta(x,y)\,dx,
+\end{equation}
+oder, äquivalent, die *Log-Marginal-Likelihood-Funktion*
+\begin{equation}
+\ell : \theta \to \mathbb{R},
+\theta \mapsto \ell(\theta) := \ln p_\theta(y) = \ln \int p_\theta(x,y)\,dx
+\end{equation}
+für einen festen beobachteten Datensatz $y$ maximieren. Für das Birnbaum-Modell nutzt
+man dazu Varianten des sogenannten *Expectation-Maximization-Algorithmus*
+(vgl. @bock1981, @thissen1982, @rigdon1983). Der exakte EM-Algorithmus ist eine
+Spezialform der koordinatenweisen ELBO-Maximierung der variationalen Inferenz
+(vgl. @ostwald2014, @blei2017, @starke2017). Wir führen zunächst den exakten
+EM-Algorithmus ein und betrachten dann seine Spezialisierung nach @woodruff1996.
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\begin{theorem}[Evidence Lower Bound]
+\justifying
+\normalfont
+Für einen Datensatz $y\in \mathbb{R}^{m\times n}$ sei $\ln p_\theta(y)$ die
+Log-Marginal-Likelihood eines latenten Variablenmodells $p_{\theta}(x,y)$.
+Dann gilt für eine beliebige Verteilung $q(x)$ der latenten Variablen, dass
+\begin{align*}
+\ln p_\theta(y)
+\ge  \int q(x) \ln p_\theta(x,y)\,dx - \int q(x) \ln q(x)\,dx
+=: \mbox{ELBO}(q(x),\theta).
+\end{align*}
+$\mbox{ELBO}(q(x),\theta)$ heißt \textit{Evidence Lower Bound}.
+\end{theorem}
+
+\setstretch{1.0}
+\underline{Beweis}
+
+Mit der Jensenschen Ungleichung (\thmref{thm:jensensche-ungleichung}) gilt
+\begin{equation*}
+\ln p_\theta(y)
+:= \ln \int p_\theta(x,y)\,dx
+= \ln \int q(x) \left(\frac{p_\theta(x,y)}{q(x)}\right)\,dx
+\ge \int q(x) \ln \left(\frac{p_\theta(x,y)}{q(x)} \right)\,dx.
+\end{equation*}
+Damit aber folgt
+\begin{align*}
+\ln p_\theta(y)
+\ge 	\int q(x) \ln \left(\frac{p_\theta(x,y)}{q(x)} \right)\,dx
+& = \int q(x) \left(\ln p_\theta(x,y) - \ln q(x) \right)\,dx  	\\
+& = \int q(x) \ln p_\theta(x,y)\,dx - \int q(x) \ln q(x)\,dx.
+\end{align*}
+
+
+# Birnbaum-Modell
+
+\setstretch{2.5}
+\footnotesize
+Bemerkungen
+\vspace{-2mm}
+
+* Für einen festen Datensatz $y$ ist $\mbox{ELBO}(q(x),\theta)$ eine Funktion von $q(x)$ und $\theta$.
+* Die Bezeichnung Evidence Lower Bound geht auf den Begriff "Evidence" für $p_\theta(y)$ zurück.
+* In den kognitiven Neurowissenschaften ist die ELBO weiterhin als "Freie Energie" bekannt.
+* Die Signifikanz der ELBO geht weit über das Birnbaum-Modell hinaus.
+* Die ELBO ist für Variational Inference zentral.
+* Variational Inference (VI) ist für zeitgenössische Gehirntheorien zentral (@parr2022).
+* Es gibt auch einen expliziten VI-Zugang zum Birnbaum-Modell (vgl. @linden2016 II.14, @wu2020).
+* Wir fokussieren hier auf den etwas traditionelleren MML/EM-Ansatz.
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\begin{definition}[Expectation-Maximization-Algorithmus]
+\justifying
+Die iterative koordinatenweise Maximierung der ELBO heißt \textit{Expectation-Maximization (EM)-Algorithmus}.
+\vspace{1mm}
+
+Der Algorithmus hat die allgemeine Form:
+\vspace{2mm}
+
+\underline{EM-Algorithmus}
+\vspace{1mm}
+
+0. Initialisierung von $q^{(0)}(x)$ und $\theta^{(0)}$
+   \vspace{1mm}
+
+Für $k = 1,2,...$
+\begin{itemize}
+\item[1.] E-Schritt: Setze  $q^{(k)}(x) := \argmax_{q(x)} \mbox{ELBO}\left(q(x),\theta^{(k-1)}\right)$
+\item[2.] M-Schritt: Setze  $\,\quad\theta^{(k)} := \argmax_{\theta} \mbox{ELBO}\left(q^{(k)}(x),\theta\right)$
+\end{itemize}
+Nach Konvergenz, nutze $\hat{\theta} := \theta^{(k)}$ als Parameterschätzer.
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* "Expectation-Schritt" ist eine Fehlbezeichnung, weil es sich auch um einen Maximierungsschritt handelt.
+* Die Bezeichnung ergibt im sogenannten exakten EM-Algorithmus dennoch Sinn, weil der M-Schritt dort einen bedingten Erwartungswert der vollständigen Log-Likelihood maximiert.
+
+# Birnbaum-Modell
+
+\footnotesize
+\begin{theorem}[Exakter Expectation-Maximization-Algorithmus]
+\justifying
+\normalfont
+Das Setzen von
+\begin{equation}
+q^{(k)}(x) := p_{\theta^{(k-1)}}(x|y) \mbox{ für alle } k = 1,2,...
+\end{equation}
+im E-Schritt des EM-Algorithmus maximiert die ELBO hinsichtlich $q(x)$ und
+heißt \textit{exakter E-Schritt}.
+\vspace{1mm}
+
+Der Algorithmus hat dann die folgende Form:
+
+\vspace{2mm}
+
+\underline{Exakter EM-Algorithmus}
+\vspace{1mm}
+
+0. Initialisierung von  $\theta^{(0)}$
+   \vspace{1mm}
+
+Für $k = 1,2,...$
+\begin{itemize}
+\item[1.] E-Schritt: $q^{(k)}(x) := p_{\theta^{(k-1)}}(x|y)$
+\item[2.] M-Schritt: $\,\quad\theta^{(k)} := \argmax_{\theta} \int p_{\theta^{(k-1)}}(x|y) \ln p_\theta(x,y)\,dx$
+\end{itemize}
+Nach Konvergenz, nutze $\hat{\theta} := \theta^{(k)}$ als Parameterschätzer.
+\end{theorem}
+
+\footnotesize
+Bemerkungen
+
+* Im Ansatz von @woodruff1996 wird $p_{\theta^{(k-1)}}(x|y)$ "nichtparametrisch" evaluiert.
+* Der M-Schritt des exakten EM-Algorithmus nach @woodruff1996 benötigt numerische Optimierung.
+
+# Birnbaum-Modell
+
+\footnotesize
+\setstretch{1.1}
+\underline{Beweis}
+
+Wir zeigen zunächst, dass die ELBO $q^{(k)}(x) := p_{\theta^{(k-1)}}(x|y)$ den maximalen Wert $\ln p_{\theta^{(k-1)}}(y)$ annimmt:
+\begin{align*}
+\mbox{ELBO}(p_{\theta^{(k-1)}}(x|y),\theta^{(k-1)})
+& = \int p_{\theta^{(k-1)}}(x|y) \ln \left(\frac{p_{\theta^{(k-1)}}(x,y)}{p_{\theta^{(k-1)}}(x|y)}\right)\,dx 		\\
+& = \int p_{\theta^{(k-1)}}(x|y) \ln \left(\frac{p_{\theta^{(k-1)}}(y)p_{\theta^{(k-1)}}(x|y)}{p_{\theta^{(k-1)}}(x|y)}\right)\,dx 	\\
+& = \int p_{\theta^{(k-1)}}(x|y) \ln p_{\theta^{(k-1)}}(y)\,dx \\
+& = \ln  p_{\theta^{(k-1)}}(y) \int p_{\theta^{(k-1)}}(x|y)\,dx \\
+&  = \ln  p_{\theta^{(k-1)}}(y).
+\end{align*}
+Der M-Schritt hat dementsprechend die Form
+\begin{align*}
+\theta^{(k)}
+& = \argmax_{\theta} \mbox{ELBO}\left(p_{\theta^{(k-1)}}(x|y),\theta\right) \\
+& = \argmax_{\theta} \int p_{\theta^{(k-1)}}(x|y) \ln p_\theta(x,y)\,dx - \int p_{\theta^{(k-1)}}(x|y) \ln p_{\theta^{(k-1)}}(x|y)\,dx.
+\end{align*}
+Der M-Schritt des exakten EM-Algorithmus folgt dann damit, dass der zweite Integralterm hier nicht von $\theta$ abhängt.
+
+# Birnbaum-Modell
+
+\vspace{2mm}
+Visuelle Intuition
+\centering
+\vspace{2mm}
+
+```{r, echo = FALSE, out.width = "75%"}
+knitr::include_graphics("2-Abbildungen/psd-2-exakter-em-algorithmus.pdf")
+```
+
+# Birnbaum-Modell
+
+\footnotesize
+
+Bemerkungen
+
+* Der M-Schritt der $k$ten Iteration des exakten EM-Algorithmus entspricht der
+  Maximierung des Erwartungswertes der logarithmierten WDF der gemeinsamen
+  Datenverteilung $p_\theta(x,y)$ hinsichtlich $\theta$, wobei der Erwartungswert
+  hinsichtlich der WDF der bedingten Datenverteilung von $x$ gegeben $y$
+  basierend auf der Parameterschätzung $\theta^{(k-1)}$ gebildet wird, die in der
+  $(k-1)$ten Iteration des exakten EM-Algorithmus gewonnen wurde.
+  \vspace{2mm}
+
+* Aufgrund der inhärenten Logik des EM-Algorithmus führt die Maximierung des Erwartungswertes
+  \begin{equation}
+  \mathbb{E}_{p_{\theta^{(k-1)}}(x|y)} \left(\ln p_\theta(x,y)\right)
+  = \int p_{\theta^{(k-1)}}(x|y) \ln p_\theta(x,y)\,dx
+  \end{equation}
+  bei exaktem E-Schritt und exaktem M-Schritt zu einer nicht fallenden Log-Marginal-Likelihood,
+  \begin{equation}
+  \ell\left(\theta^{(k)}\right) \ge \ell\left(\theta^{(k-1)}\right) \mbox{ für } k = 1,2,...
+  \end{equation}
+  EM garantiert damit, dass die Zielfunktion $\ell$ über Iterationen hinweg monoton nicht fällt.
+  \vspace{2mm}
+
+* Für konkrete Algorithmen und für das Birnbaum-Modell muss obiger Erwartungswert
+  als Funktion von $\theta^{(k-1)}$ ausgewertet werden und dann hinsichtlich $\theta$
+  maximiert werden, um die Parameterschätzung $\theta^{(k)}$ zu erhalten.
+
+# Birnbaum-Modell
+
+\footnotesize
+\setstretch{1.6}
+
+@bock1981 haben die MML-EM-Methode für das Birnbaum-Modell eingeführt.
+\vspace{-1mm}
+
+* Behandlung der Personeneigenschaften $x_1,...,x_n$ als kontinuierliche normalverteilte latente Zufallsvariablen
+* Evaluation des M-Schritt-Likelihood-Integrals durch numerische Integration (Gauss-Hermite-Quadratur)
+
+@woodruff1996 hat die MML-EM-Methode als endliches Mischungsmodell neu konzeptualisiert.
+\vspace{-1mm}
+
+* Behandlung der Personeneigenschaften  $x_1,...,x_n$ als diskrete latente Zufallsvariablen
+* Das Modell ist dann direkt als MML-EM-Algorithmus für endliche Mischungsmodelle formulierbar.
+* Eindeutige Verortung von IRT innerhalb von endlichen Mischungsmodellen (vgl. @titterington1994)
+* Es ist keine spezielle "Item-Response-Theorie-spezifische" EM-Theorie erforderlich (vgl. @murphy2023).
+* Viele Konvergenzeigenschaften können aus der Theorie endlicher Mischungsmodelle übernommen werden.
+* Wird das Modell als Mischung aufgefasst, können nicht-normale latente Verteilungen geschätzt werden.
+* Insgesamt erleichtert @woodruff1996 das Verständnis.
+
+Aktuelle **R**-Pakete wie `ltm` oder `mirt` implementieren quadraturbasierte MML-EM-Verfahren,
+die sich bei fester Quadraturpunktmenge als endliche Mischungsmodelle auffassen
+lassen und damit eng mit der Perspektive von @woodruff1996 verbunden sind.
+
+# Birnbaum-Modell
+
+\vspace{3mm}
+\setstretch{1}
+\footnotesize
+\begin{definition}[Verteilungsform des Birnbaum-Modells nach Woodruff (1996)]
+Für $i = 1,...,n$ Personen, $j = 1,...,m$ dichotome Items, und $s = 1,...,r$ diskrete Fähigkeitswerte seien
+\begin{itemize}
+\item $x_i$ die Zufallsvariable zur Modellierung der Eigenschaft von Person $i$ mit Wertebereich $\{\xi_1,...,\xi_r\}\subset\mathbb{R}$,
+\item $x := (x_1,...,x_n)$ der Zufallsvektor der $x_i$,
+\item $y_{ij}$ die Zufallsvariable zur Modellierung der $j$ten Itemantwort von Person $i$ mit Wertebereich $\{0,1\}$,
+\item $y_i := (y_{i1}, ...,y_{im})^T$ der Zufallsvektor der Itemantworten von Person $i$,
+\item $y := (y_1,...,y_n)$ die Zufallsmatrix der $y_i$,
+\item $\kappa := (a_j,b_j,c_j)_{j = 1,...,m}$ die Itemparameter des Birnbaum-Modells mit $a_j > 0$, $b_j\in\mathbb{R}$ und $0\le c_j < 1$,
+\item $\pi$ mit $\pi_s \ge 0$ und $\sum_{s=1}^r \pi_s = 1$ der Parameter der Personeneigenschaftsverteilung,
+\item $\theta := (\pi, \kappa)$ der Gesamtparameter.
+\end{itemize}
+Dann ist die \textit{Verteilungsform des Birnbaum-Modells nach Woodruff (1996)} gegeben durch
+\begin{equation}
+p_\theta(x,y)
+:= \prod_{i=1}^n p_\theta(x_i, y_i)
+:= \prod_{i=1}^n p_\pi(x_i)p_\kappa(y_i|x_i)
+:= \prod_{i=1}^n p_\pi(x_i) \prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i)
+\end{equation}
+mit der \textit{Personeneigenschaftsverteilung}
+\begin{equation}
+p_\pi(x_i) = \prod_{s=1}^r \pi_s^{\ib{x_i = \xi_s}}
+\end{equation}
+und der \textit{Item-Response-Verteilung}
+\begin{equation}
+p_{\kappa_j}(y_{ij}|x_i)
+:= \mbox{Bern}\left(\mu_{ij}^\kappa \right) \mbox{ mit }
+\mu_{ij}^\kappa := c_j + (1-c_j)\frac{1}{1+\exp\left(-a_j(x_i-b_j)\right)}.
+\end{equation}
+\end{definition}
+
+
+# Birnbaum-Modell
+
+\footnotesize
+Bemerkungen
+\vspace{-1mm}
+
+* Die Personeneigenschaft nimmt hier die $r$ diskreten Werte $\xi_1,...,\xi_r$ an.
+* $\ib{x_i = \xi_s}$ bezeichnet die Iverson-Klammer mit $\ib{x_i = \xi_s} = 1$ für $x_i = \xi_s$ und $\ib{x_i = \xi_s} = 0$ sonst.
+* Die Wahrscheinlichkeit, dass die Personeneigenschaft für Person $i$ den Wert $\xi_s$ annimmt, ist also
+\begin{equation}
+p_\pi(x_i = \xi_s) = \prod_{\tilde{s}=1}^r \pi_{\tilde{s}}^{\ib{x_i = \xi_{\tilde{s}}}} = \pi_s.
+\end{equation}
+* Die Definition
+\begin{equation}
+p_\theta(x,y) := \prod_{i=1}^n p_\theta(x_i, y_i)
+\end{equation}
+enkodiert die Unabhängigkeitsannahme über Personen.
+* Die Definition
+\begin{equation}
+p_\theta(x_i, y_i) := p_\pi(x_i)p_\kappa(y_i|x_i)
+\end{equation}
+enkodiert die partielle Wirksamkeit der Parameter $\pi$ und $\kappa$.
+* Die oft als "lokale Unkorreliertheit" bezeichnete Definition
+\begin{equation}
+p_\pi(x_i)p_\kappa(y_i|x_i) := p_\pi(x_i)\prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i)
+\end{equation}
+enkodiert die bedingte Unabhängigkeit der Itemantworten von Person $i$ bei gegebener Eigenschaft $x_i$.
+
+
+# Birnbaum-Modell
+\vspace{3mm}
+\footnotesize
+\begin{theorem}[Birnbaum-Modell-EM-Algorithmus nach Woodruff (1996)]
+\justifying
+\normalfont
+Gegeben sei die Verteilungsform des Birnbaum-Modells nach Woodruff (1996). Dann
+hat der exakte EM-Algorithmus zur Schätzung der Personeneigenschaftsverteilungsparameter
+$\pi$ und der Itemparameter $\kappa$ die Form:
+\vspace{1mm}
+
+0. Initialisierung von  $\theta^{(0)} = \left(\pi^{(0)}, \kappa^{(0)}\right)$
+\vspace{1mm}
+
+Für $k = 1,2,...$
+
+\begin{itemize}
+\item[1.] E-Schritt: Setze $q^{(k)}(x) := p_{\theta^{(k-1)}}(x|y)$
+mit
+\begin{equation}
+p_{\theta^{(k-1)}}(x|y)
+= \prod_{i=1}^n p_{\theta^{(k-1)}}(x_i|y_i)
+\mbox{ und }
+p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+= \frac{\pi_s^{(k-1)} p_{\kappa^{(k-1)}}(y_i|x_i = \xi_s)}{\sum_{\tilde{s} = 1}^r \pi_{\tilde{s}}^{(k-1)} p_{\kappa^{(k-1)}}(y_i|x_i = \xi_{\tilde{s}})}
+\end{equation}
+für alle $i = 1,...,n$ und $s = 1,...,r$.
+\item[2.] M-Schritt: Es seien
+$\nu_s^{(k-1)}  := \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)$
+und
+$\rho_{js}^{(k-1)} := \sum_{i=1}^n y_{ij} p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)$.
+
+Dann gilt für $\theta^{(k)} = \left(\pi^{(k)}, \kappa^{(k)}\right)$, dass
+\begin{equation}
+\pi_s^{(k)} := \frac{1}{n}\nu_s^{(k-1)} \mbox{ für } s = 1,...,r
+\end{equation}
+und mit
+\begin{equation}
+\mu_{sj}^{\kappa} := c_j + (1-c_j)\frac{1}{1+\exp\left(-a_j(\xi_s-b_j)\right)}
+\end{equation}
+\begin{equation}
+\kappa_j^{(k)}
+= \argmax_{\kappa_j \in \mathbb{R}_{>0}\times\mathbb{R}\times[0,1)}
+\sum_{s = 1}^r
+\left(
+\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}  +
+\ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)} - \rho_{js}^{(k-1)}\right)
+\right)
+\mbox{ für } j = 1,...,m.
+\end{equation}
+\end{itemize}
+\end{theorem}
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis}
+
+\noindent (1) E-Schritt
+
+Zur Vereinfachung der Notation setzen wir $\theta := \theta^{(k-1)}$. Wir halten
+dann zunächst fest, dass durch wiederholte Anwendung der Linearitätseigenschaften
+von Summen folgt, dass
+\begin{align}
+\begin{split}
+p_\theta(y)
+& = \sum_{x} p_\theta(x,y)                                                    \\
+& = \sum_{x_1}\cdots \sum_{x_n} p_\theta(x_1,...,x_n,y_1,...,y_n)             \\
+& = \sum_{x_1}\cdots \sum_{x_n} \left(\prod_{i=1}^n p_\theta(x_i,y_i)\right)  \\
+& = \prod_{i=1}^n \left(\sum_{x_i} p_\theta(x_i,y_i)\right)                   \\
+& = \prod_{i=1}^n p_\theta(y_i).
+\end{split}
+\end{align}
+Dann aber gilt
+\begin{align}
+\begin{split}
+p_\theta(x|y)
+= \frac{p_\theta(x,y)}{p_\theta(y)}
+= \frac{\prod_{i=1}^n p_\theta(x_i,y_i)}{\prod_{i=1}^n p_\theta(y_i)}
+= \prod_{i=1}^n \frac{p_\theta(x_i,y_i)}{p_\theta(y_i)}
+= \prod_{i=1}^n p_\theta(x_i|y_i).
+\end{split}
+\end{align}
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\footnotesize
+Weiterhin gilt
+\begin{align}
+\begin{split}
+p_\theta(x_i|y_i)
+= \frac{p_\theta(x_i,y_i)}{p_\theta(y_i)}
+= \frac{p_\pi(x_i)p_\kappa(y_i|x_i)}{\sum_{x_i} p_\pi(x_i)p_\kappa(y_i|x_i)}.
+\end{split}
+\end{align}
+Insgesamt ergibt sich also
+\begin{equation}
+p_{\theta^{(k-1)}}(x|y)
+= \prod_{i=1}^n p_{\theta^{(k-1)}}(x_i|y_i)
+= \prod_{i=1}^n \frac{p_{\pi^{(k-1)}}(x_i)p_{\kappa^{(k-1)}}(y_i|x_i)}{\sum_{x_i} p_{\pi^{(k-1)}}(x_i)p_{\kappa^{(k-1)}}(y_i|x_i)}.
+\end{equation}
+Speziell ergibt sich für einen Wert $\xi_s \in \{\xi_1,...,\xi_r\}$ der möglichen Werte von $x_i$, dass
+\begin{align}
+\begin{split}
+p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+= \frac{\pi_s^{(k-1)} p_{\kappa^{(k-1)}}(y_i|x_i = \xi_s)}{\sum_{\tilde{s} = 1}^r \pi_{\tilde{s}}^{(k-1)} p_{\kappa^{(k-1)}}(y_i|x_i = \xi_{\tilde{s}})}.
+\end{split}
+\end{align}
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (2) M-Schritt
+
+Wir werten zunächst das im M-Schritt bezüglich $\theta$ zu maximierende Integral
+\begin{equation}
+\int p_{\theta^{(k-1)}}(x|y) \ln p_\theta(x,y)\,dx,
+\end{equation}
+das aufgrund der diskreten Natur der Personeneigenschaften im vorliegenden Fall
+einer Summe über die möglichen Werte von $x$ entspricht, aus. Dabei ergibt sich
+mit dem Ergebnis des E-Schritts und der Definition von $p_\theta(x,y)$, dass sich
+dieses Integral als Summe einer Funktion der Personeneigenschaftsverteilungsparameter $f(\pi)$
+und einer Funktion der Itemparameter $g(\kappa)$ schreiben lässt, welche sich
+dann in der Folge unabhängig voneinander bezüglich der Komponenten von $\theta$
+maximieren lassen. Es ergibt sich
+
+# Birnbaum-Modell
+
+\vspace{2mm}
+\footnotesize
+\underline{Beweis (fortgeführt)}
+\tiny
+\begin{align*}
+\begin{split}
+\int p_{\theta^{(k-1)}}(x|y)  \ln p_\theta(x,y)  \,dx
+= & \sum_{x_1}\cdots\sum_{x_n} \left(p_{\theta^{(k-1)}}(x_1,...,x_n|y_1,...,y_n) \ln \left(\prod_{i=1}^n p_\theta(x_i, y_i)\right)\right)     \\
+= & \sum_{x_1}\cdots\sum_{x_n} \left(p_{\theta^{(k-1)}}(x_1,...,x_n|y_1,...,y_n) \sum_{i=1}^n \ln p_\theta(x_i, y_i)\right)                   \\
+= & \sum_{x_1}\cdots\sum_{x_n} \sum_{i=1}^n p_{\theta^{(k-1)}}(x_1,...,x_n|y_1,...,y_n) \ln p_\theta(x_i, y_i)                                \\
+= & \sum_{i=1}^n \left(\sum_{x_1}\cdots\sum_{x_n}  p_{\theta^{(k-1)}}(x_1,...,x_n|y_1,...,y_n) \ln p_\theta(x_i,y_i)\right)                   \\
+= & \sum_{i=1}^n \sum_{x_i} p_{\theta^{(k-1)}}(x_i|y_i) \ln p_\theta(x_i, y_i)                                                                \\
+= & \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln p_\theta(x_i = \xi_s, y_i)                                                   \\
+= & \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln \left(p_\pi(x_i = \xi_s)p_\kappa(y_i|x_i = \xi_s)\right)                         \\
+= & \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \left(\ln p_\pi(x_i = \xi_s) + \ln p_\kappa(y_i|x_i = \xi_s)\right)                  \\
+= & \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln p_\pi(x_i = \xi_s) +
+\sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln p_\kappa(y_i|x_i = \xi_s)                                                        \\
+=: & f(\pi) + g(\kappa).
+\end{split}
+\end{align*}
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\footnotesize
+Dabei ergibt sich die fünfte Gleichung beispielhaft für $n := 3$ und $i := 1$ durch
+\begin{align}
+\begin{split}
+& \sum_{x_1}\sum_{x_2}\sum_{x_3} p_{\theta^{(k-1)}}(x_1,x_2,x_3|y_1,y_2,y_3) \ln p_\theta(x_1,y_1)    \\
+& = \sum_{x_1}\ln p_\theta(x_1,y_1) \sum_{x_2}\sum_{x_3} p_{\theta^{(k-1)}}(x_1,x_2,x_3|y_1,y_2,y_3)  \\
+& = \sum_{x_1}\ln p_\theta(x_1,y_1) p_{\theta^{(k-1)}}(x_1|y_1,y_2,y_3)                               \\
+& = \sum_{x_1}  p_{\theta^{(k-1)}}(x_1|y_1) \ln p_\theta(x_1,y_1),
+\end{split}
+\end{align}
+wobei sich die letzte Gleichung mit der bedingten Unabhängigkeit von $x_1$ von $y_2,y_3$ gemäß
+des Beweises des E-Schritts ergibt.
+\vspace{1mm}
+
+Es verbleiben also die Maximierung von $f$ bezüglich $\pi$ und von $g$ bezüglich $\kappa$. Dabei kann
+die Maximierung von $f$ bezüglich der Personeneigenschaftsparameter $\pi$ mit einem
+Lagrangeansatz auf analytische Weise durchgeführt werden, wohingegen die Maximierung
+von $g$ bezüglich der Itemparameter $\kappa$ eine Auslagerung in die numerische Optimierung
+benötigt.
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Wir vereinfachen die Schreibweisen der Funktionen $f$ und $g$ noch etwas. Speziell gelten
+\begin{align}
+\begin{split}
+f(\pi)
+& = \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln p_\pi(x_i = \xi_s) \\
+& = \sum_{s = 1}^r \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln p_\pi(x_i = \xi_s)  \\
+& = \sum_{s = 1}^r \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln(\pi_s)              \\
+& = \sum_{s = 1}^r \ln(\pi_s) \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)              \\
+& = \sum_{s = 1}^r \ln(\pi_s) \nu_s^{(k-1)}
+\end{split}
+\end{align}
+mit
+\begin{equation}
+\nu_s^{(k-1)}  := \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i).
+\end{equation}
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Weiterhin gilt mit $\mu_{sj}^{\kappa} = \mu_{ij}^{\kappa}$ für $x_i = \xi_s$, dass
+\begin{align*}
+\begin{split}
+g(\kappa)
+& = \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln p_\kappa(y_i|x_i = \xi_s)                                    \\
+& = \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln \left(\prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i = \xi_s) \right) \\
+& = \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)\left(\sum_{j=1}^m \ln \left(p_{\kappa_j}(y_{ij}|x_i = \xi_s)\right)\right) \\
+& = \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\left(\sum_{j=1}^m \ln \left(\left(\mu_{sj}^{\kappa}\right)^{y_{ij}}\left(1-\mu_{sj}^{\kappa}\right)^{1-y_{ij}}\right)\right)
+\\
+& = \sum_{i=1}^n \sum_{s = 1}^r  p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\left(\sum_{j=1}^m \left(y_{ij}\ln \left(\mu_{sj}^{\kappa}\right)  + \left({1-y_{ij}}\right)\ln\left(1-\mu_{sj}^{\kappa}\right)\right)\right).
+\end{split}
+\end{align*}
+
+# Birnbaum-Modell
+\vspace{2mm}
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+und damit
+\begin{align*}
+\begin{split} g(\kappa)
+=
+& \sum_{i=1}^n \sum_{s = 1}^r p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)\sum_{j=1}^m \left(y_{ij}\ln \left(\mu_{sj}^{\kappa}\right)\right) +
+\\
+& \sum_{i=1}^n \sum_{s = 1}^r p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)\sum_{j=1}^m \ln\left(1-\mu_{sj}^{\kappa}\right) -
+\\
+& \sum_{i=1}^n \sum_{s = 1}^r p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)\sum_{j=1}^m y_{ij} \ln\left(1-\mu_{sj}^{\kappa}\right)
+\\ =
+& \sum_{i=1}^n \sum_{s = 1}^r \sum_{j=1}^m p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \left(y_{ij}\ln \left(\mu_{sj}^{\kappa}\right)\right) +
+\\
+& \sum_{i=1}^n \sum_{s = 1}^r \sum_{j=1}^m p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln\left(1-\mu_{sj}^{\kappa}\right) -
+\\
+& \sum_{i=1}^n \sum_{s = 1}^r \sum_{j=1}^m p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) y_{ij} \ln\left(1-\mu_{sj}^{\kappa}\right)
+\\ =
+& \sum_{s = 1}^r \sum_{j=1}^m \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) y_{ij}\ln \left(\mu_{sj}^{\kappa}\right) +
+\\
+& \sum_{s = 1}^r \sum_{j=1}^m \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) \ln\left(1-\mu_{sj}^{\kappa}\right) -
+\\
+& \sum_{s = 1}^r \sum_{j=1}^m \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) y_{ij} \ln\left(1-\mu_{sj}^{\kappa}\right)
+\end{split}
+\end{align*}
+
+
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+und weiter
+\begin{align*}
+\begin{split}
+g(\kappa)
+=
+& \sum_{s = 1}^r \sum_{j=1}^m \ln \left(\mu_{sj}^{\kappa}\right) \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) y_{ij} +
+\\
+&
+\sum_{s = 1}^r \sum_{j=1}^m \ln\left(1-\mu_{sj}^{\kappa}\right) \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) -
+\\
+&
+\sum_{s = 1}^r \sum_{j=1}^m \ln\left(1-\mu_{sj}^{\kappa}\right) \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) y_{ij}
+\\
+=
+& \sum_{s = 1}^r \sum_{j=1}^m \ln \left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)} +
+  \sum_{s = 1}^r \sum_{j=1}^m \ln\left(1-\mu_{sj}^{\kappa}\right) \nu_s^{(k-1)} -
+  \sum_{s = 1}^r \sum_{j=1}^m \ln\left(1-\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}
+\\
+=
+& \sum_{s = 1}^r\sum_{j=1}^m \left(\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)} + \ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)} - \rho_{js}^{(k-1)}\right)\right)
+\end{split}
+\end{align*}
+mit
+\begin{equation}
+\nu_s^{(k-1)} := \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\mbox{ und }
+\rho_{js}^{(k-1)} := \sum_{i=1}^n y_{ij} p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\end{equation}
+
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Damit folgt durch Umordnen der Summen
+\begin{align*}
+\begin{split}
+g(\kappa)
+& =\sum_{s = 1}^r\sum_{j=1}^m \left(\ln \left(\mu_{sj}^{\kappa}\right) \sum_{i=1}^n y_{ij}p_{\theta^{(k-1)}}(x_i = \xi_s|y_i) +
+                             \ln\left(1-\mu_{sj}^{\kappa}\right) \sum_{i=1}^n (1-y_{ij})p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\right)
+\\
+& =
+\sum_{s = 1}^r\sum_{j=1}^m
+\left(
+\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}
++
+\ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)}-\rho_{js}^{(k-1)}\right)
+\right)
+\\
+& =
+\sum_{j = 1}^m\sum_{s=1}^r
+\left(
+\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}
++
+\ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)}-\rho_{js}^{(k-1)}\right)
+\right)
+\end{split}
+\end{align*}
+mit
+\begin{equation}
+\nu_s^{(k-1)}  := \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\mbox{ und }
+\rho_{js}^{(k-1)} := \sum_{i=1}^n y_{ij} p_{\theta^{(k-1)}}(x_i = \xi_s|y_i).
+\end{equation}
+Insbesondere ist $g(\kappa)$ also itemweise separierbar:
+\begin{equation}
+g(\kappa)=\sum_{j=1}^m g_j(\kappa_j)
+\mbox{ mit }
+g_j(\kappa_j)
+:=
+\sum_{s = 1}^r
+\left(
+\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}
++
+\ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)}-\rho_{js}^{(k-1)}\right)
+\right).
+\end{equation}
+
+# Birnbaum-Modell
+
+\footnotesize
+\vspace{2mm}
+\underline{Beweis (fortgeführt)}
+
+\noindent (3) M-Schritt Optimierung von $f(\pi)$
+
+Wir sind auf das restringierte Optimierungsproblem
+\begin{equation}\label{eq:f_opt}
+\max f(\pi) \mbox{ unter der Nebenbedingung } \sum_{s=1}^r \pi_s = 1
+\end{equation}
+für
+\begin{equation}
+f : \Pi^{r} \to \mathbb{R}, \pi \mapsto f(\pi) := \sum_{s = 1}^r \ln(\pi_s) \nu_s^{(k-1)}
+\end{equation}
+geführt, wobei $\Pi^{r}$ den $r$-dimensionalen Wahrscheinlichkeitssimplex
+\begin{equation}
+\Pi^r := \left\lbrace \pi \in \mathbb{R}^{r} \big\vert \pi_s \ge 0 \mbox{ für } s = 1,...,r \mbox{ und } \sum_{s=1}^r \pi_s = 1 \right\rbrace
+\end{equation}
+bezeichnen soll. Wir erinnern zunächst an den Lagrangeansatz.
+
+\tiny
+\underline{Lagrangeansatz zur Optimierung einer multivariaten Funktion unter Nebenbedingungen}
+\vspace{-1mm}
+
+Es sei
+\begin{equation}
+L(x,\lambda) = f(x) + \sum_{i=1}^m \lambda_i g_i(x)
+\end{equation}
+die Lagrangefunktion zur Zielfunktion $f$ und den Nebenbedingungsfunktionen
+$g_i$. Dann gelten an der Stelle eines lokalen Extremums $x^*$, das die
+Nebenbedingungen erfüllt, die folgenden notwendigen Bedingungen:
+\vspace{-1mm}
+
+\begin{itemize}
+\item[(1)] $\nabla_x L(x^*,\lambda^*) = 0 \Leftrightarrow \nabla f(x^*) + \sum_{i=1}^m \lambda_i^* \nabla g_i(x^*) = 0$
+\item[(2)] $\nabla_\lambda L(x^*,\lambda^*) = 0$
+\item[(3)] $g_i(x^*) = 0 \quad \text{für alle } i=1,\dots,m$
+\end{itemize}
+
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Mit
+\begin{equation}
+\sum_{s = 1}^r \pi_s = 1 \Leftrightarrow \sum_{s = 1}^r \pi_s - 1 = 0 \Leftrightarrow: g_1(\pi) =  0
+\end{equation}
+ergibt sich die Lagrangefunktion von \eqref{eq:f_opt} als
+\begin{align}
+\begin{split}
+L(\pi, \lambda)
+= \sum_{s = 1}^r \ln(\pi_s) \nu_s^{(k-1)}  +  \lambda\left(\sum_{s = 1}^r \pi_s - 1\right)
+= \sum_{s = 1}^r \ln(\pi_s) \nu_s^{(k-1)}  +  \lambda\sum_{s = 1}^r \pi_s - \lambda.
+\end{split}
+\end{align}
+Für die $s = 1,...,r$ Komponenten des Gradienten $\nabla_\pi L(\pi,\lambda)$ ergibt sich
+\begin{align}
+\begin{split}
+\frac{\partial}{\partial \pi_s} L(\pi, \lambda)
+& = \frac{\partial}{\partial  \pi_s} \left(\sum_{\tilde{s} = 1}^r \ln(\pi_{\tilde{s}}) \nu_{\tilde{s}}^{(k-1)}  +  \lambda\sum_{\tilde{s} = 1}^r \pi_{\tilde{s}} - \lambda\right) \\
+& =  \frac{\partial}{\partial \pi_s} \sum_{\tilde{s} = 1}^r \ln(\pi_{\tilde{s}}) \nu_{\tilde{s}}^{(k-1)}  +  \lambda \frac{\partial}{\partial \pi_s} \sum_{\tilde{s} = 1}^r \pi_{\tilde{s}}  \\
+& =  \frac{\partial}{\partial \pi_s} \left(\ln(\pi_s) \nu_s^{(k-1)}\right)  +  \lambda \frac{\partial}{\partial \pi_s}  \pi_s  \\
+& =  \frac{\nu_s^{(k-1)}}{\pi_s} +  \lambda \\
+\end{split}
+\end{align}
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Für die eine Komponente des Gradienten $\nabla_{\lambda} L(\pi,\lambda)$ ergibt sich
+\begin{align}
+\begin{split}
+\frac{\partial}{\partial \lambda} L(\pi, \lambda)
+& = \frac{\partial}{\partial  \lambda} \left(\sum_{s = 1}^r \ln(\pi_{s}) \nu_{s}^{(k-1)}  +  \lambda\sum_{s = 1}^r \pi_{s} - \lambda\right) \\
+& = \frac{\partial}{\partial  \lambda}  \sum_{s = 1}^r \ln(\pi_{s}) \nu_{s}^{(k-1)}  +  \frac{\partial}{\partial  \lambda}\lambda\sum_{s = 1}^r \pi_{s} - \frac{\partial}{\partial  \lambda}\lambda  \\
+& = \sum_{s = 1}^r \pi_{s} - 1 \\
+\end{split}
+\end{align}
+Mit der notwendigen Bedingung (1) gilt dann
+\begin{equation}
+\nabla_\pi L(\pi^*,\lambda^*) = 0
+\Leftrightarrow
+\frac{\nu_s^{(k-1)}}{\pi_s^*} + \lambda^* = 0 \mbox{ für } s = 1,...,r
+\Leftrightarrow
+\pi_s^* = - \frac{\nu_s^{(k-1)}}{\lambda^*}  \mbox{ für } s = 1,...,r
+\end{equation}
+Mit der notwendigen Bedingung (2) (sowie auch mit der notwendigen Bedingung (3)) gilt
+\begin{equation}
+L_\lambda(\pi^*, \lambda^*) = 0
+\Leftrightarrow
+\sum_{s = 1}^r \pi_{s}^* - 1 = 0
+\Leftrightarrow \sum_{s = 1}^r \pi_{s}^* = 1.
+\end{equation}
+Einsetzen von (1) in (2) erlaubt dann das Auflösen nach dem Lagrangemultiplikator
+\begin{equation}
+\sum_{s = 1}^r \pi_{s}^* = 1
+\Leftrightarrow
+-\sum_{s = 1}^r \frac{\nu_s^{(k-1)}}{\lambda^*} = 1
+\Leftrightarrow
+-\frac{1}{\lambda^*}\sum_{\tilde{s} = 1}^r \nu_{\tilde{s}}^{(k-1)} = 1
+\Leftrightarrow
+\lambda^* = -\sum_{\tilde{s} = 1}^r \nu_{\tilde{s}}^{(k-1)}
+\end{equation}
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Einsetzen des Ergebnisses für $\lambda^*$ in die Umformulierung von (1) ergibt dann
+\begin{align}
+\begin{split}
+\pi_s^*
+& = \frac{\nu_s^{(k-1)}}{\sum_{\tilde{s} = 1}^r \nu_{\tilde{s}}^{(k-1)}}  \\
+& = \frac{\nu_s^{(k-1)}}{\sum_{\tilde{s}=1}^r\sum_{i=1}^n p_{\theta^{(k-1)}}(x_i  = \xi_{\tilde{s}}|y_i)}  \\
+& = \frac{\nu_s^{(k-1)}}{\sum_{i=1}^n \sum_{\tilde{s}=1}^r p_{\theta^{(k-1)}}(x_i  = \xi_{\tilde{s}}|y_i)}  \\
+& = \frac{\nu_s^{(k-1)}}{\sum_{i=1}^n 1}  \\
+& = \frac{1}{n}\nu_s^{(k-1)}  \\
+\end{split}
+\end{align}
+für $s = 1,...,r$, sodass die Parameterupdategleichung geschrieben werden kann als
+\begin{equation}
+\pi_s^{(k)} := \frac{1}{n}\nu_s^{(k-1)} \mbox{ für } s = 1,...,r.
+\end{equation}
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (4) M-Schritt Optimierung von $g(\kappa)$
+
+Wir sind auf das restringierte Optimierungsproblem
+\begin{equation}\label{eq:g_opt}
+\max g(\kappa) \mbox{ unter den Nebenbedingungen } \kappa_j \in \mathbb{R}_{> 0} \times \mathbb{R} \times [0,1) \mbox{ für } j = 1,...,m
+\end{equation}
+mit
+\begin{equation}
+g(\kappa)
+:= \sum_{j=1}^m g_j(\kappa_j)
+\end{equation}
+und
+\begin{equation}
+g_j(\kappa_j)
+:=
+\sum_{s = 1}^r
+\left(
+\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}   +
+\ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)}- \rho_{js}^{(k-1)}\right)
+\right)
+\end{equation}
+mit
+\begin{equation}
+\nu_s^{(k-1)}  := \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\mbox{ und }
+\rho_{js}^{(k-1)} := \sum_{i=1}^n y_{ij} p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+\end{equation}
+sowie
+\begin{align}
+\begin{split}
+p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+= \frac{\pi_s^{(k-1)} p_{\kappa^{(k-1)}}(y_i|x_i = \xi_s)}{\sum_{\tilde{s} = 1}^r \pi_{\tilde{s}}^{(k-1)} p_{\kappa^{(k-1)}}(y_i|x_i = \xi_{\tilde{s}})} \\
+\end{split}
+\end{align}
+geführt.
+
+# Birnbaum-Modell
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Weil die Itemparameterblöcke $\kappa_1,...,\kappa_m$ disjunkt sind und gilt, dass
+\begin{equation}
+\max_{\kappa} g(\kappa) = \max_{\kappa} \sum_{j=1}^m g_j(\kappa_j) = \sum_{j=1}^m \max_{\kappa_j} g_j(\kappa_j),
+\end{equation}
+kann die Maximierung von $g$ bezüglich $\kappa$ durch die Maximierung der $g_j$ bezüglich $\kappa_j$ für $j = 1,...,m$ durchgeführt werden. Es verbleiben also die $m$ Optimierungsprobleme
+\begin{equation}
+\max g_j(\kappa_j) \mbox{ unter der Nebenbedingung } \kappa_j \in \mathbb{R}_{> 0} \times \mathbb{R} \times [0,1) \mbox{ für } j = 1,...,m
+\end{equation}
+und damit
+\begin{equation}
+\kappa_j^{(k)} := \argmax_{\kappa_j \in \mathbb{R}_{> 0} \times \mathbb{R} \times [0,1)}
+\sum_{s = 1}^r
+\left(
+\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}   +
+\ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)}- \rho_{js}^{(k-1)}\right)
+\right)
+\mbox{ für } j = 1,...,m.
+\end{equation}
+$\hfill\Box$
+
+# Birnbaum-Modell
+
+\vspace{3mm}
+\setstretch{1}
+\footnotesize
+\setbeamerfont{block title}{size=\small}
+\begin{definition}[Verteilungsform des Birnbaum-Modells nach Bock-Aitkin (1981)]
+Für $i = 1,...,n$ Personen, $j = 1,...,m$ dichotome Items, und $s = 1,...,r$ diskrete Fähigkeitswerte seien
+\begin{itemize}
+\item $x_i$ die Zufallsvariable zur Modellierung der Eigenschaft von Person $i$ mit Wertebereich $\{\xi_1,...,\xi_r\}\subset\mathbb{R}$,
+\item $x := (x_1,...,x_n)$ der Zufallsvektor der $x_i$,
+\item $y_{ij}$ die Zufallsvariable zur Modellierung der $j$ten Itemantwort von Person $i$ mit Wertebereich $\{0,1\}$,
+\item $y_i := (y_{i1}, ...,y_{im})^T$ der Zufallsvektor der Itemantworten von Person $i$,
+\item $y := (y_1,...,y_n)$ die Zufallsmatrix der $y_i$,
+\item $\kappa := (a_j,b_j,c_j)_{j = 1,...,m}$ die Itemparameter des Birnbaum-Modells mit $a_j > 0$, $b_j\in\mathbb{R}$ und $0\le c_j < 1$,
+\item $\theta := \kappa$ der Gesamtparameter.
+\end{itemize}
+Dann ist die \textit{Verteilungsform des Birnbaum-Modells nach Bock-Aitkin (1981)} gegeben durch
+\begin{equation}
+p_\theta(x,y)
+:= \prod_{i=1}^n p_\theta(x_i, y_i)
+:= \prod_{i=1}^n p(x_i)p_\kappa(y_i|x_i)
+:= \prod_{i=1}^n p(x_i) \prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i)
+\end{equation}
+mit der \textit{Personeneigenschaftsverteilung}
+\begin{equation}
+p(x_i) = \prod_{s=1}^r \pi_s^{\ib{x_i = \xi_s}}
+\end{equation}
+und der \textit{Item-Response-Verteilung}
+\begin{equation}
+p_{\kappa_j}(y_{ij}|x_i)
+:= \mbox{Bern}\left(\mu_{ij}^\kappa \right) \mbox{ mit }
+\mu_{ij}^\kappa := c_j + (1-c_j)\frac{1}{1+\exp\left(-a_j(x_i-b_j)\right)}.
+\end{equation}
+\end{definition}
+\setbeamerfont{block title}{size=\normalsize}
+
+# Birnbaum-Modell
+\footnotesize
+Bemerkungen
+
+* Formal ist das Birnbaum-Modell nach @bock1981 zu @woodruff1996 im Wesentlichen äquivalent.
+* Die Modelle unterscheiden sich hinsichtlich Motivation und Interpretation der Personeneigenschaftsverteilung.
+* @bock1981 gehen von einer kontinuierlichen Verteilung $p(x_i) := N(0,1)$ aus.
+* Allerdings approximieren @bock1981 diese durch eine diskrete Verteilung mit $r$ Stützstellen.
+* Speziell approximieren @bock1981 die Marginalverteilung
+\begin{equation}
+p(y_i) = \int_{x_i} p(x_i)p_\kappa(y_i|x_i)\, dx_i,
+\end{equation}
+die zur Berechnung von $p_{\theta^{(k-1)}}(x_i|y_i)$ im E-Schritt benötigt wird, durch *Gauss-Hermite-Quadratur*
+* Dazu wählen @bock1981 $r$ Stützstellen $\xi_1,...,\xi_r$ und Gewichte $\pi_1,...,\pi_r$ so, dass
+\begin{equation}
+\int_{x_i} p(x_i)p_\kappa(y_i|x_i)\, dx_i \approx \sum_{s=1}^r \pi_s p_\kappa(y_i|x_i = \xi_s).
+\end{equation}
+* Die Stützstellen $\xi_1,...,\xi_r$ und Gewichte $\pi_1,...,\pi_r$ entnimmt man etwa @abramowitz1964.
+* De facto approximieren @bock1981 damit die kontinuierliche Verteilung $p(x_i)$ durch
+\begin{equation}
+p(x_i) \approx \prod_{s=1}^r \pi_s^{\ib{x_i = \xi_s}} \mbox{ mit } \sum_{s=1}^r \pi_s = 1.
+\end{equation}
+* Im Unterschied zu @woodruff1996 ist die Personeneigenschaftsverteilung hier also nicht parameterisiert
+* $\Rightarrow$ Die Werte der $\pi_s$ sind bei @bock1981 vorgegeben und werden nicht geschätzt.
+
+
+# Birnbaum-Modell
+
+\vspace{3mm}
+\footnotesize
+\begin{theorem}[Birnbaum-Modell-EM-Algorithmus nach Bock-Aitkin (1981)]
+\justifying
+\normalfont
+Gegeben sei die Verteilungsform des Birnbaum-Modells nach Bock-Aitkin (1981). Dann
+hat der EM-Algorithmus zur Schätzung der Itemparameter $\kappa$ die Form:
+\vspace{1mm}
+
+0. Initialisierung von  $\theta^{(0)} = \kappa^{(0)}$
+\vspace{1mm}
+
+Für $k = 1,2,...$
+
+\begin{itemize}
+\item[1.] E-Schritt: Setze $q^{(k)}(x) := p_{\theta^{(k-1)}}(x|y)$
+mit
+\begin{equation}
+p_{\theta^{(k-1)}}(x|y)
+= \prod_{i=1}^n p_{\theta^{(k-1)}}(x_i|y_i)
+\end{equation}
+und
+\begin{equation}
+p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)
+= \frac{\pi_s p_{\kappa^{(k-1)}}(y_i|x_i = \xi_s)}
+{\sum_{\tilde{s} = 1}^r \pi_{\tilde{s}} p_{\kappa^{(k-1)}}(y_i|x_i = \xi_{\tilde{s}})}
+\end{equation}
+für alle $i = 1,...,n$ und $s = 1,...,r$.
+
+\item[2.] M-Schritt: Es seien
+$\nu_s^{(k-1)}  := \sum_{i=1}^n p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)$
+und
+$\rho_{js}^{(k-1)} := \sum_{i=1}^n y_{ij} p_{\theta^{(k-1)}}(x_i = \xi_s|y_i)$.
+
+Dann gilt für $\theta^{(k)} = \kappa^{(k)}$, dass mit
+\begin{equation}
+\mu_{sj}^{\kappa} := c_j + (1-c_j)\frac{1}{1+\exp\left(-a_j(\xi_s-b_j)\right)}
+\end{equation}
+\begin{equation}
+\kappa_j^{(k)}
+= \argmax_{\kappa_j \in \mathbb{R}_{>0}\times\mathbb{R}\times[0,1)}
+\sum_{s = 1}^r
+\left(
+\ln\left(\mu_{sj}^{\kappa}\right) \rho_{js}^{(k-1)}  +
+\ln\left(1-\mu_{sj}^{\kappa}\right)\left(\nu_s^{(k-1)} - \rho_{js}^{(k-1)}\right)
+\right)
+\end{equation}
+für $j = 1,...,m$.
+\end{itemize}
+\end{theorem}
+
+# Birnbaum-Modell
+\footnotesize
+\setbeamerfont{block title}{size=\small}
+\begin{theorem}[Log-Marginal-Likelihood-Funktion im Bock-Aitkin-EM-Algorithmus]
+\justifying
+\normalfont
+Gegeben sei die Verteilungsform des Birnbaum-Modells nach Bock-Aitkin (1981)
+mit festen Gauss-Hermite-Stützstellen $\xi_1,...,\xi_r$ und Gewichten
+$\pi_1,...,\pi_r$. Dann ist die durch Quadratur approximierte
+\textit{Log-Marginal-Likelihood-Funktion} gegeben durch
+\begin{equation}
+\ell(\kappa)
+:= \ln p_\kappa(y)
+= \sum_{i=1}^n
+\ln\left(
+\sum_{s=1}^r
+\pi_s \prod_{j=1}^m
+\left(\mu_{sj}^{\kappa}\right)^{y_{ij}}
+\left(1-\mu_{sj}^{\kappa}\right)^{1-y_{ij}}
+\right).
+\end{equation}
+Dabei ist
+\begin{equation}
+\mu_{sj}^{\kappa} := c_j + (1-c_j)\frac{1}{1+\exp\left(-a_j(\xi_s-b_j)\right)}.
+\end{equation}
+Für die EM-Iteranden $\kappa^{(0)},\kappa^{(1)},...$ werden also die Werte
+$\ell\left(\kappa^{(0)}\right),\ell\left(\kappa^{(1)}\right),...$ betrachtet.
+\end{theorem}
+\setbeamerfont{block title}{size=\normalsize}
+
+
+# Birnbaum-Modell
+\footnotesize
+\underline{Beweis}
+
+Mit der Unabhängigkeitsannahme über Personen gilt
+\begin{equation}
+p_\kappa(y)
+= \prod_{i=1}^n p_\kappa(y_i).
+\end{equation}
+Für eine einzelne Person ergibt die Marginalisierung über die diskreten
+Quadraturstützstellen
+\begin{align*}
+p_\kappa(y_i)
+&= \sum_{s=1}^r p(x_i=\xi_s)p_\kappa(y_i|x_i=\xi_s) \\
+&= \sum_{s=1}^r \pi_s \prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i=\xi_s) \\
+&= \sum_{s=1}^r \pi_s \prod_{j=1}^m
+\left(\mu_{sj}^{\kappa}\right)^{y_{ij}}
+\left(1-\mu_{sj}^{\kappa}\right)^{1-y_{ij}}.
+\end{align*}
+Einsetzen in $p_\kappa(y)=\prod_{i=1}^n p_\kappa(y_i)$ und anschließendes
+Logarithmieren liefert $\ell(\kappa)$. $\hfill\Box$
+
+
+# Birnbaum-Modell
+\vspace{2mm}
+\tiny
+```{r, echo = TRUE}
+# 3PL Modell Bernoulli-Erwartungswertparameter
+mu = function(x,kappa){
+  a   = kappa[1]                                                            # Diskriminationsparameter
+  b   = kappa[2]                                                            # Schwierigkeitsparameter
+  c   = kappa[3]                                                            # Rateparameter
+  mu  = c + (1-c)*plogis(a*(x-b))                                           # Erwartungswertparameter
+}
+
+# g_j Funktionen
+g_j = function(kappa_j, rho_js, nu_s){
+  mu_s  = mu(xi, kappa_j)                                                   # Berechnung der Erwartungswertparameter
+  g_j   = sum(log(mu_s)*rho_js + log(1-mu_s)*(nu_s - rho_js))               # Berechnung von g_j(\kappa_j)
+}
+
+# Log-Marginal-Likelihood-Funktion
+ell = function(kappa, y, xi, pi){
+  n     = nrow(y)                                                           # Personenanzahl
+  r     = length(xi)                                                        # Anzahl der Stützstellen
+  p_y_i = rep(0, n)                                                         # Marginale Likelihood-Beiträge
+  for(i in 1:n){                                                            # Personeniterationen
+    for(s in 1:r){                                                          # Stützstelleniterationen
+      mu_s     = apply(kappa, 1, function(kappa_j) mu(xi[s], kappa_j))      # Erwartungswertparameter bei \xi_s
+      p_y_i[i] = p_y_i[i] + pi[s]*prod(mu_s^y[i,])*prod((1-mu_s)^(1-y[i,])) # Marginaler Likelihood-Beitrag bei i
+    }
+  }
+  ell = sum(log(p_y_i))                                                     # Log-Marginal-Likelihood
+}
+```
+
+# Birnbaum-Modell
+\tiny
+```{r, echo = TRUE, eval = FALSE}
+# Einlesen der Daten
+library(statmod)
+y         = read.csv("./2-Daten/2-irt.csv")                 # Dateneinlesen
+n         = nrow(y)                                         # Personenanzahl
+m         = ncol(y)                                         # Itemanzahl
+
+# Bock-Aitkin-EM-Algorithmus
+k_max     = 8                                               # Maximale Anzahl an Iterationen
+r         = 10                                              # Anzahl der Stützstellen
+gh        = gauss.quad.prob(n = r, dist = "normal")         # Gauss-Hermite-Quadratur-Stützstellen und -Gewichte
+xi        = gh$nodes                                        # Stützstellen
+pi        = gh$weights                                      # Quadraturgewichte
+kappa     = array(NA, dim = c(m, 3, k_max+1))               # Speicher für die Itemparameter
+p_xgy     = array(NA, dim = c(n, r, k_max))                 # Speicher für p(x_i = xi_s | y_i)
+nu        = matrix(NA, nrow = r, ncol = k_max)              # Speicher für die nu_s
+rho       = array(NA, dim = c(m, r, k_max))                 # Speicher für die rho_{js}
+ell_k     = rep(NA, k_max+1)                                # Speicher für die Log-Marginal-Likelihood
+opt       = list(method  = "L-BFGS-B",                      # Optimierungsalgorithmus
+                 lower   = c(0.01, -Inf, 0),                # Untergrenzen für die Itemparameter
+                 upper   = c(Inf, Inf, 0.99),               # Obergrenzen für die Itemparameter
+                 control = list(fnscale = -1))              # Maximierungsoption
+```
+
+# Birnbaum-Modell
+\tiny
+
+
+```{r, echo = TRUE, eval = FALSE}
+# Initialisierung
+kappa[,,1] = matrix(c(.1,.1,.1), nrow = m, ncol = 3, byrow = TRUE)    # Initialisierung der Itemparameter
+ell_k[1]   = ell(kappa[,,1], y, xi, pi)                               # Log-Marginal-Likelihood des Startwertes
+
+# Iterationen
+for(k in 1:k_max){                                                    # EM-Iterationen
+
+  # E-Schritt
+  # ------------------------------------------------------------------
+  for(i in 1:n){                                                      # Personeniterationen
+    for(s in 1:r){                                                    # Stützstelleniterationen
+      mu_s = apply(kappa[,,k],1,function(kappa_j) mu(xi[s], kappa_j)) # Erwartungswertparameter an Stützstelle s
+      p_xgy[i,s,k] = pi[s]*prod(mu_s^y[i,])*prod((1-mu_s)^(1-y[i,]))  # Unnormiertes Posteriorgewicht
+    }
+    p_xgy[i,,k] = p_xgy[i,,k]/sum(p_xgy[i,,k])                        # Normierung von p(x_i | y_i)
+  }
+```
+
+# Birnbaum-Modell
+\vspace{2mm}
+\tiny
+\setstretch{1.2}
+```{r, echo = TRUE, eval = FALSE}
+  # M-Schritt
+  # ------------------------------------------------------------------
+  # Berechnung von nu_s und rho_{js}
+  for(s in 1:r){                                                      # Stützstelleniterationen
+    nu[s,k] = sum(p_xgy[,s,k])                                        # Berechnung von nu_s
+    for(j in 1:m){                                                    # Itemiterationen
+      rho[j,s,k] = sum(y[,j]*p_xgy[,s,k])                             # Berechnung von rho_{js}
+    }
+  }
+
+  # Optimierung von g_j(\kappa_j) bezüglich \kappa_j
+  for(j in 1:m){                                                      # Itemiterationen
+    kappa[j,,k+1] = optim(                                            # Optimierung der Itemparameter
+      par       = kappa[j,,k],                                        # Startwerte für die Optimierung
+      fn        = g_j,                                                # Zielfunktion
+      rho_js    = rho[j,,k],                                          # Übergabe der rho_{js} an die Zielfunktion
+      nu_s      = nu[,k],                                             # Übergabe der nu_s an die Zielfunktion
+      method    = opt$method,                                         # Optimierungsalgorithmus
+      lower     = opt$lower,                                          # Untergrenzen für die Itemparameter
+      upper     = opt$upper,                                          # Obergrenzen für die Itemparameter
+      control   = opt$control                                         # Optimierungsoptionen
+    )$par                                                             # Rückgabe der optimierten Itemparameter
+  }
+  ell_k[k+1] = ell(kappa[,,k+1], y, xi, pi)                           # Log-Marginal-Likelihood
+}
+# Speicherung der Ergebnisse
+kappa_hat = kappa[,,k+1]                                              # Speichern der geschätzten Itemparameter
+p_xgy_hat = p_xgy[,,k]                                                # Speichern der geschätzten Posteriorgewichte
+ell_hat   = ell_k[k+1]                                                # Speichern der Log-Marginal-Likelihood
+```
+
+
+
+# Birnbaum-Modell
+
+\tiny
+```{r, echo = FALSE, eval = FALSE}
+# Einlesen der Daten
+library(statmod)
+y         = read.csv("./2-Daten/2-irt.csv")                           # Dateneinlesen
+n         = nrow(y)                                                   # Personenanzahl
+m         = ncol(y)                                                   # Itemanzahl
+
+# Bock-Aitkin-EM-Algorithmus
+k_max     = 8                                                         # Maximale Anzahl an Iterationen
+r         = 10                                                        # Anzahl der Stützstellen für die Gauss-Hermite-Quadratur
+gh        = gauss.quad.prob(n = r, dist = "normal")                   # Gauss-Hermite-Quadratur-Stützstellen und -Gewichte
+xi        = gh$nodes                                                  # Stützstellen
+pi        = gh$weights                                                # Quadraturgewichte
+kappa     = array(NA, dim = c(m, 3, k_max+1))                         # Speicher für die Itemparameter
+p_xgy     = array(NA, dim = c(n, r, k_max))                           # Speicher für p(x_i = xi_s | y_i)
+nu        = matrix(NA, nrow = r, ncol = k_max)                        # Speicher für die nu_s
+rho       = array(NA, dim = c(m, r, k_max))                           # Speicher für die rho_{js}
+ell_k     = rep(NA, k_max+1)                                          # Speicher für die Log-Marginal-Likelihood
+opt       = list(method  = "L-BFGS-B",                                # Optimierungsalgorithmus
+                 lower   = c(0.01, -Inf, 0),                          # Untergrenzen für die Itemparameter
+                 upper   = c(Inf, Inf, 0.99),                         # Obergrenzen für die Itemparameter
+                 control = list(fnscale = -1))                        # Maximierungsoption
+
+# Initialisierung
+# ------------------------------------------------------------------
+kappa[,,1] = matrix(c(.1,.1,.1), nrow = m, ncol = 3, byrow = TRUE)    # Initialisierung der Itemparameter
+ell_k[1]   = ell(kappa[,,1], y, xi, pi)                               # Log-Marginal-Likelihood des Startwertes
+
+# Iterationen
+# ------------------------------------------------------------------
+for(k in 1:k_max){                                                    # EM-Iterationen
+
+  # E-Schritt
+  # ------------------------------------------------------------------
+  for(i in 1:n){                                                      # Personeniterationen
+    for(s in 1:r){                                                    # Stützstelleniterationen
+      mu_s = apply(kappa[,,k],1,function(kappa_j) mu(xi[s], kappa_j)) # Erwartungswertparameter an Stützstelle s
+      p_xgy[i,s,k] = pi[s]*prod(mu_s^y[i,])*prod((1-mu_s)^(1-y[i,]))  # Unnormiertes Posteriorgewicht
+    }
+    p_xgy[i,,k] = p_xgy[i,,k]/sum(p_xgy[i,,k])                        # Normierung von p(x_i | y_i)
+  }
+
+  # M-Schritt
+  # ------------------------------------------------------------------
+  # Berechnung von nu_s und rho_{js}
+  for(s in 1:r){                                                      # Stützstelleniterationen
+    nu[s,k] = sum(p_xgy[,s,k])                                        # Berechnung von nu_s
+    for(j in 1:m){                                                    # Itemiterationen
+      rho[j,s,k] = sum(y[,j]*p_xgy[,s,k])                             # Berechnung von rho_{js}
+    }
+  }
+
+  # Optimierung von g_j(\kappa_j) bezüglich \kappa_j
+  for(j in 1:m){                                                      # Itemiterationen
+    kappa[j,,k+1] = optim(                                            # Optimierung der Itemparameter
+      par       = kappa[j,,k],                                        # Startwerte für die Optimierung
+      fn        = g_j,                                                # Zielfunktion
+      rho_js    = rho[j,,k],                                          # Übergabe der rho_{js} an die Zielfunktion
+      nu_s      = nu[,k],                                             # Übergabe der nu_s an die Zielfunktion
+      method    = opt$method,                                         # Optimierungsalgorithmus
+      lower     = opt$lower,                                          # Untergrenzen für die Itemparameter
+      upper     = opt$upper,                                          # Obergrenzen für die Itemparameter
+      control   = opt$control                                         # Optimierungsoptionen
+    )$par                                                             # Rückgabe der optimierten Itemparameter
+  }
+  ell_k[k+1] = ell(kappa[,,k+1], y, xi, pi)                           # Log-Marginal-Likelihood
+}
+# Speicherung der Ergebnisse
+kappa_hat = kappa[,,k+1]                                              # Speichern der geschätzten Itemparameter
+p_xgy_hat = p_xgy[,,k]                                                # Speichern der geschätzten Posteriorgewichte
+ell_hat   = ell_k[k+1]                                                # Speichern der Log-Marginal-Likelihood des
+```
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
+# Parameter
+library(latex2exp)
+cols = gray.colors(3)
+add_y_label = function(label, line = 3.2){
+  mtext(label, side = 2, line = line, las = 1, cex = par("cex.lab"))
+}
+plot_kappa = function(x, y, main, alabs){
+  r     = cor(x, y)
+  lim   = range(c(x, y), finite = TRUE)
+  pad   = diff(lim)*0.08
+  if(pad == 0){ pad = 0.1 }
+  lim   = lim + c(-pad, pad)
+  plot(
+  x,
+  y,
+  type      = "p",
+  pch       = 16,
+  col       = cols[2],
+  xlab      = alabs[1],
+  ylab      = "",
+  xlim      = lim,
+  ylim      = lim,
+  main      = sprintf("%s, r = %.2f", main, r))
+  add_y_label(alabs[2])
+  abline(0, 1, lwd = 1.5, lty = 2, col = cols[1])
+}
+# Visualisierung Log-Marginal-Likelihood
+pdf(
+file      = "2-Abbildungen/psd-2-bock-aitkin-em-loglik.pdf",
+width     = 5,
+height    = 4)
+par(
+family    = "sans",
+pty       = "m",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 0.85,
+mar       = c(3.2,4.8,1.2,0.8))
+plot(
+0:k_max,
+ell_k,
+type      = "b",
+pch       = 16,
+lwd       = 2,
+col       = cols[2],
+ylab      = "",
+xlab      = "Iteration",
+main      = "",
+xaxt      = "n")
+axis(1, at = 0:k_max)
+dev.off()
+
+# Visualisierung Itemparameter
+pdf(
+file      = "2-Abbildungen/psd-2-bock-aitkin-em-itemparameter.pdf",
+width     = 9,
+height    = 3)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mfcol     = c(1,3),
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 0.85,
+mar       = c(3.2,4.8,1.2,0.8))
+plot_kappa(kappa_tbu[1,], kappa_hat[,1], "Diskrimination", c(TeX("$a_j$"), TeX("$\\hat{a}_j$")))
+plot_kappa(kappa_tbu[2,], kappa_hat[,2], "Schwierigkeit", c(TeX("$b_j$"), TeX("$\\hat{b}_j$")))
+plot_kappa(kappa_tbu[3,], kappa_hat[,3], "Raten", c(TeX("$c_j$"), TeX("$\\hat{c}_j$")))
+dev.off()
+
+# Visualisierung Personeneigenschaften
+pdf(
+file      = "2-Abbildungen/psd-2-bock-aitkin-em-personenparameter.pdf",
+width     = 3.5,
+height    = 3.5)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 2,
+las       = 1,
+mfcol     = c(1,1),
+mgp       = c(2,1,0),
+font.main = 1,
+cex.main  = 1,
+cex       = 0.85,
+mar       = c(3.2,4.8,1.2,0.8))
+X_map = xi[max.col(p_xgy_hat, ties.method = "first")]
+plot_kappa(X_tbu[,1], X_map, "Personeneigenschaften",  c(TeX("$x_i$"), TeX("$\\hat{x}_i$")))
+dev.off()
+```
+
+# Birnbaum-Modell
+\vspace{2mm}
+\flushleft
+Evolution der Log-Marginal-Likelihood
+
+\centering
+\vspace{2mm}
+```{r, echo = FALSE, out.width = "60%"}
+knitr::include_graphics("2-Abbildungen/psd-2-bock-aitkin-em-loglik.pdf")
+```
+
+# Birnbaum-Modell
+\vspace{2mm}
+\flushleft
+Itemparameter-Recovery
+
+\centering
+\vspace{2mm}
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("2-Abbildungen/psd-2-bock-aitkin-em-itemparameter.pdf")
+```
+
+# Birnbaum-Modell
+\vspace{2mm}
+\flushleft
+Personeneigenschaften-Recovery
+
+\centering
+\vspace{2mm}
+```{r, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("2-Abbildungen/psd-2-bock-aitkin-em-personenparameter.pdf")
+```
+
+
+#
+\vfill
+\setstretch{3}
+\large
+Grundlagen
+
+Birnbaum-Modell
+
+**Rasch-Modell**
+
+Selbstkontrollfragen
+\vfill
+
+
+# Rasch-Modell
+\vspace{2mm}
+Überblick
+\footnotesize
+\vspace{-1mm}
+
+Geschichte
+\vspace{-1mm}
+
+* Entwickelt in den 1950er Jahren in der dänischen Bildungsforschung durch Georg Rasch (1901-1980)
+* Für Anwender:innen popularisiert durch z.B. @wright1969 und @wright1977
+
+Grundlegende Motivationsrhetorik
+\vspace{-1mm}
+
+* "In the present work a new approach to test-psychology is attempted" (@rasch1960)
+* "Spezifisch objektive" Messung psychologischer Eigenschaften von Einzelpersonen
+* Verzicht auf Schätzung von "Populationsparametern" im Sinne der klassischen Testtheorie
+
+Rhetorische messtheoretische Anbindung an physikalische Messungen
+\vspace{-1mm}
+
+* Vergleiche von Objekteigenschaften (Masse, Temperatur) sollten unabhängig von Messinstrumenten sein
+* Vergleiche von Messinstrumenten (Maßband, Thermometer) sollten unabhängig von Objekten sein
+
+Invariante Vergleichseigenschaften bei psychologischen Messungen
+\vspace{-1mm}
+
+* Personenvergleiche sollten unabhängig von den verwendeten Items sein.
+* Itemvergleiche sollten unabhängig von den verwendeten Personen sein.
+\vspace{-1mm}
+
+Aus dem Vorwort von B.D. Wright in @rasch1960: "The psychometric research done
+by Rasch between 1951 and 1959, which he explains and illustrates in this book,
+marks the point at which psychometrics moved from being purely descriptive to
+become a science of objective measurement."
+
+
+# Rasch-Modell
+\vspace{2mm}
+Überblick
+\setstretch{1.3}
+
+\footnotesize
+Zum Begriff der spezifischen Objektivität des Rasch-Modells
+\vspace{-1mm}
+
+* Rasch bezeichnete die invarianten Vergleichseigenschaften seines Modells als "Spezifische Objektivität"
+* Rhetorisches Ziel war die Abgrenzung sowohl von naiver Messobjektivität als auch von klassischen Testtheorien
+* Grundidee der spezifischen Objektivität sind obige invariante Vergleichseigenschaften
+* Dies gilt allerdings für das Modell, nicht notwendigerweise für die Realität
+
+Die Objektivität ist hier "spezifisch" in Bezug
+
+... auf die betrachteten Vergleiche
+\vspace{-1mm}
+
+* Objektivität gilt immer für einzelne konkrete Vergleiche, wie Person 1 vs. Person 2 und Item 1 vs. Item 2
+
+\vspace{-1mm}
+... auf das Modell, d. h., sie gilt nur, wenn
+\vspace{-1mm}
+
+* das Rasch-Modell korrekt spezifiziert ist und die Annahmen des Modells erfüllt sind
+
+\vspace{-1mm}
+... auf die Datenbasis
+\vspace{-1mm}
+
+* Personenparameter sind objektiv bei gegebenen Items, Itemparameter sind objektiv bei gegebenen Personen
+
+"Messung" als Konstruktion von Bedingungen, unter denen Vergleiche sinnvoll und invariant sind.
+
+Das Rasch-Modell hat Bezüge zur additiv-konjunktiven Messung der Repräsentationstheorie (@luce1964)
+
+Das Rasch-Modell ist mit der additiv-konjunktiven Messung aber nicht identisch, vgl. @kyngdon2008
+
+
+# Rasch-Modell
+\vspace{2mm}
+\footnotesize
+\begin{definition}[Rasch-Modell]
+\justifying
+\normalfont
+Für $i = 1,...,n$ Personen und $j = 1,...,m$ dichotome Items seien
+\begin{itemize}
+\item $\xi_i > 0$ die \textit{Personeneigenschaft} von Person $i$,
+\item $\beta_j > 0$ der \textit{Schwierigkeitsparameter} von Item $j$,
+\item $\lambda_{ij} := \frac{\xi_i}{\beta_j}$ der \textit{Situationsparameter} von Person $i$ und Item $j$
+\item $\lambda_i := (\lambda_{ij})_{j = 1,...,m}$ der \textit{Situationsparametervektor} von Person $i$,
+\item $y_{ij}$ die Zufallsvariable zur Modellierung der $j$ten Itemantwort von Person $i$ mit Wertebereich $\{0,1\}$,
+\item $y_i := \left(y_{i1},...,y_{im}\right)^T$ der Zufallsvektor der Itemantworten von Person $i$,
+\end{itemize}
+Dann heißt die Item-Response-Verteilung
+\begin{equation}
+p_{\lambda_i}(y_{i}) := \prod_{j=1}^m p_{\lambda_{ij}}(y_{ij})
+\mbox{ mit }
+p_{\lambda_{ij}}(y_{ij}) := \left(\frac{\lambda_{ij}}{1 + \lambda_{ij}}\right)^{y_{ij}}\left(\frac{1}{1 + \lambda_{ij}}\right)^{1 - y_{ij}}
+\end{equation}
+\textit{Rasch-Modell}.
+\end{definition}
+\vspace{-1mm}
+Bemerkungen
+\vspace{-1mm}
+
+* Im Gegensatz zum (zeitgenössischen) Birnbaum-Modell sind die Personeneigenschaften keine Zufallsvariablen
+* Notationell schreiben wir $p(y|\theta)$, wenn $\theta$ zufällig ist, und $p_\theta(y)$, wenn es dies nicht ist
+* $\prod_{j=1}^m p_{\lambda_{ij}}(y_{ij})$ modelliert die personeneigenschaftsbedingte Unabhängigkeit der Itemantworten
+
+# Rasch-Modell
+\footnotesize
+
+Bemerkungen (fortgeführt)
+
+
+* Offenbar gelten für alle $i = 1,...,n$ und $j = 1,...,m$
+\begin{equation}
+p_{\lambda_{ij}}(y_{ij} = 1) = \frac{\lambda_{ij}}{1 + \lambda_{ij}}
+\end{equation}
+sowie
+\begin{equation}
+p_{\lambda_{ij}}(y_{ij} = 0)
+= \frac{1}{1 + \lambda_{ij}}
+= \frac{1 + \lambda_{ij}}{1 + \lambda_{ij}} - \frac{\lambda_{ij}}{1 + \lambda_{ij}}
+= 1 - \frac{\lambda_{ij}}{1 + \lambda_{ij}}
+\end{equation}
+
+Invariante Vergleichseigenschaften auf Parameterebene
+
+* Der Vergleich der Personeneigenschaft zweier Personen $i = 1,2$ ist unabhängig von dem betrachteten Item $j$:
+* Für jedes Item $j = 1,...,m$ gilt
+\begin{equation}
+\frac{\lambda_{1j}}{\lambda_{2j}}
+= \frac{\frac{\xi_1}{\beta_j}}{\frac{\xi_2}{\beta_j}}
+= \frac{\xi_1}{\beta_j} \cdot \frac{\beta_j}{\xi_2}
+= \frac{\xi_1}{\xi_2}
+\end{equation}
+
+* Der Vergleich der Itemschwierigkeiten zweier Items $j = 1,2$ ist unabhängig von der betrachteten Person $i$:
+* Für jede Person $i = 1,...,n$ gilt
+\begin{equation}
+\frac{\lambda_{i1}}{\lambda_{i2}}
+= \frac{\frac{\xi_i}{\beta_1}}{\frac{\xi_i}{\beta_2}}
+= \frac{\xi_i}{\beta_1} \cdot \frac{\beta_2}{\xi_i}
+= \frac{\beta_2}{\beta_1}
+\end{equation}
+
+
+# Rasch-Modell
+\footnotesize
+\begin{theorem}[Rasch-Modell und 1PL-Birnbaum-Modell]
+\justifying
+\normalfont
+Gegeben sei das Rasch-Modell. Seien ferner
+\begin{equation}
+x_i := \ln (\xi_i) \mbox{ und } b_j := \ln (\beta_j)
+\end{equation}
+und $x_i$ als Zufallsvariable konzipiert. Dann sind die Item-Response-Verteilungen
+des Rasch-Modells und des 1PL-Birnbaum-Modells identisch, es gilt also
+\begin{equation}
+p_{\lambda_i}(y_{i}) = p_\kappa(y_{i}|x_i).
+\end{equation}
+\end{theorem}
+Bemerkungen
+
+* Im zeitgenössischen Birnbaum-Modell sind die Personeneigenschaften Zufallsvariablen, im Rasch-Modell nicht.
+* Für eine Person $i$ und ein Item $j$ gelten nach dem Rasch-Modell also wie nach dem 1PL-Birnbaum-Modell
+\begin{equation}
+p_{x_i,b_j}\left(y_{ij} = 1\right) = \frac{1}{1+\exp(-(x_i-b_j))}
+\mbox{ und }
+p_{x_i,b_j}\left(y_{ij} = 0\right) = 1 - \frac{1}{1+\exp(-(x_i-b_j))}
+\end{equation}
+
+# Rasch-Modell
+\footnotesize
+\underline{Beweis}
+
+Wir zeigen die Äquivalenz für $y_{ij} = 1$, der Fall $y_{ij} = 0$ folgt analog:
+\begin{align}
+\begin{split}
+p_{\lambda_{ij}}(y_{ij} = 1)
+& = \frac{\lambda_{ij}}{1 + \lambda_{ij}}                                   \\
+& = \frac{\frac{\xi_i}{\beta_j}}{1 + \frac{\xi_i}{\beta_j}}                 \\
+& = \frac{\frac{\exp(\ln (\xi_i))}{\exp(\ln (\beta_j))}}{1 + \frac{\exp(\ln (\xi_i))}{\exp(\ln (\beta_j))}} \\
+& = \frac{\exp(\ln (\xi_i) -\ln (\beta_j))}{1 + \exp(\ln (\xi_i) -\ln (\beta_j))}   \\
+& = \frac{\exp(x_i-b_j)}{1 + \exp(x_i-b_j)}                                 \\
+& = \frac{1}{1+\exp(-(x_i-b_j))}                                            \\
+& = p_{\kappa_j}(y_{ij} = 1|x_i) \mbox{ mit } \kappa_j = (1, b_j, 0)                \\
+\end{split}
+\end{align}
+Im letzten Schritt haben wir die Personeneigenschaft dabei als Zufallsvariable
+konzipiert. Die lokale Unkorreliertheit von Birnbaum- und Rasch-Modell impliziert dann die
+im Theorem behauptete Äquivalenz.
+
+
+# Rasch-Modell
+\footnotesize
+\vspace{1mm}
+\setstretch{1.2}
+
+Bemerkungen (fortgeführt)
+\vspace{-1mm}
+
+* Für eine Person $i$ und ein Item $j$ gilt nach dem Rasch-Modell also wie nach dem 1PL-Birnbaum-Modell
+\begin{equation}
+p_{x_i,b_j}\left(y_{ij} = 1\right)
+= \frac{\exp(x_i-b_j)}{1 + \exp(x_i-b_j)}
+= \frac{\exp(1 \cdot (x_i-b_j))}{1 + \exp(x_i-b_j)}
+= \frac{\exp(y_{ij}(x_i-b_j))}{1 + \exp(x_i-b_j)}
+\end{equation}
+sowie
+\begin{align}
+\begin{split}
+p_{x_i,b_j}\left(y_{ij} = 0\right)
+& = 1 - \frac{\exp(x_i-b_j)}{1 + \exp(x_i-b_j)}                                             \\
+& = \frac{1 + \exp(x_i-b_j)}{1 + \exp(x_i-b_j)} -  \frac{\exp(x_i-b_j)}{1 + \exp(x_i-b_j)}  \\
+& = \frac{1}{1 + \exp(x_i-b_j)}                                                             \\
+& = \frac{\exp(0)}{1 + \exp(x_i-b_j)}                                                       \\
+& = \frac{\exp(0 \cdot (x_i-b_j))}{1 + \exp(x_i-b_j)}                                       \\
+& = \frac{\exp(y_{ij}(x_i-b_j))}{1 + \exp(x_i-b_j)}
+\end{split}
+\end{align}
+* Man schreibt deshalb
+\begin{equation}
+p_{x_i,b_j}\left(y_{ij}\right) = \frac{\exp(y_{ij}(x_i-b_j))}{1 + \exp(x_i-b_j)}
+\end{equation}
+
+
+# Rasch-Modell
+\footnotesize
+\vspace{2mm}
+Bemerkungen (fortgeführt)
+
+Invariante Vergleichseigenschaften auf der Ebene von Odds-Ratios
+\vspace{-1mm}
+
+* Bei dichotomen Ereignissen $y = 0$ oder $y = 1$ wird häufig von *Odds* (Chancen) gesprochen
+* Odds bezeichnen das Verhältnis der Eintrittschance zur Nichteintrittschance,
+\begin{equation}
+\mbox{ Odds } := \frac{p(y = 1)}{p(y = 0)}
+\end{equation}
+* Zum Beispiel gilt
+\begin{equation}
+p(y = 1) = \frac{1}{4} \mbox{ und } p(y = 0) = \frac{3}{4} \Rightarrow \mbox{ Odds } = \frac{1}{4} \cdot \frac{4}{3} = \frac{1}{3} \mbox{   ("Chance von 1 zu 3")}.
+\end{equation}
+* *Odds-Ratio (OR)* vergleicht die Odds zwischen zwei Dingen
+\begin{equation}
+\mbox{ Odds-Ratio }
+:= \frac{\mbox{Odds}_1}{\mbox{Odds}_2}
+= \frac{\frac{p_1(y = 1)}{p_1(y = 0)}}{\frac{p_2(y = 1)}{p_2(y = 0)}}
+\end{equation}
+Zum Beispiel gilt bei Odds von 1:4 und 1:10 unter zwei Bedingungen
+\begin{equation}
+\mbox{ Odds-Ratio }
+:= \frac{\mbox{Odds}_1}{\mbox{Odds}_2}
+= \frac{\frac{1}{4}}{\frac{1}{10}}
+= 2.5
+\end{equation}
+* Die erste Bedingung (1:4) weist 2,5-fach höhere Odds für das Ereignis auf als die zweite Bedingung (1:10).
+* Das Odds-Ratio wird häufig in klinischen Fall-Kontroll-Studien verwendet
+* Popularität von Odds-Ratios als Belege für Assoziation von Rauchen und Lungenkrebs (vgl. @doll1950)
+
+# Rasch-Modell
+\footnotesize
+\vspace{3mm}
+Bemerkungen (fortgeführt)
+
+Invariante Vergleichseigenschaften auf der Ebene von Odds-Ratios
+\vspace{-1mm}
+
+* Die Odds für eine richtige Antwort von Person $i$ in Item $j$ sind nach dem Rasch-Modell
+\begin{equation*}
+\mbox{Odds}_{ij}
+= \frac{p_{x_i,b_j}\left(y_{ij} = 1\right)}{p_{x_i,b_j}\left(y_{ij} = 0\right)}
+= \frac{\frac{\exp(1\cdot (x_i-b_j))}{1 + \exp(x_i-b_j)}}{\frac{\exp(0\cdot(x_i-b_j))}{1 + \exp(x_i-b_j)}}
+= \frac{\exp(x_i-b_j)}{1 + \exp(x_i-b_j)}\cdot \left(1 + \exp(x_i-b_j)\right)
+= \exp(x_i-b_j)
+\end{equation*}
+* Die Odds-Ratio für eine richtige Antwort von Person $i$ und Person $i'$ in Item $j$ ist nach dem Rasch-Modell
+\begin{equation}
+\mbox{Odds-Ratio}_{ii'}
+= \frac{\exp(x_i-b_j)}{\exp(x_{i'}-b_j)}
+= \exp\left(x_i - b_j - x_{i'} + b_j\right)
+= \exp(x_i - x_{i'})
+\end{equation}
+* Die Log-Odds-Ratio für eine richtige Antwort von Person $i$ und Person $i'$ in Item $j$ ist nach dem Rasch-Modell
+\begin{equation}
+\mbox{Log-Odds-Ratio}_{ii'}
+= x_i - x_{i'}
+\end{equation}
+und hängt damit nur von den Eigenschaften von Personen $i$ und $i'$ aber nicht von dem gewählten Item ab.
+* Die Odds-Ratio für eine richtige Antwort von Person $i$ in Item $j$ und Item $j'$ ist nach dem Rasch-Modell
+\begin{equation}
+\mbox{Odds-Ratio}_{jj'}
+= \frac{\exp(x_i-b_j)}{\exp(x_i-b_{j'})}
+= \exp\left(x_i - b_j -  x_i + b_{j'}\right)
+= \exp(b_{j'} - b_j)
+\end{equation}
+* Die Log-Odds-Ratio für eine richtige Antwort von Person $i$ in Item $j$ und Item $j'$ ist nach dem Rasch-Modell
+\begin{equation}
+\mbox{Log-Odds-Ratio}_{jj'}
+= b_{j'} - b_j
+\end{equation}
+und hängt damit nur von den Eigenschaften der Items $j$ und $j'$, aber nicht von der betrachteten Person ab.
+
+
+# Rasch-Modell
+
+\setstretch{1.8}
+Überblick zur Parameterschätzung
+
+\small
+Conditional-Maximum-Likelihood-Schätzung (CML)
+\footnotesize
+\vspace{-1mm}
+
+* Personeneigenschaften werden durch eine suffiziente Statistik aus der Likelihood "herauskonditioniert"
+* Die Itemparameter werden dann durch Maximierung dieser bedingten Likelihood geschätzt
+* Itemparameterschätzungen sind konsistent, ohne dass Annahmen über Eigenschaftsverteilungen nötig sind
+* Ausschließliche Anwendung beim Rasch-Modell, auf 2PL oder 3PL nicht anwendbar (keine suffizienten Statistiken)
+* Klare Trennung zwischen "Itemkalibrierung" und "Personenmessung"
+
+Suffiziente Statistik
+
+* Eine Statistik heißt suffizient, wenn sie alle in Daten enthaltenen Parameterinformationen vollständig erfasst
+* Die bedingte Verteilung der Daten bei gegebener suffizienter Statistik hängt nicht vom Parameter ab
+* Die Parameter von Interesse sind hier die Personeneigenschaften $x_1,...,x_n$
+* Im Rasch-Modell ist der Summenscore (Anzahl gelöster Items) eine suffiziente Statistik für $x_1,...,x_n$
+* Man kann die Likelihood nur in Abhängigkeit der Itemparameter schreiben
+
+# Rasch-Modell
+
+Überblick zur Parameterschätzung
+
+\footnotesize
+Wie im Rahmen der MML-Schätzung wird das Rasch-Modell auch im Rahmen der
+Conditional-Maximum-Likelihood-Schätzung als parameterisiertes Modell
+konzipiert, wobei die Personeneigenschaften $x_i, i = 1,...,n$ allerdings als
+nicht zufällige Parameter eingehen. In diesem Kontext werden sie z. T. auch als
+"nuisance parameter", also als Nebeneffekts- oder Störparameter bezeichnet. Seien formal also wieder
+
+* $y$ die Gesamtheit aller $nm$ beobachteten Datenpunkte,
+* $x$ die Gesamtheit aller $n$ Personeneigenschaften,
+* $b$ der Vektor aller Itemschwierigkeitsparameter.
+
+Das Rasch-Modell entspricht dann der durch $x$ und $b$ parameterisierten
+Wahrscheinlichkeitsverteilung $p_{x,b}(y)$. Grundlegende Idee der CML-Schätzung
+ist es, durch Konditionierung auf eine suffiziente Statistik $s$ für $x$
+die Personeneigenschaftsparameter aus der Likelihood-Funktion herauszurechnen
+und dann die Itemschwierigkeitsparameter ohne die Notwendigkeit einer Schätzung der
+Personeneigenschaften schätzen zu können. Betrachtet wird also die
+bedingte Likelihood-Funktion
+\begin{equation}
+L : b \to \mathbb{R}_{> 0 }, b \mapsto L(b) := p_b(y|s)
+\end{equation}
+Statistisch abgesichert im Sinne sich ergebender konsistenter und asymptotisch
+normalverteilter Schätzer für die Itemparameter $b$ ist dieses Verfahren durch @andersen1970.
+Wir führen im Folgenden kurz den Begriff der suffizienten Statistik ein und
+betrachten dann das Rasch-Modell in diesem Lichte.
+
+# Rasch-Modell
+\footnotesize
+\begin{theorem}[Suffiziente Statistik]
+\justifying
+\normalfont
+Es sei $y := (y_1,...,y_n)$ eine Stichprobe mit durch $\theta$ parameterisierter
+gemeinsamer Verteilung $p_\theta(y)$ und $s = s(y)$ sei eine Statistik. $s$ wird
+\textit{suffiziente Statistik} für den Parameter $\theta$ genannt, wenn eine der folgenden
+äquivalenten Bedingungen gilt:
+\begin{itemize}
+\item[(1)] Die bedingte Verteilung von $y$ gegeben $s$ hängt nicht von $\theta$ ab, also
+\begin{equation}
+p_\theta(y|s) = p(y|s).
+\end{equation}
+\item[(2)] Es existieren Funktionen $g_\theta(s)$ und $h(y)$, sodass
+\begin{equation}
+p_\theta(y) = g_\theta(s)h(y) \mbox{ für alle } y \mbox{ und alle } \theta.
+\end{equation}
+\end{itemize}
+\end{theorem}
+
+Bemerkungen
+
+* Es handelt sich um eine mathematisch sehr unpräzise Darstellung der Suffizienz.
+* Eine Einführung zum Prinzip der Suffizienz findet sich z.B. in @casella2002, Abschnitt 6.
+* Würde man $\theta$ als Zufallsvariable betrachten, so wäre (1) äquivalent zu der bedingten Unabhängigkeit
+\begin{equation}
+p(y|s,\theta) = p(y|s).
+\end{equation}
+* Aussage (2) wird nach (oder trotz) @halmos1949 *Neyman-Fisher-Faktorisierung* genannt.
+
+
+# Rasch-Modell
+\vspace{2mm}
+\setstretch{1.1}
+\footnotesize
+\underline{Beweis}
+
+Wir zeigen zunächst $(2) \Rightarrow (1)$. Es gelte also $p_\theta(y) = g_\theta(s)h(y)$
+und wir betrachten die gemeinsame Verteilung von $y$ und $s$. Setzt man die Kongruenz
+von $s$ und $y$ voraus, nimmt also an, dass
+\begin{equation}
+p_\theta(s|y) = 1 \mbox{ für } s = s(y) \mbox{ und } p_\theta(s|y) = 0 \mbox{ für } s \neq s(y),
+\end{equation}
+so gilt für die gemeinsame Verteilung von $y$ und $s$, dass
+\begin{equation}
+p_\theta(y,s) = p_\theta(s|y)p_\theta(y) = 1\cdot p_\theta(y) = p_\theta(y)\mbox{ für alle } y \mbox{ und } s \mbox{ mit } s = s(y).
+\end{equation}
+Betrachtet man dann die bedingte Verteilung von $y$ gegeben $s$, so ergibt sich
+\begin{align}
+\begin{split}
+p_\theta(y|s)
+& = \frac{p_\theta(y,s)}{\int_{y'} p_\theta(y',s)}                \\
+& = \frac{p_\theta(y)}{\int_{y': s(y') = s} p_\theta(y',s)\,dy'}       \\
+& = \frac{p_\theta(y)}{\int_{y': s(y') = s} p_\theta(y')\,dy'}       \\
+& = \frac{g_\theta(s)h(y)}{\int_{y': s(y') = s} g_\theta(s)h(y')\,dy'}       \\
+& = \frac{g_\theta(s)h(y)}{g_\theta(s)\int_{y': s(y') = s} h(y')\,dy'}       \\
+& = \frac{h(y)}{\int_{y': s(y') = s} h(y')\,dy'}       \\
+\end{split}
+\end{align}
+und die rechte Seite hängt nicht mehr von $\theta$ ab und kann als $p(y|s)$ geschrieben werden.
+
+# Rasch-Modell
+\vspace{2mm}
+\setstretch{1.2}
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Wir zeigen nun $(1) \Rightarrow (2)$. $s$ sei also suffizient, das heißt,
+\begin{equation}
+p_\theta(y|s) = p(y|s)
+\end{equation}
+Zunächst ergibt sich, wiederum unter Annahme der Kongruenz von $s$ und $y$, dass
+\begin{equation}
+p_\theta(s|y) = 1 \mbox{ für } s = s(y) \mbox{ und } p_\theta(s|y) = 0 \mbox{ für } s \neq s(y)
+\end{equation}
+und damit
+\begin{equation}
+p_\theta(y,s) = p_\theta(s|y)p_\theta(y) = 1\cdot p_\theta(y) = p_\theta(y)\mbox{ für alle } y \mbox{ und } s \mbox{ mit } s = s(y).
+\end{equation}
+Dann aber ergibt sich für $p_\theta(y)$, dass
+\begin{equation}
+p_\theta(y) = p_\theta(y,s) = p_\theta(s) p_\theta(y|s) = p_\theta(s)p(y|s) =: g_\theta(s)h(y).
+\end{equation}
+
+# Rasch-Modell
+\setstretch{1}
+\footnotesize
+\vspace{2mm}
+\begin{definition}[Verteilungsform des Rasch-Modells]
+\justifying
+\normalfont
+Für $i = 1,\dots,n$ Personen und $j = 1,\dots,m$ dichotome Items seien
+\begin{itemize}
+\item $x_i \in \mathbb{R}$ die Personeneigenschaft von Person $i$
+\item $x := (x_1,...,x_n)$ die Eigenschaften aller $n$ Personen,
+\item $b_j \in \mathbb{R}$ der Schwierigkeitsparameter des $j$-ten Items,
+\item $b := (b_1,\dots,b_m)$ der Itemparametervektor,
+\item $y_{ij}$ die Zufallsvariable zur Modellierung der $j$-ten Itemantwort von Person $i$ mit Wertebereich $\{0,1\}$,
+\item $y_i := (y_{i1},\dots,y_{im})$ der Zufallsvektor der Itemantworten von Person $i$,
+\item $y := (y_1,...,y_n)$ die Zufallsmatrix der Itemantworten aller Personen.
+\end{itemize}
+Dann hat das Rasch-Modell die Verteilungsform
+\begin{equation}
+p_{x,b}(y)
+:= \prod_{i=1}^n p_{x_i,b}(y_i)
+:= \prod_{i=1}^n \prod_{j=1}^m p_{x_i,b_j}(y_{ij}),
+\mbox{ mit }
+p_{x_i,b_j}\left(y_{ij}\right)
+:= \frac{\exp\left(y_{ij}(x_i - b_j)\right)}{1 + \exp(x_i - b_j)}.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* $\prod_{i=1}^n p_{x_i,b}(y_i)$ enkodiert die Unabhängigkeitsannahme über Personen.
+* $\prod_{j=1}^m p_{x_i,b_j}(y_{ij})$ enkodiert die bedingte Unabhängigkeit der Itemantworten von Person $i$ bei gegebenem $x_i$.
+
+# Rasch-Modell
+\vspace{2mm}
+\footnotesize
+\begin{theorem}[Summenscore-bedingte Verteilung des Rasch-Modells]
+\justifying
+\normalfont
+Gegeben sei die Verteilungsform des Rasch-Modells und für $i = 1,...,n$ sei
+\begin{equation}
+s_i := \sum_{j=1}^m y_{ij}
+\end{equation}
+der Summenscore von Person $i$. Sei weiterhin für alle $s_i \in \{0,...,m\}$
+\begin{equation}
+Y_{s_i} :=
+\left\lbrace
+y_i \in \{0,1\}^m \big\vert \sum_{j=1}^m y_{ij} = s_i
+\right\rbrace
+\end{equation}
+die Menge aller zu einem Summenscore $s_i$ kongruenten Itemantwortvektoren einer Person. Sei schließlich
+\begin{equation}
+s := (s_1,...,s_n)
+\end{equation}
+der Vektor der Summenscores aller $n$ Personen. Dann gilt für die Verteilungsform
+des Rasch-Modells
+\begin{equation}
+p_{x,b}(y|s) = p_{b}(y|s)
+\end{equation}
+und speziell
+\begin{equation}
+p_{b}(y|s) = \prod_{i=1}^n p_b(y_i|s_i) \mbox{ mit }
+p_b(y_i|s_i)
+= \frac{\exp\left(-\sum_{j=1}^m y_{ij}b_j\right)}{\sum_{y_i \in Y_{s_i}}\exp\left(-\sum_{j=1}^m y_{ij}b_j\right)}.
+\end{equation}
+\end{theorem}
+\vspace{-1mm}
+Bemerkung
+\vspace{-1mm}
+
+* Die Aussage des Theorems wird auch als "Parameterseparierbarkeit" bezeichnet.
+
+# Rasch-Modell
+\footnotesize
+\underline{Beweis}
+
+Wir zeigen zunächst
+\begin{equation}
+p_{x_i,b}(y_i|s_i) = p_{b}(y_i|s_i)
+\mbox{ mit }
+p_{b}(y_i|s_i) = \frac{\exp\left(-\sum_{j=1}^m y_{ij}b_j\right)}{\sum_{y_i \in Y_{s_i}}\exp\left(-\sum_{j=1}^m y_{ij}b_j\right)}.
+\end{equation}
+
+Nach Definition der bedingten Wahrscheinlichkeit gilt
+\begin{equation}\label{eq:yi-giv-si-1}
+p_{x_i,b}(y_i|s_i)
+= \frac{p_{x_i,b}(y_i,s_i)}{\sum_{y_i}p_{x_i,b}(y_i,s_i)}
+= \frac{p_{x_i,b}(y_i)p_{x_i,b}(s_i|y_i)}{\sum_{y_i}p_{x_i,b}(y_i)p_{x_i,b}(s_i|y_i)}
+\end{equation}
+Da definitionsgemäß gilt, dass
+\begin{equation}
+s_i := \sum_{j=1}^m y_{ij},
+\end{equation}
+also $s_i$ deterministisch von $y_i$ abhängt, ist die bedingte Verteilung des
+Summenscores $s_i$ bei gegebenen Itemantworten $y_{ij}$ für $j = 1,...,m$ der $i$-ten
+Person degeneriert, d. h., sie nimmt nur die Werte 0 oder 1 an. Speziell gilt
+\begin{equation}
+p_{x_i,b}(s_i|y_i)
+= \ib*{s_i = \sum_{j=1}^m y_{ij}}
+=
+\begin{cases}
+1 & \mbox{ für } s_i =    \sum_{j=1}^m y_{ij} \\
+0 & \mbox{ für } s_i \neq \sum_{j=1}^m y_{ij} \\
+\end{cases}
+\end{equation}
+
+# Rasch-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Dabei stellen wir zum einen fest, dass die bedingte Verteilung des Summenscores bei gegebenen
+Itemantworten der $i$-ten Person weder von der Personeneigenschaft $x_i$ noch
+vom Itemparametervektor $b$ abhängt, also gilt
+\begin{equation}
+p_{x_i,b}(s_i|y_i)
+= p(s_i|y_i).
+\end{equation}
+Zum anderen stellen wir fest, dass \eqref{eq:yi-giv-si-1} nur im Falle der Kongruenz
+von $s_i$ und $y_i$ von null verschieden ist. Wir schränken unsere Betrachtungen deshalb
+im Folgenden auf den kongruenten Fall $s_i =\sum_{j=1}^m y_{ij}$ und damit $p(s_i|y_i) = 1$
+ein. Es ergibt sich mit dieser Einschränkung also
+\begin{equation}\label{eq:yi-giv-si-2}
+p_{x_i,b}(y_i|s_i)
+= \frac{p_{x_i,b}(y_i)p(s_i|y_i)}{\sum_{y_i}p_{x_i,b}(y_i)p(s_i|y_i)}
+= \frac{p_{x_i,b}(y_i)}{\sum_{y_i \in Y_{s_i}}p_{x_i,b}(y_i)}
+\end{equation}
+Wir betrachten nun zunächst den Zähler von \eqref{eq:yi-giv-si-2}. Es gilt
+
+# Rasch-Modell
+\vspace{2mm}
+\footnotesize
+\underline{Beweis (fortgeführt)}
+\begin{align}
+\begin{split}
+p_{x_i,b}(y_i)
+& = \prod_{j=1}^m p_{x_i,b_j}(y_{ij})                                                                                     \\
+& = \prod_{j=1}^m \frac{\exp\left(y_{ij}(x_i-b_j)\right)}{1 + \exp(x_i-b_j)}                                              \\
+& = \frac{\prod_{j=1}^m\exp\left(y_{ij}(x_i-b_j)\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}                     \\
+& = \frac{\exp\left(\sum_{j=1}^m y_{ij}(x_i-b_j)\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}                     \\
+& = \frac{\exp\left(\sum_{j=1}^m y_{ij}x_i - \sum_{j=1}^m y_{ij}b_j\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}  \\
+& = \frac{\exp\left(x_i\sum_{j=1}^m y_{ij} - \sum_{j=1}^m y_{ij}b_j\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}  \\
+& = \frac{\exp\left(x_is_i - \sum_{j=1}^m y_{ij}b_j\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}                  \\
+& = \frac{\exp\left(x_is_i\right) \exp\left(- \sum_{j=1}^m y_{ij}b_j\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)} \\
+\end{split}
+\end{align}
+
+# Rasch-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Für den Nenner von \eqref{eq:yi-giv-si-2} gilt damit
+\begin{align}
+\begin{split}
+\sum_{y_i \in Y_{s_i}} p_{x_i,b}(y_i)
+& = \sum_{y_i \in Y_{s_i}} \frac{\exp\left(x_is_i\right) \exp\left(- \sum_{j=1}^m y_{ij}b_j\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)} \\
+& = \left(\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)\right)^{-1}\exp\left(x_is_i\right) \sum_{y_i \in Y_{s_i}}  \exp\left(- \sum_{j=1}^m y_{ij}b_j\right) \\
+& = \frac{\exp\left(x_is_i\right) \sum_{y_i \in Y_{s_i}}\exp\left(- \sum_{j=1}^m y_{ij}b_j\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}. \\
+\end{split}
+\end{align}
+Es ergibt sich also
+\begin{align}\label{eq:yi-giv-si-3}
+\begin{split}
+p_{x_i,b}(y_i|s_i)
+& =
+\frac{\exp\left(x_is_i\right) \exp\left(- \sum_{j=1}^m y_{ij}b_j\right)}{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}\cdot
+\frac{\prod_{j=1}^m\left(1 + \exp(x_i-b_j)\right)}{\exp\left(x_is_i\right) \sum_{y_i \in Y_{s_i}}\exp\left(- \sum_{j=1}^m y_{ij}b_j\right)}
+\\
+& = \frac{\exp\left(-\sum_{j=1}^m y_{ij}b_j\right)}{\sum_{y_i \in Y_{s_i}}\exp\left(- \sum_{j=1}^m y_{ij}b_j\right)}.
+\end{split}
+\end{align}
+Damit hängt $p_{x_i,b}(y_i|s_i)$ aber nicht mehr von $x_i$ ab und es gilt
+\begin{equation}
+p_{x_i,b}(y_i|s_i) = p_{b}(y_i|s_i).
+\end{equation}
+
+# Rasch-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Wir betrachten nun die gemeinsame bedingte Verteilung $p_{x,b}(y|s)$. Dazu halten
+wir zunächst mit der Definition der bedingten Wahrscheinlichkeit fest, dass
+\begin{equation}\label{eq:y-giv-s-1}
+p_{x,b}(y|s)
+= \frac{p_{x,b}(y,s)}{p_{x,b}(s)}
+= \frac{p_{x,b}(y,s)}{\sum_{y}p_{x,b}(y,s)}
+= \frac{p_{x,b}(y)p_{x,b}(s|y)}{\sum_{y}p_{x,b}(y)p_{x,b}(s|y)}.
+\end{equation}
+Wir betrachten nun die bedingte Verteilung des Summenscorevektors $s$ bei gegebener
+Itemantwortmatrix aller Personen $y$. Mit der Definition von $s_i := \sum_{j=1}^m y_{ij}$
+für alle $i = 1,...,n$ gilt zunächst, dass auch diese Verteilung unabhängig von
+$x$ und $b$ ist. Weiterhin ist auch diese Verteilung degeneriert, nimmt also nur
+die Werte 0 und 1 an. Speziell gilt
+\begin{equation}
+p(s|y) = \ib*{s_i = \sum_{j=1}^m y_{ij} \mbox{ für alle } i = 1,...,n}.
+\end{equation}
+Damit gilt dann aber auch
+\begin{equation}
+p(s|y) = \prod_{i=1}^n p(s_i|y_i) \mbox{ mit } p(s_i|y_i) = \ib*{s_i = \sum_{j=1}^m y_{ij}}.
+\end{equation}
+Mit der Verteilungsform des Rasch-Modells, der Tatsache, dass die Summation über
+$y$ äquivalent zur sequentiellen Summation über $y_1,...,y_n$ ist, unter Einschränkung
+auf den kongruenten Fall $s_i =\sum_{j=1}^m y_{ij}$ (und damit $p(s_i|y_i) = 1$)
+für alle $i = 1,...,n$ und mit obigem Ergebnis zu $p_{x_i,b}(y_i|s_i)$ können wir \eqref{eq:y-giv-s-1} also schreiben als
+
+# Rasch-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+\begin{align}
+\begin{split}
+p_{x,b}(y|s)
+& = \frac{\prod_{i=1}^n p_{x_i,b}(y_i)\prod_{i=1}^n p(s_i|y_i)}
+         {\sum_{y_1}\cdots \sum_{y_n} \prod_{i=1}^n p_{x_i,b}(y_i)\prod_{i=1}^n p(s_i|y_i)} \\
+& = \frac{\prod_{i=1}^n p_{x_i,b}(y_i)p(s_i|y_i)}
+         {\sum_{y_1}\cdots \sum_{y_n} \prod_{i=1}^n p_{x_i,b}(y_i)p(s_i|y_i)}               \\
+& = \frac{\prod_{i=1}^n p_{x_i,b}(y_i)p(s_i|y_i)}
+         {\prod_{i=1}^n \sum_{y_i} p_{x_i,b}(y_i)p(s_i|y_i)}                                \\
+& = \frac{\prod_{i=1}^n p_{x_i,b}(y_i)}
+         {\prod_{i=1}^n \sum_{y_i \in Y_{s_i}} p_{x_i,b}(y_i)}                              \\
+& = \prod_{i=1}^n \frac{p_{x_i,b}(y_i)}{\sum_{y_i \in Y_{s_i}} p_{x_i,b}(y_i)}              \\
+& = \prod_{i=1}^n p_{x_i,b}(y_i|s_i)                                                        \\
+& = \prod_{i=1}^n p_{b}(y_i|s_i).
+\end{split}
+\end{align}
+
+# Rasch-Modell
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Wir können $p_{x,b}(y|s)$ also schreiben als
+\begin{equation}
+p_{x,b}(y|s)
+= p_{b}(y|s)
+= \prod_{i=1}^n p_{b}(y_i|s_i)
+= \prod_{i=1}^n \frac{\exp\left(-\sum_{j=1}^m y_{ij}b_j\right)}{\sum_{y_i \in Y_{s_i}}\exp\left(-\sum_{j=1}^m y_{ij}b_j\right)}
+\end{equation}
+und damit ist alles gezeigt.
+$\hfill\Box$
+
+# Rasch-Modell
+\footnotesize
+\begin{definition}[Rasch-Modell Conditional-Maximum-Likelihood-Schätzung]
+\justifying
+Gegeben sei die Verteilungsform des Rasch-Modells und es sei $p_b(y|s)$ die
+Summenscore-bedingte Verteilung des Rasch-Modells. Dann heißt die Funktion
+\begin{equation}
+L: \mathbb{R}^m \to \mathbb{R}_{>0},
+b \mapsto L(b) := p_b(y|s)
+\end{equation}
+die \textit{Conditional-Likelihood-Funktion} des Rasch-Modells. Ein
+\begin{equation}
+\hat b \in \arg\max_{b \in \mathbb{R}^m} L(b)
+\end{equation}
+heißt \textit{Conditional-Maximum-Likelihood-Schätzer} von $b$.
+\end{definition}
+
+Bemerkungen
+
+* Die Schätzung der Itemparameter $b$ kommt ohne die Bestimmung der Personeneigenschaften $x_1,...,x_n$ aus.
+* Als konsistentes Schätzverfahren für $b$ ist dieses Vorgehen durch @andersen1970 begründet worden.
+* Die Anwendung der CML-Schätzung für das Rasch-Modell wurde durch @andersen1977 geprägt.
+
+# Rasch-Modell
+\footnotesize
+\underline{Bemerkungen (fortgeführt)}
+\setstretch{1.6}
+
+* Für $m > 2$ muss $\hat{b}$  durch numerische Maximierung von $L$ bestimmt werden.
+* Für $m > 15$ ist eine explizite Summation über $Y_{s_i}$ nicht möglich, es gilt
+\begin{equation}
+|Y_{s_i}| = \begin{pmatrix} m \\ s_i \end{pmatrix}
+\mbox{ mit z.B.}
+\begin{pmatrix} 30 \\ 15 \end{pmatrix} = 155.117.520
+\end{equation}
+* Es gibt rekursive Ansätze, um diese explizite Summation zu umgehen (@gustafsson1977, @gustafsson1980).
+* Diese Ansätze heißen *elementary symmetric functions* (@fischer1995, @baker1996).
+* Der Ansatz ist nicht symmetrisch, Eigenschaften können nicht ohne Itemparameter bestimmt werden.
+
+Generell sind CML-Ansätze möglich, wenn
+
+* die Datenverteilung zur Exponentialfamilie gehört und
+* suffiziente Statistiken für Nebeneffekt-Parameter wie die Personeneigenschaften existieren.
+* Beispielmodelle sind das Partial-Credit-Modell oder das Cox-Proportional-Hazards-Modell der Survival-Analyse
+
+#
+\vfill
+\setstretch{3}
+\large
+Grundlagen
+
+Birnbaum-Modell
+
+Rasch-Modell
+
+**Selbstkontrollfragen**
+\vfill
+
+# Selbstkontrollfragen
+\footnotesize
+\setstretch{2}
+
+1. Geben Sie die Definition der logistischen Funktion wieder.
+1. Geben Sie das Theorem zu den Eigenschaften der logistischen Funktion wieder.
+1. Geben Sie die Definition des Birnbaum-Modells wieder.
+1. Erläutern Sie die Bedeutung des Itemschwierigkeitsparameters des Birnbaum-Modells.
+1. Erläutern Sie die Bedeutung des Itemdiskriminationsparameters des Birnbaum-Modells.
+1. Erläutern Sie die Bedeutung des Itemrateparameters des Birnbaum-Modells.
+1. Erläutern Sie den Begriff der spezifischen Objektivität im Kontext des Rasch-Modells.
+1. Geben Sie die Definition des Rasch-Modells wieder.
+1. Geben Sie das Theorem zum Rasch-Modell und 1PL-Birnbaum-Modell wieder.
+1. Erläutern Sie die invarianten Vergleichseigenschaften des Rasch-Modells auf Parameterebene.
+1. Erläutern Sie die invarianten Vergleichseigenschaften des Rasch-Modells auf Odds-Ratio-Ebene.
+
+# Beispielklausurfrage
+\footnotesize
+
+Welche Aussage zur logistischen Funktion
+\begin{equation*}
+f:\mathbb{R} \to ]0,1[, x \mapsto f(x) := \frac{1}{1 + \exp(-a(x-b))} \mbox{ mit }  a, b \in \mathbb{R}
+\end{equation*}
+für $a > 0$ trifft zu?
+
+a) $f(b) = 0.00$
+
+b) $f(b) = 0.25$
+
+c) $f(b) = 0.50$
+
+d) $f(b) = 1.00$
+
+# {.plain}
+\vfill
+\center
+\huge
+Ergänzungen
+\vfill
+
+# Ergänzungen
+\footnotesize
+\setstretch{1.2}
+\begin{theorem}[Jensensche Ungleichung]\label{thm:jensensche-ungleichung}
+\justifying
+\normalfont
+$\xi$ sei eine Zufallsvariable und $g : \mathbb{R} \to \mathbb{R}$ eine konvexe Funktion, d. h.,
+\begin{equation}
+g(\lambda x_1 + (1-\lambda)x_2) \le \lambda g(x_1) + (1-\lambda)g(x_2)
+\end{equation}
+für alle $x_1,x_2 \in \mathbb{R}, \lambda \in [0,1]$. Dann gilt
+\begin{equation}
+\mathbb{E}(g(\xi)) \ge g(\mathbb{E}(\xi)).
+\end{equation}
+Analog sei $g : \mathbb{R} \to \mathbb{R}$ eine konkave Funktion, d. h.,
+\begin{equation}
+g(\lambda x_1 + (1-\lambda)x_2) \ge \lambda g(x_1) + (1-\lambda)g(x_2)
+\end{equation}
+für alle $x_1,x_2 \in \mathbb{R}, \lambda \in [0,1]$. Dann gilt
+\begin{equation}
+\mathbb{E}(g(\xi)) \le g(\mathbb{E}(\xi)).
+\end{equation}
+\end{theorem}
+
+\footnotesize
+Bemerkungen
+
+* Bei konvexem $g$ liegt der Funktionsgraph unter der Geraden von $g(x_1)$ zu $g(x_2)$.
+* Bei konkavem $g$ liegt der Funktionsgraph über der Geraden von $g(x_1)$ zu $g(x_2)$.
+* Der Logarithmus ist eine konkave Funktion, also gilt $\mathbb{E}(\ln \xi) \le \ln \mathbb{E}(\xi)$.
+
+# Ergänzungen
+\small
+\vspace{2mm}
+Visualisierung einer konvexen Funktion
+
+```{r, eval = F, echo = F}
+# figure setup
+pdf(
+file      = "2-Abbildungen/psd-2-jensensche-ungleichung.pdf",
+width     = 5,
+height    = 5)
+library(latex2exp)
+par(
+family     = "sans",
+mfcol      = c(1,1),
+pty        = "s",
+bty        = "l",
+lwd        = 1,
+las        = 1,
+mgp        = c(2,1,0),
+xaxs       = "i",
+yaxs       = "i",
+cex        = 1.2,
+font.main  = 1,
+cex.main   = 1)
+
+# konvexe Funktion
+x          = seq(-2,2,1e-2)
+gx         = x^2
+
+# Gerade
+x_1        = -sqrt(1.5)
+x_2        = sqrt(3.5)
+lambda     = seq(0,1,1e-2)
+x1x2       = lambda*x_1 + (1 - lambda)*x_2
+gx1gx2     = lambda*x_1^2 + (1-lambda)*x_2^2
+
+# Tangente
+x_0        = 1
+tx         = x_0^2 + 2*x_0*(x - x_0)
+
+# Visualisierung
+plot(
+x,
+gx,
+type       = "l",
+xlim       = c(-2.5,2.5),
+ylim       = c(0,4),
+ylab       = "")
+lines(
+x1x2,
+gx1gx2,
+type       = "l",
+col        = "orange")
+lines(
+x,
+tx,
+type       = "l",
+col        = "gray60")
+text(
+-1.7,
+1.2,
+TeX("$g(x_1)$"))
+text(
+2.4,
+3.5,
+TeX("$g(x_2)$"),
+xpd = T)
+text(
+1.5,
+0.8,
+TeX("$g(x_0)$"),
+xpd = T)
+points(
+c(x_0,x_1,x_2),
+c(x_0,x_1,x_2)^2,
+pch = 19)
+dev.off()
+```
+
+\center
+--- $g(x) := x^2$
+\vspace{-4mm}
+```{r, echo = FALSE, out.width = "55%"}
+knitr::include_graphics("2-Abbildungen/psd-2-jensensche-ungleichung.pdf")
+```
+\vspace{-4mm}
+\footnotesize
+\textcolor{orange}{---} $\lambda g(x_1) + (1 - \lambda)g(x_2)$ für $x_1 := -\sqrt{1.5}, x_2 := \sqrt{3.5}, \lambda \in [0,1]$
+
+\textcolor{gray}{---} $t(x) := g(x_0) + g'(x_0)(x-x_0)$ für $x_0 := 1$
+
+# Ergänzungen
+\footnotesize
+\underline{Beweis}
+
+Es sei $g$ eine konvexe Funktion. Dann gilt für die Tangente $t$ von $g$ in $x_0 \in \mathbb{R}$ für alle $x \in \mathbb{R}$, dass
+\begin{equation}
+g(x) \ge t(x) := g(x_0) + g'(x_0)(x - x_0)
+\end{equation}
+Wir setzen nun $x := \xi$ und $x_0 := \mathbb{E}(\xi)$. Dann gilt mit obiger Ungleichung, dass
+\begin{equation}
+g(\xi) \ge g(\mathbb{E}(\xi)) + g'(\mathbb{E}(\xi))(\xi - \mathbb{E}(\xi))
+\end{equation}
+Erwartungswertbildung ergibt dann
+\begin{align}
+\begin{split}
+\mathbb{E}(g(\xi)) & \ge \mathbb{E}(g(\mathbb{E}(\xi))) + \mathbb{E}(g'(\mathbb{E}(\xi))(\xi - \mathbb{E}(\xi))) \\
+\Leftrightarrow
+\mathbb{E}(g(\xi)) & \ge g(\mathbb{E}(\xi)) + g'(\mathbb{E}(\xi))\mathbb{E}((\xi - \mathbb{E}(\xi))) \\
+\Leftrightarrow
+\mathbb{E}(g(\xi)) & \ge g(\mathbb{E}(\xi)) + g'(\mathbb{E}(\xi))(\mathbb{E}(\xi) - \mathbb{E}(\xi)) \\
+\Leftrightarrow
+\mathbb{E}(g(\xi)) & \ge g(\mathbb{E}(\xi)).
+\end{split}
+\end{align}
+Sei nun $g$ eine konkave Funktion. Dann ist $-g$ eine konvexe Funktion. Mit der Jensenschen Ungleichung für konvexe Funktionen
+folgt dann die Jensensche Ungleichung für konkave Funktionen aus
+\begin{align}
+\begin{split}
+\mathbb{E}(-g(\xi)) & \ge -g(\mathbb{E}(\xi)) \\
+\Leftrightarrow
+-\mathbb{E}(g(\xi)) & \ge -g(\mathbb{E}(\xi)) \\
+\Leftrightarrow
+\mathbb{E}(g(\xi)) & \le g(\mathbb{E}(\xi)).
+\end{split}
+\end{align}
+$\hfill \Box$      -->
+
+
+# Referenzen {.allowframebreaks}
+\footnotesize

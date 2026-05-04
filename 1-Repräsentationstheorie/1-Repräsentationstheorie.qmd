@@ -134,7 +134,7 @@ Mengen und spezielle Mengen (Relationen, Operationen, Abbildungen) als Gegenstä
 # Einordnung
 \vspace{2mm}
 \small
-Der Skalenbegriff  der Psychologie
+Der Skalenbegriff der Psychologie
 
 ```{r, echo = FALSE, out.width = "80%", fig.align = "center"}
 knitr::include_graphics("1-Abbildungen/psd-1-skalen-psy.pdf")
@@ -176,7 +176,7 @@ Relationen
 * Relationen sind Beziehungen zwischen zwei Dingen (Objekten, Objekteigenschaften, Zahlen).
 * Im qualitativen Relationssystem betrachtet die RT qualitative Relationen von empirischen Eigenschaften.
 * Beispiele für qualitative Relationen sind "nicht wahrnehmbar kürzer als" oder "wärmer als".
-* Qualitative Relationen werden oft mit $\sce$ oder $\sim$ bezeichnet.
+* Qualitative Relationen werden in dieser Vorlesung mit $\sce$ bezeichnet.
 * Im quantitativen Relationssystem betrachtet die RT quantitative Relationen von Zahlen.
 * Beispiel für quantitative Relationen sind $\ge$ oder $=$.
 
@@ -204,11 +204,11 @@ Qualitatives Relationssystem
 * Das qualitative Relationssystem wird in der Repräsentationstheorie als bekannte Datengrundlage vorausgesetzt.
 * Die qualitativen empirischen Eigenschaften von Dingen sind also nach Voraussetzung bekannt.
 * Je nach Art des qualitativen Relationssystems haben Relationen und Operationen verschiedene Eigenschaften.
-* Ein Beispiel für eine Relationseigenschaft ist die *Transititivät*
+* Ein Beispiel für eine Relationseigenschaft ist die *Transitivität*
 \begin{equation}
 \mbox{ Wenn } m \sce n \mbox{ und } n \sce p \mbox{, dann gilt } m \sce p \mbox{ für alle } m,n,p \in M.
 \end{equation}
-* Ein Beispiel für ein0e Operationseigenschaft ist die *Assoziativität*
+* Ein Beispiel für eine Operationseigenschaft ist die *Assoziativität*
 \begin{equation}
 (m \circ n) \circ p = m \circ (n \circ p).
 \end{equation}
@@ -217,7 +217,7 @@ Quantitatives Relationssystem
 \footnotesize
 
 * Einheit $(\mathbb{R},\ge,...,+,...)$ aus Zahlen $\mathbb{R}$, quantitativen Relationen $\ge,...$ und quantitativen Operationen $+,...$.
-* Das quantitative Relationssystem entspricht meist den vetrauten Zahlräumen und Zahlenoperationen.
+* Das quantitative Relationssystem entspricht meist den vertrauten Zahlräumen und Zahlenoperationen.
 * Je nach Art des quantitativen Relationssystems haben Relationen und Operationen verschiedene Eigenschaften.
 * In $(\mathbb{R},\ge,+)$ gelten zum Beispiel auch die *Transitivität* und *Assoziativität*, denn
 \begin{equation}
@@ -232,8 +232,9 @@ Homomorphismen und Skalen
 \footnotesize
 Homomorphismen
 
-* Homomorphismen sind "strukturerhaltende" Abbildungen zwischen den Relationssystemen.
-* Eine Abbildung $f: M \to \mathbb{R}$ heißt beispielsweise strukturerhaltend, wenn gilt dass,
+* Als Zuordnungen von Zahlen in $\mathbb{R}$ zu Elementen von $M$ modellieren Homomorphismen den Messvorgang.
+* Speziell sind Homomorphismen "strukturerhaltende" Abbildungen zwischen den Relationssystemen.
+* Eine Abbildung $f: M \to \mathbb{R}$ heißt beispielsweise strukturerhaltend, wenn gilt:
 \begin{equation}
 m \sce n \Rightarrow f(m) \ge f(n)
 \mbox{ und }
@@ -246,6 +247,7 @@ f(m \circ n) = f(m) + f(n)
 * $+$ im quantitativen Relationssystem spiegelt dann $\circ$ im qualitativen Relationssystem.
 * Die Betrachtung von $(M,\sce,\circ)$ und $(\mathbb{R},\ge, +)$ ist allerdings nur ein Beispiel.
 * $\Rightarrow$ In der Repräsentationstheorie ist man an Spiegelungen beliebiger Relationen und Operationen interessiert.
+
 
 Skalen
 
@@ -355,12 +357,12 @@ Für Beweise des Repräsentationstheorems und des Eindeutigkeitstheorems verweis
 \setstretch{1.2}
 \vspace{2mm}
 \small
-Beispiel: Ordinalmessung
+Beispiel: Ordinalmessung (fortgesetzt)
 \footnotesize
 
 Als Beispiel betrachten wir die Messung der Präferenz einer Patientin bezüglich
 eines psychotherapeutischen Settings. Dazu sei zunächst $M := \{\mbox{P}, \mbox{H}, \mbox{O}\}$
-die Menge der möglichen Settings Präsenz, Hybrid und Online. Eine schwache Ordnung auf $M$ wird dann durch Befragung der Patientin bezüglich aller Paare $(m,m') \in M^2$
+die Menge der möglichen Settings Präsenz, Hybrid und Online. Eine schwache Ordnung auf $M$ wird dann durch Befragung der Patientin bezüglich aller Paare $(m,n) \in M^2$
 etabliert. Die Vollständigkeit wird dabei dadurch garantiert, dass tatsächlich alle
 Paare abgefragt werden. Die Transitivität wird dadurch garantiert, dass inkonsistente
 Präferenzen nicht zugelassen sind.
@@ -377,12 +379,31 @@ Nehmen wir an, die Patientin äußert folgendes Präferenzmuster:
 \end{center}
 
 \begin{flushleft}
-Für die Patientin gilt also $\mbox{P} \succ \mbox{H} \sim \mbox{O}$, denn
+Die Tabelle ist dabei so zu lesen, dass der Zeileneintrag jeweils mit dem
+Spalteneintrag verglichen wird. Ein Eintrag $\sce$ in Zeile $a$ und Spalte $b$
+bedeutet also $a \sce b$, das heißt: $a$ wird mindestens so stark präferiert wie $b$.
+Ein Eintrag $\pce$ bedeutet entsprechend, dass die Relation $\sce$ in dieser Richtung
+nicht gilt. Aus der ersten Zeile folgt daher sowohl $\mbox{P} \sce \mbox{H}$ als auch
+$\mbox{P} \sce \mbox{O}$. Aus der ersten Spalte folgt zugleich
+$\neg\,(\mbox{H} \sce \mbox{P})$ und $\neg\,(\mbox{O} \sce \mbox{P})$. Damit ist
+$\mbox{P}$ sowohl gegenüber $\mbox{H}$ als auch gegenüber $\mbox{O}$ strikt bevorzugt.
+Zwischen $\mbox{H}$ und $\mbox{O}$ steht die Relation dagegen in beide Richtungen,
+also $\mbox{H} \sce \mbox{O}$ und $\mbox{O} \sce \mbox{H}$. Genau dies bedeutet
+Indifferenz, also $\mbox{H} \sim \mbox{O}$. Für die Patientin gilt also $\mbox{P} \succ \mbox{H} \sim \mbox{O}$, denn
 \begin{equation}
 \mbox{P} \sce \mbox{H} \wedge \neg\, (\mbox{H} \sce \mbox{P}) \Rightarrow \mbox{P} \succ \mbox{H}, \quad
 \mbox{P} \sce \mbox{O} \wedge \neg\, (\mbox{O} \sce \mbox{P}) \Rightarrow \mbox{P} \succ \mbox{O}, \quad
 \mbox{H} \sce \mbox{O} \wedge \mbox{O} \sce \mbox{H} \Rightarrow \mbox{H} \sim \mbox{O}.
 \end{equation}
+\end{flushleft}
+
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Ordinalmessung (fortgesetzt)
+\footnotesize
+
 Eine mögliche numerische Repräsentation der Präferenzordnung dieser Patientin ist
 \begin{equation}
 f : M \to \mathbb{R}, m \mapsto f(m) :=
@@ -392,24 +413,15 @@ f : M \to \mathbb{R}, m \mapsto f(m) :=
 2 & (m = \mbox{P})
 \end{cases}.
 \end{equation}
-Denn dann gilt für alle $m,m' \in M$:
+Denn dann gilt für alle $m,n \in M$:
 \begin{equation}
-m \sce m' \Leftrightarrow f(m) \geq f(m').
+m \sce n \Leftrightarrow f(m) \geq f(n).
 \end{equation}
-\end{flushleft}
-
-
-# Repräsentationstheoretische Grundlagen
-\setstretch{1.2}
-\vspace{2mm}
-\small
-Beispiel: Ordinalmessung
-\footnotesize
 
 Dies lässt sich durch vollständige Fallunterscheidung zeigen. Es ergibt sich
 \begin{equation}
 \begin{array}{c|c|c|c}
-(m,m')              & m \sce m'     & (f(m), f(m'))  & f(m)\geq f(m')\\\hline
+(m,n)               & m \sce n      & (f(m), f(n))   & f(m)\geq f(n)\\\hline
 (\mbox{P},\mbox{P}) & w             & (2, 2)         & w \\
 (\mbox{P},\mbox{H}) & w             & (2, 1)         & w \\
 (\mbox{P},\mbox{O}) & w             & (2, 1)         & w \\
@@ -421,10 +433,18 @@ Dies lässt sich durch vollständige Fallunterscheidung zeigen. Es ergibt sich
 (\mbox{O},\mbox{O}) & w             & (1, 1)         & w
 \end{array}
 \end{equation}
-Also stimmen für alle Paare $(m,m') \in M^2$ die Wahrheitswerte von
-$m \sce m'$ und $f(m)\geq f(m')$ überein.
+Also stimmen für alle Paare $(m,n) \in M^2$ die Wahrheitswerte von
+$m \sce n$ und $f(m)\geq f(n)$ überein. Allerdings ist diese Repräsentation
+natürlich nicht eindeutig.
 
-Allerdings ist diese Repräsentation natürlich nicht eindeutig. Sei etwa mit
+# Repräsentationstheoretische Grundlagen
+\setstretch{1.2}
+\vspace{2mm}
+\small
+Beispiel: Ordinalmessung
+\footnotesize
+
+Sei etwa mit
 \begin{equation}
 \phi : \mathbb{R}_{>0} \to \mathbb{R}, x \mapsto \phi(x) := x^2
 \end{equation}
@@ -437,22 +457,14 @@ g : M \to \mathbb{R}, m \mapsto g(m) := (\phi \circ f)(m) = \phi(f(m)) =
 4 & (m = \mbox{P})
 \end{cases}.
 \end{equation}
-
-# Repräsentationstheoretische Grundlagen
-\setstretch{1.2}
-\vspace{2mm}
-\small
-Beispiel: Ordinalmessung
-\footnotesize
-
-Aber auch für $g$ gilt dann für alle $m,m' \in M$, dass
+Aber auch für $g$ gilt dann für alle $m,n \in M$, dass
 \begin{equation}
-m \sce m' \Leftrightarrow g(m) \geq g(m').
+m \sce n \Leftrightarrow g(m) \geq g(n).
 \end{equation}
 denn
 \begin{equation}
 \begin{array}{c|c|c|c}
-(m,m')              & m \sce m'     & (g(m), g(m'))  & g(m)\geq g(m')\\\hline
+(m,n)               & m \sce n      & (g(m), g(n))   & g(m)\geq g(n)\\\hline
 (\mbox{P},\mbox{P}) & w             & (4, 4)         & w \\
 (\mbox{P},\mbox{H}) & w             & (4, 1)         & w \\
 (\mbox{P},\mbox{O}) & w             & (4, 1)         & w \\
@@ -477,7 +489,7 @@ Skalenrepräsentation invariant ist, sich mit Änderung der Skala also nicht än
 
 * Ein klassisches Beispiel für *nicht* bedeutsame Aussagen sind Verhältnisaussagen
 bei Intervallskalen zur Temperaturmessung wie Celsius (T$_{\mbox{\tiny C}}$) und Fahrenheit (T$_{\mbox{\tiny F}}$ = $\frac{9}{5}$ T$_{\mbox{\tiny C}}$ + 32). Seien zum Beispiel zwei
-Objekten $m$ und $n$ durch  die Celsius-Skala die Temperaturen 40°C und 20°C
+Objekten $m$ und $n$ durch die Celsius-Skala die Temperaturen 40°C und 20°C
 zugeordnet. Dann gilt
 \begin{equation}
 \frac{\mbox{Temperatur von } m}{\mbox{Temperatur von } n} =
@@ -486,12 +498,12 @@ zugeordnet. Dann gilt
 \frac{104^{\circ} \mbox{ F}}{68^{\circ} \mbox{ F}} = 1.52 \neq 2
 \end{equation}
 
-* Formaler gilt: $(\mathcal{M},\mathcal{N},f)$ sei eine Skala.
+* Formal gilt: $(\mathcal{M},\mathcal{N},f)$ sei eine Skala.
 Eine Aussage heißt *bedeutsam bezüglich* $(\mathcal{M},\mathcal{N},f)$, wenn der Wahrheitsgehalt der Aussage unter allen zulässigen Transformationen von
 $(\mathcal{M},\mathcal{N},f)$ unverändert bleibt.
 
 * Im Folgenden zeigen wir, dass für $m,n,p,q\in M$ die Aussage $f(m) - f(n) = f(p) - f(q)$
-also die Gleicheit von Differenzen im Allgemeinen nicht bedeutsam ist, wenn $f$
+also die Gleichheit von Differenzen im Allgemeinen nicht bedeutsam ist, wenn $f$
 eine Ordinalskala ist, und bedeutsam ist, wenn $f$ eine Intervallskala ist.
 
 * Weiterhin zeigen wir, dass für $m,n \in M$ und $c\neq 0$ die Aussage $f(m)/f(n) = c$
@@ -506,7 +518,7 @@ Bedeutsame Aussagen
 *Beweis der Nicht-Bedeutsamkeit von Aussagen zur Gleichheit von Differenzen bei Ordinalskalen*
 
 $f$ sei eine Ordinalskala. Dann ist die Menge $\Phi$ der zulässigen Transformationen
-von $f$ die Menge der monoton steigenden Funktionen. Wir zeigen durch ein Gegenbeispiel,
+von $f$ die Menge der streng monoton steigenden Funktionen. Wir zeigen durch ein Gegenbeispiel,
 dass die Differenzengleichheitsaussage nicht unter allen zulässigen Transformationen von $f$ wahr bleibt.
 Beispielsweise sei $M := \{m,n,p,q\}$ die Menge des qualitativen Relationssystems
 und ein Homomorphismus von $\mathcal{M}$ nach $(\mathbb{R},\ge)$
@@ -522,12 +534,12 @@ f(m) - f(n) = f(p) - f(q)
 \Leftrightarrow
 4 = 4
 \end{equation}
-Sei nun eine monoton steigende Funktion $\phi$ auf $\mathbb{R}$ definiert mit den speziellen Werten
+Sei nun eine streng monoton steigende Funktion $\phi$ auf $\mathbb{R}$ definiert mit den speziellen Werten
 \begin{equation}
 \phi : \mathbb{R} \to \mathbb{R}, x \mapsto \phi(x) \mbox{ mit }
 \phi(2) := 3,\ \phi(4) := 5,\ \phi(6) := 8,\ \phi(8) := 9.
 \end{equation}
-$\phi$ ist auf $\{2,4,6,8\}$ monoton steigend, denn für alle $x,y \in \{2,4,6,8\}$ gilt
+$\phi$ ist auf $\{2,4,6,8\}$ streng monoton steigend, denn für alle $x,y \in \{2,4,6,8\}$ gilt
 $x > y \Leftrightarrow \phi(x) > \phi(y)$. Dann gilt aber
 \begin{equation}
 (\phi \circ f)(m) - (\phi \circ f)(n)
@@ -551,15 +563,10 @@ von $f$ die Menge der positiv linear-affinen Funktionen. Für jede Transformatio
 $\phi \circ f$ mit $\phi \in \Phi$ gilt mit $\alpha > 0, \beta \in \mathbb{R}$
 \begin{align}
 \begin{split}
-f(m) - f(n) = f(p) - f(q)
-& \Leftrightarrow
-\alpha(f(m) - f(n)) = \alpha(f(p) - f(q)) \\
-& \Leftrightarrow
-(\alpha f(m) + \beta) - (\alpha f(n) + \beta) \\
-& \quad = (\alpha f(p) + \beta) - (\alpha f(q) + \beta) \\
-& \Leftrightarrow
-(\phi \circ f)(m) - (\phi \circ f)(n) \\
-& \quad = (\phi \circ f)(p) - (\phi \circ f)(q).
+f(m) - f(n)                                   & = f(p) - f(q)                                   \\\Leftrightarrow
+\alpha(f(m) - f(n) + \beta -  \beta)          & = \alpha(f(p) - f(q) + \beta - \beta)           \\\Leftrightarrow
+(\alpha f(m) + \beta) - (\alpha f(n) + \beta) & = (\alpha f(p) + \beta) - (\alpha f(q) + \beta) \\\Leftrightarrow
+(\phi \circ f)(m) - (\phi \circ f)(n)         & = (\phi \circ f)(p) - (\phi \circ f)(q).
 \end{split}
 \end{align}
 
@@ -579,7 +586,7 @@ f(m) = c f(n)
 \end{equation}
 Dann gilt im Allgemeinen für eine positiv linear-affine Funktion $\phi$, dass
 \begin{equation}
-(\phi \circ f)(m) \neq c (\phi \circ f) (n)
+(\phi \circ f)(m) \neq c (\phi \circ f)(n)
 \end{equation}
 Zum Beispiel seien $f(m) := 2, f(n) := 1$ (also $c = 2$) und $\phi$ sei die positiv linear-affine Funktion
 \begin{equation}
@@ -595,7 +602,7 @@ f(m) = 2f(n),
 \end{equation}
 aber
 \begin{equation}
-(\phi \circ f)(m) \neq 2 (\phi \circ f) (n)
+(\phi \circ f)(m) \neq 2 (\phi \circ f)(n)
 \end{equation}
 denn
 \begin{equation}
@@ -619,13 +626,15 @@ von $f$ die Menge der Ähnlichkeitstransformationen. Für jede Transformation
 von $\phi \circ f$ von $f$ mit $\phi \in \Phi$ gilt mit $\alpha > 0$ also
 \begin{align}
 \begin{split}
-\frac{f(m)}{f(n)} = c
-\Leftrightarrow
-\alpha \left(\frac{f(m)}{f(n)}\right) = \alpha c
-\Leftrightarrow
-\frac{\alpha f(m)}{\alpha f(n)} =  c
- \Leftrightarrow
-\frac{(\phi \circ f)(m)}{(\phi \circ f)(n)} =  c.
+\frac{f(m)}{f(n)} & = c
+\\\Leftrightarrow
+f(m) & = c f(n)
+\\\Leftrightarrow
+\alpha f(m) & = c \alpha f(n)
+\\\Leftrightarrow
+(\phi \circ f)(m) & = c (\phi \circ f)(n)
+\\\Leftrightarrow
+\frac{(\phi \circ f)(m)}{(\phi \circ f)(n)} & = c.
 \end{split}
 \end{align}
 
@@ -664,7 +673,7 @@ Bedeutsame Statistiken
 
 *Beweis der Nicht-Bedeutsamkeit des Mittelwerts bei Ordinalskala*
 
-Es sei $(\mathcal{M}, \mathcal{N},f)$ sei eine Ordinalskala und $\phi$ eine
+Es sei $(\mathcal{M}, \mathcal{N},f)$ eine Ordinalskala und $\phi$ eine
 zulässige Transformation von $f$, also eine streng monoton steigende Funktion. Für
 $f(M) \subset \mathbb{R}_{>0}$ und $n := 2$ seien $f(m_1) = 1$ und $f(m_2) = 3$
 und es sei $\phi$ die streng monotone Funktion
@@ -681,7 +690,7 @@ Dann gilt
 \end{equation}
 Es gilt aber auch
 \begin{equation}
-\gamma(\phi(f(m_1),\phi(f(m_2))))
+\gamma(\phi(f(m_1)),\phi(f(m_2)))
 = \gamma(\phi(1),\phi(3))
 = \gamma\left(1^2,3^2\right)
 = \frac{1}{2}(1 + 9)
@@ -689,7 +698,7 @@ Es gilt aber auch
 \end{equation}
 Also gilt
 \begin{equation}
-\phi(\gamma(f(m_1),f(m_2))) = 4 \neq 5 = \gamma(\phi(f(m_1),\phi(f(m_2)))).
+\phi(\gamma(f(m_1),f(m_2))) = 4 \neq 5 = \gamma(\phi(f(m_1)),\phi(f(m_2))).
 \end{equation}
 
 # Repräsentationstheoretische Grundlagen
@@ -699,7 +708,7 @@ Bedeutsame Statistiken
 
 *Beweis der Bedeutsamkeit des Mittelwerts bei Intervallskala*
 
-Es sei $(\mathcal{M}, \mathcal{N},f)$ sei eine Intervallskala und $\phi$ eine
+Es sei $(\mathcal{M}, \mathcal{N},f)$ eine Intervallskala und $\phi$ eine
 zulässige Transformation von $f$, also eine Funktion der Form
 \begin{equation}
 \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta \mbox{ mit } \alpha > 0
@@ -736,8 +745,8 @@ die folgenden Bedingungen gelten:
 
 (2) $(M,\circ)$ ist eine Gruppe. Für alle $m,n,p \in M$ gelten also die *Assoziativität*
 $(m \circ n) \circ p = m \circ (n \circ p)$; es gibt ein *neutrales Element* $e \in M$, so dass für alle $m\in M$ gilt,
-$m \circ e = e \circ m = m$; für alle $m \in M$ existiert ein *inverses Element* $n \in M$, so dass
-$m \circ n = n \circ m = e$.
+$m \circ e = e \circ m = m$; für alle $m \in M$ existiert ein *inverses Element* $m^{-1} \in M$, so dass
+$m \circ m^{-1} = m^{-1} \circ m = e$.
 
 (3) Für alle $m,n,p \in M$ gilt:
 \begin{equation}
@@ -753,7 +762,7 @@ so gilt für alle $m,m' \in M$: Aus $m \succ e$, wobei $e$ das neutrale
 Element von $(M,\circ)$ bezeichnet, folgt, dass eine natürliche Zahl
 $n$ existiert, so dass
 \begin{equation}
-n m \succ m'.
+\underbrace{m \circ \cdots \circ m}_{n\text{-mal}} \succ m'.
 \end{equation}
 
 Das Standardbeispiel für eine archimedisch geordnete Gruppe ist
@@ -791,7 +800,7 @@ $\mathcal{M} := (M,\sce,\circ)$ sei ein qualitatives Relationssystem
 mit einer archimedisch geordneten Gruppe $(M,\sce,\circ)$,
 $\mathcal{N} := (\mathbb{R},\geq,+)$ sei ein quantitatives Relationssystem,
 und es sei $f \in \mathcal{H}(\mathcal{M},\mathcal{N})$.
-Dann ist $(\mathcal{M},\mathcal{N},f)$ eine Verhältnis; die Klasse der zulässigen Transformationen von $f$ ist also die Klasse der positiven linearen Transformationen
+Dann ist $(\mathcal{M},\mathcal{N},f)$ eine Verhältnisskala; die Klasse der zulässigen Transformationen von $f$ ist also die Klasse der positiven linearen Transformationen
 \begin{equation}
 \phi : \mathbb{R} \to \mathbb{R}, x \mapsto \phi(x) = \alpha x
 \quad \mbox{mit } \alpha > 0.
@@ -813,10 +822,10 @@ interpretierbar und intersubjektiv reproduzierbar, z.B. als "Stäbe aneinanderle
 oder "Gewichte zusammenlegen".
 * @stevens1946 zitiert dazu aus dem Abschlussbericht der Kommission der British
 Association for the Advancement of Science zur Frage der Messbarkeit psychologischer
-Phänomene ein Kommissionsmitglied mit: "that any law purporting to express a q
-uantitative relation between sensation intensity and stimulus intensity is
+Phänomene ein Kommissionsmitglied mit: *that any law purporting to express a
+quantitative relation between sensation intensity and stimulus intensity is
 not merely false but is in fact meaningless unless and until a meaning can be
-given to the concept of addition as applied to sensation* (Final Report, p. 245).
+given to the concept of addition as applied to sensation (Final Report, p. 245)*.
 Damit wird die klassische Forderung zum Ausdruck gebracht, dass Messung im strengen
 Sinne eine interpretierbare Additionsoperation voraussetzt.
 * Hinter dieser Aussage steht die Frage, welche empirische Operation überhaupt
@@ -865,14 +874,14 @@ Beispiel
 Ziel ist die quantitative Repräsentation von intrasubjektiven Stimmungs- und
 Antriebszuständen einer Patientin. *Stimmung (Affektivität)* bezeichne hier
 subjektives emotionales Erleben mit den qualitativen Zuständen *traurig*, *neutral*,
-*fröhlich*. *Antrieb (psychomotorische Aktivität)* bezeichnee hier subjektives
+*fröhlich*. *Antrieb (psychomotorische Aktivität)* bezeichne hier subjektives
 Energie- und Handlungsbereitschaftserleben mit den qualitativen Zuständen
 *gehemmt*, *normal*, *gesteigert*.
 
 Um die qualitativen Zustände der Stimmung in Zahlen auf Intervallskalenniveau zu
 repräsentieren, erhebt man in der additiven Konjunktmessung die Ordnungsrelation
 auf der Menge der Tupel (Stimmung, Antrieb). Man fragt also die Patientin für
-alle Kombinationen der neun Tupel aus Stimmungs-und Antriebszuständen, was schlimmer ist.
+alle Kombinationen der neun Tupel aus Stimmungs- und Antriebszuständen, was schlimmer ist.
 Ist zum Beispiel die Kombination aus trauriger Stimmung und gehemmtem Antrieb
 schlimmer als die Kombination aus fröhlicher Stimmung und gesteigertem Antrieb?
 
@@ -900,21 +909,21 @@ sinnvoll interpretiert werden können.
 
 Man fragt also nach der Form der Funktionen
 \begin{equation}
-\phi : \{\text{traurig}, \text{neutral}, \text{fröhlich}\} \to \mathbb{R}
+f : \{\text{traurig}, \text{neutral}, \text{fröhlich}\} \to \mathbb{R}
 \quad \text{und} \quad
-\varphi : \{\text{gehemmt}, \text{normal}, \text{gesteigert}\} \to \mathbb{R}
+g : \{\text{gehemmt}, \text{normal}, \text{gesteigert}\} \to \mathbb{R}
 \end{equation}
 Man fragt also zum Beispiel, ob die Definitionen
 \begin{equation}
-\phi(\text{traurig})  := 1 \quad
-\phi(\text{neutral})  := 2 \quad
-\phi(\text{fröhlich}) := 3
+f(\text{traurig})  := 1 \quad
+f(\text{neutral})  := 2 \quad
+f(\text{fröhlich}) := 3
 \end{equation}
 und
 \begin{equation}
-\varphi(\text{gehemmt}) := -10 \quad
-\varphi(\text{normal})   := 0 \quad
-\varphi(\text{gesteigert}) := 10
+g(\text{gehemmt}) := -10 \quad
+g(\text{normal})   := 0 \quad
+g(\text{gesteigert}) := 10
 \end{equation}
 sinnvoll sind. Insbesondere fragt man, ob, wenn man dann mit den Zahlen wie gewohnt
 Differenzrechnung betreibt, die Ergebnisse im Qualitativen sinnvoll sind, ob in der
@@ -922,9 +931,9 @@ Tat zum Beispiel in Bezug auf die Stimmung die quantitative Gleichheit von
 \begin{equation}
 3 - 2 = 2 - 1
 \end{equation}
-also im Sinne der Stimmungsdifferenzstruktur
+also im Sinne der qualitativen Stimmungsdifferenzstruktur
 \begin{equation}
-\text{fröhlich} - \text{neutral} = \text{neutral} - \text{traurig}
+\Delta(\text{fröhlich}, \text{neutral}) \sim \Delta(\text{neutral},\text{traurig})
 \end{equation}
 interpretiert werden kann.
 
@@ -971,17 +980,17 @@ faktoriellen Validitätsanalysen klar unterinzentiviert.
 \normalfont
 $(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Dann existieren Funktionen
 \begin{equation}
-\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R}
+f : X \to \mathbb{R} \mbox{ und } g: Y \to \mathbb{R}
 \end{equation}
 so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
 \begin{equation}
-(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow f(x_1) + g(y_1) \ge f(x_2) + g(y_2)
 \end{equation}
-Weiterhin gilt, dass wenn $\phi'$ und $\varphi'$ zwei weitere Funktionen mit den
-gleichen Eigenschaften wie $\phi$ und $\varphi$ sind, Konstanten $\alpha > 0$ und
+Weiterhin gilt, dass wenn $\tilde{f}$ und $\tilde{g}$ zwei weitere Funktionen mit den
+gleichen Eigenschaften wie $f$ und $g$ sind, Konstanten $\alpha > 0$ und
 $\beta_1, \beta_2\in \mathbb{R}$ existieren, so dass für alle $x \in X$ und $y \in Y$
 \begin{equation}
-\phi'(x) = \alpha\phi(x) + \beta_1 \mbox{ und } \varphi'(y) = \alpha\varphi(y) + \beta_2
+\tilde{f}(x) = \alpha f(x) + \beta_1 \mbox{ und } \tilde{g}(y) = \alpha g(y) + \beta_2
 \end{equation}
 gilt.
 \end{theorem}
@@ -989,7 +998,7 @@ gilt.
 Bemerkungen
 
 * Im Folgenden skizzieren wir zunächst das Wesen einer additiv-konjunkten Struktur.
-* Im Anschluss skizzieren wir einen Beweis obigen Theorems durch Konstruktion von $\phi$ und $\varphi$.
+* Im Anschluss skizzieren wir einen Beweis obigen Theorems durch Konstruktion von $f$ und $g$.
 * Schließlich beweisen wir den Intervallskalencharakter der Repräsentation.
 
 # Repräsentation additiv-konjunkter Strukturen
@@ -1034,8 +1043,8 @@ Bemerkungen
 * Die Vollständigkeit von $\sce$ besagt zum einen, dass \textit{alle} $x_1,x_2$ in Relation stehen.
 * In der Definition der Vollständigkeit bezeichnet $\vee$ das nicht-exklusive logische *oder*.
 * Den Fall $x_1 \sce x_2$ und $x_2 \sce x_1$ bezeichnen wir mit $x_1 \sim x_2$ (Äquivalenz, Indifferenz).
-* Den Fall $x_1 \sce x_2$ und $\neg\,(x_2 \sce x_1)$ bezeichnen wir mit $x_1 \sce x_2$ (Strikte Ordnung).
-* Den Fall $\neg\, (x_1 \sce x_2)$ und $x_2 \sce x_1$  bezeichnen wir mit $x_2 \sce x_1$ (Strikte Ordnung).
+* Den Fall $x_1 \sce x_2$ und $\neg\,(x_2 \sce x_1) = x_2 \pce x_1$ bezeichnen wir mit $x_1 \succ x_2$ (strikte Ordnung).
+* Den Fall $\neg\, (x_1 \sce x_2) = x_1 \pce x_2$ und $x_2 \sce x_1$  bezeichnen wir mit $x_2 \succ x_1$ (strikte Ordnung).
 
 
 # Repräsentation additiv-konjunkter Strukturen
@@ -1061,14 +1070,15 @@ Gleichheit der BDI-II-Werte von $x_1$ und $x_2$ aber nicht, dass $x_1 = x_2$, de
 kann verschiedene Patient:innen mit gleichem BDI-II-Wert geben. Das ist z.B. bei
 der $\ge$ Relation auf $\mathbb{R}$ anders. Für alle $x,y \in \mathbb{R}$ folgt aus
 $x \ge y$ und $y \ge x$ immer, dass $x = y$. Dies ist die sogenannte *Antisymmetrie*
-einer sogenannten *linearen Ordnung*. Ordnungen auf unterschiedlichen Mengen (Patient:innen,
-Zahlen) können also unterschiedlich beschaffen sein.
+einer sogenannten *linearen Ordnung*.
+
+Ordnungen auf unterschiedlichen Mengen (Patient:innen, Zahlen) können also unterschiedlich beschaffen sein.
 
 *Transitivität*
 
 Für drei beliebige Patient:innen $x_1,x_2,x_3$ gilt, dass wenn $x_2$ einen geringeren
 oder  den gleichen BDI-II-Wert wie $x_1$ hat und $x_2$ einen geringeren oder
-den gleichen BDI-II-Wert wie $x_3$ hat, dass $x_1$ auch eine geringeren oder
+den gleichen BDI-II-Wert wie $x_3$ hat, dass $x_1$ auch einen geringeren oder
 den gleichen BDI-II-Wert wie $x_3$ hat.
 
 # Repräsentation additiv-konjunkter Strukturen
@@ -1078,13 +1088,13 @@ den gleichen BDI-II-Wert wie $x_3$ hat.
 \normalfont
 Für $(X,Y,\sce)$ seien
 \begin{equation}
-\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R},
+f : X \to \mathbb{R} \mbox{ und } g: Y \to \mathbb{R},
 \end{equation}
 so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
 \begin{equation}
 (x_1,y_1) \sce (x_2,y_2)
 \Leftrightarrow
-\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2).
+f(x_1) + g(y_1) \ge f(x_2) + g(y_2).
 \end{equation}
 Dann ist $\sce$ eine schwache Ordnung auf $X \times Y$.
 \end{theorem}
@@ -1102,9 +1112,9 @@ Bemerkung
 Seien $x_1,x_2 \in X$ und $y_1,y_2 \in Y$. Dann gilt
 \begin{align}
 \begin{split}
-\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+f(x_1) + g(y_1) \ge f(x_2) + g(y_2)
 \vee
-\phi(x_2) + \varphi(y_2) \ge \phi(x_1) + \varphi(y_1)
+f(x_2) + g(y_2) \ge f(x_1) + g(y_1)
 \\
 \Leftrightarrow
 (x_1,y_1) \sce (x_2,y_2)
@@ -1125,12 +1135,12 @@ Seien $x_1,x_2,x_3 \in X$ und $y_1,y_2,y_3 \in Y$. Dann gilt
 (x_2,y_2) \sce (x_3,y_3)
 \\
 \Leftrightarrow
-\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+f(x_1) + g(y_1) \ge f(x_2) + g(y_2)
 & \wedge
-\phi(x_2) + \varphi(y_2) \ge \phi(x_3) + \varphi(y_3)
+f(x_2) + g(y_2) \ge f(x_3) + g(y_3)
 \\
 \Rightarrow
-\phi(x_1) + \varphi(y_1) & \ge \phi(x_3) + \varphi(y_3)
+f(x_1) + g(y_1) & \ge f(x_3) + g(y_3)
 \\
 \Leftrightarrow
 (x_1,y_1) & \sce (x_3,y_3).
@@ -1180,7 +1190,7 @@ und
 \begin{equation}
 (24 \mbox{h}, \mbox{Psychoanalyse}) \sce (80 \mbox{h}, \mbox{Psychoanalyse})
 \end{equation}
-Unabhängig von der Therapieform with hier also eine Kurzzeittherapie über eine
+Unabhängig von der Therapieform wird hier also eine Kurzzeittherapie über eine
 Langzeittherapie präferiert.
 
 Nicht konform mit der Unabhängigkeit der Komponentenrelationen wären dagegen
@@ -1203,13 +1213,13 @@ und die Komponentenrelationen sind nicht unabhängig.
 \normalfont
 Für $(X,Y,\sce)$ seien
 \begin{equation}
-\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R},
+f : X \to \mathbb{R} \mbox{ und } g: Y \to \mathbb{R},
 \end{equation}
 so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
 \begin{equation}
 (x_1,y_1) \sce (x_2,y_2)
 \Leftrightarrow
-\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+f(x_1) + g(y_1) \ge f(x_2) + g(y_2)
 \end{equation}
 Dann gilt
 \begin{equation}
@@ -1230,20 +1240,20 @@ Nach Annahme gilt für alle $x_1,x_2 \in X$ und $y_1 \in Y$, dass
 \begin{equation}
 (x_1,y_1) \sce (x_2,y_1)
 \Leftrightarrow
-\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_1)
+f(x_1) + g(y_1) \ge f(x_2) + g(y_1)
 \end{equation}
 Dann folgt
 \begin{align}
 \begin{split}
 (x_1,y_1) \sce (x_2,y_1)
 & \Leftrightarrow
-\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_1)
+f(x_1) + g(y_1) \ge f(x_2) + g(y_1)
 \\
 & \Leftrightarrow
-\phi(x_1)   \ge \phi(x_2)
+f(x_1)   \ge f(x_2)
 \\
 & \Leftrightarrow
-\phi(x_1) + \varphi(y_2) \ge \phi(x_2) + \varphi(y_2)
+f(x_1) + g(y_2) \ge f(x_2) + g(y_2)
 \\
 & \Leftrightarrow
 (x_1,y_2) \sce (x_2,y_2)
@@ -1379,13 +1389,13 @@ knitr::include_graphics("1-Abbildungen/psd-1-doppelaufhebung.pdf")
 \normalfont
 Für $(X,Y,\sce)$ seien
 \begin{equation}
-\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R},
+f : X \to \mathbb{R} \mbox{ und } g: Y \to \mathbb{R},
 \end{equation}
 so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
 \begin{equation}
 (x_1,y_1) \sce (x_2,y_2)
 \Leftrightarrow
-\phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+f(x_1) + g(y_1) \ge f(x_2) + g(y_2)
 \end{equation}
 Dann gilt für alle $x_1,x_2,x_3 \in X$ und $y_1,y_2,y_3 \in Y$
 \begin{equation}
@@ -1406,22 +1416,22 @@ Nach Annahme gelten
 \begin{equation}
 (x_1,y_2) \sce (x_2,y_3)
 \Leftrightarrow
-\phi(x_1) + \varphi(y_2) \ge \phi(x_2) + \varphi(y_3)
+f(x_1) + g(y_2) \ge f(x_2) + g(y_3)
 \end{equation}
 und
 \begin{equation}
 (x_2,y_1) \sce (x_3,y_2)
 \Leftrightarrow
-\phi(x_2) + \varphi(y_1) \ge \phi(x_3) + \varphi(y_2)
+f(x_2) + g(y_1) \ge f(x_3) + g(y_2)
 \end{equation}
 Addition der Ungleichungen ergibt dann
 \begin{equation}
-\phi(x_1) + \varphi(y_2) + \phi(x_2) + \varphi(y_1) \ge
-\phi(x_2) + \varphi(y_3) + \phi(x_3) + \varphi(y_2)
+f(x_1) + g(y_2) + f(x_2) + g(y_1) \ge
+f(x_2) + g(y_3) + f(x_3) + g(y_2)
 \end{equation}
-Subtraktion von $\phi(x_2) + \varphi(y_2)$ auf beiden Seiten ergibt dann
+Subtraktion von $f(x_2) + g(y_2)$ auf beiden Seiten ergibt dann
 \begin{equation}
-\phi(x_1) + \varphi(y_1) \ge \phi(x_3) + \varphi(y_3)
+f(x_1) + g(y_1) \ge f(x_3) + g(y_3)
 \Leftrightarrow
 (x_1,y_1) \sce (x_3,y_3)
 \end{equation}
@@ -1434,17 +1444,17 @@ Subtraktion von $\phi(x_2) + \varphi(y_2)$ auf beiden Seiten ergibt dann
 \normalfont
 $(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Dann existieren Funktionen
 \begin{equation}
-\phi : X \to \mathbb{R} \mbox{ und } \varphi: Y \to \mathbb{R}
+f : X \to \mathbb{R} \mbox{ und } g: Y \to \mathbb{R}
 \end{equation}
 so dass für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt, dass
 \begin{equation}
-(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow f(x_1) + g(y_1) \ge f(x_2) + g(y_2)
 \end{equation}
-Weiterhin gilt, dass wenn $\phi'$ und $\varphi'$ zwei weitere Funktionen mit den
-gleichen Eigenschaften wie $\phi$ und $\varphi$ sind, Konstanten $\alpha > 0$ und
+Weiterhin gilt, dass wenn $\tilde{f}$ und $\tilde{g}$ zwei weitere Funktionen mit den
+gleichen Eigenschaften wie $f$ und $g$ sind, Konstanten $\alpha > 0$ und
 $\beta_1, \beta_2\in \mathbb{R}$ existieren, so dass für alle $x \in X$ und $y \in Y$
 \begin{equation}
-\phi'(x) = \alpha\phi(x) + \beta_1 \mbox{ und } \varphi'(y) = \alpha\varphi(y) + \beta_2
+\tilde{f}(x) = \alpha f(x) + \beta_1 \mbox{ und } \tilde{g}(y) = \alpha g(y) + \beta_2
 \end{equation}
 gilt.
 \end{theorem}
@@ -1455,7 +1465,7 @@ gilt.
 \underline{Beweisskizze der Repräsentation}
 
 Im Folgenden geben wir eine konstruktive Beweisskizze des Repräsentations- und Eindeutigkeitstheorems.
-*Konstruktiv* bedeutet dabei, dass wir basierend auf $(X,Y,\sce)$ die Repräsentationen $\phi$ und $\varphi$ konstruieren. *Beweisskizze* bedeutet, dass wir nicht den Anspruch haben, mathematisch vollständig vorzugehen.
+*Konstruktiv* bedeutet dabei, dass wir basierend auf $(X,Y,\sce)$ die Repräsentationen $f$ und $g$ konstruieren. *Beweisskizze* bedeutet, dass wir nicht den Anspruch haben, mathematisch vollständig vorzugehen.
 Das Vorgehen in der Beweisskizze der Repräsentation besteht im Wesentlichen aus drei Schritten:
 
 1. Konstruktion ganzzahliger Repräsentationswerte mithilfe von verzahnten Standardsequenzen
@@ -1475,11 +1485,11 @@ und reeller Repräsentationswerte) experimentelle Bedeutung.
 
 Wir wählen zunächst ein beliebiges $(x_0,y_0) \in X \times Y$ und definieren:
 \begin{equation}
-\phi(x_0) := 0 \quad \text{und} \quad \varphi(x_0) := 0
+f(x_0) := 0 \quad \text{und} \quad g(y_0) := 0
 \end{equation}
 Wir wählen ein $x_1 \in X$ mit $x_1 \sce_x x_0$ als Einheit und definieren:
 \begin{equation}
-\phi(x_1) := 1
+f(x_1) := 1
 \end{equation}
 Die Existenz eines solchen $x_1$ ist dadurch gesichert, dass die Komponenten von
 $\sce$ *essentiell* sind (vgl. Eigenschaft (6) in der Definition einer additiv-konjunkten Struktur).
@@ -1487,7 +1497,7 @@ Die Essentialität einer Komponente von $\sce$ ist wie folgt definiert: Für ein
 Relation $\sce$ auf $X \times Y$ heißt die Komponente $X$ *essentiell*, wenn $x_0,x_1 \in X$ und
 $y \in Y$ existieren, so dass $\neg\,\big((x_0,y) \sim (x_1,y)\big)$ gilt. Bei Unabhängigkeit der Komponenten
 (also der Wohldefiniertheit von $\sce_x$ und $\sce_y$) impliziert dies, dass $X$ essentiell ist,
-wenn $x_0,x_1 \in X$ existieren, so dass $1_0 \sce_x x_2$ gilt.
+wenn $x_0,x_1 \in X$ existieren, so dass $x_1 \sce_x x_0$ und nicht $x_0 \sce_x x_1$ gilt.
 
 Wir suchen nun ein ausgleichendes Element $y_1$, so dass gilt
 \begin{equation}
@@ -1505,13 +1515,13 @@ Man müsste verschiedene $y_1$ ausprobieren, bis eine Beobachter:in bzgl. $(x_0,
 
 Die geforderte Additivität der Repräsentationen impliziert dann
 \begin{equation}
-(x_0,y_1) \sim (x_1, y_0) \Leftrightarrow \phi(x_0) + \varphi(y_1) = \phi(x_1) + \varphi(y_0)
+(x_0,y_1) \sim (x_1, y_0) \Leftrightarrow f(x_0) + g(y_1) = f(x_1) + g(y_0)
 \end{equation}
 Mit den bisherigen Festlegungen gilt dann
 \begin{equation}
-\phi(x_0) + \varphi(y_1) = \phi(x_1) + \varphi(y_0)
+f(x_0) + g(y_1) = f(x_1) + g(y_0)
 \Leftrightarrow
-0 + \varphi(y_1) = 1 + 0 \Rightarrow \varphi(y_1) = 1
+0 + g(y_1) = 1 + 0 \Rightarrow g(y_1) = 1
 \end{equation}
 Die Existenz eines solchen $y_1$ wird bei einer additiv-konjunkten Struktur
 durch die Eigenschaft (4) der *unrestringierten Lösbarkeit* garantiert. Dabei
@@ -1534,19 +1544,19 @@ Die geforderte Additivität der Repräsentation impliziert dann:
 \begin{equation}
 (x_2,y_0) \sim (x_1,y_1)
 \;\Leftrightarrow\;
-\phi(x_2) + \varphi(y_0) = \phi(x_1) + \varphi(y_1)
+f(x_2) + g(y_0) = f(x_1) + g(y_1)
 \;\Leftrightarrow\;
-\phi(x_2) + 0 = 1 + 1
+f(x_2) + 0 = 1 + 1
 \;\Rightarrow\;
-\phi(x_2) = 2
+f(x_2) = 2
 \end{equation}
 Wir erhalten also die nächste ganzzahlige Zuordnung zu einem $x \in X$.
 
 Schließlich setzen wir dieses Vorgehen induktiv fort und erhalten verzahnte Standardfolgen:
 \begin{align}
 \begin{split}
-(x_i,y_0) \sim (x_{i-1}, y_1) & \;\Rightarrow\; \phi(x_i) := i \in \mathbb{N}_0 \\
-(x_0,y_j) \sim (x_1, y_{j-1}) & \;\Rightarrow\; \varphi(y_j) := j \in \mathbb{N}_0 \\
+(x_i,y_0) \sim (x_{i-1}, y_1) & \;\Rightarrow\; f(x_i) := i \in \mathbb{N}_0 \\
+(x_0,y_j) \sim (x_1, y_{j-1}) & \;\Rightarrow\; g(y_j) := j \in \mathbb{N}_0 \\
 \end{split}
 \end{align}
 Die Doppelaufhebung garantiert dabei, dass dieses Vorgehen über mehrere Schritte hinweg funktioniert
@@ -1555,7 +1565,7 @@ Dies wird auch als *strukturelle Konsistenz* bezeichnet, was wir aber nicht weit
 
 *\noindent (2) Konstruktion rationaler Repräsentationswerte*
 
-Durch obiges Vorgehen erhalten wir ganzzahlige Repräsentation $\phi : X \to \mathbb{N}_0$ und $\varphi : Y \to \mathbb{N}_0$. Zur Konstruktion rationaler Repräsentationen $\phi : X \to \mathbb{Q}$ und $\varphi : Y \to \mathbb{Q}$ kann man wie folgt vorgehen.
+Durch obiges Vorgehen erhalten wir ganzzahlige Repräsentation $f : X \to \mathbb{N}_0$ und $g : Y \to \mathbb{N}_0$. Zur Konstruktion rationaler Repräsentationen $f : X \to \mathbb{Q}$ und $g : Y \to \mathbb{Q}$ kann man wie folgt vorgehen.
 
 # Repräsentation additiv-konjunkter Strukturen
 \footnotesize
@@ -1572,28 +1582,28 @@ Wir wählen ein $x \in X$ und finden aufgrund der unrestringierten Lösbarkeit e
 Die geforderte Additivität der Repräsentationen impliziert dann das lineare Gleichungssystem
 \begin{align}
 \begin{split}
-\phi(x) + \varphi(y_0)    = \phi(x_0) + \varphi(y_{1/2})
+f(x) + g(y_0)    = f(x_0) + g(y_{1/2})
 & \wedge
-\phi(x_1) + \varphi(y_0)  = \phi(x)   + \varphi(y_{1/2})
+f(x_1) + g(y_0)  = f(x)   + g(y_{1/2})
 \\
 \Leftrightarrow
-\phi(x) + 0  = 0 + \varphi(y_{1/2})
+f(x) + 0  = 0 + g(y_{1/2})
 & \wedge
-1       + 0  = \phi(x)   + \varphi(y_{1/2})
+1       + 0  = f(x)   + g(y_{1/2})
 \\
 \Leftrightarrow
-\phi(x)  = \varphi(y_{1/2})
+f(x)  = g(y_{1/2})
 & \wedge
-1  = \phi(x)  + \varphi(y_{1/2})
+1  = f(x)  + g(y_{1/2})
 \\
 \Leftrightarrow
-1 - \phi(x) & = \phi(x)  + \varphi(y_{1/2}) - \varphi(y_{1/2})
+1 - f(x) & = f(x)  + g(y_{1/2}) - g(y_{1/2})
 \\
 \Leftrightarrow
-2\phi(x) & = 1
+2f(x) & = 1
 \\
 \Leftrightarrow
-\phi(x) & = \frac{1}{2}
+f(x) & = \frac{1}{2}
 \end{split}
 \end{align}
 Geht man iterativ auf diese Weise vor, so erhält man dyadisch rationale Repräsentationen.
@@ -1601,35 +1611,35 @@ Geht man iterativ auf diese Weise vor, so erhält man dyadisch rationale Repräs
 
 *\noindent (3) Konstruktion reeller Repräsentationswerte*
 
-Reelle Repräsentationen $\phi : X \to \mathbb{R}$ und $\varphi : Y \to \mathbb{R}$ erhält man schließlich mithilfe *Dedekinscher Schnitte*.
+Reelle Repräsentationen $f : X \to \mathbb{R}$ und $g : Y \to \mathbb{R}$ erhält man schließlich mithilfe *Dedekindscher Schnitte*.
 
 # Repräsentation additiv-konjunkter Strukturen
 \footnotesize
 \underline{Beweis der Eindeutigkeit}
 
-Wir zeigen, dass wenn sowohl für $\phi$ und $\varphi$ gilt, dass
+Wir zeigen, dass wenn sowohl für $f$ und $g$ gilt, dass
 \begin{equation}
-(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi(x_1) + \varphi(y_1) \ge \phi(x_2) + \varphi(y_2)
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow f(x_1) + g(y_1) \ge f(x_2) + g(y_2)
 \end{equation}
-als auch für $\phi'$ und $\varphi'$ gilt, dass
+als auch für $\tilde{f}$ und $\tilde{g}$ gilt, dass
 \begin{equation}
-(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \phi'(x_1) + \varphi'(y_1) \ge \phi'(x_2) + \varphi'(y_2),
+(x_1,y_1) \sce (x_2,y_2) \Leftrightarrow \tilde{f}(x_1) + \tilde{g}(y_1) \ge \tilde{f}(x_2) + \tilde{g}(y_2),
 \end{equation}
 Konstanten $\alpha > 0, \beta_1, \beta_2 \in \mathbb{R}$ existieren, so dass
 \begin{equation}
-\phi'(x)    = \alpha\phi(x)     + \beta_1  \mbox{ für alle } x \in X
+\tilde{f}(x)    = \alpha f(x)     + \beta_1  \mbox{ für alle } x \in X
 \mbox{ und }
-\varphi'(y) = \alpha\varphi(y)  + \beta_2  \mbox{ für alle } y \in Y.
+\tilde{g}(y) = \alpha g(y)  + \beta_2  \mbox{ für alle } y \in Y.
 \end{equation}
 Grundidee des Beweises ist es, dass die additive Struktur von $(X,Y,\sce)$ nicht
-die absoluten Werte von $\phi$ und $\varphi$ festlegt, sondern nur die Differenzen
-zwischen Werten $\phi(x)$ und $\phi(x')$ bzw. $\varphi(y)$ und $\varphi(y')$. Dies
+die absoluten Werte von $f$ und $g$ festlegt, sondern nur die Differenzen
+zwischen Werten $f(x)$ und $f(x')$ bzw. $g(y)$ und $g(y')$. Dies
 ist ja bekanntlich das charakterisierende Merkmal von Intervallskalen (man denke
-z.B. an die Temperaturmessung in Celsius ("$\phi(x)$") und Fahrenheit ("$\phi'(x)$")).
+z.B. an die Temperaturmessung in Celsius ("$f(x)$") und Fahrenheit ("$\tilde{f}(x)$")).
 Der Beweis besteht aus folgenden Schritten
 
 1. Folgerung von numerischen Differenzgleichungen aus qualitativen Indifferenzen
-1. Implikation der Gleichheit von $\phi'$-Differenzen in der Gleichheit von $\phi$-Differenzen
+1. Implikation der Gleichheit von $\tilde{f}$-Differenzen in der Gleichheit von $f$-Differenzen
 1. Affin-lineare Eindeutigkeiten der Repräsentationen von $\sce_x$ und $\sce_y$
 1. Identität der affin-linearen Konstante $\alpha$
 
@@ -1643,26 +1653,26 @@ Nach Annahme gilt
 \begin{align}
 \begin{split}
 (x,y') \sim (x',y)
-& \Leftrightarrow \phi(x) + \varphi(y') = \phi(x') + \varphi(y) \\
-& \Leftrightarrow \phi(x) - \phi(x') = \varphi(y) - \varphi(y')
+& \Leftrightarrow f(x) + g(y') = f(x') + g(y) \\
+& \Leftrightarrow f(x) - f(x') = g(y) - g(y')
 \end{split}
 \end{align}
 und ebenso
 \begin{align}
 \begin{split}
 (x,y') \sim (x',y)
-& \Leftrightarrow \phi'(x) + \varphi'(y') = \phi'(x') + \varphi'(y) \\
-& \Leftrightarrow \phi'(x) - \phi'(x') = \varphi'(y) - \varphi'(y')
+& \Leftrightarrow \tilde{f}(x) + \tilde{g}(y') = \tilde{f}(x') + \tilde{g}(y) \\
+& \Leftrightarrow \tilde{f}(x) - \tilde{f}(x') = \tilde{g}(y) - \tilde{g}(y')
 \end{split}
 \end{align}
 
-*\noindent(2) Implikation der Gleichheit von $\phi'$-Differenzen in der Gleichheit von $\phi$-Differenzen*
+*\noindent(2) Implikation der Gleichheit von $\tilde{f}$-Differenzen in der Gleichheit von $f$-Differenzen*
 
-Wir zeigen, dass wenn zwei Differenzen der Repräsentation $\phi$ von $\sce_x$
-gleich sind, dann auch die entsprechenden Differenzen der Repräsentation $\phi'$
+Wir zeigen, dass wenn zwei Differenzen der Repräsentation $f$ von $\sce_x$
+gleich sind, dann auch die entsprechenden Differenzen der Repräsentation $\tilde{f}$
 von $\sce_x$ gleich sind. Seien dazu zunächst
 \begin{equation}
-\phi(x) - \phi(x') = \phi(u) - \phi(u') \mbox{ für } x,x',u,u'\in X
+f(x) - f(x') = f(u) - f(u') \mbox{ für } x,x',u,u'\in X
 \end{equation}
 
 # Repräsentation additiv-konjunkter Strukturen
@@ -1675,11 +1685,11 @@ Aufgrund der Lösbarkeit von $(X,Y,\sce)$ gibt es $y,y'\in Y$, so dass
 \end{equation}
 Also gilt mit (1) und obiger Annahme, dass
 \begin{equation}
-\phi(x) - \phi(x') = \varphi(y) - \varphi(y')
+f(x) - f(x') = g(y) - g(y')
 \end{equation}
 und mit obiger Annahme, dass
 \begin{equation}
-\phi(u) - \phi(u')  = \varphi(y) - \varphi(y')
+f(u) - f(u')  = g(y) - g(y')
 \end{equation}
 was wiederum äquivalent zu
 \begin{equation}
@@ -1688,7 +1698,7 @@ was wiederum äquivalent zu
 ist. Insgesamt folgen aus den Eigenschaften der additiven Struktur sowie
 der Annahme der Differenzidentität
 \begin{equation}
-\phi(x) - \phi(x') = \phi(u) - \phi(u') \mbox{ für } x,x',u,u'\in X
+f(x) - f(x') = f(u) - f(u') \mbox{ für } x,x',u,u'\in X
 \end{equation}
 also die qualitativen Indifferenzen
 \begin{equation}
@@ -1700,25 +1710,25 @@ also die qualitativen Indifferenzen
 \footnotesize
 \underline{Beweis der Eindeutigkeit (fortgeführt)}
 
-Wendet man nun die Repräsentationen $\phi'$ und $\varphi'$ auf diese qualitativen Indifferenzen an,
+Wendet man nun die Repräsentationen $\tilde{f}$ und $\tilde{g}$ auf diese qualitativen Indifferenzen an,
 erhält man
 \begin{equation}
-\phi'(x) + \varphi'(y') = \phi'(x') + \varphi'(y)
+\tilde{f}(x) + \tilde{g}(y') = \tilde{f}(x') + \tilde{g}(y)
 \Leftrightarrow
-\phi'(x) - \phi'(x') = \varphi'(y)  - \varphi'(y')
+\tilde{f}(x) - \tilde{f}(x') = \tilde{g}(y)  - \tilde{g}(y')
 \end{equation}
 sowie
 \begin{equation}
-\phi'(u) + \varphi'(y') = \phi'(u') + \varphi'(y)
+\tilde{f}(u) + \tilde{g}(y') = \tilde{f}(u') + \tilde{g}(y)
 \Leftrightarrow
-\phi'(u) - \phi'(u') = \varphi'(y)  - \varphi'(y'),
+\tilde{f}(u) - \tilde{f}(u') = \tilde{g}(y)  - \tilde{g}(y'),
 \end{equation}
 also, über den "Umweg über $\sce_y$", die Identität der Differenzen
 \begin{equation}
-\phi'(x) - \phi'(x') = \phi'(u) - \phi'(u')
+\tilde{f}(x) - \tilde{f}(x') = \tilde{f}(u) - \tilde{f}(u')
 \end{equation}
-Die Identität von Differenzen bezüglich der Repräsentation $\phi$ von $\sce_x$
-impliziert also die Identität von Differenzen bezüglich der Repräsentation $\phi'$ von $\sce_x$.
+Die Identität von Differenzen bezüglich der Repräsentation $f$ von $\sce_x$
+impliziert also die Identität von Differenzen bezüglich der Repräsentation $\tilde{f}$ von $\sce_x$.
 
 
 # Repräsentation additiv-konjunkter Strukturen
@@ -1729,34 +1739,34 @@ impliziert also die Identität von Differenzen bezüglich der Repräsentation $\
 
 Wir zeigen als nächstes, dass für ein beliebiges $x \in X$ gilt, dass
 \begin{equation}
-\phi'(x) - \phi'(x_0) = \alpha\left(\phi(x) - \phi(x_0) \right),
+\tilde{f}(x) - \tilde{f}(x_0) = \alpha\left(f(x) - f(x_0) \right),
 \end{equation}
-dass also eine Differenz $\phi'(x) - \phi'(x_0)$ bezüglich $\phi'$ eine positiv
-skalierte Differenz $\phi(x) - \phi(x_0)$ von $x$ und $x_0$ bezüglich $\phi$ ist.
-Dies ergibt sich durch folgende Argumentation. Jede Differenz $\phi(x) - \phi(x_0)$
+dass also eine Differenz $\tilde{f}(x) - \tilde{f}(x_0)$ bezüglich $\tilde{f}$ eine positiv
+skalierte Differenz $f(x) - f(x_0)$ von $x$ und $x_0$ bezüglich $f$ ist.
+Dies ergibt sich durch folgende Argumentation. Jede Differenz $f(x) - f(x_0)$
 lässt sich durch ganzzahlige, rationale (und schließlich reelle) Vielfache der
-positiven Einheitsdifferenz $\phi(x_1) - \phi(x_0)$ aufbauen. Prinzipiell kann man
+positiven Einheitsdifferenz $f(x_1) - f(x_0)$ aufbauen. Prinzipiell kann man
 für jede der dabei auftretenden Gleichheiten von Differenzen mit (2) fordern,
-dass sie auch unter $\phi'$ erhalten bleiben. Wichtig ist dabei, dass aus der
+dass sie auch unter $\tilde{f}$ erhalten bleiben. Wichtig ist dabei, dass aus der
 Erhaltung von Gleichheiten von Differenzen nicht folgt, dass auch ihre numerischen
-Werte unter $\phi$ und $\phi'$ übereinstimmen. Insbesondere gibt es keinen Grund
+Werte unter $f$ und $\tilde{f}$ übereinstimmen. Insbesondere gibt es keinen Grund
 anzunehmen, dass \begin{equation}
-\phi(x_1) - \phi(x_0) = \phi'(x_1) - \phi'(x_0)
+f(x_1) - f(x_0) = \tilde{f}(x_1) - \tilde{f}(x_0)
 \end{equation}
 gilt. Die additiv-konjunkte Struktur bedingt nur, dass gleiche Differenzen unter
-$\phi$ wieder auf gleiche Differenzen unter $\phi'$ abgebildet werden. Konkret ergibt
+$f$ wieder auf gleiche Differenzen unter $\tilde{f}$ abgebildet werden. Konkret ergibt
 sich bezüglich der Standardsequenzen bei ganzzahliger
 Repräsentation etwa:
 \begin{equation}
-\phi(x_1) - \phi(x_0) = \phi(x_2) - \phi(x_1)
+f(x_1) - f(x_0) = f(x_2) - f(x_1)
 \;\Rightarrow\;
-\phi'(x_1) - \phi'(x_0) = \phi'(x_2) - \phi'(x_1).
+\tilde{f}(x_1) - \tilde{f}(x_0) = \tilde{f}(x_2) - \tilde{f}(x_1).
 \end{equation}
 Durch Iteration folgt daraus für alle $n \in \mathbb{N}$:
 \begin{equation}
-\phi'(x_n) - \phi'(x_0)
+\tilde{f}(x_n) - \tilde{f}(x_0)
 =
-n \cdot \big(\phi'(x_1) - \phi'(x_0)\big).
+n \cdot \big(\tilde{f}(x_1) - \tilde{f}(x_0)\big).
 \end{equation}
 
 # Repräsentation additiv-konjunkter Strukturen
@@ -1765,30 +1775,30 @@ n \cdot \big(\phi'(x_1) - \phi'(x_0)\big).
 
 Setzt man
 \begin{equation}
-a := \phi'(x_1) - \phi'(x_0),
+a := \tilde{f}(x_1) - \tilde{f}(x_0),
 \end{equation}
 so erhält man
 \begin{equation}
-\phi'(x_n) - \phi'(x_0) = n a.
+\tilde{f}(x_n) - \tilde{f}(x_0) = n a.
 \end{equation}
 Analog ergibt sich aus den dyadischen Verfeinerungen, dass für alle
 $r = \frac{m}{2^k}$ entsprechende Punkte $x_r \in X$ existieren mit
 \begin{equation}
-\phi'(x_r) - \phi'(x_0) = r a.
+\tilde{f}(x_r) - \tilde{f}(x_0) = r a.
 \end{equation}
 Da die dyadischen rationalen Zahlen dicht in $\mathbb{R}$ liegen und
-jede Differenz $\phi(x) - \phi(x_0)$ durch geeignete dyadische
+jede Differenz $f(x) - f(x_0)$ durch geeignete dyadische
 Approximationen bestimmt ist, folgt schließlich für alle $x \in X$:
 \begin{align}
 \begin{split}
-\phi'(x) - \phi'(x_0) & = \alpha \left(\phi(x) - \phi(x_0)\right) \\
-\phi'(x)  & = \alpha\phi(x) - \alpha\phi(x_0) + \phi'(x_0) \\
-\phi'(x)  & = \alpha\phi(x) + \beta_1 \mbox{ mit } \beta_1 := \phi'(x_0) - \alpha\phi(x_0) \\
+\tilde{f}(x) - \tilde{f}(x_0) & = \alpha \left(f(x) - f(x_0)\right) \\
+\tilde{f}(x)  & = \alpha f(x) - \alpha f(x_0) + \tilde{f}(x_0) \\
+\tilde{f}(x)  & = \alpha f(x) + \beta_1 \mbox{ mit } \beta_1 := \tilde{f}(x_0) - \alpha f(x_0) \\
 \end{split}
 \end{align}
 Mit einer analogen Argumentation erhält man
 \begin{equation}
-\varphi'(y) = \tilde{\alpha}\varphi(y) + \beta_2
+\tilde{g}(y) = \tilde{\alpha} g(y) + \beta_2
 \end{equation}
 
 
@@ -1804,29 +1814,29 @@ Wir betrachten eine beliebige Indifferenz
 \end{equation}
 Dann gelten, wie gesehen
 \begin{equation}
-\phi(x) - \phi(x')   = \varphi(y) - \varphi(y') \mbox{ und }
-\phi'(x) - \phi'(x') = \varphi'(y) - \varphi'(y')
+f(x) - f(x')   = g(y) - g(y') \mbox{ und }
+\tilde{f}(x) - \tilde{f}(x') = \tilde{g}(y) - \tilde{g}(y')
 \end{equation}
 Mit (3) ergibt sich dann weiterhin
 \begin{align}
 \begin{split}
-\phi'(x) - \phi'(x') & = \varphi'(y) - \varphi'(y')
+\tilde{f}(x) - \tilde{f}(x') & = \tilde{g}(y) - \tilde{g}(y')
 \\ \Leftrightarrow
-\alpha \phi(x) + \beta_1 - \alpha\phi(x') - \beta_1
+\alpha f(x) + \beta_1 - \alpha f(x') - \beta_1
 & =
-\tilde{\alpha}\varphi(y) + \beta_2 - \tilde{\alpha}\varphi(y') - \beta_2
+\tilde{\alpha} g(y) + \beta_2 - \tilde{\alpha} g(y') - \beta_2
 \\\Leftrightarrow
-\alpha\left(\phi(x) - \phi(x')\right)
+\alpha\left(f(x) - f(x')\right)
 & =
-\tilde{\alpha}\left(\varphi(y) - \varphi(y')\right)
+\tilde{\alpha}\left(g(y) - g(y')\right)
 \\\Leftrightarrow
-\alpha\left(\phi(x) - \phi(x')\right)
+\alpha\left(f(x) - f(x')\right)
 & =
-\tilde{\alpha}\left(\phi(x) - \phi(x')\right)
+\tilde{\alpha}\left(f(x) - f(x')\right)
 \end{split}
 \end{align}
 Mit der Essentialität folgt dann, dass es von Null verschiedene Differenzen
-$\phi(x) - \phi(x')$ gibt und damit dann direkt
+$f(x) - f(x')$ gibt und damit dann direkt
 \begin{equation}
 \alpha = \tilde{\alpha}
 \end{equation}
@@ -1848,37 +1858,109 @@ Selbstkontrollfragen
 \vfill
 
 
-<!-- # Diskussion
+# Diskussion
+Additive Konjunktmessung vs. Differenzmessung
 
-\hl{Don't forget: Multiplikation ist auf Intervallskalen nicht invariant - Zeige Beispiel}
+\footnotesize
+\setstretch{1.8}
 
 
-\hl{Unterschiede können interpretiert werden, Verhältnisse nicht - Zeige Beispiel}
 
-\hl{Ansatzpunkt der additiven Konjunktmessung war Extensivmessung = Verhältnisskala: Was ist mit XXX Messung und Intervallskala? Da wollen wir ja nur hin}
+* Additiv-konjunkte Strukturen induzieren Intervallskalen
+* Allerdings induzieren auch *Differenzstrukturen* Intervallskalen (@krantz1971, Kapitel 4)
+* Experimentell entsprechen Differenzstrukturen der Messung von Gleichheit von Differenzen
 
-\hl{Intervallskaleninduktion durch Differenzstrukturen}
+$\Rightarrow$ Man könnte Proband:innen auch direkt nach der Gleichheit von Paardifferenzen einer Komponente fragen
 
-\hl{Warum ist gerade additive Konjunktmessung so "populär"}
+$\Rightarrow$ @maloney2003 gibt dafür ein modernes Beispiel aus der Wahrnehmungsforschung
+
+Warum ist additive Konjunktmessung "populärer" als Differenzmessung?
+
+* Indifferenzurteile zu Paaren leichter als Urteile über Gleichheit von Differenzen?
+* Differenzmessung verlangt metakognitive Vergleichsoperationen zweiter Ordnung?
+* Klassische verhaltensökonomische Paradigmen passen direkt zur additiven Konjunktmessung?
+* Modelle auf Basis von Differenzen sind oft schwieriger eindeutig zu identifizieren?
+
+
+# Diskussion
+Experimentelle Anwendbarkeit der additiven Konjunktmessung
+
+\footnotesize
+
+Die definierenden Eigenschaften einer additiv-konjunkten Struktur sind empirisch nicht leicht zu prüfen
+
+Herausforderungen sind dabei insbesondere:
+
+* Komplexe Axiomstruktur (Doppelaufhebung, unrestringierte Lösbarkeit, Essentialität)
+* Kombinatorische Komplexität durch sehr viele zu prüfende Urteile
+* Statistische Inferenz schwierig (Likelihood analytisch nicht tractable)
+* Deterministische Axiome können in realen Daten nicht exakt erfüllt sein
+* Probabilistische Erweiterungen sind möglich, aber nicht trivial
+
+@karabatsos2018 schlägt dennoch einen vielversprechenden Ansatz vor
+
+* Bayesianischer Omnibus-Test der gesamten Aufhebungshierarchie
+* Testet Axiome global statt über viele Einzeltests
+* Approximate Bayesian Inference via *Synthetic Likelihood*
+* Berücksichtigt Unsicherheit in den empirischen Ordnungen
+
+@student2025 führen diesen Ansatz fort ...
 
 
 # Diskussion
 
-\hl{Praktische Anwendung - Überprüfung der definierenden Eigenschaften}
+Additive Konjunktmessung und das Rasch-Modell
 
-\hl{Letztlich handelt es sich um die Konstruktion der natürlichen, rationalen, reellen Zahlen}
+\footnotesize
+Aus @kyngdon2008
 
-\hl{Prinzipiell funktioniert das, defacto müsste man sehr, sehr viele Indifferenzen finden}
+Item response theory is the dominant field within psychometrics (@borsboom2004; @embretson2000).
+Representational measurement theory and conjoint measurement have had very little impact upon psychometrics (@cliff1992, ..., @schwager1991). However,
+when @michell2000 labelled psychometrics a ‘pathological science’ for failing
+to investigate psychological attributes for quantitative structure,
+@borsboom2004a rejected Michell’s charge in part with the claim
+the @rasch1960 model is ‘a probabilistic variant of the additive conjoint measurement model’
+(p. 110).  This claim, however, is not new. For over 30 years it has been advanced
+by many psychometricians that the Rasch model is conjoint measurement or a
+probabilistic version thereof. It is a proposition strongly believed to be true,
+as evidenced by the following:
 
-\hl{Karabatsos, Kyngdon, etc. }
+* ...only the Rasch model fulfils the conjoint measurement conditions fully,
+and so is often preferred in applications where measurement-scale properties
+are deemed very important. (@embretson2000, pp. 149–150)
 
+* Since educational and psychological data are generally not perfectly reliable,
+the absence of an error theory has limited the usefulness of conjoint measurement
+models. One striking exception is the widespread use of Rasch models. (@green1986, p. 141)
 
 # Diskussion
 
-\hl{Bezug zum Rasch-Modell}
+Additive Konjunktmessung und das Rasch-Modell
 
-\hl{Perilineu, but really - no} -->
+\footnotesize
+Aus @kyngdon2008 (fortgeführt)
 
+* Of critical importance is the realisation that the currently fashionable Rasch
+item response theory is also an empirical instantiation of the conjoint additivity
+axioms (@perline1979). That is, the construction of a latent variable
+using Rasch item analysis is no less than the empirical test of quantitative
+structure for that latent variable. (@barrett2003, p. 429)
+
+* Apparently not many psychologists are aware that the Rasch (1960) model is
+a practical realization of conjoint measurement. (@perline1979, p. 237)
+
+[Kyngdon (2008)] critiques this argument from the perspective of
+representational measurement theory. It concludes that the Rasch model is not
+conjoint measurement as the model does not demonstrate the existence of a
+representation theorem between an empirical relational structure and a numerical
+relational structure. Psychologists seriously interested in investigating traits
+for quantitative structure should use the theory of conjoint measurement itself
+rather than the Rasch model. This is not to say, however, that empirical
+relationships between conjoint measurement and the Rasch model are precluded.
+
+\normalsize
+\flushright
+$\Rightarrow$ Das werden wir in der Einheit zur Item-Response-Theorie bestätigen
 
 #
 \vfill

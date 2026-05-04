@@ -1,0 +1,3633 @@
+---
+fontsize: 8pt
+format:
+    beamer:
+        include-in-header: "4-Header.tex"
+bibliography: 4-Referenzen.bib
+csl: https://www.zotero.org/styles/apa
+---
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics("4-Abbildungen/psd-4-otto.png")
+```
+
+\huge
+Psychometrische Diagnostik
+\vspace{3mm}
+
+\large
+MSc Psychologie
+
+MSc Umweltpsychologie / Mensch-Technik-Interaktion
+
+\vspace{2mm}
+SoSe 2026
+
+\vspace{1mm}
+\normalsize
+Prof. Dr. Dirk Ostwald
+
+
+# {.plain}
+\vfill
+\center
+\huge
+\textcolor{black}{(4) Klassische Testtheorie}
+\vfill
+
+#
+\vfill
+\setstretch{2.2}
+\large
+Grundlagen
+
+Das Modell multipler Testmessungen
+
+Das Modell paralleler Testmessungen
+
+Reliabilität
+
+Interne Konsistenz
+
+Selbstkontrollfragen
+\vfill
+
+#
+\vfill
+\setstretch{2.2}
+\large
+**Grundlagen**
+
+Das Modell multipler Testmessungen
+
+Das Modell paralleler Testmessungen
+
+Reliabilität
+
+Interne Konsistenz
+
+Selbstkontrollfragen
+\vfill
+
+
+# Grundlagen
+\vspace{1mm}
+\large
+Motivation
+\normalsize
+
+Beispielaussagen zur Reliabilität des BDI-II
+
+\footnotesize
+
+*Retest-Reliabilität*
+
+In der Studie von Beck et al. (1996) resultierte bei 26 Patienten, die im Abstand
+von einer Woche untersucht wurden, ein **Retestkoeffizient** von $\mbox{r}_{\mbox{tt}} = .93$.
+Aus Studentenstichproben werden für ein- bis zweiwöchige Zeiträume Koeffizienten
+von $\mbox{r}_{\mbox{tt}} = .74-.96$ berichtet (Leigh & Antony-Tolbert, 2001; Al-Musawi,
+2001; Sprinkle, Lurie, Insko et al., 2002; Ghassemzadeh, Mojtabai, Karamghadiri & Ebrahimkhani, 2005).
+
+\vspace{2mm}
+
+*Interne Konsistenz*
+
+In Tabelle 2 sind bisherige Ergebnisse zur internen Konsistenz (**Cronbach's $\alpha$**)
+des BDI II aufgelistet. In psychiatrischen Stichproben lag die interne Konsistenz
+im Bereich von $.89 \le \alpha \le .94$, in nichtklinischen Stichproben im Bereich
+von $.84 \le \alpha \le .91$.
+
+\flushright
+\footnotesize
+@hautzinger2006
+
+# Grundlagen
+
+\vspace{1mm}
+Klassische Testtheorie
+\vspace{-1mm}
+\small
+\setstretch{1.6}
+
+* Probabilistisches Modell von Item- und Summenwerten eines psychologischen Tests
+* Zentrale Beiträge von @gulliksen1950 und @lord1968
+* Modell der Form
+\begin{equation}
+\mbox{Beobachteter Wert} = \mbox{Wahrer Wert} + \mbox{Messfehler}
+\end{equation}
+* Häufig als "Messfehlertheorie" beschrieben
+* Erklärung von Antwortmustern durch einen nicht-direkt observierbaren "wahren Wert"
+* Im Gegensatz zum ALM wird auch der "wahre Wert" als Zufallsvariable modelliert
+* Meist verteilungsfrei und mit einem Fokus auf Erwartungswerten und (Ko)Varianzen formuliert
+* Modellierung von intra- und interindividueller Variabilität
+* Spezialfall des faktoranalytischen Modells, enger Bezug zu Linear-Mixed-Effects-Modellen
+* Grundlage der Schätzung von Reliabilität und interner Konsistenz psychologischer Tests
+
+\flushright
+$\Rightarrow$ Retest-Reliabilität, Cronbach's $\alpha$, Spearman-Brown-Formel
+
+
+# Grundlagen
+
+\vspace{2mm}
+Standarddatenstruktur der Testtheorie und Fragebogendatenanalyse
+
+\small
+Beobachtung von Werten von $m$ Testmessungen von $n$ Testpersonen
+
+\tiny
+\setstretch{0.9}
+```{r, echo = F}
+set.seed(1)                                                                     # Reproduzierbarkeit
+n               = 20                                                            # Anzahl Testpersonen
+m               = 4                                                             # Anzahl Items
+Y               = matrix(sample(10:50, n*m, replace = TRUE), nrow = n, ncol = m)# Daten
+D               = as.data.frame(Y)                                              # Dataframe
+items           = paste0("Testmessung ", 1:m)                                   # Itemlabel
+colnames(D)     = items                                                         # Itemlabels
+D               = cbind(Testperson = paste0(1:n), D)                            # Testpersonenlabel
+knitr::kable(                                                                   # Table
+D,                                                                              # Daten
+align           = "c",                                                          # Orientierung
+row.names       = FALSE,                                                        # keine Zeilennamen
+caption         = "20 Testpersonen × 4 Testmessungen")                          # Caption
+```
+\normalsize
+
+# Grundlagen
+
+\footnotesize
+\begin{definition}[Wahrer Wert, beobachteter Wert und Messfehler]
+\justifying
+Für $i = 1,...,n$ und $j = 1,...,m$ ist der \textit{wahre Wert (True score)} $\mrm{x}_{ij}$
+einer Testperson $i$ für eine Testmessung $j$ definiert als der bedingte Erwartungswert des
+\textit{beobachteten Werts (observed score)} der Testperson für diese Testmessung
+\begin{equation}
+\mrm{x}_{ij} := \mathbb{E}(y_{ij}|x_{ij} = \mrm{x}_{ij}).
+\end{equation}
+Der \textit{Messfehler} einer Testperson für diese Testmessung ist definiert als die Zufallsvariable
+\begin{equation}
+\eps_{ij} := y_{ij} - \mrm{x}_{ij}.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* Ausgangsdefinition der klassischen Testtheorie nach @novick1966 und @lord1968.
+* Eine *Testmessung* mag aus einem Item oder der Summe mehrerer Items bestehen.
+* Erst im $m$-Komponentenmodell werden wir *Itemscores* und *Summenscores* unterscheiden.
+* Man beachte, dass $x_{ij}, y_{ij}$ und $\eps_{ij}$ Zufallsvariablen sind
+* Man beachte, dass $\mrm{x}_{ij} \in \mathbb{R}$ eine Konstante ist.
+* Die Definition von $\mrm{x}_{ij}$ ist zirkulär, da $\mrm{x}_{ij}$ mithilfe von $\mrm{x}_{ij}$ definiert wird.
+* Die implizit vorhandene bedingte Verteilung $\mathbb{P}(y_{ij}|x_{ij} = \mrm{x}_{ij})$ wird *Propensitätsverteilung* genannt.
+* Die Propensitätsverteilung modelliert intraindividuelle Variabilität beobachteter Werte bei festem wahren Wert.
+* Die klassische Ausgangsdefinition findet sich weiterhin in vielen Lehrbüchern zur Testtheorie
+
+# Grundlagen
+\footnotesize
+\begin{definition}[Bedingter Erwartungswert]
+\justifying
+Gegeben sei ein Zufallsvektor $x := (x_1,x_2)$ mit Ergebnisraum
+$X := X_1 \times X_2$, WMF oder WDF $p(\mrm{x}_1,\mrm{x}_2)$
+und bedingter WMF oder WDF $p(\mrm{x}_1|\mrm{x}_2)$ für alle $\mrm{x}_2 \in X_2$.
+Dann ist der \textit{bedingte Erwartungswert} von $x_1$ gegeben $x_2 = \mrm{x}_2$ definiert als
+\begin{itemize}
+\item  $\mathbb{E}(x_1|x_2 = \mrm{x}_2) := \sum_{\mrm{x}_1 \in X_1}\mrm{x}_1p(\mrm{x}_1|\mrm{x}_2)$, wenn $x$ ein diskreter Zufallsvektor ist.
+\item  $\mathbb{E}(x_1|x_2 = \mrm{x}_2) := \int_{X_1}\mrm{x}_1p(\mrm{x}_1|\mrm{x}_2)\,d\mrm{x}_1$, wenn $x$ ein kontinuierlicher Zufallsvektor ist.
+\end{itemize}
+\end{definition}
+
+Bemerkungen
+\vspace{-1mm}
+
+* Man vergegenwärtige sich die Definitionen von bedingter Verteilung und Erwartungswert.
+* Der bedingte Erwartungswert ist der Erwartungswert einer Zufallsvariable in einer bedingten Verteilung.
+* Obige Definition definiert den bedingten Erwartungswert für einen festen Wert $x_2$ von $x_2$.
+* Bei einem festen Wert $x_2$ von $x_2$ ist $\mathbb{E}(x_1|x_2 = \mrm{x}_2)$ damit ein fester Wert.
+* Allgemein ist $\mathbb{E}(x_1|x_2)$ allerdings eine Zufallsvariable, da $x_2$ eine Zufallsvariable ist.
+* Analog definiert man bedingte Varianzen, bedingte Kovarianzen und bedingte Korrelationen.
+* Bedingte Kovarianzen und bedingte Korrelationen waren im Kontext partieller Korrelationen Thema.
+
+# Grundlagen
+
+\small
+Bedingter Erwartungswert - Beispiel
+\footnotesize
+
+Für einen zweidimensionalen Zufallsvektor $x:= (x_1,x_2)$, der Werte in
+$X := X_1 \times X_2$ mit $X_1 := \{1,2,3,4\}$
+und $X_2 = \{1,2,3\}$ annehme, seien bedingte WMFen für $p(\mrm{x}_1|\mrm{x}_2)$
+wie folgt gegeben:
+
+\begin{table}
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{c|ccc}
+$p(\mrm{x}_1|\mrm{x}_2)$       & $\mrm{x}_2 = 1$      & $\mrm{x}_2 = 2$     & $\mrm{x}_2 = 3$     \\\hline
+$p(\mrm{x}_1 = 1|\mrm{x}_2)$   & $\frac{1}{4}$  & $\frac{1}{3}$ & $0$           \\
+$p(\mrm{x}_1 = 2|\mrm{x}_2)$   & $0$            & $\frac{2}{3}$ & $\frac{1}{3}$ \\
+$p(\mrm{x}_1 = 3|\mrm{x}_2)$   & $\frac{1}{2}$  & $0$           & $\frac{1}{3}$ \\
+$p(\mrm{x}_1 = 4|\mrm{x}_2)$   & $\frac{1}{4}$  & $0$           & $\frac{1}{3}$ \\
+\end{tabular}
+\end{center}
+\end{table}
+
+
+Dann ergeben sich die bedingten Erwartungswerte
+\begin{align}
+\begin{split}
+\mathbb{E}(x_1|x_2 = \mrm{x}_2)\big|_{\mrm{x}_2 = 1}
+&
+= \sum_{\mrm{x}_1 \in X_1}\mrm{x}_1p(\mrm{x}_1|\mrm{x}_2 = 1)
+= 1 \cdot \frac{1}{4} + 2 \cdot 0 + 3 \cdot \frac{1}{2} + 4 \cdot \frac{1}{4}
+= \frac{11}{4}
+\\
+\mathbb{E}(x_1|x_2 = \mrm{x}_2)\big|_{\mrm{x}_2 = 2}
+&
+= \sum_{\mrm{x}_1 \in X_1}\mrm{x}_1p(\mrm{x}_1|\mrm{x}_2 = 2)
+= 1 \cdot \frac{1}{3} + 2 \cdot \frac{2}{3} + 3 \cdot 0 + 4 \cdot 0
+= \frac{5}{3}
+\\
+\mathbb{E}(x_1|x_2 = \mrm{x}_2)\big|_{\mrm{x}_2 = 3}
+&
+= \sum_{\mrm{x}_1 \in X_1}\mrm{x}_1p(\mrm{x}_1|\mrm{x}_2 = 3)
+= 1 \cdot 0 + 2 \cdot \frac{1}{3} + 3 \cdot \frac{1}{3} + 4 \cdot \frac{1}{3}
+= \frac{8}{3}.
+\end{split}
+\end{align}
+
+# Grundlagen
+\footnotesize
+Motivation der klassischen Ausgangsdefinition nach @novick1966 und @lord1968
+
+* @novick1966 und @lord1968 wollten sich einer Diskussion zur Interpretation des wahren Werts entziehen.
+Hätten Sie den wahren Wert einer Testperson als Realisierung einer latenten Zufallsvariable definiert,
+so hätten sie sich der Frage stellen müssen, wie diese latente Variable zu interpretieren sei.
+Anstelle einer Diskussion zur metaphysischen Bedeutung der Zufallsvariable $x_{ij}$ haben sie eine
+operationalistische Definition des wahren Werts versucht, die auf beobachtbaren Größen basiert.
+Dabei ist die Kernidee, dass der wahre Wert einer Testperson für eine Testmessung der
+"Durchschnitt der beobachteten Werte" einer Testperson über "wiederholte Testmessungen unter identischen Bedingungen" ist.
+
+Zur Bedeutung des wahren Werts zitieren @lord1968, S. 29 - 30 @lazarsfeld1959:
+
+* "Angenommen, wir fragen eine Testperson, Herrn Brown, wiederholt, ob er die Vereinten Nationen
+befürwortet; nehmen wir weiter an, dass wir ihm nach jeder Frage "das Gehirn waschen"
+und ihm dann dieselbe Frage erneut stellen. Da Herr Brown unsicher ist, wie er zu den
+Vereinten Nationen steht, wird er manchmal eine befürwortende und manchmal eine ablehnende
+Antwort geben. Nachdem wir dieses Verfahren viele Male durchgeführt haben, berechnen
+wir anschließend den Anteil der Male, in denen Herr Brown die Vereinten Nationen befürwortet hat."
+
+Diese Proportion wollen @novick1966 und @lord1968 dann als wahren Wert verstehen (vgl. auch @borsboom2004).
+
+# Grundlagen
+
+\footnotesize
+Probleme der klassischen Ausgangsdefinition nach @novick1966 und @lord1968
+
+* Eine anti-metaphysische Grundhaltung ist nicht durchhaltbar: zum einen handelt
+es sich bei der "wiederholten Testmessung unter identischen Bedingungen" um ein
+idealisiertes, in der Realität nicht durchführbares, Gedankenexperiment. Zum
+anderen definieren @novick1966 und @lord1968 den wahren Wert auch gerade nicht
+als (endlichen) Mittelwert einer Messreihe, sondern als idealisierten Erwartungswert
+einer Zufallsvariable. Als operationalistische Definition überzeugt die klassische
+Ausgangsdefinition nicht.
+
+* Die klassische Ausgangsdefinition hat die Entwicklung einer Standardmessfehlertheorie,
+wie sie beispielsweise das allgemeine lineare Modell für die Analyse von Tests
+und Fragebögen aber beträchtlich. Es werden keine Fehler angenommen, sondern diese
+ergeben sich als Differenz wahrer und beobachteter Werte. Diese, gegenüber den
+Standardtheorien "umgekehrt" aufgezogene Theorie mag einer der Gründe sein, warum
+die Klassische Testtheorie bis heute lediglich in der Psychologie und wenig
+darüber hinaus von Bedeutung ist.
+
+* In der Benennung der impliziten Verteilung $\mathbb{P}(y_{ij}|x_{ij} = \mrm{x}_{ij})$
+als *Propensitätsverteilung* klingt die Propensitätsinterpretation von Wahrscheinlichkeiten
+als kausal bedingte "Verwirklichungstendenzen", die, im Gegensatz zur Frequentistischen
+Interpretation auch im Einzelfall Sinn ergeben, an. Allerdings unterstellen
+Propensitätsverteilungen kausale Prozesse, die in der Regel nicht spezifiziert
+und damit auch nicht beobachtbar sind, und führen damit letztlich auch wieder auf
+metaphysische Aussagen (vgl. auch @borsboom2004 und @borsboom2009).
+
+# Grundlagen
+\footnotesize
+
+Charakter der im Folgenden gewählten Formalisierung der Klassischen Testtheorie
+
+* Ansatz des modell-basierten Realismus zur Modellierung eines $n \times m$ Datensatzes.
+* Moderne Formulierung als Modell mit latenten (nicht-direkt beobachteten) Zufallsvariablen
+* Explizite Nutzung von $\mrm{x}_{ij} := \mathbb{E}(y_{ij}|x_{ij} = \mrm{x}_{ij})$ in Beweisen.
+* Ähnliche Darstellung z.B. in @foster2020
+
+Überblick
+
+(1) Formulierung des *Modells multipler Testmessungen*
+(2) Formulierung eines *Vereinfachten Modells multipler Testmessungen*
+(3) Eigenschaften des Modells multipler Testmessungen *bezüglich einer Testmessung*
+(4) Eigenschaften des Modells multipler Testmessungen *bezüglich zweier Testmessungen*
+(5) Formulierung des *Modells paralleler Testmessungen*
+(6) *Reliabilität* von Testmessungen und parallelen Testmessungen.
+(7) Formulierung des $m$-*Komponententestmodells*
+(8) Cronbach's $\alpha$ und Gesamtreliabilität
+(9) Spearman-Brown-Formel
+
+#
+\vfill
+\setstretch{2.2}
+\large
+Grundlagen
+
+**Das Modell multipler Testmessungen**
+
+Das Modell paralleler Testmessungen
+
+Reliabilität
+
+Interne Konsistenz
+
+Selbstkontrollfragen
+\vfill
+
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\begin{definition}[Modell multipler Testmessungen]
+\justifying
+Für $i = 1,...,n$ und $j = 1,...,m$ seien $x_{ij}$ eine Zufallsvariable, die
+den \textit{wahren Wert} der $i$ten Testperson in der $j$ten Testmessung modelliere,
+und $y_{ij}$ eine Zufallsvariable, die den \textit{beobachteten Wert} der $i$ten Testperson
+in der $j$ten Testmessung modelliere. Dann nennen wir die gemeinsame Verteilung der
+$x_{ij}$ und $y_{ij}$ mit der Faktorisierungseigenschaft
+\begin{equation}
+\mathbb{P}\left(x_{11},y_{11},...,x_{nm},y_{nm}\right)
+:= \prod_{i=1}^n \mathbb{P}(x_{i1},...,x_{im})\prod_{j=1}^m \mathbb{P}(y_{ij}|x_{ij})
+\end{equation}
+das \textit{Modell multipler Testmessungen}, wenn gilt, dass
+\begin{equation}
+\mathbb{P}(x_{11},...,x_{1m})\prod_{j=1}^m \mathbb{P}(y_{1j}|x_{1j}) = \cdots =
+\mathbb{P}(x_{n1},...,x_{nm})\prod_{j=1}^m \mathbb{P}(y_{nj}|x_{nj}).
+\end{equation}
+\end{definition}
+
+
+# Das Modell multipler Testmessungen
+\vspace{2mm}
+\footnotesize
+Bemerkungen
+\vspace{-1mm}
+\setstretch{1.3}
+
+* Das Modell macht keine speziellen parametrischen Verteilungsannahmen.
+* Die gemeinsame Verteilung der $x_{ij}, y_{ij}$ faktorisiert über Testpersonen $i = 1,...,n$.
+* $\Leftrightarrow$ Unabhängkeitsannahme über Testpersonen hinsichtlich wahrer und beobachteter Werte
+* Für $i = 1,...,n$ faktorisiert die gemeinsame Verteilung der $x_{i1},...,x_{im}$ über  $j = 1,...,m$ nicht immer.
+* $\Leftrightarrow$ Die wahren Werte einer Testperson können zusammenhängen (Parallelität, $x$-Äquivalenz, ...,)
+* Für jedes $i = 1,...,n$ sind die $y_{ij}$ für $j = 1,...,m$ bedingt unabhängig gegeben $x_{ij}$.
+* $\Leftrightarrow$ Der wahre Wert in Testmessung $k \neq j$ beeinflusst den beobachteten Wert in Testmessung $j$ nicht.
+* $\Leftrightarrow$ Der beobachtete Wert in Testmessung $k \neq j$ beeinflusst den beobachteten Wert in Testmessung $j$ nicht.
+* Die Marginalverteilungen $\mathbb{P}(x_{i1},...,x_{im})\prod_{j=1}^m \mathbb{P}(y_{ij}|x_{ij})$ sind identisch für $i = 1,...,n$.
+* $\Leftrightarrow$ Die Daten einer Testperson werden als unabhängig realisiert aus einer "Populationsverteilung"
+\begin{equation}
+\mathbb{P}(x_{\bullet 1},...,x_{\bullet m})\prod_{j=1}^m \mathbb{P}(y_{\bullet j}|x_{\bullet j}).
+\end{equation}
+* Das $\bullet$ Subskript soll hier die Unspezifität bezüglich einer Testperson symbolisieren.
+* Für \underline{eine} Testmessung, also für  $m := 1$, gilt nach Definition des Modells multipler Testmessungen
+\begin{equation}
+\mathbb{P}\left(x_{11},y_{11},...,x_{n1},y_{n1}\right)
+:= \prod_{i=1}^n \mathbb{P}(x_{i1}, y_{i1})
+ = \prod_{i=1}^n \mathbb{P}(x_{i1})\mathbb{P}(y_{i1}|x_{i1}).
+\end{equation}
+* Dabei sind die gemeinsamen Marginalverteilungen $\mathbb{P}(x_{i1}, y_{i1})$ nach Definition identisch.
+* Bei $m := 1$ entsprechen die wahren und beobachteten Werte also unabhängigen Realisierungen aus
+\begin{equation}
+\mathbb{P}(x_{\bullet 1})\mathbb{P}(y_{\bullet 1}|x_{\bullet 1})
+\end{equation}
+* Verzichtet man auf die Subskripte $\bullet 1$, so gelangt man zum *Vereinfachten Modell der Klassischen Testtheorie*.
+
+# Das Modell multipler Testmessungen
+
+\footnotesize
+\begin{definition}[Vereinfachtes Modell der Klassischen Testtheorie]
+\justifying
+$x$ sei eine Zufallsvariable, die die Verteilung der \textit{wahren Werte} zu
+einer Testmessung in einer Population beschreibe, und $y$ sei eine Zufallsvariable,
+die die Verteilung der \textit{beobachteten Werte} dieser Testmessung beschreibe.
+Dann heißt die gemeinsame Verteilung von $x$ und $y$,
+\begin{equation}
+\mathbb{P}\left(x,y\right)
+= \mathbb{P}(x)\mathbb{P}(y|x)
+\end{equation}
+das \textit{vereinfachte Modell der Klassischen Testtheorie}.
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* Gegenüber dem Modell multipler Testmessungen treten weniger Zufallsvariablen und Indizes auf.
+* Die Redundanz der Gleichheit vieler Verteilungen im Modell multipler Testmessungen tritt nicht auf.
+* $n$ beobachtete Testwerte werden als Teilbeobachtungen von Ziehungen aus $\mathbb{P}\left(x,y\right)$ gedacht.
+* Für die Unabhängigkeit über Testpersonen mag man auch schreiben
+\begin{equation}
+(x_1,y_1), ...,(x_n,y_n) \sim \mathbb{P}(x,y).
+\end{equation}
+* Die obige Notation ist analog zu beispielsweise der wohlbekannten Schreibweise
+\begin{equation}
+y_1,...,y_n \sim N(\mu,\sigma^2).
+\end{equation}
+
+
+# Das Modell multipler Testmessungen
+
+\footnotesize
+* Ein Beispieldatensatz für $n = 5$ Testpersonen bei einer Testmessung ist etwa
+
+\begin{center}
+\begin{tabular}{c|cc}
+$i$     & $x_i$ & $y_i$  \\\hline
+1       & 15        & 13    \\
+2       & 46        & 48    \\
+3       & 13        & 10    \\
+4       & 41        & 43    \\
+5       & 34        & 32    \\
+\end{tabular}
+\end{center}
+
+\setstretch{1.8}
+* Die $x_i$ Werte sind dabei "virtuell", also im Modell simulierbar, aber in der Anwendung nicht vorhanden.
+* Viele wichtige Eigenschaften des Modells multipler Testmessungen ergeben sich schon basierend auf $\mathbb{P}\left(x,y\right)$.
+* Das Modell sieht einfacher zu handhaben aus als das Modell multipler Testmessungen
+* Man findet das Vereinfachte Modell der klassischen Testtheorie oft in Lehrbüchern.
+* Aber: Wenn mehrere Personen und mehrere Testmessungen ins Spiel kommen, wird unklar, wovon die Rede ist.
+* Aber: Schätzer der Modellparameter beruhen immer auf allen beobachteten Werten $y_{1j}, ...y_{nj}$.
+* Wir werden nach Bedarf zwischen beiden Modellformulierungen hin und her wechseln.
+* Die Modellformulierung im Sinne des Modells multipler Testmessungen ist unser Standardfall.
+
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\begin{theorem}[Eigenschaften bezüglich einer Testmessung]\label{thm:eigenschaften-einer-Testmessung}
+\justifying
+\normalfont
+Gegeben sei das Modell multipler Testmessungen. Dann gelten für alle $i = 1,...,n$ und alle $j = 1,...,m$
+\begin{itemize}
+\item[(1)] $\mathbb{E}(\eps_{ij}|x_{ij} = \mrm{x}_{ij}) = 0$
+\item[(2)] $\mathbb{E}(\eps_{ij}) = 0$
+\item[(3)] $\mathbb{C}(x_{ij}, \eps_{ij}) = 0$
+\item[(4)] $\mathbb{V}(y_{ij}) = \mathbb{V}(x_{ij}) + \mathbb{V}(\eps_{ij})$
+\item[(5)] $\mathbb{C}(y_{ij},x_{ij}) = \mathbb{V}(x_{ij})$
+\end{itemize}
+\end{theorem}
+
+Bemerkungen
+
+* Die Aussagen beziehen sich auf die Verteilung einer Testperson $i$ (und damit auf alle Personen $i = 1,...,n$).
+* 1 bezieht sich auf die bedingte Verteilung von $\eps_{ij}$ bei einer Testmessung $j$.
+* 2 - 5 beziehen sich auf Eigenschaften der Marginalverteilungen von $x_{ij}$, $y_{ij},\eps_{ij}$ bei einer Testmessung $j$.
+* Im Sinne des Vereinfachten Modells der Klassischen Testtheorie werden obige Eigenschaften oft auch als
+\begin{equation}
+\mathbb{E}(\eps|x = \mrm{x}) = 0, \quad
+\mathbb{E}(\eps) = 0, \quad
+\mathbb{C}(x, \eps) = 0, \quad
+\mathbb{V}(y) = \mathbb{V}(x) +\mathbb{V}(\eps) \mbox{ und }
+\mathbb{C}(y,x) = \mathbb{V}(x)
+\end{equation}
+geschrieben.
+
+
+# Das Modell multipler Testmessungen
+\footnotesize
+
+Bemerkung zu $\mathbb{E}(\eps|x = \mrm{x}) = 0$ und $\mathbb{E}(\eps) = 0$
+
+* Die Tatsache, dass der bedingte Erwartungswert des Messfehlers $0$ ist, folgt
+aus der Definition des wahren Werts. Dies ist ein anderer Ansatz als anzunehmen,
+dass der bedingte Erwartungswert des Messfehlers $0$ ist. Weil der bedingte
+Erwartungswert des Messfehlers für jeden wahren Wert $0$ ist, ist auch sein
+(marginaler) Erwartungswert $0$.
+
+Bemerkung zu $\mathbb{C}(x, \eps) = 0$
+
+* $\mathbb{C}(x, \eps) = 0$ impliziert natürlich auch $\rho(x, \eps) = 0$.
+Hohe oder niedrige wahre Werte sind also nicht systematisch mit hohen oder niedrigen
+Messfehlerwerten assoziiert.
+
+Bemerkung zu $\mathbb{V}(y) = \mathbb{V}(x) + \mathbb{V}(\eps)$
+
+* Die Varianz beobachteter Werte kann additiv in Beiträge der Varianz des wahren
+Werts und des Messfehlers zerlegt werden. Diese Eigenschaft des Modells ist für
+eine Eigenschaft der Reliabilität essenziell.
+
+Bemerkung zu $\mathbb{C}(y,x) = \mathbb{V}(x)$
+
+* Die Kovarianz der beobachteten Werte und der wahren Werte einer Testmessung
+entspricht der Varianz der wahren Werte. Diese Eigenschaft des Modells ist für
+eine weitere Eigenschaft der Reliabilität essenziell.
+
+# Das Modell multipler Testmessungen
+\vspace{2mm}
+\footnotesize
+\underline{Beweis}
+
+Zum Beweis von (1) bis (5) setzen wir zur Vereinfachung der Notation im Sinne
+des Vereinfachten Modells der klassischen Testtheorie zunächst
+\begin{equation}
+y := y_{ij}, x := x_{ij}
+\mbox{ und analog }
+y := y_{ij},   \mrm{x} := \mrm{x}_{ij}
+\mbox{ sowie } \mathcal{Y} := \mathcal{Y}_{ij}, X := X_{ij}
+\end{equation}
+für alle $i = 1,...,n$ und $j = 1,...,n$. Wir betrachten weiterhin (nur) den
+diskreten Fall, setzen also die Existenz einer Wahrscheinlichkeitsmassefunktion
+$p$ der Form
+\begin{equation}
+p(\mrm{x},y) = p(y|\mrm{x})p(\mrm{x})
+\end{equation}
+voraus. Dabei schreiben wir Werte, die die Zufallsvariable $x$ annimmt, als
+$\mrm{x}$ und Werte, die die Zufallsvariable $y$ annimmt der Einfachheit halber ebenfalls
+als $y$.  Der kontinuierliche Fall folgt dann jeweils analog.
+
+\noindent (1) Es gilt
+\begin{align}
+\begin{split}
+\mathbb{E}(\eps|x = \mrm{x})
+& := \mathbb{E}(y - x|x = \mrm{x}) \\
+& = \sum_{y \in \mathcal{Y}} \left(y - \mrm{x}\right)p(y|\mrm{x}) \\
+& = \sum_{y \in \mathcal{Y}} y p(y|\mrm{x}) - \sum_{y \in \mathcal{Y}} \mrm{x} p(y|\mrm{x}) \\
+& = \mathbb{E}(y|x = \mrm{x}) - \mrm{x}  \sum_{y \in \mathcal{Y}} p(y|\mrm{x})\\
+& = \mrm{x} - \mrm{x}\cdot 1  \\
+& = 0.
+\end{split}
+\end{align}
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (2) Es gilt
+\begin{align}
+\begin{split}
+\mathbb{E}(\eps)
+& := \mathbb{E}(y - x) \\
+& = \sum_{y \in \mathcal{Y}}\sum_{\mrm{x} \in X} \left(y - \mrm{x}\right)p(\mrm{x},y) \\
+& = \sum_{\mrm{x} \in X}\sum_{y \in \mathcal{Y}} \left(y - \mrm{x}\right)p(y|\mrm{x})p(\mrm{x}) \\
+& = \sum_{\mrm{x} \in X}\sum_{y \in \mathcal{Y}} yp(y|\mrm{x})p(\mrm{x}) - \mrm{x} p(y|\mrm{x})p(\mrm{x}) \\
+& = \sum_{\mrm{x} \in X}\sum_{y \in \mathcal{Y}} p(\mrm{x})\left(yp(y|\mrm{x})  - \mrm{x} p(y|\mrm{x})\right)\\
+& = \sum_{\mrm{x} \in X} p(\mrm{x})\left(\sum_{y \in \mathcal{Y}} yp(y|\mrm{x}) - \mrm{x} \sum_{y \in \mathcal{Y}}p(y|\mrm{x})\right)\\
+& = \sum_{\mrm{x} \in X} p(\mrm{x}) \left(\mrm{x} - \mrm{x} \cdot 1\right)\\
+& = \sum_{\mrm{x} \in X} p(\mrm{x}) \cdot 0\\
+& = 0.
+\end{split}
+\end{align}
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (3) Es gilt
+\begin{align}
+\begin{split}
+\mathbb{C}(x, \eps)
+& = \mathbb{E}\left((x -\mathbb{E}(x))(\eps - \mathbb{E}(\eps))\right) \\
+& = \mathbb{E}\left((x -\mathbb{E}(x))\eps \right) \\
+& = \mathbb{E}\left((x -\mathbb{E}(x))(y - x)\right) \\
+& = \sum_{y \in \mathcal{Y}}\sum_{\mrm{x} \in X}\left((\mrm{x}-\mathbb{E}(x))(y-\mrm{x})\right)p(\mrm{x},y) \\
+& = \sum_{\mrm{x} \in X}\sum_{y\in\mathcal{Y}} (\mrm{x}-\mathbb{E}(x))(y-\mrm{x})p(y|\mrm{x})p(\mrm{x}) \\
+& = \sum_{\mrm{x} \in X}p(\mrm{x})(\mrm{x}-\mathbb{E}(x))\sum_{y\in\mathcal{Y}} \left(y-\mrm{x}\right)p(y|\mrm{x}) \\
+& = \sum_{\mrm{x} \in X}p(\mrm{x})(\mrm{x}-\mathbb{E}(x))\sum_{y\in\mathcal{Y}} \left(yp(y|\mrm{x}) - \mrm{x} p(y|\mrm{x}) \right) \\
+& = \sum_{\mrm{x} \in X}p(\mrm{x})(\mrm{x}-\mathbb{E}(x)) \left(\sum_{y\in\mathcal{Y}}yp(y|\mrm{x}) - \mrm{x} \sum_{y\in\mathcal{Y}} p(y|\mrm{x}) \right) \\
+&  = \sum_{\mrm{x} \in X}p(\mrm{x})(\mrm{x}-\mathbb{E}(x)) \left(\mrm{x} - \mrm{x} \cdot 1 \right) \\
+&  = \sum_{\mrm{x} \in X}p(\mrm{x})(\mrm{x}-\mathbb{E}(x))  \cdot 0 \\
+&  = 0. \\
+\end{split}
+\end{align}
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (4) Mit \thmref{thm:varianzen-spezieller-linearkombinationen} sowie Aussage (3) des Theorems gilt
+\begin{align}
+\begin{split}
+\mathbb{V}(y)
+= \mathbb{V}(x + \eps)
+= \mathbb{V}(x) + \mathbb{V}(\eps) + 2\mathbb{C}(x,\eps)
+= \mathbb{V}(x) + \mathbb{V}(\eps) + 2\cdot 0
+= \mathbb{V}(x) + \mathbb{V}(\eps)
+\end{split}
+\end{align}
+\noindent (5) Mit \thmref{thm:kovarianzverschiebungssatz}, \thmref{thm:erwartungswert-linear-affine-kombination},
+Aussage (2)  des Theorems und der Tatsache, dass mit Aussage (4) des Theorems außerdem folgt, dass
+\begin{equation}
+\mathbb{E}(\eps x)
+= \mathbb{E}(x\eps)
+= \mathbb{C}(x,\eps) + \mathbb{E}(x)\mathbb{E}(\eps)
+= 0 + \mathbb{E}(x)\cdot 0
+= 0
+\end{equation}
+gilt
+\begin{align}
+\begin{split}
+\mathbb{C}(y, x)
+& = \mathbb{E}(yx) - \mathbb{E}(y)\mathbb{E}(x) \\
+& = \mathbb{E}((x + \eps)x) - \mathbb{E}(x + \eps)\mathbb{E}(x) \\
+& = \mathbb{E}(x^2 + \eps x) - \left(\mathbb{E}(x) + \mathbb{E}(\eps)\right)\mathbb{E}(x) \\
+& = \mathbb{E}(x^2) + \mathbb{E}(\eps x) - \mathbb{E}(x)^2 - \mathbb{E}(\eps)\mathbb{E}(x) \\
+& = \mathbb{E}(x^2) + \mathbb{E}(\eps x) - \mathbb{E}(x)^2 - 0\cdot \mathbb{E}(x) \\
+& = \mathbb{E}(x^2) + 0 - \mathbb{E}(x)^2 - 0\cdot \mathbb{E}(x) \\
+& = \mathbb{E}(x^2) - \mathbb{E}(x)^2 \\
+& = \mathbb{V}(x).
+\end{split}
+\end{align}
+
+\hfill $\Box$
+
+# Das Modell multipler Testmessungen
+
+\begin{theorem}[Normalverteilungsbeispiel]
+\justifying
+\normalfont
+\footnotesize
+Es sei $i = 1,...,n$, $m := 1$ mit
+\begin{equation}
+\mathbb{P}(x_{i1}) :=  N(\mu,1) \mbox{ und } \mathbb{P}(y_{i1}|x_{i1}) := N(x_{i1},1)
+\end{equation}
+Dann gelten
+\begin{enumerate}
+\item[(1)] $\mathbb{P}(y_{i1}) = N(\mu,2)$
+\item[(2)] $\mathbb{P}(\eps_{i1}|x_{i1}) = N(0,1)$
+\item[(3)] $\mathbb{P}(\eps_{i1}) = N(0,1)$
+\item[(4)] $\mathbb{C}(x_{i1},\eps_{i1}) = 0$
+\end{enumerate}
+\end{theorem}
+
+\footnotesize
+Bemerkungen
+
+* Das Beispiel entspricht Exercise 2.17 in @lord1968
+* Der Ansatz im Beispiel entspricht einer modernen Formulierung eines probabilistischen Modells.
+* Die Beispieldefinitionen induzieren eine gemeinsame Normalverteilung von $x_{i1}$ und $y_{i1}$.
+* Die Beispieldefinitionen und $\eps_{i1} := y_{i1} -\mathbb{E}(y_{i1}|x_{i1})$ induzieren eine $x_{i1}$ bedingte Normalverteilung von $\eps_{i1}$.
+* Dies und die Beispieldefinitionen induzieren eine gemeinsame Normalverteilung von $x_{i1}$ und $\eps_{i1}$.
+* Die Aussagen folgen dann mit den [\textcolor{darkblue}{Eigenschaften gemeinsamer Normalverteilungen}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf).
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis}
+
+Zur Vereinfachung der Notation setzen wir $x := x_{i1}, y := y_{i1}, \eps := \eps_{i1}$.
+
+\noindent (1) Wir betrachten die durch
+\begin{equation}
+\mathbb{P}(x) = N(\mu,1) \mbox{ und }
+\mathbb{P}(y|x) = N(x,1)
+\end{equation}
+induzierte gemeinsame Verteilung von $x$ und $y$, wobei offenbar
+\begin{equation}
+\mathbb{P}(y|x) = N(a\cdot \mu + b,1) \mbox{ mit } a:= 1 \mbox{ und } b := 0
+\end{equation}
+gilt. Aus dem [\textcolor{blue}{Theorem zu gemeinsamen Normalverteilungen}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf) ergibt sich dann zunächst,
+dass
+\begin{equation}
+\begin{pmatrix}
+x \\ y
+\end{pmatrix}
+\sim
+N\left(
+\begin{pmatrix}
+\mu \\ 1 \cdot \mu + 0
+\end{pmatrix},
+\begin{pmatrix}
+1          & 1 \cdot 1 \\
+1 \cdot 1  & 1 + 1 \cdot 1 \cdot 1
+\end{pmatrix}
+\right)
+=
+N\left(
+\begin{pmatrix}
+\mu \\ \mu
+\end{pmatrix},
+\begin{pmatrix}
+1 & 1 \\
+1 & 2
+\end{pmatrix}
+\right)
+\end{equation}
+Aus dem [\textcolor{blue}{Theorem zu marginalen Normalverteilungen}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf) ergibt sich
+dann durch Ablesen $y \sim N(\mu,2)$.
+
+\noindent (2) Wir betrachten $\mathbb{P}(\eps|x = \mrm{x})$
+für einen beliebigen Wert $\mrm{x} \in \mathbb{R}$. Dann gilt
+\begin{equation}
+\eps := y - \mrm{x} \mbox{ mit } y \sim N(\mrm{x},1)
+\end{equation}
+Mit dem [\textcolor{blue}{Theorem zur linear-affinen Transformation normalverteilter Zufallsvektoren}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf) gilt dann
+\begin{equation}
+\eps \sim N\left(\mrm{x} - \mrm{x}, 1^2 \cdot 1\right) = N(0,1)
+\end{equation}
+Die Tatsache, dass dies für alle möglichen Werte von $x$ gilt, ist gerade Aussage (2).
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgesetzt)}
+
+\noindent (3) und (4) Wir betrachten die durch
+\begin{equation}
+\mathbb{P}(x) = N(\mu,1) \mbox{ und }
+\mathbb{P}(\eps|x) = N(0,1)
+\end{equation}
+induzierte gemeinsame Verteilung von $x$ und $\eps$, wobei offenbar
+\begin{equation}
+\mathbb{P}(\eps|x) = N(a\cdot \mu + b,1) \mbox{ mit } a:= 0 \mbox{ und } b := 0
+\end{equation}
+gilt. Aus dem [\textcolor{blue}{Theorem zu gemeinsamen Normalverteilungen}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf) ergibt sich dann zunächst,
+dass
+\begin{equation}
+\begin{pmatrix}
+x \\ \eps
+\end{pmatrix}
+\sim
+N\left(
+\begin{pmatrix}
+\mu \\ 0 \cdot \mu + 0
+\end{pmatrix},
+\begin{pmatrix}
+1         & 1 \cdot 0 \\
+0\cdot 1  & 1 + 0 \cdot 1 \cdot 0
+\end{pmatrix}
+\right)
+=
+N\left(
+\begin{pmatrix}
+\mu \\ 0
+\end{pmatrix},
+\begin{pmatrix}
+1 & 0 \\
+0 & 1
+\end{pmatrix}
+\right)
+\end{equation}
+Aus dem [\textcolor{blue}{Theorem zu marginalen Normalverteilungen}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf) ergeben sich dann durch Ablesen
+\begin{equation}
+\eps \sim N(0,1)
+\mbox{ und }
+\mathbb{C}(x,\eps) = 0.
+\end{equation}
+
+
+# Das Modell multipler Testmessungen
+
+\small
+Simulation des Normalverteilungsbeispiels mit $\mu := 1$ für $n := 10^4$
+\vspace{2mm}
+
+\tiny
+```{r, echo = TRUE}
+n           = 1e4                                       # Personenanzahl
+m           = 1                                         # Testmessungsanzahl
+mu          = 1                                         # Erwartungswertparameter wahrer Wert
+X           = matrix(rep(NaN, n*m), nrow = n)           # Wahrer Wert Array
+Y           = matrix(rep(NaN, n*m), nrow = n)           # Beobachteter Wert Array
+E           = matrix(rep(NaN, n*m), nrow = n)           # Messfehler Array
+for(i in 1:n){                                          # Iteration über Testpersonen
+  for(j in 1:m){                                        # Iteration über Testmessungen
+    X[i,j]  = rnorm(1,mu,1)                             # Wahrer Wert Realisierung
+    Y[i,j]  = rnorm(1,X[i,j],1)                         # Beobachteter Wert Realisierung
+    E[i,j]  = Y[i,j] - X[i,j]}}                         # Messfehler Realisierung
+e_hat_es    = mean(E[,1])                               # Erwartungswertschätzung Messfehler
+c_hat_ts_es = cov(X[,1],E[,1])                          # Kovarianzschätzung wahrer Wert, Messfehler
+v_hat_os    = var(Y[,1])                                # Varianzschätzung beobachteter Wert
+v_hat_ts    = var(X[,1])                                # Varianzschätzung wahrer Wert
+v_hat_es    = var(E[,1])                                # Varianzschätzung Messfehler
+c_hat_os_ts = cov(Y[,1],X[,1])                          # Kovarianzschätzung beobachteter Wert, wahrer Wert
+```
+
+\footnotesize
+Panels der untenstehenden Abbildung der Simulation
+
+A) Analytische und simulierte marginale Verteilung von $y_{i1}$
+B) Analytische und simulierte marginale Verteilung von $\eps_{i1}$
+C) Analytische und simulierte gemeinsame Verteilung von $x_{i1}$ und $\eps_{i1}$.
+D) Simulationsbasierte Schätzer relevanter Erwartungswerte, Varianzen und Kovarianzen
+
+
+```{r, echo = F, eval = F}
+library(latex2exp)
+library(mvtnorm)
+pdf(
+file        =  "4-Abbildungen/psd-4-normalverteilungsbeispiel-1.pdf",
+width       = 9,
+height      = 9)
+par(
+family     = "sans",
+mfcol      = c(2,2),
+pty        = "s",
+bty        = "l",
+lwd        = 1,
+las        = 1,
+mgp        = c(2,1,0),
+xaxs       = "i",
+yaxs       = "i",
+cex        = 1,
+font.main  = 1,
+cex.main   = 1)
+
+# outcome space of interest
+y_min       = -4
+y_max       = 6
+y_res       = 1e3
+y           = seq(y_min, y_max, len = y_res)
+
+# Marginalverteilung von y_{i1}
+p_ups   = dnorm(y, mu, sqrt(2))
+hist(
+Y[,1],
+breaks  = 50,
+col     = "gray90",
+prob    = TRUE,
+xlim    = c(y_min,y_max),
+ylim    = c(0,.6),
+xlab    = TeX("$y_{i1}$"),
+ylab    = "",
+main    = TeX("$y_{i1} \\sim N(\\mu,2)$"))
+lines(
+y,
+p_ups,
+lwd     = 2,
+col     = "darkorange")
+mtext(LETTERS[1], adj=1, line=2, cex = 1.5, at = -7)
+
+# Gemeinsame Verteilung von x_{i1} und \eps_{i1}
+mu      = c(mu,0)
+Sigma   = matrix(c(1,0,0,1), nrow = 2)
+nsamp   = 300
+y_1     = seq(y_min, y_max, length.out = y_res)
+y_2     = seq(y_min, y_max, length.out = y_res)
+X       = expand.grid(y_1,y_2)
+p       = matrix(dmvnorm(as.matrix(X), mu, Sigma), nrow = y_res)
+contour(
+y_1,
+y_2,
+p,
+xlim    = c(-2,4),
+ylim    = c(-3,3),
+xlab    = TeX("$x_{i1}$"),
+ylab    = TeX("$e_{i1}$"),
+nlevels = 8,
+main    = TeX("$P(x_{i1},\\epsilon_{i1})$"))
+points(
+X[1:nsamp,1],
+E[1:nsamp,1],
+pch     = 21,
+col     = "white",
+bg      = "gray60",
+cex     = .6)
+labs    = c(TeX("$\\hat{E}(\\epsilon)$"),
+            TeX("$\\hat{C}(x, \\epsilon)$"),
+            TeX("$\\hat{V}(y)$"),
+            TeX("$\\hat{V}(x)$"),
+            TeX("$\\hat{V}(\\epsilon)$"),
+            TeX("$\\hat{C}(y, x)$"))
+mtext(LETTERS[3], adj=1, line=2, cex = 1.5, at = -4)
+
+
+# Marginalverteilung von \eps
+p_eps   = dnorm(y, 0, 1)
+hist(
+E[,1],
+breaks  = 50,
+col     = "gray90",
+prob    = TRUE,
+xlim    = c(y_min,y_max),
+ylim    = c(0,.6),
+xlab    = TeX("$e_{i1}$"),
+ylab    = "",
+main    = TeX("$\\epsilon_{i1} \\sim N(0,1)$"))
+lines(
+y,
+p_eps,
+lwd     = 2,
+col     = "darkorange")
+mtext(LETTERS[2], adj=1, line=2, cex = 1.5, at = -7)
+
+
+# Erwartungswert, Varianz und Kovarianzschätzer
+plot(
+1:6,
+c(e_hat_es, c_hat_ts_es, v_hat_os, v_hat_ts, v_hat_es, c_hat_os_ts),
+type     = "p",
+ylim     = c(-1,3),
+xlim     = c(0.5,6.5),
+xaxt     = "n",
+xlab     = "",
+ylab     = "",
+pch      =  19,
+cex      =  1)
+axis(1, at = 1:6, labels = labs, cex.axis = 0.8)
+mtext(LETTERS[4], adj=1, line=2, cex = 1.5, at = -1)
+dev.off()
+```
+
+# Das Modell multipler Testmessungen
+\vspace{2mm}
+\small
+Simulation des Normalverteilungsbeispiels mit $\mu := 1$ für $n := 10^4$
+
+```{r, echo = FALSE, out.width = "65%", fig.align = "center"}
+knitr::include_graphics("4-Abbildungen/psd-4-normalverteilungsbeispiel-1.pdf")
+```
+
+# Das Modell multipler Testmessungen
+\footnotesize
+Eine Linear Mixed Model Version des Normalverteilungsbeispiels
+
+Wir betrachten das obige Normalverteilungsbeispiel konkret für $n := 5$ Testpersonen.
+Dann gilt für die gemeinsame WDF von $x_{11},y_{11}, ...,x_{51},y_{51}$
+nach Definition des Modells multipler Testmessungen
+\begin{equation}
+p\left(x_{11},x_{21},x_{31},x_{41},x_{51},y_{11},y_{21},y_{31},y_{41},y_{51}\right)
+= \prod_{i=1}^5 p\left(x_{i1}\right)\prod_{i=1}^5 p\left(y_{i1}|x_{i1}\right)
+\end{equation}
+Mit
+\begin{equation}
+\prod_{i=1}^5 p\left(x_{i1}\right)
+= N\left(\begin{pmatrix} x_{11} \\ x_{21} \\ x_{31} \\ x_{41} \\ x_{51} \end{pmatrix}; 1_5\mu, I_5\right)
+\Leftrightarrow x_{i1} = \mu + \eta_i \mbox{ mit } \eta_i \sim N(0,1) \mbox{ u.i.v. für } i = 1,...,5
+\end{equation}
+und
+\begin{equation}
+\prod_{i=1}^5 p\left(y_{i1}|x_{i1}\right)
+= N\left(\begin{pmatrix} y_{11} \\ y_{21} \\ y_{31} \\ y_{41} \\ y_{51} \end{pmatrix};
+         \begin{pmatrix} x_{11} \\ x_{21} \\ x_{31} \\ x_{41} \\ x_{51} \end{pmatrix}, I_5\right)
+\Leftrightarrow  y_{i1} = x_{i1} + \eps_{i1} \mbox{ mit } \eps_{i1} \sim N(0,1) \mbox{ u.i.v. für } i = 1,...,5
+\end{equation}
+ergibt sich eine hierarchische Linear Mixed Model Darstellung.
+
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\begin{theorem}[Eigenschaften bezüglich zweier Testmessungen]\label{thm:eigenschaften-zweier-Testmessungen}
+\justifying
+\normalfont
+Gegeben sei das Modell multipler Testmessungen. Dann gelten für alle Testpersonen $i = 1,...,n$
+und alle Testmessungen $j$ und $k$ mit $1 \le j,k \le m$ und $j \neq k$, dass
+\begin{itemize}
+\item[(1)] $\mathbb{C}(y_{ij},y_{ik}|x_{ij} = \mrm{x}_{ij},x_{ik} = \mrm{x}_{ik}) = 0$,
+\item[(2)] $\mathbb{C}(\eps_{ij},\eps_{ik}|x_{ij} = \mrm{x}_{ij},x_{ik} = \mrm{x}_{ik}) = 0$,
+\item[(3)] $\mathbb{C}(\eps_{ij},\eps_{ik}) = 0$,
+\item[(4)] $\mathbb{C}(x_{ij},\eps_{ik}) = 0$ und
+\item[(5)] $\mathbb{C}(y_{ij},y_{ik}) = \mathbb{C}(x_{ij},x_{ik})$.
+\end{itemize}
+\end{theorem}
+\vspace{-2mm}
+Bemerkungen
+
+* Aussage (1) bezieht sich auf die bedingte gemeinsame Verteilung von $y_{ij}$ und $y_{ik}$.
+* Aussage (2) bezieht sich auf die bedingte gemeinsame Verteilung von $\eps_{ij}$ und $\eps_{ik}$.
+* Aussagen (3) bis (5) beziehen sich auf die jeweiligen Marginalverteilungen.
+* Im Sinne des einfachen Modells der Klassischen Testtheorie werden obige Eigenschaften oft auch als
+\begin{equation}
+\mathbb{C}(y_{j},y_{k}|x_{j} = \mrm{x}_{j},x_{k} = \mrm{x}_{k}) = 0, \quad
+\mathbb{C}(\eps_{j},\eps_{k}|x_{j} = \mrm{x}_{j},x_{k} = \mrm{x}_{k}) = 0,
+\end{equation}
+\begin{equation}
+\mathbb{C}(\eps_{j},\eps_{k}) = 0,\quad
+\mathbb{C}(x_{j},\eps_{k}) = 0,\quad
+\mathbb{C}(y_{j},y_{k}) = \mathbb{C}(x_{j},x_{k})
+\end{equation}
+geschrieben.
+* Aussagen (1) - (4) werden manchmal unter dem Begriff der *Lokalen Unkorreliertheit* subsummiert.
+
+
+# Das Modell multipler Testmessungen
+\footnotesize
+Bemerkung zu $\mathbb{C}(y_{j},y_{k}|x_{j} = \mrm{x}_{j},x_{k} = \mrm{x}_{k}) = 0$
+
+* Gegeben die wahren Werte kovariieren die beobachteten Werte zweier Testmessungen nicht.
+* In der auf die wahren Werte bedingten Verteilung zweier beobachteten Werte kovariieren diese nicht.
+
+Bemerkung zu $\mathbb{C}(\eps_{j},\eps_{k}|x_{j} = \mrm{x}_{j},x_{k} = \mrm{x}_{k}) = 0$
+
+* Gegeben die wahren Werte kovariieren die Messfehler zweier Testmessungen nicht.
+* In der auf die wahren Werte bedingten Verteilung zweier Messfehler kovariieren diese nicht.
+
+Bemerkung zu $\mathbb{C}(\eps_{j},\eps_{k}) = 0$
+
+* Über alle wahren Werte hinweg kovariieren die Messfehler zweier Testmessungen nicht.
+* In der marginalen Verteilung zweier Messfehler kovariieren diese nicht.
+
+Bemerkung zu $\mathbb{C}(x_{j},\eps_{k}) = 0$
+
+* Die wahren Werte einer Testmessung $j$ und der Messfehler einer Testmessung $k$ kovariieren nicht.
+
+Bemerkung zu $\mathbb{C}(y_{j},y_{k}) = \mathbb{C}(x_{j},x_{k})$
+
+* Die (marginale) Kovarianz zweier Testmessungen entspricht der (marginalen) Kovarianz der wahren Werte.
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis}
+
+Zur Vereinfachung der Notation verzichten wir in den Beweisen auf das $i$ Subskript.
+Wir betrachten weiterhin nur den diskreten Fall und setzen die Existenz der marginalen
+Wahrscheinlichkeitsmassefunktion
+\begin{equation}
+p(\mrm{x}_j,y_j,\mrm{x}_k,y_k) = p(\mrm{x}_j,\mrm{x}_k)p(y_j|\mrm{x}_j)p(y_k|\mrm{x}_k)
+\end{equation}
+und folglich auch der bedingten Wahrscheinlichkeitsmassefunktion
+\begin{equation}
+p(y_j, y_k|\mrm{x}_j,\mrm{x}_k) = \frac{p(\mrm{x}_j,y_j,\mrm{x}_k,y_k)}{p(\mrm{x}_j,\mrm{x}_k)} = \frac{p(\mrm{x}_j,\mrm{x}_k)p(y_j|\mrm{x}_j)p(y_k|\mrm{x}_k)}{p(\mrm{x}_j,\mrm{x}_k)} = p(y_j|\mrm{x}_j)p(y_k|\mrm{x}_k)
+\end{equation}
+voraus. Dabei bezeichnen wir mit $\mrm{x}_j, \mrm{x}_k$ Werte, die die Zufallsvariablen $x_j, x_k$
+annehmen können und der Einfachheit halber mit $y_j, y_k$ Werte, die die Zufallsvariablen $y_j, y_k$
+annehmen können. Der kontinuierliche Fall folgt dann wieder analog.
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (1) Es gilt
+\begin{align}
+\begin{split}
+\mathbb{C}(y_{j},y_{k}|x_{j} = \mrm{x}_{j},x_{k} = \mrm{x}_{k})
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+\sum_{y_k \in \mathcal{Y}_k}
+(y_j - \mathbb{E}(y_j|x_j = \mrm{x}_j))
+(y_k - \mathbb{E}(y_k|x_k = \mrm{x}_k))
+p(y_j|\mrm{x}_j)p(y_k|\mrm{x}_k) \\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\sum_{y_k \in \mathcal{Y}_k}
+(y_k - \mrm{x}_k)
+p(y_k|\mrm{x}_k) \\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\left(
+\sum_{y_k \in \mathcal{Y}_k}
+y_k p(y_k|\mrm{x}_k) -
+\mrm{x}_k \sum_{y_k \in \mathcal{Y}_k} p(y_k|\mrm{x}_k)
+\right)
+\\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\left(
+\mrm{x}_k -
+\mrm{x}_k \cdot 1
+\right)
+\\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\cdot 0
+\\
+& = 0.
+\end{split}
+\end{align}
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (2) Wir bestimmen zunächst $\mathbb{E}(\eps_j\eps_k|x_j = \mrm{x}_j, x_k = \mrm{x}_k)$. Es gilt
+\begin{align}
+\begin{split}
+\mathbb{E}(\eps_j\eps_k|x_j = \mrm{x}_j, x_k = \mrm{x}_k)
+& = \mathbb{E}((y_j - x_j)(y_k - x_k)|x_j = \mrm{x}_j, x_k = \mrm{x}_k)
+\\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+\sum_{y_k \in \mathcal{Y}_k}
+(y_j - \mrm{x}_j)(y_k - \mrm{x}_k)
+p(y_j|\mrm{x}_j)p(y_k|\mrm{x}_k)
+\\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\sum_{y_k \in \mathcal{Y}_k}
+(y_k - \mrm{x}_k)
+p(y_k|\mrm{x}_k)
+\\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\left(
+\sum_{y_k \in \mathcal{Y}_k}
+y_k
+p(y_k|\mrm{x}_k) -
+\mrm{x}_k
+\sum_{y_k \in \mathcal{Y}_k}
+p(y_k|\mrm{x}_k)
+\right)
+\\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\left(
+\mrm{x}_k -
+\mrm{x}_k \cdot 1
+\right)
+\\
+& =
+\sum_{y_j \in \mathcal{Y}_j}
+(y_j - \mrm{x}_j)
+p(y_j|\mrm{x}_j)
+\cdot 0
+\\
+& = 0
+\end{split}
+\end{align}
+Mit \thmref{thm:verschiebungssatz-der-bedingten-kovarianz} und Aussage
+(1) des \thmref{thm:eigenschaften-einer-Testmessung} folgt dann
+\begin{equation}
+\mathbb{C}(\eps_j,\eps_k|x_j = \mrm{x}_j, x_k = \mrm{x}_k)
+= \mathbb{E}(\eps_j\eps_k|x_j = \mrm{x}_j, x_k = \mrm{x}_k) - \mathbb{E}(\eps_j|x_j = \mrm{x}_j)\mathbb{E}(\eps_k|x_k = \mrm{x}_k)
+= 0 - 0 \cdot 0
+= 0.
+\end{equation}
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (3) Wir bestimmen zunächst $\mathbb{E}(\eps_j\eps_k)$. Mit
+dem Beweis von Aussage (2) ergibt sich
+\begin{align}
+\begin{split}
+\mathbb{E}(\eps_{j}\eps_{k})
+& = \mathbb{E}((y_j - x_j)(y_k - x_k)) \\
+& =
+\sum_{\mrm{x}_j \in X_j}
+\sum_{\mrm{x}_k \in X_k}
+\sum_{y_j \in \mathcal{Y}_j}
+\sum_{y_k \in \mathcal{Y}_k}
+(y_j - \mrm{x}_j)(y_k - \mrm{x}_k)
+p(y_j|\mrm{x}_j)p(y_k|\mrm{x}_k)
+p(\mrm{x}_j,\mrm{x}_k)
+\\
+& =
+\sum_{\mrm{x}_j \in X_j}
+\sum_{\mrm{x}_k \in X_k}
+\sum_{y_j \in \mathcal{Y}_j}
+\sum_{y_k \in \mathcal{Y}_k}
+(y_j - \mathbb{E}(y_j |x_j = \mrm{x}_j))(y_k - \mathbb{E}(y_k |x_k = \mrm{x}_k))
+p(y_j|\mrm{x}_j)p(y_k|\mrm{x}_k)
+p(\mrm{x}_j,\mrm{x}_k)
+\\
+& =
+\sum_{\mrm{x}_j \in X_j}
+\sum_{\mrm{x}_k \in X_k}
+\mathbb{E}\left((y_j - x_j) (y_k - x_k)| x_j = \mrm{x}_j, x_k = \mrm{x}_k\right)
+p(\mrm{x}_j,\mrm{x}_k)
+\\
+& =
+\sum_{\mrm{x}_j \in X_j}
+\sum_{\mrm{x}_k \in X_k}
+\mathbb{E}\left(\eps_j\eps_k | x_j = \mrm{x}_j, x_k = \mrm{x}_k\right)
+p(\mrm{x}_j,\mrm{x}_k)
+\\
+& =
+\sum_{\mrm{x}_j \in X_j}
+\sum_{\mrm{x}_k \in X_k}
+0 \cdot
+p(\mrm{x}_j,\mrm{x}_k)
+\\
+& =
+0
+\end{split}
+\end{align}
+Mit \thmref{thm:kovarianzverschiebungssatz} und Aussage (2) von \thmref{thm:eigenschaften-einer-Testmessung} ergibt sich dann
+\begin{equation}
+\mathbb{C}(\eps_j,\eps_k)
+= \mathbb{E}(\eps_j\eps_k) - \mathbb{E}(\eps_j)\mathbb{E}(\eps_k)
+= 0 - 0 \cdot 0
+= 0.
+\end{equation}
+
+
+# Das Modell multipler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (4) Mit dem Kovarianzverschiebungssatz \thmref{thm:kovarianzverschiebungssatz}
+und Aussage (2) von \thmref{thm:eigenschaften-einer-Testmessung} gilt
+\begin{align}
+\begin{split}
+\mathbb{C}(x_j,\eps_k)
+& = \mathbb{E}(x_j\eps_k)  - \mathbb{E}(x_j)\mathbb{E}(\eps_k) \\
+& = \mathbb{E}(x_j\eps_k)  - \mathbb{E}(x_j)\cdot 0 \\
+& = \mathbb{E}(x_j(y_k - x_k)) \\
+& = \sum_{\mrm{x}_j \in X_j}
+    \sum_{\mrm{x}_k \in X_k}
+    \sum_{y_k \in\mathcal{Y}_k}
+    \mrm{x}_j(y_k - \mrm{x}_k)
+    p(y_k|\mrm{x}_k)
+    p(\mrm{x}_j,\mrm{x}_k) \\
+& = \sum_{\mrm{x}_j \in X_j}
+    \mrm{x}_j
+    \sum_{\mrm{x}_k \in X_k}
+    p(\mrm{x}_j, \mrm{x}_k)
+    \sum_{y_k \in\mathcal{Y}_k}
+    (y_k - \mrm{x}_k)
+    p(y_k|\mrm{x}_k)
+\\
+& = \sum_{\mrm{x}_j \in X_j}
+    \mrm{x}_j
+    \sum_{\mrm{x}_k \in X_k}
+    p(\mrm{x}_j,\mrm{x}_k)
+    \left(
+    \sum_{y_k \in\mathcal{Y}_k} y_k p(y_k|\mrm{x}_k)
+     -
+    \mrm{x}_k  \sum_{y_k \in\mathcal{Y}_k} p(y_k|\mrm{x}_k)
+    \right)\\
+& = \sum_{\mrm{x}_j \in X_j}
+    \mrm{x}_j
+    \sum_{\mrm{x}_k \in X_k}
+     p(\mrm{x}_j, \mrm{x}_k)
+    \left(\mrm{x}_k - \mrm{x}_k \cdot 1\right)\\
+& = \sum_{\mrm{x}_j \in X_j}
+    \mrm{x}_j
+    \sum_{\mrm{x}_k \in X_k}
+     p(\mrm{x}_j, \mrm{x}_k)
+    \cdot 0\\
+& = 0. \\
+\end{split}
+\end{align}
+
+# Das Modell multipler Testmessungen
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (5) Wir halten zunächst fest, dass mit Aussage (4) durch Vertauschen
+der Indizes und \thmref{symmetrie-der-kovarianz}  auch
+\begin{equation}
+\mathbb{C}(x_k,\eps_j) = \mathbb{C}(\eps_j, x_k) = 0
+\end{equation}
+gilt. Mit \thmref{thm:kovarianz-bei-paarweiser-addition} und Aussage (3) gilt dann
+\begin{align}
+\begin{split}
+\mathbb{C}(y_j,y_k)
+& = \mathbb{C}(x_j + \eps_j,x_k + \eps_k) \\
+& = \mathbb{C}(x_j,x_k)          +
+    \mathbb{C}(x_j,\eps_k)   +
+    \mathbb{C}(\eps_j,x_k)   +
+    \mathbb{C}(\eps_j,\eps_k) \\
+& = \mathbb{C}(x_j,x_k) + 0 + 0 + 0 \\
+& = \mathbb{C}(x_j,x_k).
+\end{split}
+\end{align}
+
+\hfill $\Box$
+
+
+# Das Modell multipler Testmessungen
+\small
+Normalverteilungsbeispiel
+
+\footnotesize
+Wir betrachten den Fall zweier Testmessungen $j = 1,2$ im Modell multipler Testmessungen.
+
+Für  $i = 1,...,n$ seien
+\begin{equation}
+\mathbb{P}(x_{i1}, x_{i2}) = \mathbb{P}(x_{i2}|x_{i1})\mathbb{P}(x_{i1})
+\end{equation}
+mit
+\begin{equation}
+\mathbb{P}(x_{i1}) := N(1,1) \mbox{ und }
+\mathbb{P}(x_{i2}|x_{i1}) := N(x_{i1} + 1,1)
+\end{equation}
+Die Verteilung des wahren Werts von Testperson $i$ in Testmessung $j = 2$ hängt also
+explizit von der Verteilung des wahren Werts von Testperson $i$ in Testmessung $j = 1$ ab.
+
+Weiterhin seien
+\begin{equation}
+\mathbb{P}(y_{i1}|x_{i1}) := N(x_{i1},1) \mbox{ und }
+\mathbb{P}(y_{i2}|x_{i2}) := N(x_{i2},2)
+\end{equation}
+Die Propensitätsverteilungen von Testperson $i$ in Testmessung $j = 1$ unterscheide
+sich also von der von Testperson $i$ in Testmessung $j = 2$.
+
+# Das Modell multipler Testmessungen
+\vspace{2mm}
+\small
+Simulation des Normalverteilungsbeispiels für $n := 10^5$
+\vspace{1mm}
+
+\tiny
+```{r, echo = TRUE, eval = F, errors = F}
+n           = 1e5                                   # Personenanzahl
+m           = 2                                     # Testmessungsanzahl
+mu          = 1                                     # Wahrer Werte Erwartungswertparameter
+X           = matrix(rep(NaN, n*m), nrow = n)       # Wahrer Wert Array
+Y           = matrix(rep(NaN, n*m), nrow = n)       # Beobachteter Wert Array
+E           = matrix(rep(NaN, n*m), nrow = n)       # Messfehler Array
+for(i in 1:n){                                      # Iteration über Testpersonen
+    X[i,1]  = rnorm(1,1,1)                          # Wahrer Wert Realisierung       für j = 1
+    Y[i,1]  = rnorm(1,X[i,1],1)                     # Beobachteter Wert Realisierung für j = 1
+    E[i,1]  = Y[i,1] - X[i,1]                       # Messfehler Realisierung        für j = 1
+    X[i,2]  = rnorm(1,X[i,1] + 1,.5)                # Wahrer Wert Realisierung       für j = 2
+    Y[i,2]  = rnorm(1,X[i,2],.5)                    # Beobachteter Wert Realisierung für j = 2
+    E[i,2]  = Y[i,2] - X[i,2]}                      # Messfehler Realisierung        für j = 2
+c_hat_e1_e2 = cov(E[,1],E[,2])                      # Kovarianzschätzung Messfehler  1, Messfehler 2
+c_hat_t1_e2 = cov(X[,1],E[,2])                      # Kovarianzschätzung wahrer Wert 1, Messfehler 2
+c_hat_y1_y2 = cov(Y[,1],Y[,2])                      # Kovarianzschätzung beobachteter Wert 1, beobachteter Wert 2
+c_hat_t1_t2 = cov(X[,1],X[,2])                      # Kovarianzschätzung wahrer Wert 1, wahrer Wert 2
+```
+
+\footnotesize
+Panels der untenstehenden Abbildung der Simulation
+
+A) Marginale Unkorrelierheit der Messfehler bezüglich zweier Testmessungen
+B) Marginale Unkorrelierheit des wahren Wertes und des Messfehlers bezüglich zweier Testmessungen
+C) Marginale Kovarianz der beobachteten Werte bezüglich zweier Testmessungen
+D) Marginale Kovarianz der wahren Werte bezüglich zweier Testmessungen
+
+
+# Das Modell multipler Testmessungen
+\vspace{2mm}
+\small
+Simulation des Normalverteilungsbeispiels für $n := 10^5$, 500 Stichprobenpunkte dargestellt
+
+```{r, echo = F, eval = F}
+library(latex2exp)
+library(mvtnorm)
+pdf(
+file        =  "4-Abbildungen/psd-4-normalverteilungsbeispiel-2.pdf",
+width       = 9,
+height      = 9)
+par(
+family      = "sans",
+mfcol       = c(2,2),
+pty         = "s",
+bty         = "l",
+lwd         = 1,
+las         = 1,
+mgp         = c(2,1,0),
+xaxs        = "i",
+yaxs        = "i",
+cex         = 1,
+font.main   = 1,
+cex.main    = 1)
+nsamp       = 500
+
+# Gemeinsame Verteilung der Messfehler
+plot(
+E[1:nsamp,1],
+E[1:nsamp,2],
+pch         = 21,
+col         = "white",
+bg          = "gray60",
+xlab        = TeX("$\\epsilon_{i1}$"),
+ylab        = TeX("$\\epsilon_{i2}$"),
+xlim        = c(-4,6),
+ylim        = c(-4,6),
+cex         = 1,
+main        = TeX(paste0("$\\hat{C}(\\epsilon_{i1}, \\epsilon_{i2}) = ", round(c_hat_e1_e2,3), "$")))
+mtext(LETTERS[1], adj=1, line=2, cex = 1.5, at = -7)
+
+# Gemeinsame Verteilung der beobachteten  Werte
+plot(
+Y[1:nsamp,1],
+Y[1:nsamp,2],
+pch         = 21,
+col         = "white",
+bg          = "gray60",
+xlab        = TeX("$y_{i1}$"),
+ylab        = TeX("$y_{i2}$"),
+xlim        = c(-4,6),
+ylim        = c(-4,6),
+cex         = 1,
+main        = TeX(paste0("$\\hat{C}(y_{i1}, y_{i2}) = ", round(c_hat_y1_y2,3), "$")))
+mtext(LETTERS[3], adj=1, line=2, cex = 1.5, at = -7)
+
+# Gemeinsame Verteilung des wahren Wertes und des Messfehlers
+plot(
+X[1:nsamp,1],
+E[1:nsamp,2],
+pch         = 21,
+col         = "white",
+bg          = "gray60",
+xlab        = TeX("$x_{i1}$"),
+ylab        = TeX("$\\epsilon_{i2}$"),
+xlim        = c(-4,6),
+ylim        = c(-4,6),
+cex         = 1,
+main        = TeX(paste0("$\\hat{C}(x_{i1}, \\epsilon_{i2}) = ", round(c_hat_t1_e2,3), "$")))
+mtext(LETTERS[2], adj=1, line=2, cex = 1.5, at = -7)
+
+# Gemeinsame Verteilung der wahren Werte
+plot(
+X[1:nsamp,1],
+X[1:nsamp,2],
+pch         = 21,
+col         = "white",
+bg          = "gray60",
+xlab        = TeX("$x_{i1}$"),
+ylab        = TeX("$x_{i2}$"),
+xlim        = c(-4,6),
+ylim        = c(-4,6),
+cex         = 1,
+main        = TeX(paste0("$\\hat{C}(x_{i1}, x_{i2}) = ", round(c_hat_t1_t2,3), "$")))
+mtext(LETTERS[4], adj=1, line=2, cex = 1.5, at = -7)
+dev.off()
+```
+
+```{r, echo = FALSE, out.width = "65%", fig.align = "center"}
+knitr::include_graphics("4-Abbildungen/psd-4-normalverteilungsbeispiel-2.pdf")
+```
+
+#
+\vfill
+\setstretch{2.2}
+\large
+Grundlagen
+
+Das Modell multipler Testmessungen
+
+**Das Modell paralleler Testmessungen**
+
+Reliabilität
+
+Interne Konsistenz
+
+Selbstkontrollfragen
+\vfill
+
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+Bisher haben wir im Modell der multiplen Testmessungen keine Aussage zu den
+Verhältnissen der True-Scores über verschiedene Testmessungen hinweg gemacht.
+Wir haben einerseits angenommen, dass für die Marginalverteilung der Testmessungen
+bei einer Person $i$ keine Unabhängigkeit gelten muss, dass also im Allgemeinen
+gilt, dass für $i = 1,...,n$
+\begin{equation}
+\mathbb{P}(x_{i1},...,x_{im}) \neq \prod_{j=1}^m\mathbb{P}(x_{ij})
+\end{equation}
+Andererseits haben wir die Form möglicher Abhängigkeiten zwischen den True-Scores
+$x_{i1}, ..., x_{im}$ bislang nicht genauer spezifiziert.
+
+Die Klassische Testtheorie betrachtet in dieser Hinsicht einige Spezialfälle, die
+sich im Allgemeinen durch funktionale Abhängigkeiten zwischen $x_{i1}$ und
+$x_{i2},...,x_{im}$ der Form
+\begin{equation}
+x_{ij} = f(x_{i1})  \mbox{ für  } f : \mathbb{R} \to \mathbb{R} \mbox{ und } j = 2,...,m.
+\end{equation}
+auszeichnen. Wir betrachten im Folgenden den Fall, dass $f := \mbox{id}_{\mathbb{R}}$,
+dass also insbesondere für Realisierungen $\mrm{x}_{ij}$ von $x_{ij}$ gilt, dass
+\begin{equation}
+\mrm{x}_{ij} = \mbox{id}_{\mathbb{R}}\left(\mrm{x}_{i1}\right) = \mrm{x}_{i1}   \mbox{ für  }  j = 2,...,m,
+\end{equation}
+dass also die Werte der True-Scores einer Person über Testmessungen identisch sind. Die Klassische
+Testtheorie bezeichnet solche Testmessungen als *parallele Testmessungen*. Eine weitere
+Form der funktionalen Abhängigkeit, die wir hier nicht weiter vertiefen wollen,
+ist der Fall, dass es sich bei $f$ um eine linear-affine Funktion handelt, dass also
+\begin{equation}
+x_{ij} = f(x_{i1}) = ax_{i1} + b \mbox{ für  } a,b \in \mathbb{R} \mbox{ und } j = 2,...,m.
+\end{equation}
+Die Klassische Testtheorie bezeichnet solche Testmessungen als *wesentlich $x$-äquivalente Testmessungen*.
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+\vspace{3mm}
+\begin{definition}[Modell paralleler Testmessungen]
+Für $i = 1,...,n$ und $j = 1,...,m$ sei
+\begin{itemize}
+\item $x_{i}$ eine Zufallsvariable, die den wahren Wert der $i$ten Testperson in jeder Testmessung $j = 1,...,m$ modelliere,
+\item $y_{ij}$ eine Zufallsvariable, die den beobachteten Wert der $i$ten Testperson in der $j$ten Testmessung modelliere,
+\item $\eps_{ij} := y_{ij} -x_{i}$ die Zufallsvariable, die den Messfehler der $i$ten Testperson in der $j$ten Testmessung modelliere.
+\end{itemize}
+Dann heißt die gemeinsame Verteilung der $x_{i}$ und $y_{ij}$ mit den Faktorisierungseigenschaften
+\begin{equation}
+\mathbb{P}\left(x_{1},y_{11},...y_{1m}, ...,x_{n},y_{n1},...,y_{nm}\right)
+:= \prod_{i=1}^n \mathbb{P}(x_{i}) \prod_{j=1}^m \mathbb{P}(y_{ij}|x_{i})
+\end{equation}
+das \textit{Modell paralleler Testmessungen}, wenn gilt, dass
+\begin{itemize}
+\item[(1)] $\mathbb{P}(x_{1}) = \cdots = \mathbb{P}(x_{n})$,
+\item[(2)] $\mathbb{P}(y_{1j}|x_{1}) = \cdots = \mathbb{P}(y_{nj}|x_{n})$ für alle  $1 \le j \le m$,
+\item[(3)] $\mathbb{E}(y_{ij}\vert x_i = \mrm{x}_i) = \mathbb{E}(y_{ik}\vert x_i = \mrm{x}_i) := \mrm{x}_i$  für alle  $1 \le i \le n, 1 \le j,k \le m$,
+\item[(4)] $\mathbb{V}(y_{ij}\vert x_i = \mrm{x}_i) = \mathbb{V}(y_{ik}\vert x_i = \mrm{x}_i)$  für alle  $1 \le i \le n, 1 \le j,k \le m$.
+\end{itemize}
+\end{definition}
+
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+Bemerkungen
+\setstretch{2.5}
+
+* Für Testperson $i$ und Testmessungen $j = 1,...,m$ wird zunächst ein wahrer Wert $\mrm{x}_{i}$ von $\mathbb{P}(x_{i})$ realisiert.
+* Für Testperson $i$ und Testmessung $j$ wird dann ein beobachteter Wert $y_{ij}$ anhand von $\mathbb{P}(y_{ij}|x_{i}=\mrm{x}_{i})$ realisiert.
+* Die Werte des wahren Wertes einer Testperson werden über Testmessungen als identisch angenommen.
+* Die Varianz der beobachteten Werte einer Testperson zwischen Messungen geht nur auf die Propensität zurück.
+* Bei \underline{einer} Testmessung entspricht das Modell paralleler Testmessungen dem Modell multipler Testmessungen.
+* Das \thmref{thm:eigenschaften-einer-Testmessung} gilt also analog.
+
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+\begin{theorem}[Eigenschaften des Modells paralleler Testmessungen]\label{thm:eigenschaften-paralleler-Testmessungen}
+\justifying
+\normalfont
+Gegeben sei das Modell paralleler Testmessungen. Dann gelten für alle $i = 1,...,n$
+und alle $j,k$ mit $1 \le j,k \le m$ und $j \neq k$, dass
+\begin{itemize}
+\item[(1)] $\mathbb{E}(y_{ij}) = \mathbb{E}(y_{ik})$
+\item[(2)] $\mathbb{V}(y_{ij}) = \mathbb{V}(y_{ik})$
+\item[(3)] $\mathbb{C}(\eps_{ij},\eps_{ik}) = 0$
+\item[(4)] $\mathbb{C}(x_{i},\eps_{ik}) =  0$
+\item[(5)] $\mathbb{C}(y_{ij},y_{ik}) = \mathbb{V}(x_{i})$
+\end{itemize}
+\end{theorem}
+\vspace{-1mm}
+Bemerkungen
+\vspace{-2mm}
+
+* Bei Paralleltestmessungen sind alle Erwartungswerte der beobachteten Werte einer Person identisch sind.
+* Bei Paralleltestmessungen sind alle Varianzen der beobachteten Werte einer Person identisch sind.
+* Aussagen (3) und (4 )gelten analog im Modell multipler Testmessungen bezüglich zweier Testmessungen.
+* Aussage (5) besagt insbesondere, dass $\mathbb{C}(y_{ij},y_{ik})$ für beliebige $j$ und $k$ identisch
+zu $\mathbb{V}(x_{i})$ sind.
+
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+\underline{Beweis}
+
+Zum Beweis setzen zur Vereinfachung der Notation zunächst
+\begin{equation}
+y_j      := y_{ij},
+y_k      := y_{ik},
+x            := x_{i},
+y_j             := y_{ij},
+y_k             := y_{ik},
+\mrm{x}               := \mrm{x}_{i},
+\mathcal{Y_j}   :=\mathcal{Y}_{ij},
+\mathcal{Y_k}   :=\mathcal{Y}_{ik} \mbox{ und }
+X     := X_{i}
+\end{equation}
+für alle $i = 1,...,n$. Wir betrachten weiterhin (nur) den diskreten Fall, setzen
+also die Existenz einer Wahrscheinlichkeitsmassefunktion
+$p_{x,y}$ der Form
+\begin{equation}
+p(\mrm{x},y_j,y_k) = p(y_j|\mrm{x})p(y_k|\mrm{x})p(\mrm{x})
+\end{equation}
+voraus und bezeichnen dabei mit $\mrm{x}$ einen Wert, den die Zufallsvariable $x$ annimmt
+und der Einfachheit halber mit $y_j, y_k$ Werte, die die Zufallsvariablen $y_j, y_k$ annehmen können.
+ Der kontinuierliche Fall folgt dann analog.
+
+\noindent(1) Mit der Gleichheit der bedingten Erwartungswerte im Falle paralleler Testmessungen gilt
+\begin{equation*}
+\mathbb{E}(y_{j})
+ = \sum_{\mrm{x} \in X}\sum_{y_j \in\mathcal{Y}_j}y_jp(y_j|\mrm{x})p(\mrm{x})
+ = \sum_{\mrm{x} \in X}\mathbb{E}(y_{j}\vert x = \mrm{x})p(\mrm{x})
+ = \sum_{\mrm{x} \in X}\sum_{y_k \in\mathcal{Y}_k}y_kp(y_k|\mrm{x})p(\mrm{x})
+ = \mathbb{E}(y_{k}).
+\end{equation*}
+
+\noindent (2) Mit \thmref{thm:iterierte-varianz} ergibt sich
+\begin{equation*}
+\mathbb{V}(y_{j})
+= \mathbb{V}\left(\mathbb{E}(y_j\vert x)\right) + \mathbb{E}\left(\mathbb{V}(y_j\vert x)\right)
+= \mathbb{V}\left(\mathbb{E}(y_k\vert x)\right) + \mathbb{E}\left(\mathbb{V}(y_k\vert x)\right)
+= \mathbb{V}(y_{k}).
+\end{equation*}
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (3)  Wir bestimmen zunächst $\mathbb{E}(\eps_j\eps_k)$. Mit Aussage
+(2) des Theorems zu den Eigenschaften des Modells multipler Testmessungen bei einer Testmessung gilt
+\begin{align}
+\begin{split}
+\mathbb{E}(\eps_j\eps_k)
+& := \mathbb{E}((y_j - x)(y_k - x)) \\
+&  = \sum_{\mrm{x} \in X}
+     \sum_{y_j \in\mathcal{Y}_j}
+     \sum_{y_k \in\mathcal{Y}_k} (y_j - \mrm{x})(y_k - \mrm{x})  p(\mrm{x}) p(y_j|\mrm{x})p(y_k|\mrm{x})  \\
+&  = \sum_{\mrm{x} \in X}
+     p(\mrm{x})
+     \sum_{y_j \in\mathcal{Y}_j}
+     \sum_{y_k \in\mathcal{Y}_k} (y_j - \mrm{x})(y_k - \mrm{x}) p(y_j|\mrm{x})p(y_k|\mrm{x})  \\
+&  = \sum_{\mrm{x} \in X}
+     p(\mrm{x})
+     \sum_{y_j \in\mathcal{Y}_j} (y_j - \mrm{x}) p(y_j|\mrm{x})
+     \sum_{y_k \in\mathcal{Y}_k} (y_k - \mrm{x}) p(y_k|\mrm{x})  \\
+&  = \sum_{\mrm{x} \in X}
+     p(\mrm{x})
+    \left(\sum_{y_j \in\mathcal{Y}_j} y_j p(y_j|\mrm{x}) - \mrm{x}\sum_{y_j \in\mathcal{Y}_j}p(y_j|\mrm{x})\right)
+    \left(\sum_{y_k \in\mathcal{Y}_k} y_k p(y_k|\mrm{x}) - \mrm{x}\sum_{y_k \in\mathcal{Y}_k}p(y_k|\mrm{x})\right) \\
+&  = \sum_{\mrm{x} \in X} p(\mrm{x})\left(\mrm{x}-\mrm{x}\right)\left(\mrm{x}-\mrm{x}\right) \\
+&  = \sum_{\mrm{x} \in X} p(\mrm{x})\cdot 0 \cdot 0 \\
+&  =  0.  \\
+\end{split}
+\end{align}
+
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+\vspace{2mm}
+\underline{Beweis (fortgeführt)}
+
+Mit \thmref{thm:kovarianzverschiebungssatz} und wiederum mit Aussage (2)
+von \thmref{thm:eigenschaften-einer-Testmessung} folgt dann
+\begin{align}
+\begin{split}
+\mathbb{C}(\eps_j,\eps_k)
+= \mathbb{E}(\eps_j\eps_k) - \mathbb{E}(\eps_j)\mathbb{E}(\eps_k)
+= 0 - 0\cdot 0
+= 0
+\end{split}
+\end{align}
+
+\noindent (4) Mit \thmref{thm:kovarianzverschiebungssatz}  und wiederum mit Aussage (2)
+von \thmref{thm:eigenschaften-einer-Testmessung} folgt dann
+\begin{align}
+\begin{split}
+\mathbb{C}(x,\eps_k)
+& = \mathbb{E}(x\eps_k)  - \mathbb{E}(x)\mathbb{E}(\eps_k) \\
+& = \mathbb{E}(x\eps_k)  - \mathbb{E}(x)\cdot 0 \\
+& = \mathbb{E}(x(y_k - x)) \\
+& = \sum_{\mrm{x} \in X}
+    \sum_{y_k \in\mathcal{Y}_k}
+    \mrm{x}(y_k - \mrm{x})
+    p(\mrm{x})p(y_k|\mrm{x}) \\
+& = \sum_{\mrm{x} \in X} \mrm{x} p(\mrm{x})
+    \sum_{y_k \in\mathcal{Y}_k} (y_k - \mrm{x})
+    p(y_k|\mrm{x}) \\
+& = \sum_{\mrm{x} \in X} \mrm{x}  p(\mrm{x})
+    \left(
+    \sum_{y_k \in\mathcal{Y}_k} y_k p(y_k|\mrm{x})
+     -
+    \mrm{x} \sum_{y_k \in\mathcal{Y}_k} p(y_k|\mrm{x})
+     \right)\\
+& = \sum_{\mrm{x} \in X} \mrm{x}  p(\mrm{x}) \left(\mrm{x} - \mrm{x}\right)\\
+& = \sum_{\mrm{x} \in X} \mrm{x}  p(\mrm{x}) \cdot 0\\
+& = 0. \\
+\end{split}
+\end{align}
+
+
+# Das Modell paralleler Testmessungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (5) Wir halten zunächst fest, dass mit Aussage (2) des Theorems neben
+$\mathbb{C}(x,\eps_k) = 0$ durch Austausch des Index und
+\thmref{thm:symmetrie-der-kovarianz} auch
+\begin{equation}
+\mathbb{C}(x,\eps_j) = \mathbb{C}(\eps_j, x) = 0
+\end{equation}
+gilt. Mit \thmref{thm:kovarianz-bei-paarweiser-addition} und Aussage (1) des Theorems gilt dann
+\begin{align}
+\begin{split}
+\mathbb{C}(y_j,y_k)
+& = \mathbb{C}(x + \eps_j,x + \eps_k) \\
+& = \mathbb{C}(x,x)          +
+    \mathbb{C}(x,\eps_k) +
+    \mathbb{C}(\eps_j,x)   +
+    \mathbb{C}(\eps_j,\eps_k) \\
+& = \mathbb{C}(x,x) + 0 + 0 + 0 \\
+& = \mathbb{C}(x,x) \\
+& = \mathbb{V}(x).
+\end{split}
+\end{align}
+
+
+# Das Modell paralleler Testmessungen
+\small
+Normalverteilungsbeispiel
+
+\footnotesize
+Wir betrachten den Fall zweier Testmessungen $j = 1,2$ im Modell paralleler Testmessungen. Für  $i = 1,...,n$ seien
+\begin{equation}
+\mathbb{P}(x_{i}) =  N(1,1)
+\mbox{ und }
+\mathbb{P}(y_{i1}|x_{i}) := \mathbb{P}(y_{i2}|x_{i}) :=  N(x_{i},1)
+\end{equation}
+Für Testperson $i$ gibt es also nur eine Zufallsvariable des wahren Werts für
+alle Testmessungen und die Propensitätsverteilungen unterscheiden sich zwischen
+Testmessungen nicht.
+
+\vspace{1mm}
+Simulation des Normalverteilungsbeispiels für $n = 10^5$
+\vspace{1mm}
+\tiny
+```{r, echo = TRUE}
+n           = 1e5                               # Personenanzahl
+m           = 2                                 # Testmessungsanzahl
+X           = matrix(rep(NaN, n)  , nrow = n)   # Wahrer Wert Array
+Y           = matrix(rep(NaN, n*m), nrow = n)   # Beobachteter Wert Array
+E           = matrix(rep(NaN, n*m), nrow = n)   # Messfehler Array
+for(i in 1:n){                                  # Personeniterationen
+    X[i]  = rnorm(1,1,1)                        # Wahrer Wert Realisierung für j = 1,2
+    for(j in 1:m){                              # Testmessungsiterationen
+        Y[i,j]  = rnorm(1,X[i],1)               # Beobachteter Wert Realisierung f
+        E[i,j]  = Y[i,j] - X[i]}}               # Messfehler Realisierung
+e_hat_o1_o2 = apply(Y, 2, mean)                 # Erwartungswertschätzung Beobachteter Wert 1, Beobachteter Wert 2
+v_hat_o1_o2 = apply(Y, 2, var)                  # Varianzschätzung Beobachteter Wert 1, Beobachteter Wert 2
+c_hat_e1_e2 = cov(E[,1],E[,2])                  # Kovarianzschätzung Messfehler 1, Messfehler 2
+c_hat_t_e2  = cov(X    ,E[,2])                  # Kovarianzschätzung Wahrer Wert 1, Messfehler 2
+c_hat_y1_y2 = cov(Y[,1],Y[,2])                  # Kovarianzschätzung Beobachteter Wert 1, Beobachteter Wert 2
+v_hat_t     = var(X)                            # Varianzschätzung Wahrer Wert
+```
+
+# Das Modell paralleler Testmessungen
+\small
+Simulation des Normalverteilungsbeispiels für $n = 10^5$, 500 Stichprobenpunkte dargestellt
+\vspace{3mm}
+
+
+```{r, echo = F, eval = F}
+library(latex2exp)
+library(mvtnorm)
+pdf(
+file        =  "4-Abbildungen/psd-4-normalverteilungsbeispiel-3.pdf",
+width       = 12,
+height      = 4)
+par(
+family      = "sans",
+mfcol       = c(1,3),
+pty         = "s",
+bty         = "l",
+lwd         = 1,
+las         = 1,
+mgp         = c(2,1,0),
+xaxs        = "i",
+yaxs        = "i",
+cex         = 1,
+font.main   = 1,
+cex.main    = 1)
+nsamp       = 500
+
+# Gemeinsame Verteilung der Messfehler
+plot(
+E[1:nsamp,1],
+E[1:nsamp,2],
+pch         = 21,
+col         = "white",
+bg          = "gray60",
+xlab        = TeX("$\\epsilon_{i1}$"),
+ylab        = TeX("$\\epsilon_{i2}$"),
+xlim        = c(-4,6),
+ylim        = c(-4,6),
+cex         = 1,
+main        = TeX(paste0("$\\hat{C}(\\epsilon_{i1}, \\epsilon_{i2}) = ", round(c_hat_e1_e2,3), "$")))
+mtext(LETTERS[1], adj=1, line=2, cex = 1.5, at = -7)
+
+# Gemeinsame Verteilung von wahrem Wert und Messfehler
+plot(
+X[1:nsamp,1],
+E[1:nsamp,2],
+pch         = 21,
+col         = "white",
+bg          = "gray60",
+xlab        = TeX("$x_{i}$"),
+ylab        = TeX("$\\epsilon_{i2}$"),
+xlim        = c(-4,6),
+ylim        = c(-4,6),
+cex         = 1,
+main        = TeX(paste0("$\\hat{C}(x_{i}, \\epsilon_{i2}) = ", round(c_hat_t_e2,3), "$")))
+mtext(LETTERS[2], adj=1, line=2, cex = 1.5, at = -7)
+
+# Gemeinsame Verteilung der beobachteten Werte
+plot(
+Y[1:nsamp,1],
+Y[1:nsamp,2],
+pch         = 21,
+col         = "white",
+bg          = "gray60",
+xlab        = TeX("$y_{i1}$"),
+ylab        = TeX("$y_{i2}$"),
+xlim        = c(-4,6),
+ylim        = c(-4,6),
+cex         = 1,
+main        = TeX(paste0("$\\hat{C}(y_{i1}, y_{i2}) = ", round(c_hat_y1_y2,3), "$")))
+mtext(LETTERS[3], adj=1, line=2, cex = 1.5, at = -7)
+dev.off()
+```
+
+```{r, echo = FALSE, out.width = "90%", fig.align = "center"}
+knitr::include_graphics("4-Abbildungen/psd-4-normalverteilungsbeispiel-3.pdf")
+```
+
+\footnotesize
+
+A) Unkorrelierheit der Messfehler bezüglich zweier paralleler Testmessungen
+B) Unkorrelierheit des wahren Wertes und des Messfehlers bezüglich zweier paralleler Testmessungen
+C) Kovarianz der beobachteten Werte bezüglich zweier paralleler Testmessungen
+
+
+#
+\vfill
+\setstretch{2.2}
+\large
+Grundlagen
+
+Das Modell multipler Testmessungen
+
+Das Modell paralleler Testmessungen
+
+**Reliabilität**
+
+Interne Konsistenz
+
+Selbstkontrollfragen
+\vfill
+
+# Reliabilität
+\small
+Testgütekriterium Reliabilität
+
+\footnotesize
+"Ein Test ist dann *reliabel*, wenn er das Merkmal, das er misst, exakt, d.h.
+ohne Messfehler misst. Vor dem Hintergrund der Klassischen Testtheorie unterscheidet
+man die *Retest-Reliabilität*, die *Paralleltest-Reliabilität*, die
+*Testhalbierungs-Reliabilität (Split-Half-Reliabilität)* und die *Innere Konsistenz*
+eines Tests."
+
+\flushright @moosbrugger2012, Kapitel 2
+
+\vspace{6mm}
+\justifying
+\footnotesize
+
+"Unter *Reliabilität* wird die Genauigkeit einer Messung verstanden. Ein Testverfahren
+ist perfekt reliabel, wenn die damit erhaltenen Testwerte frei von zufälligen Messfehlern sind.
+Das Testverfahren ist umso weniger reliabel, je größer die Einflüsse von zufälligen Messfehlern sind"
+
+\flushright @moosbrugger2012, Kapitel 6
+
+
+# Reliabilität
+\small
+\setstretch{2.2}
+Testgütekriterium Reliabilität
+\footnotesize
+
+* Die Reliabilität ist definiert als die quadrierte Korrelation von beobachtetem und wahrem Wert.
+* Anhand der Eigenschaften des Modells multipler Testmessungen ergeben sich verschiedene Interpretationen.
+* Die Interpretation nach @moosbrugger2012 finden sich auch.
+* Messfehlerfreie Testmessungen sind allerdings sicherlich nur ein nicht zu erreichendes Ideal.
+* Wir betrachten zunächst die Reliabilität von Testmessungen im Modell multipler Testmessungen.
+* Allerdings ergibt sich dabei keine Möglichkeit, die Reliabilität von Testmessungen empirisch zu messen.
+* Zentral ist dann die Definition der *Paralleltestreliabilität*. Diese ist empirisch messbar.
+* Bei der Retest-Reliabilität handelt es sich um eine spezielle Paralleltestreliabilität.
+* Innere Konsistenz und Split-Half-Reliabilität betrachten wir im Abschnitt Interne Konsistenz.
+
+
+# Reliabilität
+\footnotesize
+\begin{definition}[Reliabilität einer Testmessung]
+Gegeben sei das Modell multipler Testmessungen für eine beliebige Testmessung $j$ mit $1 \le j \le m$,
+\begin{equation}
+\mathbb{P}(x_{1j},y_{1j} ..., x_{nj}, y_{nj})
+:= \prod_{i=1}^n \mathbb{P}(x_{ij},y_{ij})
+:= \prod_{i=1}^n \mathbb{P}(y_{ij}|x_{ij})\mathbb{P}(x_{ij})
+\end{equation}
+wobei nach Definition des Modells gilt, dass
+\begin{equation}
+\mathbb{P}(x_{1j},y_{1j}) = \cdots = \mathbb{P}(x_{nj},y_{nj}).
+\end{equation}
+Die \textit{Reliabilität der Testmessung $j$} ist dann definiert als
+\begin{equation}
+\mbox{R}_j := \rho(y_{ij},x_{ij})^2 \mbox{ für ein beliebiges } 1 \le i \le n.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* Vor dem Hintergrund des vereinfachten Modells der Klassischen Testtheorie schreibt man auch $\mbox{R} = \rho(y,x)^2$
+
+# Reliabilität
+\footnotesize
+\setstretch{2.5}
+
+Bemerkungen (fortgesetzt)
+
+* Die Reliabilität einer Testmessung ist als quadrierte Korrelation von beobachtetem und wahrem Wert definiert.
+* Mit  $-1 \le \rho(y_{ij},x_{ij})\le 1$ folgt direkt, dass $0 \le \mbox{R}_j \le 1$.
+* $\mbox{R}_j = 0$ impliziert $\rho(y_{ij},x_{ij}) = 0$, also die linear-affine Unabhängigkeit von beobachtetem und wahrem Wert.
+* $\mbox{R}_j = 0$ impliziert also, dass der beobachtete Wert hinsichtlich des wahren Werts nicht aussagekräftig ist
+* $\mbox{R}_j= 1$ impliziert $\rho(y_{ij},x_{ij}) = \pm 1$, also die linear-affine Abhängigkeit von beobachtetem und wahrem Wert.
+* $\mbox{R}_j = 1$ impliziert also, dass der beobachtete Wert hinsichtlich des wahren Werts aussagekräftig ist.
+* Weil wahre Werte nur indirekt beobachtbar sind, wird eine alternative Form zu *Reliabilitätsschätzung* genutzt.
+
+# Reliabilität
+\vspace{2mm}
+\footnotesize
+\begin{theorem}[Eigenschaften der Reliabilität einer Testmessung]
+\justifying
+\normalfont
+Gegeben sei das Modell multipler Testmessungen für eine beliebige Testmessung $j$ mit $1 \le j \le m$,
+\begin{equation}
+\mathbb{P}(x_{1j},y_{1j} ..., x_{nj}, y_{nj})
+:= \prod_{i=1}^n \mathbb{P}(y_{ij}|x_{ij})\mathbb{P}(x_{ij}).
+\end{equation}
+Dann gilt für die Reliabilität $\mbox{R}_j$ der Testmessung $j$, dass
+\begin{itemize}
+\item[(1)] $\mbox{R}_j = \frac{\mathbb{V}(x_{ij})}{\mathbb{V}(y_{ij})}$
+\item[(2)] $\mbox{R}_j = 1 - \frac{\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}$
+\end{itemize}
+für alle $1 \le i \le n$.
+\end{theorem}
+\vspace{-2mm}
+\underline{Beweis}
+
+\noindent (1) Mit Aussage (5) von \thmref{thm:eigenschaften-einer-Testmessung} gilt
+\begin{equation}
+\mbox{R}_j
+= \rho(y_{ij},x_{ij})^2
+= \left(\frac{\mathbb{C}(y_{ij},x_{ij})}{\mathbb{S}(y_{ij})\mathbb{S}(x_{ij})}\right)^2
+= \frac{\mathbb{C}(y_{ij},x_{ij})^2}{\mathbb{V}(y_{ij})\mathbb{V}(x_{ij})}
+= \frac{\mathbb{V}(x_{ij})^2}{\mathbb{V}(y_{ij})\mathbb{V}(x_{ij})}
+= \frac{\mathbb{V}(x_{ij})}{\mathbb{V}(y_{ij})}.
+\end{equation}
+
+\noindent (2) Mit Aussage (4) von \thmref{thm:eigenschaften-einer-Testmessung}  gilt dann weiter
+\begin{equation}
+\mbox{R}_j
+= \frac{\mathbb{V}(x_{ij})}{\mathbb{V}(y_{ij})}
+= \frac{\mathbb{V}(y_{ij})-\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}
+= \frac{\mathbb{V}(y_{ij})}{\mathbb{V}(y_{ij})} - \frac{\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}
+= 1 - \frac{\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}.
+\end{equation}
+\hfill $\Box$
+
+# Reliabilität
+\setstretch{2.5}
+\footnotesize
+
+Bemerkungen
+
+* Da $x_{ij}$ und $\eps_{ij}$ nicht direkt beobachtbar sind, sind (1) und (2) nur von theoretischem Interesse.
+* Die Reliabilität einer Testmessung ist der Anteil der Varianz des wahren Werts an der des beobachteten Werts,
+\begin{equation}
+\mbox{R}_j = \frac{\mathbb{V}(x_{ij})}{\mathbb{V}(y_{ij})} = \frac{\mathbb{V}(x_{ij})}{\mathbb{V}(x_{ij}) + \mathbb{V}(\eps_{ij})}.
+\end{equation}
+* Ist $\mathbb{V}(x_{ij}) = 0$, so ist auch $\mbox{R}_j = 0$, ist $\mathbb{V}(\eps_{ij}) = 0$ so ist $\mbox{R}_j = 1$.
+* $\mbox{R}_j > 0$ impliziert also, das der wahre Wert eine von Null verschiedene Varianz (über Testpersonen) hat.
+* Die Reliabilität entspricht auch 1 minus dem Anteil der Varianz des Messfehlers an der des beobachteten Werts.
+
+# Reliabilität
+\footnotesize
+\setstretch{1.2}
+\vspace{2mm}
+\begin{definition}[Reliabilität einer Paralleltestmessung]
+Gegeben sei das Modell paralleler Testmessungen für eine beliebige Testmessung $j$ mit $1 \le j \le m$,
+\begin{equation}
+\mathbb{P}(x_{1},y_{1j} ..., x_{n},y_{nj})
+:= \prod_{i=1}^n \mathbb{P}(x_i, y_{ij})
+= \prod_{i=1}^n \mathbb{P}(x_i)\mathbb{P}(y_{ij}|x_i)
+\end{equation}
+wobei nach Definition des Modells gilt, dass
+\begin{equation}
+\mathbb{P}(x_{1},y_{1j}) = \cdots = \mathbb{P}(x_{n},y_{nj}).
+\end{equation}
+Die \textit{Reliabilität der Paralleltestmessung $j$} ist dann definiert als
+\begin{equation}
+\mbox{R}_j := \rho(y_{ij},x_{i})^2 \mbox{ für ein beliebiges } 1 \le i \le n.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* In Bezug auf das vereinfachte Modell der Klassischen Testtheorie schreibt man auch hier $\mbox{R}=\rho(y,x)^2$
+
+
+# Reliabilität
+\footnotesize
+\begin{theorem}[Paralleltestreliabilität]\label{thm:paralleltestreliabilitaet}
+\justifying
+\normalfont
+Gegeben sei das Modell paralleler Testmessungen. Dann gelten
+\begin{itemize}
+\item[(1)] $\mbox{R}_j = \frac{\mathbb{V}(x_{i})}{\mathbb{V}(y_{ij})}$ für alle $1 \le j \le m$.
+\item[(2)] $\mbox{R}_j = 1 - \frac{\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}$ für alle $1 \le j \le m$.
+\item[(3)] $\mbox{R}_j = \rho(y_{ij},y_{ik}) = \mbox{R}_k$ für alle $1 \le j,k \le m$ mit $j \neq k$.
+\end{itemize}
+\end{theorem}
+Bemerkungen
+
+* Aussagen (1) und (2) sind analog zum Theorem der Reliabilität multipler Testmessungen.
+* Aussage (3) des Theorems begründet die Paralleltest- und Retestreliabilitätsschätzung.
+* Man sagt dazu vereinfachend, dass "die Korrelation paralleler Testmessungen gleich ihrer Reliabilität ist".
+* Zur Messung der Reliabilität nutzt man eine Schätzung der Korrelation zweier paralleler Testmessungen.
+* Die Klassische Testtheorie begründet dieses Vorgehen vor der Annahme von wahren und Messfehlerwerten.
+
+# Reliabilität
+\footnotesize
+\underline{Beweis}
+
+\noindent (1) Mit Aussage (5) \thmref{thm:eigenschaften-paralleler-Testmessungen} gilt
+\begin{equation}
+\mbox{R}_j
+= \rho(y_{ij},x_{i})^2
+= \left(\frac{\mathbb{C}(y_{ij},x_{i})}{\mathbb{S}(y_{ij})\mathbb{S}(x_{i})}\right)^2
+= \frac{\mathbb{C}(y_{ij},x_{i})^2}{\mathbb{V}(y_{ij})\mathbb{V}(x_{i})}
+= \frac{\mathbb{V}(x_{i})^2}{\mathbb{V}(y_{ij})\mathbb{V}(x_{i})}
+= \frac{\mathbb{V}(x_{i})}{\mathbb{V}(y_{ij})}.
+\end{equation}
+\vspace{1mm}
+
+\noindent (2) Mit Aussage (4) von \thmref{thm:eigenschaften-einer-Testmessung} gilt
+\begin{equation}
+\mbox{R}_j
+= \frac{\mathbb{V}(x_{i})}{\mathbb{V}(y_{ij})}
+= \frac{\mathbb{V}(y_{ij})-\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}
+= \frac{\mathbb{V}(y_{ij})}{\mathbb{V}(y_{ij})} - \frac{\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}
+= 1 - \frac{\mathbb{V}(\eps_{ij})}{\mathbb{V}(y_{ij})}.
+\end{equation}
+\vspace{1mm}
+
+\noindent (3) Mit Aussagen (2) und (5) von \thmref{thm:eigenschaften-paralleler-Testmessungen} gilt
+\begin{equation}
+\mbox{R}_j
+= \frac{\mathbb{V}(x_{i})}{\mathbb{V}(y_{ij})}
+= \frac{\mathbb{C}(y_{ij},y_{ik})}{\sqrt{\mathbb{V}(y_{ij})}\sqrt{\mathbb{V}(y_{ij})}}
+= \frac{\mathbb{C}(y_{ij},y_{ik})}{\sqrt{\mathbb{V}(y_{ij})}\sqrt{\mathbb{V}(y_{ik})}}
+= \rho(y_{ij},y_{ik})
+\end{equation}
+und dass ebenso
+\begin{equation}
+\mbox{R}_k
+= \frac{\mathbb{V}(x_{i})}{\mathbb{V}(y_{ik})}
+= \frac{\mathbb{C}(y_{ij},y_{ik})}{\sqrt{\mathbb{V}(y_{ik})}\sqrt{\mathbb{V}(y_{ik})}}
+= \frac{\mathbb{C}(y_{ij},y_{ik})}{\sqrt{\mathbb{V}(y_{ij})}\sqrt{\mathbb{V}(y_{ik})}}
+= \rho(y_{ij},y_{ik}).
+\end{equation}
+
+
+# Reliabilität
+\small
+\vspace{2mm}
+Normalverteilungsbeispiel
+\setstretch{1.2}
+
+\footnotesize
+Wir betrachten den Fall zweier Testmessungen $j = 1,2$ im Modell paralleler Testmessungen. Für  alle $i = 1,...,n$
+seien in Wahrscheinlichkeitsdichteform, wobei wir der notationellen Einfachheit halber auf das $i$ Subskript verzichten wollen,
+\begin{equation}
+p(\mrm{x}) =  N(\mrm{x}; 0,\sigma_x^2)
+\mbox{ und }
+p(y_1|\mrm{x}) :=  N(y_1; \mrm{x},\sigma_\eps^2) \mbox{ und } p(y_2|\mrm{x}) :=  N(y_2; \mrm{x},\sigma_\eps^2)
+\end{equation}
+Für Person $i$ gibt es also nur eine Zufallsvariable des wahren Werts für alle Testmessungen
+und die Propensitätsverteilungen unterscheiden sich zwischen Testmessungen nicht.
+
+Dann gilt zunächst mit dem  [\textcolor{blue}{Theorem zu gemeinsamen Normalverteilungen}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf) mit $A := 1$ und $b := 0$
+\begin{equation}
+p(\mrm{x})p(y_1|\mrm{x})
+= p(\mrm{x},y_1)
+= N\left(
+\begin{pmatrix} \mrm{x} \\ y_1 \end{pmatrix};
+\begin{pmatrix} 0 \\ 0 \end{pmatrix},
+\begin{pmatrix} \sigma_{x}^2 & \sigma_{x}^2  \\  \sigma_{x}^2  & \sigma_{x}^2 + \sigma_{\eps}^2  \end{pmatrix}
+\right)
+\end{equation}
+und weiterhin mit $A := \begin{pmatrix} 1 & 0\end{pmatrix}$ und $b := 0$
+\begin{equation}
+p(\mrm{x},y_1)p(y_2|\mrm{x})
+= p(\mrm{x},y_1,y_2)
+= N\left(
+\begin{pmatrix} \mrm{x}  \\ y_1 \\ y_2 \end{pmatrix};
+\begin{pmatrix} 0 \\ 0 \\ 0 \\ \end{pmatrix},
+\begin{pmatrix}
+\sigma_{x}^2  & \sigma_{x}^2                              & \sigma_{x}^2            \\
+\sigma_{x}^2  & \sigma_{x}^2 + \sigma_{\eps}^2     & \sigma_{x}^2            \\
+\sigma_{x}^2  & \sigma_{x}^2                              & \sigma_{x}^2 + \sigma_{\eps}^2
+\end{pmatrix}
+\right)
+\end{equation}
+
+# Reliabilität
+\small
+\vspace{2mm}
+Normalverteilungsbeispiel (fortgeführt)
+\setstretch{1.2}
+
+\footnotesize
+Damit gilt dann durch Ablesen am Kovarianzmatrixparameter von $p(\mrm{x},y_1,y_2)$, dass
+\begin{equation}
+\rho(y_1, y_2)
+= \frac{\mathbb{C}(y_1, y_2)}{\sqrt{\mathbb{V}(y_1)}\sqrt{\mathbb{V}(y_2)}}
+= \frac{\sigma_{x}^2}{\sqrt{\sigma_{x}^2 + \sigma_{\eps}^2}\sqrt{\sigma_{x}^2 + \sigma_{\eps}^2}}
+= \frac{\sigma_{x}^2}{\sigma_{x}^2 + \sigma_{\eps}^2}
+\end{equation}
+Insbesondere gilt also auch für $j = 1,2$
+\begin{equation}
+\mbox{R}_j
+= \rho(y_j,x)^2
+= \left(\frac{\mathbb{C}(y_j,x)}{\mathbb{S}(y_j)\mathbb{S}(x)}\right)^2
+= \frac{\mathbb{C}(y_j,x)^2}{\mathbb{V}(y_j)\mathbb{V}(x)}
+= \frac{\left(\sigma_x^2\right)^2}{(\sigma_{x}^2 + \sigma_{\eps}^2)\sigma_x^2}
+= \frac{\sigma_x^2}{\sigma_{x}^2 + \sigma_{\eps}^2}
+= \rho(y_1, y_2).
+\end{equation}
+Gilt also beispielsweise $\sigma_{x}^2 := 1.0$ und  $\sigma_{\eps}^2 := 0.2$,
+so ergibt sich für die Paralleltestreliabilität
+\begin{equation}
+\mbox{R}_j = \rho(y_j,x)^2 = \rho(y_1, y_2) = \frac{1.0}{1.0 + 0.2} \approx 0.83.
+\end{equation}
+Man beachte, dass es sich hierbei um eine auf Grundlage der Modellparameter bestimmte Größe,
+nicht um eine basierend auf beobachteten Daten geschätzte Größe handelt.
+
+
+# Reliabilität
+\footnotesize
+\begin{definition}[Paralleltestreliabilitätsschätzer]
+Gegeben sei das Modell paralleler Testmessungen für $n$ Testpersonen und zwei Testmessungen $j = 1,2$,
+\begin{equation}
+\mathbb{P}(x_1,y_{11},y_{12},...,x_n,y_{n1},y_{n2}) =
+\prod_{i=1}^n\mathbb{P}(x_i)\mathbb{P}(y_{i1}|x_i)\mathbb{P}(y_{i2}|x_i)
+\end{equation}
+Dann wird der  mit den Stichprobenmitteln
+\begin{equation}
+\bar{y}_1 := \frac{1}{n}\sum_{i=1}^n y_{i1}
+\mbox{ und }
+\bar{y}_2 := \frac{1}{n}\sum_{i=1}^n y_{i2}
+\end{equation}
+definierte Stichprobenkorrelationskoeffizient
+\begin{equation}
+r_{12}:= \frac{\frac{1}{n-1}\sum_{i=1}^n(y_{i1} - \bar{y}_1)(y_{i2} - \bar{y}_2)}{\sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_{i1} - \bar{y}_1)^2}\sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_{i2} - \bar{y}_2)^2}}
+\end{equation}
+\textit{Paralleltestreliabilitätsschätzer} genannt und häufig mit $r_{tt}$ bezeichnet.
+\end{definition}
+Bemerkungen
+
+* **R** bietet mit der `cor()` Funktion eine Möglichkeit, Stichprobenkorrelationskoeffizienten zu berechnen.
+
+# Reliabilität
+\small
+Normalverteilungsbeispiel (fortgeführt)
+\footnotesize
+
+Simulation des Normalverteilungsbeispiels für $n := 30$
+\vspace{3mm}
+
+$p(\mrm{x}_i) =  N(\mrm{x}_i; 0,\sigma_x^2)$ und $p(y_{ij}|\mrm{x}_i) :=  N(y_{ij}; \mrm{x}_i,\sigma_\eps^2)$ für $j = 1,2$
+mit $\sigma_x^2 := 1.0$ und $\sigma_\eps^2 := 0.2$  für  $i = 1,...,n$.
+
+\vspace{3mm}
+\tiny
+```{r, echo = TRUE}
+n           = 30                                    # Personenanzahl
+m           = 2                                     # Testmessungsanzahl
+sigsqr_x  = 1                                     # wahrer Wert Varianz
+sigsqr_eps  = .2                                    # beobachteter Wert-Varianz
+R_12        = sigsqr_x/(sigsqr_x+sigsqr_eps)    # Paralleltestreliabilität
+X           = matrix(rep(NaN, n)  , nrow = n)       # wahrer Wert Array
+Y           = matrix(rep(NaN, n*m), nrow = n)       # beobachteter Wert Array
+E           = matrix(rep(NaN, n*m), nrow = n)       # Messfehler Array
+for(i in 1:n){                                      # Personeniterationen
+    X[i]  = rnorm(1,1,sqrt(sigsqr_x))             # wahrer Wert Realisierung für j = 1,2
+    for(j in 1:m){                                  # Testmessungsiterationen
+        Y[i,j]  = rnorm(1,X[i],sqrt(sigsqr_eps))    # beobachteter Wert Realisierung
+        E[i,j]  = Y[i,j] - X[i]}}                   # Messfehler Realisierung
+r_12      = cor(Y[,1],Y[,2])                        # Reliabilitätsschätzer
+```
+
+```{r}
+cat("Paralleltestreliabilität R_12            : ", round(R_12,4),
+    "\nParalleltestreliabilitätsschätzer  r_12 : ",  round(r_12,4))
+```
+
+# Reliabilität
+Praxis der Paralleltestreliabilitätsschätzung
+
+\footnotesize
+Die Items einer Paralleltestform müssen gleichzeitig anders und ähnlich zum Originaltest sein.
+
+Je ähnlicher die Items, desto größer sollte der zeitliche Testabstand sein, um Lerneffekte zu vermindern.
+
+Je unähnlicher die Items, desto kürzer sollte der zeitliche Testabstand sein, um systematische Einflüsse zu verringern.
+
+Bei Leistungstests ist dies zum Teil möglich
+
+* Für manche Aufmerksamkeits- und Schuleignungstests existieren Parallelformen
+* Für manche Subtests von Intelligenztests existieren Parallelformen
+
+Praktisch werden Teststichprobenmittel, -standardabweichungen, und -korrelationen bestimmt
+
+Ähneln sich Stichprobenmittel und  -varianzen bei hoher Korrelation, so schließt man auf Parallelität
+
+Bei Persönlichkeitsfragebögen oder klinischen Tests gestaltet sich dies eher schwierig
+
+* Meist sind diese Tests gerade durch ihre speziellen Items charakterisiert
+* Es müssten große Pools ähnlicher Items existieren
+
+
+\flushright @moosbrugger2012, Kapitel 6, @pospeschill2022, Kapitel 6
+
+# Reliabilität
+Praxis der Retestreliabilitätsschätzung
+
+\footnotesize
+Derselbe Test wird an derselben Stichprobe zweimal durchgeführt.
+
+Die Korrelation der Messwerte über beide Darbietungen wird berechnet und als $r_{tt}$ bezeichnet.
+
+Es wird vorausgesetzt, dass die Annahmen des Modells paralleler Testmessungen gelten.
+
+* Der wahre Wert einer Testperson bleibt über die Testmessungen hinweg konstant
+* Die bedingten Varianzen der beobachteten Werte bleiben über Testwiederholungen konstant
+
+Mögliche Änderungen der wahren Werte im Zeitverlauf
+
+* Unsystematische Veränderungen oder situative Faktoren, die über Testpersonen unterschiedlich
+ausgeprägt sind, wie z.B. interindividuell unterschiedliche Übungseffekte, Tagesformen,
+instabile Merkmale oder Erinnerungseffekte verringern die Retestreliabilität. Kurze
+Test-Retest-Intervalle minimieren dabei unsystematische Merkmalsveränderungen,
+aber maximieren Erinnerungseffekte und vice versa.
+* Systematische Veränderungen oder situative Faktoren, die alle Testpersonen
+gleich betreffen, ändern die Retestreliabilität nicht. Im Modell der multiplen
+Testmessungen entspricht dies den hier nicht weiter vertieften wesentlich
+$x$-äquivalenten Testmessungen.
+
+\flushright @moosbrugger2012, Kapitel 6, @pospeschill2022, Kapitel 6
+
+
+# Reliabilität
+\vspace{1mm}
+\small
+Potentielle Dynamiken wahrer Werte von $n = 4$ Testpersonen über Testmessungen
+
+```{r, echo = FALSE, out.width = "45%", fig.align = "center"}
+knitr::include_graphics("4-Abbildungen/psd-4-Test-retest.png")
+```
+
+\footnotesize
+\vspace{1mm}
+\flushright
+aus @pospeschill2022, Kapitel 6
+\vspace{1mm}
+
+\centering
+\begin{tabular}{ll}
+A Identische wahre Werte bei einem stabilen Merkmal                 & $\Rightarrow$ Hohe Reliabilität             \\
+B Variierende wahre Werte bei einem instabilen Merkmal              & $\Rightarrow$ Verringerung der Reliabilität \\
+C Identische linear-affine Transformation des wahren Werts          & $\Rightarrow$ Hohe Reliabilität             \\
+D Variable positiv linear-affine Transformation des wahren Werts    & $\Rightarrow$ Verringerung der Reliabilität \\
+\end{tabular}
+
+
+#
+\vfill
+\setstretch{2.2}
+\large
+Grundlagen
+
+Das Modell multipler Testmessungen
+
+Das Modell paralleler Testmessungen
+
+Reliabilität
+
+**Interne Konsistenz**
+
+Selbstkontrollfragen
+\vfill
+
+# Interne Konsistenz
+Motivation
+
+\small
+BDI-II Interne Konsistenz (@hautzinger2006)
+
+\footnotesize
+In Tabelle 2 sind bisherige Ergebnisse zur internen Konsistenz (Cronbach's $\alpha$)
+des BDI II aufgelistet. In psychiatrischen Stichproben lag die interne Konsistenz
+im Bereich von $0.89 \le \alpha \le 0.94$, in nicht klinischen Stichproben im Bereich von
+$0.84 \le \alpha \le 0.91$.
+
+\vspace{1mm}
+
+```{r, echo = FALSE,  out.width = "70%", fig.align = "center"}
+knitr::include_graphics("4-Abbildungen/psd-4-bdi-cronbachs-alpha-international.png")
+```
+
+# Interne Konsistenz
+\small
+\setstretch{1.2}
+Vorbemerkungen
+\footnotesize
+
+$y_{ij}$ bezeichnete bisher die Zufallsvariable zur Modellierung des beobachteten Werts
+der $j$ten Testmessung der $i$ten Testperson, wobei wir $m$ Testmessungen $j = 1,...,m$
+und $n$ Testpersonen $i = 1,...,n$ angenommen haben.
+
+$\Rightarrow$ Wir haben bisher offen gelassen, ob mit der *$j$ten Testmessung* ein *Test* oder ein *Item* gemeint ist.
+
+$\Rightarrow$ In diesem Abschnitt identifizieren wir die $j$te Testmessung nun mit dem $j$ten Item *eines* Tests.
+
+$y_{ij}$ bezeichnet also nun die Zufallsvariable zur Modellierung des beobachteten Werts
+des $j$ten Items der $i$ten Testperson in einem  Test, wobei wir weiterhin $m$ Items
+$j = 1,...,m$ und $n$ Testpersonen $i = 1,...,n$ annehmen.
+
+Insbesondere gehen wir davon aus, dass für jede Testperson eine Summe von
+beobachteten Werten durch Summation über die Items eines Tests gebildet wird.
+Die Zufallsvariable zur Modellierung dieser Summe von beobachteten Werten
+bezeichnen wir mit
+\begin{equation}
+y_i := \sum_{j=1}^m y_{ij}
+\end{equation}
+
+Wir fassen diese Vorüberlegungen in der Definition des *$m$-Komponententestmodells* zusammen.
+
+# Interne Konsistenz
+
+\footnotesize
+\begin{definition}[$m$-Komponententestmodell]
+\justifying
+Gegeben sei das Modell multipler Testmessungen für $i = 1,...,n$ Testpersonen und
+$j = 1,...,m$ Testmessungen. Für $i = 1,...,n$ seien
+\begin{itemize}
+\item $y_i    := \sum_{j=1}^m y_{ij}$ die \textit{Summe der beobachteten Werte} und
+\item $x_i := \sum_{j=1}^m x_{ij}$ die \textit{Summe der wahren Werte}.
+\end{itemize}
+Dann heißt die gemeinsame Verteilung der $y_i$ und $x_i$ für $i = 1,...,n$
+mit der Faktorisierungseigenschaft
+\begin{equation}
+\mathbb{P}(x_1,...,x_n,y_1,...,y_n)
+:= \prod_{i=1}^n \mathbb{P}(x_i,y_i)
+= \prod_{i=1}^n \mathbb{P}(y_i|x_i)\mathbb{P}(x_i)
+\end{equation}
+\textit{das $m$-Komponententestmodell}, wenn gilt dass
+\begin{equation}
+\mathbb{P}(x_1,y_1) = \cdots = \mathbb{P}(x_n,y_n).
+\end{equation}
+\end{definition}
+
+Bemerkung
+
+* Die $m$ *Komponenten* eines Tests entsprechen seinen $m$ Items.
+
+# Interne Konsistenz
+\footnotesize
+\begin{definition}[Reliabilitäten von $m$-Komponententestmodellen]
+\justifying
+Gegeben sei ein $m$-Komponententestmodell.
+\vspace{2mm}
+
+\noindent (1) Für $j = 1,...,m$ ist die Reliabilität der $j$ten Testmessung definiert als
+\begin{equation}
+\mbox{R}_j := \frac{\mathbb{V}(x_{ij})}{\mathbb{V}(y_{ij})} \mbox{ für ein beliebiges } 1 \le i \le n.
+\end{equation}
+
+\noindent (2) Die Gesamtreliabilität des $m$-Komponententestmodells ist definiert
+\begin{equation}
+\mbox{R} := \frac{\mathbb{V}(x_i)}{\mathbb{V}(y_i)} \mbox{ für ein beliebiges } 1 \le i \le n.
+\end{equation}
+\end{definition}
+
+Bemerkung
+
+* Die Definitionen nutzen die erste Umformung der im vorherigen Abschnitt genutzten Definition.
+* In $\mbox{R}_j$ gehen die Varianzen des $j$ten wahren Werts $x_{ij}$ und $j$ten beobachteten Werts $y_{ij}$ ein.
+* In $\mbox{R}$ gehen die Varianzen der Summe $x_{i}$ der wahren Werte und der Summe $y_{i}$ der beobachteten Werte ein.
+* Wenn das $m$-Komponententestmodell einen psychologischen Test bestehend aus  $m$ Items modelliert, dann wird $R_j$ auch
+*Itemreliabilität* des $j$ten Items und $\mbox{R}$ *Reliabilität des Tests* genannt.
+
+
+# Interne Konsistenz
+
+\small
+Cronbach's $\alpha$
+
+\footnotesize
+Grundlage der Bestimmung von Cronbach's $\alpha$ ist die Idee der *Testhalbierungs-Reliabilität*
+
+* Besteht ein Test aus vielen Items, so kann eine Testhälfte als Paralleltest der anderen angesehen werden.
+* Die Korrelation der Testhälften ist dann ein Maß für die Paralleltestreliabilität.
+
+Die resultierende Testhälften-Korrelation ist aber nur die Reliabilität eines Tests halber Länge
+
+Grundsätzlich erhöht sich die Reliabilität eines Tests paralleler Items mit zunehmender Testlänge
+
+* Die Varianz der Messfehler  erhöht sich linear, da Messfehler nach Annahme unabhängig sind.
+* Die Varianz der wahren Werte erhöht sich quadratisch, da wahre Werte nach Annahme kovariieren.
+
+Die Splithalf-Korrelation muss also auf die volle Testlänge aufgewertet werden.
+
+* Dies ist mit der von @spearman1910 und @brown1910 entwickelten Formel möglich
+
+Man kann einen Test natürlich auch in mehr als zwei Teile teilen und alle Paralleltestkorrelationen bestimmen.
+
+* Cronbach's $\alpha$ bildet die Situation ab, in der alle Items als Paralleltests betrachtet werden.
+
+Wir betrachten in der Folge die Spearman-Brown Formel und ihre Eigenschaften als Spezialfall von Cronbach's $\alpha$.
+
+
+# Interne Konsistenz
+\footnotesize
+\begin{definition}[Cronbach's $\alpha$]
+Gegeben sei ein $m$-Komponententestmodell. Dann heißt
+\begin{equation}
+\alpha := \frac{m}{m-1}\left(1 - \frac{\sum_{j=1}^m \mathbb{V}(y_{ij})}{\mathbb{V}(y_i)}\right) \mbox{ für beliebiges } 1 \le i \le n
+\end{equation}
+\textit{Cronbach's $\alpha$} oder \textit{Koeffizient $\alpha$}.
+\end{definition}
+Bemerkungen
+
+* $\mathbb{V}(y_{ij})$ ist die Varianz der beobachteten Werte für Testpersonen $i = 1,...,n$ und Items $j = 1,...,m$.
+* $\mathbb{V}(y_i)$ ist die Varianz der Summe der beobachteten Werte für Testpersonen $i = 1,...,n$.
+* Die Formel wurde durch @cronbach1951 als *Coefficient $\alpha$* popularisiert
+* Frühere Anwendungen finden sich zum Beispiel in @hoyt1941 und @guttman1945
+
+# Interne Konsistenz
+\vspace{2mm}
+\footnotesize
+Bemerkungen (fortgesetzt)
+\vspace{-1mm}
+
+* Da nach Annahme des Modells multipler Testmessungen die Verteilungen der beobachteten Werte über Personen identisch sind,
+wird Cronbach's $\alpha$ häufig auch geschrieben als
+\begin{equation}
+\alpha := \frac{m}{m-1}\left(1 - \frac{\sum_{j=1}^m \mathbb{V}(y_{j})}{\mathbb{V}(y)}\right)
+\end{equation}
+* Zum Verständnis von $\alpha$ unterstellen wir im Folgenden, dass die Anzahl der Items hoch, also $\frac{m}{m-1} \approx 1$ ist.
+* Nach \thmref{thm:varianz-einer-linearkombination} gilt dann allgemein
+\begin{equation}
+\mathbb{V}(y) = \sum_{j = 1}^m \mathbb{V}(y_j) + 2 \sum_{j=1}^{m-1}\sum_{k = j+1}^m \mathbb{C}(y_j,y_k)
+\end{equation}
+* Sind die beobachteten Werte in diesem Fall (marginal) unabhängig, so gilt
+\begin{equation}
+\mathbb{C}(y_j,y_k) = 0 \mbox{ für alle } 1 \le j,k \le m
+\end{equation}
+* Bei großem $m$ und Unabhängigkeit der beobachteten Werte gilt also
+\begin{equation}
+\alpha
+\approx 1 \cdot \left(1 - \frac{\sum_{j=1}^m \mathbb{V}(y_{j})}{\mathbb{V}(y)}\right)
+= \left(1 - \frac{\sum_{j=1}^m \mathbb{V}(y_{j})}{\sum_{j = 1}^m \mathbb{V}(y_j)}\right)
+= 0
+\end{equation}
+* Induziert ein konstanter wahrer Wert andererseits marginale Kovarianzen $\mathbb{C}(y_j,y_k) > 0$, so folgt
+\begin{equation}
+\mathbb{V}(y)
+=   \sum_{j = 1}^m \mathbb{V}(y_j) + 2 \sum_{j=1}^{m-1}\sum_{k = j+1}^m \mathbb{C}(y_j,y_k)
+\gg \sum_{j = 1}^m \mathbb{V}(y_j)
+\Rightarrow
+\frac{\sum_{j=1}^m \mathbb{V}(y_{j})}{\mathbb{V}(y)} \approx 0 \Rightarrow \alpha \approx 1
+\end{equation}
+
+# Interne Konsistenz
+\footnotesize
+\begin{theorem}[Cronbach's $\alpha$ und Gesamtreliabilität]\label{thm:cronbachs-alpha}
+\justifying
+\normalfont
+Gegeben sei ein $m$-Komponententestmodell mit Gesamtreliabilität $\mbox{R}$. Dann gilt
+für Cronbach's $\alpha$, dass
+\begin{equation}
+\alpha \le  \mbox{R}
+\end{equation}
+und Gleichheit tritt insbesondere dann ein, wenn die Testmessungen des $m$-Komponententestmodells parallel sind.
+\end{theorem}
+
+Bemerkungen
+
+* Cronbach's $\alpha$ ist eine untere Grenze für die Gesamtreliabilität eines $m$-Komponententestmodells.
+* Die Gesamtreliabilität eines $m$-Komponententestmodells ist mindestens so groß wie Cronbach's $\alpha$.
+* Die Gesamtreliabilität eines $m$-Komponententestmodells kann größer als Cronbach's $\alpha$ sein.
+* Für parallele Testmessungen (Items) ist die Gesamtreliabilität eines $m$-Komponententestmodells gleich $\alpha$.
+* Der Beweis des Theorems geht unter anderem auf @novick1967 zurück.
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis}
+
+Zur Vereinfachung der Notation verzichten wir auf die explizite Auszeichnung der
+Testpersonen $i = 1,...,n$ und setzen
+\begin{equation}
+y_{j} := y_{ij},
+x_{j} := x_{ij},
+y := \sum_{j=1}^m y_{j}
+\mbox{ und }
+x := \sum_{j=1}^m x_{j},
+\end{equation}
+sowie
+\begin{equation}
+\mbox{R} := \frac{\mathbb{V}(x)}{\mathbb{V}(y)} \mbox{ und }
+\alpha := \frac{m}{m-1}\left(1 - \frac{\sum_{j=1}^m \mathbb{V}(y_{j})}{\mathbb{V}(y)}\right).
+\end{equation}
+Wir gehen in vier Schritten vor.
+
+\noindent (1) (*Summendarstellung*) Wir schreiben zunächst die Summe von $m$ Zahlen
+um. Speziell gilt für reelle Zahlen $x_1,...,x_m$, dass
+\begin{equation}
+\sum_{j=1}^m x_j = \frac{1}{m-1}\sum_{j=1}^{m-1}\sum_{k = j + 1}^m (x_j + x_k).
+\end{equation}
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis}
+
+Anstelle eines Beweises betrachten wir den Fall $m := 4$. Dann gilt
+\begin{align}
+\begin{split}
+\frac{1}{3}\sum_{j=1}^{3}\sum_{k = j + 1}^4 (x_j + x_k)
+& = \frac{1}{3}\left(\sum_{k = 1 + 1}^4 (x_1 + x_k)  + \sum_{k = 2 + 1}^4 (x_2 + x_k) + \sum_{k = 3 + 1}^4 (x_3 + x_k)\right) \\
+& = \frac{1}{3}\left(\sum_{k = 2}^4 (x_1 + x_k) + \sum_{k = 3}^4 (x_2 + x_k) +\sum_{k = 4}^4 (x_3 + x_k)\right) \\
+& = \frac{1}{3}\left((x_1 + x_2) + (x_1 + x_3) + (x_1 + x_4) + (x_2 + x_3) + (x_2 + x_4) + (x_3 + x_4) \right) \\
+& = \frac{1}{3}\left((x_1 + x_1 + x_1) + (x_2 + x_2 + x_2) + (x_3 + x_3 + x_3) + (x_4 + x_4 + x_4)  \right) \\
+& = \frac{1}{3}\left(3x_1+ 3x_2+ 3x_3 + 3x_4 \right) \\
+& = x_1 + x_2 + x_3 + x_4   \\
+& = \sum_{j = 1}^4 x_j      \\
+\end{split}
+\end{align}
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (2) (*Kovarianzungleichung für den wahren Wert*) Wir leiten nun im Modell multipler
+Testmessungen eine Ungleichung her. Dazu betrachten wir im Modell multipler Testmessungen
+die Varianz der Differenz zweier wahrer Werte $x_j$ und $x_k$. Mit \thmref{thm:nichtnegativitaet-der-varianz}
+und \thmref{thm:varianzen-spezieller-linearkombinationen} ergibt sich
+\begin{align}
+\begin{split}
+\mathbb{V}(x_j - x_k)                                            \ge 0
+\Leftrightarrow
+\mathbb{V}(x_j) + \mathbb{V}(x_k) - 2\mathbb{C}(x_j,x_k)   \ge 0
+\Leftrightarrow
+\mathbb{V}(x_j) + \mathbb{V}(x_k)                                \ge 2\mathbb{C}(x_j,x_k)
+\end{split}
+\end{align}
+Weiterhin ergibt sich für beliebige $1 \le j,k \le m$ parallele Testmessungen, dass
+\begin{equation}
+\mathbb{V}(x_j - x_k) = \mathbb{V}(f_j(x_1) - f_k(x_1)) =  \mathbb{V}(x_1 - x_1) = \mathbb{V}(0) = 0.
+\end{equation}
+In diesem Fall ergibt sich in obiger Ungleichung und ihrer Anwendung im Folgenden also Gleichheit.
+
+\noindent(3) (*Varianzungleichung für die Summe wahrer Werte*) Wir betrachten nun die
+Varianz der Summe der wahren Werte im $m$-Komponententestmodell. Mit
+\thmref{thm:varianz-einer-linearkombination} der Summendarstellung, aus (1) und
+der Kovarianzungleichung für den wahren Wert aus (2) ergibt sich zunächst
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+\begin{align}
+\begin{split}
+\mathbb{V}(x)
+& = \mathbb{V}\left(\sum_{j=1}^m x_j\right) \\
+& = \sum_{j=1}^m \mathbb{V}(x_j) + 2\sum_{j=1}^{m-1}\sum_{k = j + 1 }^m \mathbb{C}(x_j, x_k) \\
+& = \frac{1}{m-1}\sum_{j=1}^{m-1}\sum_{k = j + 1 }^m \left(\mathbb{V}(x_j) + \mathbb{V}(x_k)\right) + 2\sum_{j=1}^{m-1}\sum_{k = j + 1 }^m \mathbb{C}(x_j, x_k) \\
+& \ge \frac{1}{m-1}\sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2 \mathbb{C}(x_j, x_k) + \sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2\mathbb{C}(x_j, x_k) \\
+& = \left(\frac{1}{m-1} + 1 \right) \sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2\mathbb{C}(x_j, x_k) \\
+& = \left(\frac{1}{m-1} + \frac{m-1}{m-1} \right) \sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2\mathbb{C}(x_j, x_k) \\
+& = \frac{1 + m - 1}{m-1} \sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2\mathbb{C}(x_j, x_k) \\
+& = \frac{m}{m-1} \sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2\mathbb{C}(x_j, x_k) \\
+\end{split}
+\end{align}
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Mit Aussage (5) von \thmref{thm:eigenschaften-zweier-Testmessungen} und wiederum
+mit \thmref{thm:varianz-einer-linearkombination} gilt dann
+\begin{align}
+\begin{split}
+\mathbb{V}(x)
+& \ge \frac{m}{m-1} \sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2\mathbb{C}(x_j, x_k) \\
+&  =  \frac{m}{m-1} \sum_{j=1}^{m-1}\sum_{k = j + 1 }^m 2\mathbb{C}(y_j, y_k) \\
+& = \frac{m}{m-1} \left(\mathbb{V}\left(\sum_{j=1}^m y_j\right) - \sum_{j=1}^m \mathbb{V}\left(y_j\right) \right)\\
+& = \frac{m}{m-1} \left(\mathbb{V}(y) - \sum_{j=1}^m \mathbb{V}\left(y_j\right) \right)\\
+\end{split}
+\end{align}
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (4) (*Gesamtreliabilität*) Wir betrachten schließlich die Gesamtreliabilität im $m$-Komponententestmodell. Es ergibt sich
+\begin{align}
+\begin{split}
+\mbox{R}
+& = \frac{\mathbb{V}(x)}{\mathbb{V}(y)} \\
+& \ge \frac{\frac{m}{m-1} \left(\mathbb{V}(y) - \sum_{j=1}^m \mathbb{V}\left(y_j\right)\right)}{\mathbb{V}(y)} \\
+& = \frac{m}{m-1} \left(\frac{\mathbb{V}(y)}{\mathbb{V}(y)} - \frac{\sum_{j=1}^m \mathbb{V}\left(y_j\right)}{\mathbb{V}(y)}\right) \\
+& = \frac{m}{m-1} \left(1 - \frac{\sum_{j=1}^m \mathbb{V}\left(y_j\right)}{\mathbb{V}(y)}\right) \\
+& =: \alpha.
+\end{split}
+\end{align}
+$\hfill\Box$
+
+# Interne Konsistenz
+\footnotesize
+\begin{definition}[Cronbach's $\alpha$ Schätzer]
+\justifying
+Gegeben sei das Modell $m$-Komponententestmodell mit beobachteten Werten $y_{ij}$
+für $i = 1,...,n$ Testpersonen und $j = 1,...,m$ Testkomponenten (Items). Dann
+ist ein Schätzer für die Varianz des $j$ten Items gegeben durch
+\begin{equation}
+S^2_j := \frac{1}{n-1}\sum_{i=1}^n \left(y_{ij} - \bar{y}_j\right)^2 \mbox{ mit } \bar{y}_j := \frac{1}{n}\sum_{i=1}^n y_{ij}
+\end{equation}
+und ein Schätzer für die Varianz der Testsummenscores ist gegeben durch
+\begin{equation}
+S^2 := \frac{1}{n-1}\sum_{i=1}^n \left(y_i - \bar{y}\right)^2 \mbox{ mit }
+y_i := \sum_{j=1}^m y_{ij}
+\mbox{ und }
+\bar{y} := \frac{1}{n}\sum_{i=1}^n y_i
+\end{equation}
+Ein Schätzer für $\alpha$ ergibt sich entsprechend zu
+\begin{equation}
+\hat{\alpha} = \frac{m}{m-1}\left(1 - \frac{\sum_{j=1}^m S^2_j}{S^2}\right).
+\end{equation}
+\end{definition}
+
+Bemerkung
+
+* Zur frequentistischen Verteilungstheorie dieses Schätzers, siehe z.B. @kristof1963, @feldt1965, @feldt1987, @vanzyl2000, @yuan2002.
+
+# Interne Konsistenz
+\small
+Simulation im Modell paralleler Testmessungen
+\begin{equation}
+n := 30, m := 21
+\mbox{ mit } \mathbb{P}(x_{i}) := N(1,1), \mathbb{P}(y_{ij}|x_{i}) := N(x_{i},4)
+\mbox{ für } i = 1,...,n, j = 1,...,m.
+\end{equation}
+
+\footnotesize
+\vspace{2mm}
+
+\tiny
+```{r, echo = TRUE, warning = F, message = F}
+library(psych)                                  # R Paket zur Testanalyse
+set.seed(0)                                     # Reproduzierbarkeit
+n   = 30                                        # Personenanzahl
+m   = 21                                        # Itemanzahl
+mu  = 1                                         # Wahrer Wert Erwartungswertparameter
+X   = matrix(rep(NaN, n)  , nrow = n)           # Wahrer Wert Array
+Y   = matrix(rep(NaN, n*m), nrow = n)           # Beobachteter Wert Array
+for(i in 1:n){                                  # Iteration über Testpersonen
+  X[i]  = rnorm(2,mu,sqrt(1))                   # Wahrer Wert Realisierung
+  for(j in 1:m){                                # Iteration über Items
+    Y[i,j]  = rnorm(1,X[i],sqrt(4))}}           # Beobachteter Wert Realisierung
+vsi  = var(apply(Y,1,sum))                      # Stichprobenvarianz der beobachteten Wert-Summen
+siv  = sum(apply(Y,2,var))                      # Summe der Item-Stichprobenvarianzen
+a    = (m/(m-1))*(1-(siv/vsi))                  # Direkte Berechnung von Cronbach's alpha
+ap   = alpha(Y,warnings = F)                    # Berechnung von Cronbach's alpha mit psych
+```
+
+```{r}
+cat("Cronbach's alpha (manuell) : ", round(a,3),
+    "\nCronbach's alpha (psych)   : ", round(ap$total$raw_alpha,3))
+```
+
+
+# Interne Konsistenz
+\footnotesize
+\begin{theorem}[Spearman-Brown-Formel]\label{thm:spearman-brown-formel}
+\normalfont
+\justifying
+Gegeben sei ein $m$-Komponententestmodell mit parallelen Testmessungen,
+Reliabilität $\mbox{R}$ und Komponentenreliabilitäten $\mbox{R}_1, ..., \mbox{R}_m$. Dann gilt
+\begin{equation}
+\mbox{R} = \frac{m\mbox{R}_1}{1 + (m-1)\mbox{R}_1}
+\end{equation}
+\end{theorem}
+
+Bemerkungen
+
+* Die Testhalbierungsreliabilität ergibt sich als der Spezialfall $m = 2$.
+* Sei dazu $\mbox{R}_1$ die durch $\rho(y_{i1},y_{i2})$ gegebene Paralleltestreliabilität. Für die Gesamttestreliabilität ergibt sich dann
+\begin{equation}
+\mbox{R} = \frac{2\cdot \mbox{R}_1}{1 + (2 - 1)\mbox{R}_1} = \frac{2\rho(y_{i1},y_{i2})}{1 + \rho(y_{i1},y_{i2})}
+\end{equation}
+* Für $\mbox{R}_1 = 0.7$ ergibt sich beispielsweise
+\begin{equation}
+\mbox{R} = \frac{2\cdot 0.7}{1 + 0.7} \approx 0.82
+\end{equation}
+* In der Praxis unterscheidet man folgende Methoden zur Testhalbierung:
+* Odd-Even: Eine Testhälfte besteht aus den ungerade, die andere aus den gerade nummerierten Items
+* Zeitpartitionierung: Der Test wird in zwei Abschnitte geteilt, deren Bearbeitung die gleiche Zeit beansprucht.
+* Itemzwillinge: Es werden Itemzwillinge konstruiert und zufällig einer der Testhälften zugeordnet.
+
+
+# Interne Konsistenz
+\footnotesize
+
+\underline{Beweis}
+
+Wir halten zunächst fest, dass nach \thmref{thm:cronbachs-alpha} und durch Annahme
+paralleler Testmessungen gilt, dass
+\begin{equation}
+\mbox{R} = \frac{m}{m-1}\left(1-\frac{\sum_{j=1}^m \mathbb{V}(y_{j})}{\mathbb{V}(y)}\right)
+\end{equation}
+
+\noindent (1) *(Summe der Varianzen der beobachteten Werte bei Parallelität)*
+Nach \thmref{thm:eigenschaften-paralleler-Testmessungen} sind die Varianzen aller
+beobachteten Werte über Testmessungen bei parallelen Testmessungen identisch.
+Es gilt also
+\begin{equation}
+\sum_{j=1}^m \mathbb{V}(y_{j}) = \sum_{j=1}^m \mathbb{V}(y_1) = m\mathbb{V}(y_1)
+\end{equation}
+
+
+# Interne Konsistenz
+\vspace{1mm}
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (2) *(Varianz der Summe der beobachteten Werte bei Parallelität)*
+
+Mit \thmref{thm:varianz-einer-linearkombination} gilt
+\begin{align}
+\begin{split}
+\mathbb{V}(y)
+& =                 \mathbb{V}\left(\sum_{j=1}^m y_j\right) \\
+& =                 \sum_{j=1}^m \mathbb{V}(y_j) + 2 \sum_{j=1}^{m-1}\sum_{k=j+1}^m \mathbb{C}(y_j, y_k) \\
+& \stackrel{(a)}{=} \sum_{j=1}^m \mathbb{V}(y_1) + 2 \sum_{j=1}^{m-1}\sum_{k=j+1}^m  \mathbb{C}(y_1, y_2) \\
+& =                  m\mathbb{V}(y_1) + 2 \mathbb{C}(y_1, y_2) \sum_{j=1}^{m-1}\sum_{k=j+1}^m 1 \\
+& \stackrel{(b)}{=}  m\mathbb{V}(y_1) + 2 \mathbb{C}(y_1, y_2) \frac{m(m-1)}{2} \\
+& =                  m\mathbb{V}(y_1) + m(m-1)\rho(y_1, y_2)\sqrt{\mathbb{V}(y_1)}\sqrt{\mathbb{V}(y_2)}  \\
+& \stackrel{(c)}{=}  m\mathbb{V}(y_1) + m(m-1)\rho(y_1, y_2)\sqrt{\mathbb{V}(y_1)}\sqrt{\mathbb{V}(y_1)} \\
+& \stackrel{(d)}{=}  m\mathbb{V}(y_1) + m(m-1)\mbox{R}_1 \mathbb{V}(y_1) \\
+& =                  m\mathbb{V}(y_1)\left(1 + (m-1)\mbox{R}_1\right) \\
+\end{split}
+\end{align}
+
+# Interne Konsistenz
+\vspace{1mm}
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Dabei gilt
+
+* $\stackrel{(a)}{=}$ mit Aussage (5) von \thmref{thm:eigenschaften-paralleler-Testmessungen}, dass
+\begin{equation}
+\mathbb{C}(y_j, y_k) = \mathbb{V}(x) \mbox{ für alle } j,k \mbox{ mit } 1 \le j,k \le m
+\end{equation}
+also, dass die Kovarianzen der beobachteten Werte beliebiger Paare paralleler
+Testmessungen identisch und damit insbesondere identisch zu $\mathbb{C}(y_1, y_2)$ sind,
+* $\stackrel{(b)}{=}$ mit der unter (4) per Induktionsbeweis gezeigten Identität
+\begin{equation}
+\sum_{j=1}^{m-1}\sum_{k=j+1}^m 1 = \frac{m(m-1)}{2}
+\end{equation}
+* $\stackrel{(c)}{=}$  mit Aussage (2) von \thmref{thm:eigenschaften-paralleler-Testmessungen},
+* $\stackrel{(d)}{=}$  mit Aussage (3) von \thmref{thm:paralleltestreliabilitaet}
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (3) *(Einsetzen in Cronbach's $\alpha$)*
+
+Einsetzen ergibt dann
+\begin{align}
+\begin{split}
+\mbox{R}
+& = \frac{m}{m-1}\left(1-\frac{\sum_{j=1}^m \mathbb{V}(y_{j})}{\mathbb{V}(y)}\right) \\
+& = \frac{m}{m-1}\left(1-\frac{m\mathbb{V}(y_1)}{m\mathbb{V}(y_1)\left(1 + (m-1)\mbox{R}_1\right)}\right) \\
+& = \frac{m}{m-1}\left(1-\frac{1}{1 + (m-1)\mbox{R}_1}\right) \\
+& = \frac{m}{m-1}\left(\frac{1 + (m-1)\mbox{R}_1}{1 + (m-1)\mbox{R}_1}-\frac{1}{1 + (m-1)\mbox{R}_1}\right) \\
+& = \frac{m}{m-1}\left(\frac{1 + (m-1)\mbox{R}_1-1}{1 + (m-1)\mbox{R}_1}\right) \\
+& = \frac{m}{m-1} \cdot \frac{(m-1)\mbox{R}_1}{1 + (m-1)\mbox{R}_1} \\
+& = \frac{m\mbox{R}_1}{1 + (m-1)\mbox{R}_1}. \\
+\end{split}
+\end{align}
+
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\noindent (4) *(Induktionsbeweis der Doppelsummenform)*
+
+Es bleibt zu zeigen, dass
+\begin{equation}
+S_m := \sum_{j=1}^{m-1}\sum_{k=j+1}^m 1 = \frac{m(m-1)}{2} =: P_m
+\end{equation}
+(1) Induktionsanfang: Für $m := 2$ gilt
+\begin{equation}
+S_2
+= \sum_{j=1}^{2-1}\sum_{k=j+1}^2 1
+= \sum_{j=1}^1 \sum_{k=j+1}^2 1
+= \sum_{k=1+1}^2 1
+= \sum_{k=2}^2 1
+= 1
+= \frac{2(2-1)}{2}
+= P_2
+\end{equation}
+Zu Demonstrationszwecken betrachten wir auch $m := 3$. Hier gilt
+\begin{equation}
+S_3
+= \sum_{j=1}^{3-1}\sum_{k=j+1}^3 1
+= \sum_{j=1}^2 \sum_{k=j+1}^3 1
+= \sum_{k=1+1}^3 1 +  \sum_{k=2+1}^3 1
+= \sum_{k=2}^3 1 +  \sum_{k=3}^3 1
+= 3
+= \frac{3(3-1)}{2}
+= P_3
+\end{equation}
+
+\noindent (2) Induktionsschritt: Es gelte nun für ein $m \ge 2$
+\begin{equation}
+S_m = \sum_{j=1}^{m-1}\sum_{k=j+1}^m 1 = \frac{m(m-1)}{2} = P_m
+\end{equation}
+
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Dann gilt nach Definition für $m + 1$
+\begin{align}
+\begin{split}
+S_{m+1}
+& =  \sum_{j=1}^{m+1-1}\sum_{k=j+1}^{m+1} 1 \\
+& =  \sum_{j=1}^{m}\sum_{k=j+1}^{m+1} 1     \\
+& =  \sum_{j=1}^{m-1}\sum_{k=j+1}^{m+1} 1 + \sum_{k=m+1}^{m+1} 1    \\
+& =  \left(\sum_{j=1}^{m-1}\sum_{k=j+1}^{m+1} 1\right) + 1   \\
+& =  \left(\sum_{j=1}^{m-1}\left(\sum_{k=j+1}^{m} 1  + 1 \right) \right) + 1   \\
+& =  \left(\sum_{j=1}^{m-1} \sum_{k=j+1}^{m} 1 \right) + \left(\sum_{j=1}^{m-1} 1\right) + 1   \\
+& =  \left(\sum_{j=1}^{m-1} \sum_{k=j+1}^{m} 1 \right) + (m-1) + 1   \\
+& =   S_m  + m   \\
+\end{split}
+\end{align}
+
+
+# Interne Konsistenz
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Dann aber gilt nach der Induktionsschrittannahme
+\begin{align}
+\begin{split}
+S_{m+1}
+& =  S_m  + m   \\
+& =  P_m  + m   \\
+& = \frac{m(m-1)}{2}  + m   \\
+& = \frac{m(m-1)}{2}  + \frac{2m}{2}  \\
+& = \frac{m(m-1) + 2m}{2}   \\
+& = \frac{m^2 - m  + 2m}{2}   \\
+& = \frac{m^2 + m}{2}   \\
+& = \frac{m(m+1)}{2}   \\
+& = \frac{(m+1)((m+1)-1)}{2}   \\
+& = P_{m+1}
+\end{split}
+\end{align}
+
+
+
+# Interne Konsistenz
+\small
+Normalverteilungsbeispiel
+
+\footnotesize
+Wir betrachten den Fall eines $m$-Komponententestmodells mit $m$ parallelen
+Testmessungen. Für alle $i = 1,...,n$ seien in Wahrscheinlichkeitsdichteform,
+wobei wir wiederum auf das Subskript $i$ verzichten wollen
+\begin{equation}
+p(\mrm{x}_1) := N(\mrm{x}_1;0,\sigma_x^2), \mrm{x}_2 := \mrm{x}_1,...,\mrm{x}_m := \mrm{x}_1
+\end{equation}
+sowie
+\begin{equation}
+p(y_1|\mrm{x}_1) := N(y_1;\mrm{x}_1,\sigma_\eps^2), ...,
+p(y_m|\mrm{x}_1) := N(y_m;\mrm{x}_1,\sigma_\eps^2)
+\end{equation}
+
+Per definition gilt im $m$-Komponententest mit parallelen Testmessungen für die
+Gesamtreliabilität
+\begin{equation}
+\mbox{R}
+:= \frac{\mathbb{V}(x)}{\mathbb{V}(y)}
+= \frac{\mathbb{V}\left(\sum_{j=1}^m x_j\right)}{\mathbb{V}\left(\sum_{j=1}^m y_j \right)}
+\end{equation}
+Für den Zähler halten wir fest, dass mit der Identität der wahren Werte im Modell paralleler Testmessungen gilt
+\begin{equation}
+\mathbb{V}\left(\sum_{j=1}^m x_j\right)
+= \mathbb{V}\left(\sum_{j=1}^m x_1\right)
+= \mathbb{V}\left(mx_1\right)
+= m^2\mathbb{V}\left(x_1\right)
+= m^2\sigma_x^2
+\end{equation}
+
+# Interne Konsistenz
+\small
+Normalverteilungsbeispiel (fortgeführt)
+
+\footnotesize
+Für den Nenner betrachten wir die Wahrscheinlichkeitsdichtefunktion der gemeinsamen
+Verteilung von $x_1, y_1,...,y_m$, die in Generalisierung des im Abschnitt Reliabilität
+betrachteten Normalverteilungsbeispiels die folgende Form hat:
+
+\begin{equation}
+p\left(\mrm{x}_1,y_1,...,y_m\right)
+=
+N\left(
+\begin{pmatrix}
+\mrm{x}_1     \\
+y_1     \\
+\vdots  \\
+y_m
+\end{pmatrix};
+\begin{pmatrix}
+0       \\
+0       \\
+\vdots  \\
+0
+\end{pmatrix},
+\begin{pmatrix}
+\sigma_x^2 &  \sigma_x^2                        & \cdots & \sigma_x^2                        \\
+\sigma_x^2 &  \sigma_x^2 + \sigma_\eps^2 & \cdots & \sigma_x^2                        \\
+\vdots        &  \vdots                               & \ddots & \vdots                               \\
+\sigma_x^2 &  \sigma_x^2                        & \cdots & \sigma_x^2 + \sigma_\eps^2 \\
+\end{pmatrix}
+\right)
+\end{equation}
+
+Um nun die Varianz der Summe der beobachteten Werte zu bestimmen, bestimmen wir mithilfe des
+[\textcolor{blue}{Theorem zur linear-affinen Transformation eines normalverteilten Zufallsvektors}](https://www.ipsy.ovgu.de/ipsy_media/Methodenlehre+I/Sommersemester+2025/Allgemeines+Lineares+Modell/04_Normalverteilungen.pdf) die Kovarianzmatrix
+des durch die Matrix $A := \begin{pmatrix} 0 & 1 & ... & 1\end{pmatrix} \in \mathbb{R}^{1\times(m+1)}$
+transformierten Zufallsvektors $(\mrm{x},y_1,...,y_m)^T$, also die Kovarianzmatrix von
+\begin{equation}
+\sum_{j=1}^m y_j
+=
+\begin{pmatrix} 0 & 1 & ... & 1 \end{pmatrix}
+\begin{pmatrix}
+x_1  \\
+y_1     \\
+\vdots  \\
+y_m
+\end{pmatrix}
+\end{equation}
+
+# Interne Konsistenz
+\small
+\vspace{2mm}
+Normalverteilungsbeispiel (fortgeführt)
+
+\footnotesize
+Es ergibt sich
+\begin{align*}
+\begin{split}
+\begin{pmatrix} 0 & 1 & ... & 1 \end{pmatrix}
+\begin{pmatrix}
+\sigma_x^2 &  \sigma_x^2                        & \cdots & \sigma_x^2                        \\
+\sigma_x^2 &  \sigma_x^2 + \sigma_\eps^2 & \cdots & \sigma_x^2                        \\
+\vdots        &  \vdots                               & \ddots & \vdots                               \\
+\sigma_x^2 &  \sigma_x^2                        & \cdots & \sigma_x^2 + \sigma_\eps^2 \\
+\end{pmatrix}
+\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 1 \end{pmatrix}
+& =
+\begin{pmatrix}
+m\sigma_x^2
+& m\sigma_x^2 + \sigma_\eps^2
+& ...
+& m\sigma_x^2 + \sigma_\eps^2
+\end{pmatrix}
+\begin{pmatrix} 0 \\ 1 \\ \vdots \\ 1 \end{pmatrix}
+\\
+& = m\left(m\sigma_x^2 + \sigma_\eps^2 \right)
+\\
+& = m^2\sigma_x^2 + m\sigma_\eps^2
+\end{split}
+\end{align*}
+Für die Gesamtreliabilität ergibt sich folglich
+\begin{equation}
+\mbox{R}
+= \frac{\mathbb{V}(x)}{\mathbb{V}(y)}
+= \frac{\mathbb{V}\left(\sum_{j=1}^m x_j\right)}{\mathbb{V}\left(\sum_{j=1}^m y_j \right)}
+= \frac{m^2 \sigma_x^2}{m^2\sigma_x^2 + m\sigma_\eps^2}
+\end{equation}
+Gilt also beispielsweise $\sigma^2_x := 1.0$ und $\sigma_\eps^2 := 0.2$,
+so ergibt sich für $\mbox{R}$ bei $m := 21$ parallelen Testmessungen
+\begin{equation}
+\mbox{R}
+= \frac{(21)^2 \cdot 1.0}{(21)^2\cdot 1.0 + 21\cdot 0.2}
+= \frac{441}{441 + 4.2}
+= 0.990566
+\end{equation}
+Basierend auf der im Abschnitt Reliabilität bestimmten Itemreliabilität $\mbox{R}_1 = \frac{1.0}{1.2}$ ergibt sich mithilfe der
+Spearman-Brown-Formel dasselbe Ergebnis
+\begin{equation}
+\mbox{R} = \frac{m\mbox{R}_1}{1 + (m-1)\mbox{R}_1} = \frac{21\cdot \frac{1.0}{1.2}}{1 + 20 \cdot \frac{1.0}{1.2}} = 0.990566.
+\end{equation}
+
+# Interne Konsistenz
+\small
+Normalverteilungsbeispiel
+\vspace{2mm}
+\tiny
+```{r, echo = TRUE}
+n           = 1e1                                                       # Anzahl Testpersonen
+m           = 21                                                        # Anzahl Testmessungen
+k           = 2                                                         # Anzahl Testwiederholungen
+sigsqr_x  = 1                                                         # Varianz der wahren Werte
+sigsqr_eps  = 0.2                                                       # Varianz der Messfehler
+R_1         = sigsqr_x/(sigsqr_x + sigsqr_eps)                      # Itemreliabilität
+R           = ((m^2)*sigsqr_x)/(((m^2)*sigsqr_x + m*sigsqr_eps))    # Gesamtreliabilität nach Beispiel
+SBF         = (m*R_1)/(1 + (m-1)*R_1)                                   # Gesamtreliabilität nach SB-Formel
+X           = matrix(rep(NaN,n)  , nrow = n)                            # Initialisierung wahre Werte
+Y           = array(NaN, dim = c(n, m, k))                              # Initialisierung beobachtete Werte
+for(i in 1:n){                                                          # Iteration über Testpersonen
+    X[i] = rnorm(1,1,sqrt(sigsqr_x))                                  # Realisierung wahrer Werte pro Testperson
+    for(t in 1:k){                                                      # Iteration über parallele Testwiederholungen
+        for(j in 1:m){                                                  # Iteration über parallele Testmessungen
+            Y[i,j,t] = rnorm(1,X[i], sqrt(sigsqr_eps))}}}               # Realisierung beobachteter Werte
+R_tt        = cor(apply(Y, c(1, 3), sum))[1,2]                          # Korrelation der Summenscores
+```
+
+```{r}
+cat("Itemreliabilität                                  : ", R_1,
+    "\nGesamtreliabilität nach Normalverteilungsbeispiel : ", R,
+    "\nGesamtreliabilität nach Spearman-Brown-Formel     : ", SBF,
+    "\nKorrelation der Summenscores über Paralleltests   : ", R_tt)
+```
+
+#
+\vfill
+\setstretch{2.2}
+\large
+Grundlagen
+
+Das Modell multipler Testmessungen
+
+Das Modell paralleler Testmessungen
+
+Reliabilität
+
+Interne Konsistenz
+
+**Selbstkontrollfragen**
+\vfill
+
+
+# Selbstkontrollfragen {.allowframebreaks}
+\footnotesize
+
+1. Skizzieren Sie die Klassische Testtheorie und ihre Bedeutung für die Fragebogendatenanalyse.
+1. Geben Sie die Definition eines bedingten Erwartungswerts wieder.
+1. Geben Sie die Definitionen von wahrem Wert, beobachteten Wert und Messfehler wieder.
+1. Erläutern Sie den Begriff der Propensitätsverteilung im Kontext der Klassischen Testtheorie.
+1. Geben Sie die Definition des Modells multipler Testmessungen wieder.
+1. Erläutern Sie das Modell multipler Testmessungen.
+1. Geben Sie die Definition des Vereinfachten Modells der Klassischen Testtheorie wieder.
+1. Erläutern Sie das Vereinfachte Modell der Klassischen Testtheorie.
+1. Geben Sie das Theorem zu den Eigenschaften bezüglich einer Testmessung wieder.
+1. Erläutern Sie das Theorem zu den Eigenschaften bezüglich einer Testmessung.
+1. Geben Sie das Theorem zu den Eigenschaften bezüglich zweier Testmessungen wieder.
+1. Erläutern Sie das Theorem zu den Eigenschaften bezüglich zweier Testmessungen.
+1. Erläutern Sie den Begriff der parallelen Testmessungen.
+1. Erläutern Sie die Bedeutungen von
+\begin{equation}
+x_{ij} = \mbox{id}_{\mathbb{R}} (x_{i1}) \mbox{ und } \mrm{x}_{ij} = \mbox{id}_{\mathbb{R}}(\mrm{x}_{i1}) \mbox{ für } i = 1,...,n \mbox{ und } j = 2,...,m
+\end{equation}
+im Kontext paralleler Testmessungen.
+1. Geben Sie die Definition des Modells paralleler Testmessungen wieder.
+1. Erläutern Sie das Modell paralleler Testmessungen.
+1. Geben Sie das Theorem zu den Eigenschaften des Modells paralleler Testmessungen wieder.
+1. Erläutern Sie das Theorem zu den Eigenschaften des Modells paralleler Testmessungen.
+1. Geben Sie die Definition der Reliabilität einer Testmessung wieder.
+1. Geben Sie das Theorem zu den Eigenschaften der Reliabilität einer Testmessung wieder.
+1. Erläutern Sie die drei äquivalenten Formen der Reliabilität einer Testmessung im Modell multipler Testmessungen.
+1. Geben Sie die Definition der Reliabilität einer Paralleltestmessung wieder.
+1. Geben Sie das Theorem zur Paralleltestreliabilität wieder.
+1. Warum ist die Annahme paralleler Testmessungen für die empirische Messung der Reliabilität zentral?
+1. Geben Sie die Definition des Paralleltestreliabilitätsschätzers wieder.
+1. Erläutern Sie das praktische Vorgehen zur Durchführung einer Paralleltestreliabilitätsschätzung.
+1. Erläutern Sie das praktische Vorgehen zur Durchführung einer Retestreliabilitätsschätzung.
+1. Diskutieren Sie mögliche Probleme der Validität einer Retestreliabilitätsschätzung.
+1. Geben Sie die Definition eines $m$-Komponententestmodells wieder.
+1. Erläutern Sie die Gemeinsamkeiten des Modells multipler Testmessungen und des $m$-Komponentenmodells.
+1. Erläutern Sie die Unterschiede des Modells multipler Testmessungen und des $m$-Komponentenmodells.
+1. Geben Sie die Definition der Reliabilitäten von $m$-Komponententestmodellen wieder.
+1. Skizzieren Sie den intuitiven Zusammenhang zwischen einer Testhalbierungsreliabilität und Cronbach's $\alpha$.
+1. Geben Sie die Definition von Cronbach's $\alpha$ wieder.
+1. Erläutern Sie die Intuition zu Cronbach's $\alpha$ basierend auf dem Theorem zur Varianz einer Linearkombination.
+1. Geben Sie das Theorem zu Cronbach's $\alpha$ und der Gesamtreliabilität eines $m$-Komponententestmodells wieder.
+1. Wann ist die Gesamtreliabilität eines $m$-Komponententestmodells mit Cronbach's $\alpha$ identisch?
+1. Geben Sie die Definition des Cronbach's $\alpha$ Schätzers wieder.
+1. Geben Sie das Theorem zur Spearman-Brown-Formel wieder.
+1. Erläutern Sie die Spearman-Brown-Formel mit Bezugnahme auf die Testhalbierungsreliabilität.
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+Wahrscheinlichkeitstheoretische Ergänzungen
+\vfill
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+
+\footnotesize
+\begin{theorem}[Erwartungswert bei linear-affiner Kombination]\label{thm:erwartungswert-linear-affine-kombination}
+\justifying
+\normalfont
+$x$ sei ein $n$-dimensionaler Zufallsvektor mit Komponenten $x_1,...,x_n$
+und Ergebnisraum  $X := X_1 \times \cdots \times X_n$.
+Weiterhin sei
+\begin{equation}
+f : X \to \mathcal{Z}, x \mapsto f(x) := a_0 + \sum_{i=1}^n a_ix_i \mbox{ für }  a_0,...,a_n \in \mathbb{R}.
+\end{equation}
+eine linear-affine Kombination der Komponenten von $x$. Dann gilt
+\begin{equation}
+\mathbb{E}(f(x)) = \mathbb{E}\left(a_0 +\sum_{i=1}^n a_ix_i \right) = a_0 + \sum_{i = 1}^n a_i \mathbb{E}(x_i).
+\end{equation}
+\end{theorem}
+
+\footnotesize
+\underline{Beweis}
+
+Zur Vereinfachung der Notation schreiben wir $\sum_{\mrm{x}_i \in X_i}$ als $\sum_{\mrm{x}_i}$.
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+\begin{align}
+\begin{split}
+\mathbb{E}(f(x))
+& = \mathbb{E}\left(a_0 + \sum_{i=1}^{n} a_ix_i\right)                            \\
+& = \mathbb{E}(a_0 + a_1x_1 + \cdots + a_{n}x_{n})                              \\
+& = \sum_{\mrm{x}_1}\cdots\sum_{\mrm{x}_n} (a_0 + a_1\mrm{x}_1 + \cdots  a_{n}\mrm{x}_{n})p(\mrm{x}_1,...,\mrm{x}_{n})  \\
+& = \sum_{\mrm{x}_1}\cdots\sum_{\mrm{x}_n} a_0p(\mrm{x}_1,...,\mrm{x}_n) + a_1\mrm{x}_1p(\mrm{x}_1,...,\mrm{x}_n) + \cdots + a_n\mrm{x}_np(\mrm{x}_1,...,\mrm{x}_n)   \\
+& = \sum_{\mrm{x}_1}\cdots\sum_{\mrm{x}_n} a_0p(\mrm{x}_1,...,\mrm{x}_n)    +
+    \sum_{\mrm{x}_1}\cdots\sum_{\mrm{x}_n} a_1\mrm{x}_1p(\mrm{x}_1,...,\mrm{x}_n) + \cdots +
+    \sum_{\mrm{x}_1}\cdots\sum_{\mrm{x}_n} a_n\mrm{x}_np(\mrm{x}_1,...,\mrm{x}_n)   \\
+& = a_0\sum_{\mrm{x}_1}\cdots\sum_{\mrm{x}_n}p(\mrm{x}_1,...,\mrm{x}_n)    +
+    a_1\sum_{\mrm{x}_1}\cdots\sum_{\mrm{x}_n} \mrm{x}_1p(\mrm{x}_1,...,\mrm{x}_n) + \cdots +
+    a_n\sum_{\mrm{x}_n}\cdots\sum_{\mrm{x}_1} \mrm{x}_np(\mrm{x}_1,...,\mrm{x}_n)   \\
+& = a_0     +
+    a_1\sum_{\mrm{x}_1}\mrm{x}_1 \sum_{\mrm{x}_2}     \cdots\sum_{\mrm{x}_n} p(\mrm{x}_1,...,\mrm{x}_n) + \cdots +
+    a_n\sum_{\mrm{x}_n}\mrm{x}_n \sum_{\mrm{x}_{n-1}} \cdots\sum_{\mrm{x}_1} p(\mrm{x}_1,...,\mrm{x}_n)   \\
+& = a_0 + a_1\sum_{\mrm{x}_1}\mrm{x}_1 p(\mrm{x}_1) + \cdots + a_n\sum_{\mrm{x}_n}\mrm{x}_n p(\mrm{x}_n)  \\
+& = a_0 + a_1\mathbb{E}(x_1) + \cdots + a_n\mathbb{E}(x_n)  \\
+& = a_0 + \sum_{i=1}^n a_i\mathbb{E}(x_i)
+\end{split}
+\end{align}
+
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\begin{theorem}[Iterierter Erwartungswert]\label{thm:iterierter-erwartungswert}
+\justifying
+\normalfont
+Gegeben sei ein Zufallsvektor $x := (x_1,x_2)$. Dann gilt
+\begin{equation}
+\mathbb{E}(x_1) = \mathbb{E}\left(\mathbb{E}\left(x_1|x_2\right)\right).
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Wir beschränken uns auf den Beweis für einen diskreten Zufallsvektor. Es gilt
+\begin{align}
+\begin{split}
+\mathbb{E}(x_1)
+& = \sum_{\mrm{x}_1\in X_1}\mrm{x}_1p(\mrm{x}_1)                                            \\
+& = \sum_{\mrm{x}_1 \in X_1}\mrm{x}_1\sum_{\mrm{x}_2 \in X_2} p(\mrm{x}_1,\mrm{x}_2)          \\
+& = \sum_{\mrm{x}_1\in X_1}\mrm{x}_1\sum_{\mrm{x}_2 \in X_2} p(\mrm{x}_1|\mrm{x}_2)p(\mrm{x}_2)     \\
+& = \sum_{\mrm{x}_1\in X_1}\sum_{\mrm{x}_2 \in X_2} \mrm{x}_1 p(\mrm{x}_1|\mrm{x}_2)p(\mrm{x}_2)    \\
+& = \sum_{\mrm{x}_2\in X_2}\sum_{\mrm{x}_1 \in X_1} \mrm{x}_1 p(\mrm{x}_1|\mrm{x}_2)p(\mrm{x}_2)    \\
+& = \sum_{\mrm{x}_2\in X_2}\mathbb{E}(x_1|x_2 = \mrm{x}_2)p(\mrm{x}_2)                  \\
+& = \mathbb{E}\left(\mathbb{E}(x_1|x_2 )\right).                                \\
+\end{split}
+\end{align}
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+\begin{theorem}[Nichtnegativität der Varianz]\label{thm:nichtnegativitaet-der-varianz}
+\justifying
+\normalfont
+$x$ sei eine Zufallsvariable. Dann gilt
+\begin{equation}
+\mathbb{V}(x) \ge 0.
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Wir betrachten den Fall einer diskreten Zufallsvariable. Dann gilt zunächst
+\begin{equation}
+(\mrm{x} - \mathbb{E}(x))^2 \ge 0 \mbox{ für alle } \mrm{x} \in X.
+\end{equation}
+Weiterhin gilt für die WMF $p$ von $x$, dass
+\begin{equation}
+p(\mrm{x}) \ge 0 \mbox{ für alle } \mrm{x} \in X.
+\end{equation}
+Also folgt
+\begin{equation}
+p(\mrm{x})(\mrm{x} - \mathbb{E}(x))^2 \ge 0 \mbox{ für alle } \mrm{x} \in X.
+\end{equation}
+Damit gilt dann aber
+\begin{equation}
+\mathbb{V}(x) = \sum_{\mrm{x} \in X} p(\mrm{x})(\mrm{x} - \mathbb{E}(x))^2 \ge 0,
+\end{equation}
+Analog zeigt man die Nichtnegativität der Varianz bei kontinuierlichen Zufallsvariablen.
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+\begin{theorem}[Verschiebungssatz der bedingten Varianz]\label{thm:verschiebungssatz-der-bedingten-varianz}
+\justifying
+\normalfont
+Gegeben sei ein Zufallsvektor $x := (x_1,x_2)$. Dann gilt
+\begin{equation}
+\mathbb{V}(x_1|x_2 = \mrm{x}_2) = \mathbb{E}\left(x_1^2|x_2 = \mrm{x}_2\right) - \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Wir beschränken uns auf den Beweis für einen diskreten Zufallsvektor.
+\begin{align*}
+\begin{split}
+\mathbb{V}(x_1|x_2 = \mrm{x}_2)
+& = \mathbb{E}\left(\left(x_1 - \mathbb{E}(x_1|x_2 = \mrm{x}_2)\right)^2|x_2 = \mrm{x}_2\right)                                         \\
+& = \mathbb{E}\left(\mrm{x}_1^2 - 2\mrm{x}_1\mathbb{E}(x_1|x_2 = \mrm{x}_2) + \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2|x_2 = \mrm{x}_2\right)              \\
+& = \sum_{\mrm{x}_1 \in X_1}p(\mrm{x}_1|\mrm{x}_2)\left(\mrm{x}_1^2 - 2\mrm{x}_1\mathbb{E}(x_1|x_2 = \mrm{x}_2) + \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2\right)  \\
+& = \sum_{\mrm{x}_1 \in X_1}\mrm{x}_1^2p(\mrm{x}_1|\mrm{x}_2) -
+    \sum_{\mrm{x}_1 \in X_1}2\mrm{x}_1\mathbb{E}(x_1|x_2 = \mrm{x}_2)p(\mrm{x}_1|\mrm{x}_2) +
+    \sum_{\mrm{x}_1 \in X_1}\mathbb{E}(x_1|x_2 = \mrm{x}_2)^2p(\mrm{x}_1|\mrm{x}_2)                                                           \\
+& = \mathbb{E}(x_1^2|x_2 = \mrm{x}_2) -
+    2\mathbb{E}(x_1|x_2 = \mrm{x}_2)\sum_{\mrm{x}_1 \in X_1}\mrm{x}_1p(\mrm{x}_1|\mrm{x}_2) +
+    \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2\sum_{\mrm{x}_1 \in X_1}p(\mrm{x}_1|\mrm{x}_2)                                                           \\
+& = \mathbb{E}(x_1^2|x_2 = \mrm{x}_2) -
+    2\mathbb{E}(x_1|x_2 = \mrm{x}_2)\mathbb{E}(x_1|x_2 = \mrm{x}_2) +
+    \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2 \cdot 1                                                                                         \\
+& = \mathbb{E}(x_1^2|x_2 = \mrm{x}_2) -
+    2\mathbb{E}(x_1|x_2 = \mrm{x}_2)^2 +
+    \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2                                                                                          \\
+& = \mathbb{E}(x_1^2|x_2 = \mrm{x}_2) - \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2
+\end{split}
+\end{align*}
+
+
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+\begin{theorem}[Iterierte Varianz]\label{thm:iterierte-varianz}
+\justifying
+\normalfont
+Gegeben sei ein Zufallsvektor $x := (x_1,x_2)$. Dann gilt
+\begin{equation}
+\mathbb{V}(x_1) =
+\mathbb{E}(\mathbb{V}(x_1|x_2)) + \mathbb{V}(\mathbb{E}(x_1|x_2))
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Wir beschränken uns auf den Beweis für einen diskreten Zufallsvektor. Mit \thmref{thm:kovarianzverschiebungssatz},
+\thmref{thm:iterierter-erwartungswert} und \thmref{thm:verschiebungssatz-der-bedingten-varianz}
+gilt
+\begin{align}
+\begin{split}
+\mathbb{V}(x_1)
+& = \mathbb{E}(x_1^2) - \mathbb{E}(x_1)^2                                                                               \\
+& = \mathbb{E}\left(\mathbb{E}(x_1^2|x_2)\right) - \mathbb{E}\left(\mathbb{E}(x_1|x_2)\right)^2                     \\
+& = \sum_{\mrm{x}_2 \in X_2}p(\mrm{x}_2)\mathbb{E}(x_1^2|x_2 = \mrm{x}_2) - \mathbb{E}\left(\mathbb{E}(x_1|x_2)\right)^2    \\
+& = \sum_{\mrm{x}_2 \in X_2}p(\mrm{x}_2)\left(\mathbb{V}(x_1|x_2 = \mrm{x}_2) + \mathbb{E}(x_1|x_2 = \mrm{x}_2)^2 \right) -
+     \mathbb{E}\left(\mathbb{E}(x_1|x_2)\right)^2                                                                       \\
+& = \sum_{\mrm{x}_2 \in X_2}p(\mrm{x}_2)\mathbb{V}(x_1|x_2 = \mrm{x}_2) +
+    \sum_{\mrm{x}_2 \in X_2}p(\mrm{x}_2)\mathbb{E}(x_1|x_2 = \mrm{x}_2)^2  -
+     \mathbb{E}\left(\mathbb{E}(x_1|x_2)\right)^2                                                                       \\
+& = \mathbb{E}(\mathbb{V}(x_1|x_2)) +
+    \left(\mathbb{E}\left(\mathbb{E}(x_1|x_2)^2\right) - \mathbb{E}\left(\mathbb{E}(x_1|x_2)\right)^2\right)          \\
+& = \mathbb{E}(\mathbb{V}(x_1|x_2)) + \mathbb{V}\left(\mathbb{E}(x_1|x_2)\right)                                      \\
+\end{split}
+\end{align}
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+
+\footnotesize
+\begin{theorem}[Kovarianz von Linearkombinationen von Zufallsvariablen]\label{thm:kovarianz-von-linearkombinationen}
+\justifying
+\normalfont
+Gegeben seien $n$ Zufallsvariablen  $x_1,...,x_n$  und $n+1$ reelle Konstanten
+$a_0,a_1,...,a_n$ sowie $m$ Zufallsvariablen $z_1,...,z_m$ und $m + 1$ reelle
+Konstanten $b_0,b_1,...,b_m$. Dann gilt
+\begin{equation}
+\mathbb{C}\left(a_0 + \sum_{i=1}^n a_i x_i, b_0 + \sum_{j=1}^m b_j z_j\right)
+= \sum_{i=1}^n \sum_{j=1}^m a_ib_j\mathbb{C}(x_i, z_j).
+\end{equation}
+\end{theorem}
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\vspace{2mm}
+\tiny
+\underline{Beweis}
+\vspace{-2mm}
+\begin{align*}
+\begin{split}
+& \mathbb{C}\left(a_0 + \sum_{i=1}^n a_i x_i, b_0 + \sum_{j=1}^m b_j z_j \right) \\
+& = \mathbb{E}\left(
+	\left(a_0 + \sum_{i=1}^n a_i x_i  - \mathbb{E}\left(a_0 + \sum_{i=1}^n a_i x_i\right)\right)
+	\left(b_0 + \sum_{j=1}^m b_j z_j - \mathbb{E}\left(b_0 + \sum_{j=1}^m b_j z_j \right)\right)
+	\right)
+\\
+& = \mathbb{E}\left(
+	\left(a_0 + \sum_{i=1}^n a_i x_i  - a_0 - \mathbb{E}\left(\sum_{i=1}^n a_i x_i\right)\right)
+	\left(b_0 + \sum_{j=1}^m b_j z_j - b_0 - \mathbb{E}\left(\sum_{j=1}^m b_j z_j \right)\right)
+	\right)
+\\
+& = \mathbb{E}\left(
+	\left(\sum_{i=1}^n a_i x_i  - \sum_{i=1}^n a_i \mathbb{E}(x_i) \right)
+	\left(\sum_{j=1}^m b_j z_j - \sum_{j=1}^m b_j \mathbb{E}(z_j)\right)
+	\right)
+\\
+& = \mathbb{E}
+	\left(
+	\sum_{i=1}^n a_i x_i\sum_{j=1}^m b_j z_j  - \sum_{i=1}^n a_i x_i \sum_{j=1}^m b_j \mathbb{E}(z_j)
+	- \sum_{i=1}^n a_i \mathbb{E}(x_i)\sum_{j=1}^m b_j z_j +  \sum_{i=1}^n a_i \mathbb{E}(x_i) \sum_{j=1}^m b_j \mathbb{E}(z_j)
+	\right)
+\\
+& = \mathbb{E}\left(\sum_{i=1}^n a_i x_i\sum_{j=1}^m b_j z_j\right)
+    - \mathbb{E}\left(\sum_{i=1}^n a_i x_i \sum_{j=1}^m b_j \mathbb{E}(z_j)\right)
+	- \mathbb{E}\left(\sum_{i=1}^n a_i \mathbb{E}(x_i)\sum_{j=1}^m b_j z_j\right)
+	+ \mathbb{E}\left(\sum_{i=1}^n a_i \mathbb{E}(x_i) \sum_{j=1}^m b_j \mathbb{E}(z_j)\right)
+\\
+& =  \sum_{i=1}^n \sum_{j=1}^m a_ib_j \mathbb{E}(x_iz_j)
+    - 2\sum_{i=1}^n \sum_{j=1}^m a_i  b_j \mathbb{E}(x_i)\mathbb{E}(z_j)
+	+ \sum_{i=1}^n\sum_{j=1}^m a_ib_j \mathbb{E}(x_i) \mathbb{E}(z_j)
+\\
+& =  \sum_{i=1}^n \sum_{j=1}^m a_ib_j \left(\mathbb{E}(x_iz_j) -  2 \mathbb{E}(x_i)\mathbb{E}(z_j) +\mathbb{E}(x_i)\mathbb{E}(z_j)\right)
+\\
+& =  \sum_{i=1}^n \sum_{j=1}^m a_ib_j
+     \mathbb{E}\left((x_i -  \mathbb{E}(x_i))(z_j - \mathbb{E}(z_j))\right)
+\\
+& = \sum_{i=1}^n \sum_{j=1}^m a_ib_j\mathbb{C}(x_i, z_j)
+\end{split}
+\end{align*}
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+\begin{theorem}[Kovarianz bei paarweiser Addition]\label{thm:kovarianz-bei-paarweiser-addition}
+\justifying
+\normalfont
+$x_1,x_2,z_1,z_2$ seien vier Zufallsvariablen. Dann gilt
+\begin{equation}
+\mathbb{C}(x_1 + x_2, z_1 + z_2)
+= \mathbb{C}(x_1,z_1) + \mathbb{C}(x_1,z_2) + \mathbb{C}(x_2,z_1) + \mathbb{C}(x_2,z_2).
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Es seien $n := 2, m := 2, a_0 = b_0 := 0$ und $a_i = b_i := 1$ für $i = 1,2$. Dann
+gilt mit \thmref{thm:kovarianz-von-linearkombinationen}
+\begin{align}
+\begin{split}
+\mathbb{C}\left(x_1 +x_2, z_1 + z_2 \right)
+& = \mathbb{C}\left(a_0 + \sum_{i=1}^2 a_i x_i, b_0 + \sum_{j=1}^2 b_j z_j \right) \\
+& = \sum_{i=1}^2 \sum_{j=1}^2 a_i b_j\mathbb{C}\left(x_i, z_j \right) \\
+& = \sum_{i=1}^2 \sum_{j=1}^2 \mathbb{C}\left(x_i, z_j \right) \\
+& = \mathbb{C}\left(x_1, z_1\right) + \mathbb{C}\left(x_1, z_2 \right) + \mathbb{C}\left(x_2, z_1\right) + \mathbb{C}\left(x_2, z_2 \right).
+\end{split}
+\end{align}
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\begin{theorem}[Symmetrie der Kovarianz]\label{thm:symmetrie-der-kovarianz}
+\justifying
+\normalfont
+$x_1$ und $x_2$ seien zwei Zufallsvariablen. Dann gilt
+\begin{equation}
+\mathbb{C}(x_1,x_2) = \mathbb{C}(x_2,x_1)
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Mit der Kommutativität der Multiplikation gilt
+\begin{equation}
+\mathbb{C}(x_1,x_2)
+= \mathbb{E}\left((x_1-\mathbb{E}(x_1))(x_2-\mathbb{E}(x_2))\right)
+= \mathbb{E}\left((x_2-\mathbb{E}(x_2))(x_1-\mathbb{E}(x_1))\right)
+= \mathbb{C}(x_2,x_1)
+\end{equation}
+
+$\hfill\Box$
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\begin{theorem}[Kovarianzverschiebungssatz]\label{thm:kovarianzverschiebungssatz}
+\justifying
+\normalfont
+$x_1$ und $x_2$ seien Zufallsvariablen. Dann gilt
+\begin{equation}
+\mathbb{C}(x_1,x_2) = \mathbb{E}(x_1x_2) - \mathbb{E}(x_1)\mathbb{E}(x_2).
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Mit der Definition der Kovarianz gilt
+\begin{align}
+\begin{split}
+\mathbb{C}(x_1,x_2)
+& = \mathbb{E}\left((x_1-\mathbb{E}(x_1))(x_2-\mathbb{E}(x_2))\right) 															\\
+& = \mathbb{E}\left(x_1x_2-x_1\mathbb{E}(x_2)-\mathbb{E}(x_1)x_2+\mathbb{E}(x_1)\mathbb{E}(x_2)\right) 					\\
+& = \mathbb{E}(x_1x_2)-\mathbb{E}(x_1)\mathbb{E}(x_2)-\mathbb{E}(x_1)\mathbb{E}(x_2)+\mathbb{E}(x_1)\mathbb{E}(x_2)		\\
+& = \mathbb{E}(x_1x_2)-\mathbb{E}(x_1)\mathbb{E}(x_2).
+\end{split}
+\end{align}
+
+$\hfill\Box$
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\begin{theorem}[Varianz einer Linearkombination]\label{thm:varianz-einer-linearkombination}
+\justifying
+\normalfont
+Gegeben seien $n$ Zufallsvariablen $x_1,...,x_n$ und $n+1$ reelle Konstanten
+$a_0,a_1,...,a_n$.
+Dann gilt
+\begin{equation}
+\mathbb{V}\left(a_0 + \sum_{i=1}^n a_i x_i \right)
+= \sum_{i=1}^n a_i^2 \mathbb{V}(x_i) + 2 \sum_{i=1}^{n-1}\sum_{j= i+ 1}^n a_ia_j\mathbb{C}(x_i,x_j).
+\end{equation}
+\end{theorem}
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\underline{Beweis}
+
+Mit $\mathbb{V}(x) = \mathbb{C}(x,x)$ und \thmref{thm:kovarianz-von-linearkombinationen}
+gilt zunächst
+\begin{align}
+\begin{split}
+\mathbb{V}\left(a_0 + \sum_{i=1}^n a_ix_i\right)
+& = \mathbb{C}\left(a_0 + \sum_{i=1}^n a_ix_i, a_0 + \sum_{i=1}^n a_ix_i\right) 																				\\
+& = \mathbb{C}\left(a_0 + \sum_{i=1}^n a_i x_i, a_0 + \sum_{j=1}^n a_j x_j \right)																					\\
+& = \sum_{i=1}^n \sum_{j=1}^n a_ia_j \mathbb{C}(x_i,x_j) 																										\\
+& = \sum_{i=1}^n\sum_{\substack{j=1 \\ j = i}}^n a_ia_j \mathbb{C}(x_i,x_j)  + \sum_{i=1}^n \sum_{\substack{j=1 \\ j \neq i}}^n a_ia_j \mathbb{C}(x_i,x_j) 	\\
+& = \sum_{i=1}^n a_i a_i\mathbb{C}(x_i,x_i)  + \sum_{i=1}^n \sum_{\substack{j=1 \\ j \neq i}}^n a_ia_j \mathbb{C}(x_i,x_j) 									\\
+& = \sum_{i=1}^n a_i^2\mathbb{V}(x_i)  + \sum_{i=1}^n \sum_{\substack{j=1 \\ j \neq i}}^n a_ia_j \mathbb{C}(x_i,x_j)											\\
+& = \sum_{i=1}^n a_i^2\mathbb{V}(x_i)  + 2 \sum_{i=1}^{n-1}\sum_{j= i+ 1}^na_ia_j \mathbb{C}(x_i,x_j),
+\end{split}
+\end{align}
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+\underline{Beweis (fortgeführt)}
+
+Dabei wurde in der vierten Gleichung die Doppelsumme in solche Terme aufgespalten,
+für die $i = j$ und für die $i \neq j$, und in der siebten Gleichung ausgenutzt, dass
+\begin{equation}
+a_ia_j\mathbb{C}(x_i,x_j) = a_ja_i\mathbb{C}(x_j,x_i).
+\end{equation}
+Wir verdeutlichen die daraus folgende Identität
+\begin{equation}
+\sum_{i=1}^n \sum_{\substack{j=1 \\ j \neq i}}^n a_ia_j \mathbb{C}(x_i,x_j)
+= 2 \sum_{i=1}^{n-1}\sum_{j= i+ 1}^na_ia_j \mathbb{C}(x_i,x_j),
+\end{equation}
+am Beispiel $n = 3$ untenstehend. Analog mag man sich vorstellen, über alle
+Elemente außer der Diagonalelemente der $i = 1,...,n$ Zeilen und $j = 1,...,n$
+Spalten einer symmetrischen Matrix mit Einträgen $a_ia_j\mathbb{C}(x_i,x_j)$
+zu summieren. Die linke Seite oberer Gleichung entspricht dann dem zeilenweisen
+Vorgehen der Summationsbildung für alle Spalteneinträge außer dem, der in der
+Spalte der jeweils betrachteten Zeile steht, d.h. dem Diagonaleintrag. Die rechte
+Seite der obigen Gleichung entspricht dann dem Vorgehen, die Symmetrie der Matrix
+auszunutzen, also die Tatsache zu berücksichtigen, dass die Einträge der Matrix rechts
+oberhalb und links unterhalb der Diagonalen identisch sind, sodass es genügt,
+die Einträge der oberen linken Hälfte aufzuaddieren und zu verdoppeln. Dabei werden
+für jede Zeile $i = 1,...,n$ nur gerade die Spalten $j = i+1,...,n$ betrachtet,
+die rechts von der Diagonale stehen und ihre Einträge aufsummiert. In der letzten
+Zeile steht dabei nur ein Diagonalelement, das nicht zur Summe gehört, weshalb
+der Index der äußeren Summe nur bis $n-1$ läuft.
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\underline{Beweis (fortgeführt)}
+
+Konkret ergibt sich zum Beispiel für $n := 3$:
+\begin{align}
+\begin{split}
+& \sum_{i=1}^3\sum_{\substack{j=1 \\ j \neq i}}^3 a_ia_j \mathbb{C}(x_i,x_j) \\
+& = \sum_{\substack{j=1 \\ j \neq 1}}^3 a_1a_j\mathbb{C}(x_1,x_j) +
+    \sum_{\substack{j=1 \\ j \neq 2}}^3 a_2a_j\mathbb{C}(x_2,x_j) +
+	\sum_{\substack{j=1 \\ j \neq 3}}^3 a_3a_j\mathbb{C}(x_3,x_j)\\
+& = a_1a_2\mathbb{C}(x_1,x_2) + a_1a_3\mathbb{C}(x_1,x_3) + a_2a_1\mathbb{C}(x_2,x_1) + a_2a_3\mathbb{C}(x_2,x_3)  + a_3a_1\mathbb{C}(x_3,x_1) + a_3a_2\mathbb{C}(x_3,x_2)\\
+& = a_1a_2\mathbb{C}(x_1,x_2) + a_2a_1\mathbb{C}(x_2,x_1) + a_1a_3\mathbb{C}(x_1,x_3) + a_31a_1\mathbb{C}(x_3,x_1) + a_2a_3\mathbb{C}(x_2,x_3) + a_3a_2\mathbb{C}(x_3,x_2)\\
+& = 2\mathbb{C}(x_1,x_2) + 2\mathbb{C}(x_1,x_3) + 2\mathbb{C}(x_2,x_3)\\
+& = 2a_1a_2\left(\mathbb{C}(x_1,x_2) + a_1a_3\mathbb{C}(x_1,x_3) + a_2a_3\mathbb{C}(x_2,x_3)\right)\\
+& = 2\left(\sum_{j=2}^3 a_1a_j\mathbb{C}(x_1,x_j) + \sum_{j=3}^3 a_2a_j\mathbb{C}(x_2,x_j)\right)\\
+& = 2\left(\sum_{j=1+1}^3 a_1a_j\mathbb{C}(x_1,x_j) + \sum_{j=2+1}^3 a_2a_j\mathbb{C}(x_2,x_j)\right)\\
+& = 2\sum_{i=1}^{2}\sum_{j=i+1}^3 a_ia_j\mathbb{C}(x_i,x_j).
+\end{split}
+\end{align}
+
+\hfill $\Box$
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\begin{theorem}[Varianzen spezieller Linearkombinationen]\label{thm:varianzen-spezieller-linearkombinationen}
+\justifying
+\normalfont
+\vspace{1mm}
+
+
+\noindent (1) (Varianz bei Addition zweier Zufallsvariablen). Gegeben seien zwei Zufallsvariablen $x$ und $z$. Dann gilt
+\begin{equation}
+\mathbb{V}(x + z)
+= \mathbb{V}(x) + \mathbb{V}(z) + 2\mathbb{C}(x,z).
+\end{equation}
+\noindent (2) (Varianz bei Subtraktion zweier Zufallsvariablen). Gegeben seien  zwei Zufallsvariablen $x$ und $z$. Dann gilt
+\begin{equation}
+\mathbb{V}(x - z)
+= \mathbb{V}(x) + \mathbb{V}(z) - 2\mathbb{C}(x,z).
+\end{equation}
+\end{theorem}
+
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\underline{Beweis}
+
+\noindent (1) Es seien $n := 2$, $x_1 := x$, $x_2 := z$, $a_0 := 0$, $a_1 := 1$ und $a_2 := 1$. Dann gilt mit \thmref{thm:varianz-einer-linearkombination}
+\begin{align}
+\begin{split}
+\mathbb{V}(x + z)
+& = \mathbb{V}(a_0 + a_1x_1 + a_2x_2) 																					\\
+& = \mathbb{V}\left(a_0 + \sum_{i=1}^2 a_i x_i \right) 																	\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{i=1}^{2-1}\sum_{j = i+ 1}^2 a_i a_j\mathbb{C}(x_i,x_j)				\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{i=1}^{1}\sum_{j = i + 1}^2 a_ia_j \mathbb{C}(x_i,x_j)				\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{j = 1 + 1}^2 a_ia_j \mathbb{C}(x_1,x_j)								\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{j = 2}^2 a_1a_j\mathbb{C}(x_1,x_j)									\\
+& = a_1^2\mathbb{V}(x_1) + a_2^2\mathbb{V}(x_2) + 2 a_1a_2\mathbb{C}(x_1,x_2)										\\
+& = 1^2 \cdot \mathbb{V}(x)   +  1^2 \cdot \mathbb{V}(z) + 2 \cdot  1 \cdot 1 \cdot  \mathbb{C}(x,z) \\
+& = \mathbb{V}(x) + \mathbb{V}(z) + 2 \mathbb{C}(x,z).																\\
+\end{split}
+\end{align}
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+
+\underline{Beweis (fortgeführt)}
+
+\noindent (2) Es seien $n := 2$, $x_1 := x$, $x_2 := z$, $a_0 := 0$, $a_1 := 1$ und $a_2 := -1$. Dann gilt mit dem Theorem zur Varianz einer Linearkombination von Zufallsvariablen
+\begin{align}
+\begin{split}
+\mathbb{V}(x - z)
+& = \mathbb{V}(a_0 + a_1x_1 + a_2x_2) 																					\\
+& = \mathbb{V}\left(a_0 + \sum_{i=1}^2 a_i x_i \right) 																	\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{i=1}^{2-1}\sum_{j = i+ 1}^2 a_i a_j\mathbb{C}(x_i,x_j)				\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{i=1}^{1}\sum_{j = i + 1}^2 a_ia_j \mathbb{C}(x_i,x_j)				\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{j = 1 + 1}^2 a_ia_j \mathbb{C}(x_1,x_j)								\\
+& = \sum_{i=1}^2 a_i^2 \mathbb{V}(x_i) + 2 \sum_{j = 2}^2 a_1a_j\mathbb{C}(x_1,x_j)									\\
+& = a_1^2\mathbb{V}(x_1) + a_2^2\mathbb{V}(x_2) + 2 a_1a_2\mathbb{C}(x_1,x_2)										\\
+& = 1^2\cdot \mathbb{V}(x)   +  (-1)^2 \cdot \mathbb{V}(z) + 2 \cdot  1 \cdot (-1)\cdot  \mathbb{C}(x,z)        \\
+& = \mathbb{V}(x) + \mathbb{V}(z) - 2 \mathbb{C}(x,z).														    \\
+\end{split}
+\end{align}
+
+\hfill $\Box$
+
+# Wahrscheinlichkeitstheoretische Ergänzungen
+\footnotesize
+\begin{theorem}[Verschiebungssatz der bedingten Kovarianz]\label{thm:verschiebungssatz-der-bedingten-kovarianz}
+\justifying
+\normalfont
+Gegeben sei ein Zufallsvektor $x := (x_1,x_2,x_3)$. Dann gilt
+\begin{equation}
+\mathbb{C}(x_1, x_2|x_3)
+= \mathbb{E}\left(x_1x_2|x_3\right) - \mathbb{E}\left(x_1|x_3\right)\mathbb{E}\left(x_2|x_3\right).
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+
+Ein Beweis ergibt sich durch die Ersetzung der entsprechenden Erwartungswerte
+im Beweis von \thmref{thm:kovarianzverschiebungssatz} durch die entsprechenden bedingten
+Erwartungswerte.
+
+$\hfill\Box$
+
+# Referenzen {.allowframebreaks}
+\footnotesize
