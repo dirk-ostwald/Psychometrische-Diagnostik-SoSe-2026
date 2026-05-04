@@ -93,7 +93,7 @@ entwickeln und zu optimieren. Sie sollen in der Lage sein, diagnostische Verfahr
 fachgerecht anzuwenden, diagnostische Informationen fach- und sachgemäß aufzubereiten,
 zu interpretieren und vielfältige diagnostische Informationen zu einem diagnostischen
 Urteil zu integrieren sowie die Folgen diagnostischer Entscheidungen abzuschätzen,
-z.B. durch Kosten- Nutzenanalysen.
+z.B. durch Kosten-Nutzenanalysen.
 
 Inhalte Teilmodul B1
 \vspace{-1mm}
@@ -176,7 +176,7 @@ Literatur
 
 van der Linden, Wim J., ed. (2016) Handbook of Item Response Theory. First Edition. Chapman & Hall/CRC Handbooks of Modern Statistical Methods. Boca Raton, Florida: CRC Press
 
-Rencher, Alvin C., and William F. Christensen (2012) Methods of Multivariate Analysis. Third Edition. Wiley Seriesin Probability and Statistics. Hoboken, New Jersey: Wiley
+Rencher, Alvin C., and William F. Christensen (2012) Methods of Multivariate Analysis. Third Edition. Wiley Series in Probability and Statistics. Hoboken, New Jersey: Wiley
 
 Krauth, Joachim (1995) Testkonstruktion und Testtheorie. Weinheim: Beltz, Psychologie Verl.-Union
 
@@ -188,7 +188,7 @@ Einstiegsliteratur
 
 Rost, Jürgen (2004) Lehrbuch Testtheorie, Testkonstruktion. Aus dem Programm Huber. Bern: H. Huber
 
-Pospeschill, Markus (2022) Testtheorie, Testkonstruktion, Testevaluation. München: Ernst Reihnhardt Verlag
+Pospeschill, Markus (2022) Testtheorie, Testkonstruktion, Testevaluation. München: Ernst Reinhardt Verlag
 
 Bühner, Markus (2010) Einführung in die Test- und Fragebogenkonstruktion. Pearson Studium Psychologie. München: Pearson Studium
 

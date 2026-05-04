@@ -241,7 +241,7 @@ m \sce n \Rightarrow f(m) \ge f(n)
 f(m \circ n) = f(m) + f(n)
 \mbox{ für alle } m,n\in M.
 \end{equation}
-* $\Rightarrow$ Die Funktionswerte von $m$ und $n$ in $\mathbb{R}$ steht "in der gleichen Relation" wie $m$ und $n$ in $M$.
+* $\Rightarrow$ Die Funktionswerte von $m$ und $n$ in $\mathbb{R}$ stehen "in der gleichen Relation" wie $m$ und $n$ in $M$.
 * $\ge$ im quantitativen Relationssystem spiegelt dann $\sce$ im qualitativen Relationssystem.
 * $\Rightarrow$ Der Funktionswert der Verknüpfung von $m$ und $n$ gleicht der Verknüpfung der Funktionswerte von $m$,$n$.
 * $+$ im quantitativen Relationssystem spiegelt dann $\circ$ im qualitativen Relationssystem.
@@ -288,7 +288,7 @@ Skalenarten
 Gegeben sei eine Skala $(\mathcal{M},\mathcal{N},f)$ mit zugrundeliegenden Mengen
 $M$ und $\mathbb{R}$ und Homomorphismus $f$. Weiterhin sei
 \begin{equation}
-\Phi := \{\phi| \phi : f(M) \to \mathbb{R} \}
+\Phi \subseteq \{\phi| \phi : f(M) \to \mathbb{R} \}
 \end{equation}
 die Menge der zulässigen Transformationen von $(\mathcal{M},\mathcal{N},f)$. Dann ist die
 *Skalenart* von $(\mathcal{M},\mathcal{N},f)$ durch $\Phi$ bestimmt. Insbesondere gelten:
@@ -300,7 +300,7 @@ die Menge der zulässigen Transformationen von $(\mathcal{M},\mathcal{N},f)$. Da
 ist, dann heißt $(\mathcal{M},\mathcal{N},f)$ *Ordinalskala*.
 (2) Wenn die Menge der zulässigen Transformationen der Skala die Menge der *positiv linear-affinen Funktionen*
 \begin{equation}
-\Phi := \{\phi| \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta  \mbox{ mit } \alpha > 0\}
+\Phi := \{\phi| \phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta  \mbox{ mit } \alpha > 0 \mbox{ und } \beta \in \mathbb{R}\}
 \end{equation}
 ist, dann heißt $(\mathcal{M},\mathcal{N},f)$ *Intervallskala*.
 (3) Wenn die Menge der zulässigen Transformationen der Skala die Menge der *Ähnlichkeitstransformationen*
@@ -506,7 +506,7 @@ $(\mathcal{M},\mathcal{N},f)$ unverändert bleibt.
 also die Gleichheit von Differenzen im Allgemeinen nicht bedeutsam ist, wenn $f$
 eine Ordinalskala ist, und bedeutsam ist, wenn $f$ eine Intervallskala ist.
 
-* Weiterhin zeigen wir, dass für $m,n \in M$ und $c\neq 0$ die Aussage $f(m)/f(n) = c$
+* Weiterhin zeigen wir, dass für $m,n \in M$ mit $f(n)\neq 0$ und $c\neq 0$ die Aussage $f(m)/f(n) = c$
 im Allgemeinen nicht bedeutsam, wenn $f$ eine Intervallskala ist und bedeutsam ist,
 wenn $f$ eine Verhältnisskala ist.
 
@@ -578,7 +578,7 @@ Bedeutsame Aussagen
 
 *Beweis der Nicht-Bedeutsamkeit von Verhältnisaussagen bei Intervallskalen*
 
-Wir betrachten die Aussage
+Wir betrachten die Aussage für $f(n)\neq 0$
 \begin{equation}
 \frac{f(m)}{f(n)} = c
 \Leftrightarrow
@@ -650,9 +650,9 @@ der Werte des Homomorphismus oder auf der Ebene der Werte der Statistik durchgef
 * Formaler gilt folgende Definition: $(\mathcal{M}, \mathcal{N},f)$ sei eine Skala
 und es seien $m_1,...,m_n \in M$, wobei $M$ die dem qualitativen Relationssystem
 $\mathcal{M}$ zugrundeliegende Menge bezeichne. $\phi$ sei eine zulässige Transformation
-von $f$ und $\gamma$ sei eine *reellwertige Statistik*, d.h. eine Abbildung der Form
+von $f$, die gegebenenfalls auf $\mathbb{R}$ fortgesetzt wird, und $\gamma$ sei eine *reellwertige Statistik*, d.h. eine Abbildung der Form
 \begin{equation}
-\gamma : f(M)^n \subset \mathbb{R}^n \to \mathbb{R}, (f(m_1),...,f(m_n)) \mapsto \gamma(f(m_1),...,f(m_n))
+\gamma : \mathbb{R}^n \to \mathbb{R}, (f(m_1),...,f(m_n)) \mapsto \gamma(f(m_1),...,f(m_n))
 \end{equation}
 Dann wird $\gamma$ eine *bedeutsame Statistik* genannt, wenn
 \begin{equation}
@@ -661,7 +661,7 @@ Dann wird $\gamma$ eine *bedeutsame Statistik* genannt, wenn
 
 * Im Folgenden zeigen wir, dass zum Beispiel der Mittelwert
 \begin{equation}
-\gamma : f(M)^n \to \mathbb{R}, (f(m_1),...,f(m_n)) \mapsto \gamma(f(m_1),...,f(m_n)) := \frac{1}{n}\sum_{i=1}^n f(m_i)
+\gamma : \mathbb{R}^n \to \mathbb{R}, (f(m_1),...,f(m_n)) \mapsto \gamma(f(m_1),...,f(m_n)) := \frac{1}{n}\sum_{i=1}^n f(m_i)
 \end{equation}
 im Allgemeinen keine bedeutsame Statistik ist, wenn $f$ eine Ordinalskala ist, aber
 eine bedeutsame Statistik, wenn $f$ eine Intervall- oder Verhältnisskala ist.
@@ -678,7 +678,7 @@ zulässige Transformation von $f$, also eine streng monoton steigende Funktion. 
 $f(M) \subset \mathbb{R}_{>0}$ und $n := 2$ seien $f(m_1) = 1$ und $f(m_2) = 3$
 und es sei $\phi$ die streng monotone Funktion
 \begin{equation}
-\phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := x^2.
+\phi : \mathbb{R}_{>0} \to \mathbb{R}, x \mapsto \phi(x) := x^2.
 \end{equation}
 Dann gilt
 \begin{equation}
@@ -711,7 +711,7 @@ Bedeutsame Statistiken
 Es sei $(\mathcal{M}, \mathcal{N},f)$ eine Intervallskala und $\phi$ eine
 zulässige Transformation von $f$, also eine Funktion der Form
 \begin{equation}
-\phi : f(M) \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta \mbox{ mit } \alpha > 0
+\phi : \mathbb{R} \to \mathbb{R}, x \mapsto \phi(x) := \alpha x + \beta \mbox{ mit } \alpha > 0
 \end{equation}
 Dann gilt
 \begin{align*}
@@ -1076,8 +1076,8 @@ Ordnungen auf unterschiedlichen Mengen (Patient:innen, Zahlen) können also unte
 
 *Transitivität*
 
-Für drei beliebige Patient:innen $x_1,x_2,x_3$ gilt, dass wenn $x_2$ einen geringeren
-oder  den gleichen BDI-II-Wert wie $x_1$ hat und $x_2$ einen geringeren oder
+Für drei beliebige Patient:innen $x_1,x_2,x_3$ gilt, dass wenn $x_1$ einen geringeren
+oder den gleichen BDI-II-Wert wie $x_2$ hat und $x_2$ einen geringeren oder
 den gleichen BDI-II-Wert wie $x_3$ hat, dass $x_1$ auch einen geringeren oder
 den gleichen BDI-II-Wert wie $x_3$ hat.
 
@@ -1153,7 +1153,8 @@ $\hfill\Box$
 \footnotesize
 \begin{definition}[Unabhängige Relation]
 \justifying
- $(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Die Relation $\sce$
+ $X$ und $Y$ seien nicht-leere Mengen und $\sce$ sei eine binäre Relation
+ auf $X \times Y$. Die Relation $\sce$
  heißt \textit{unabhängig}, wenn für alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ gilt:
 \begin{equation}
 (x_1,y_1)\sce (x_2,y_1) \Rightarrow (x_1,y_2)\sce (x_2,y_2),
@@ -1225,6 +1226,10 @@ Dann gilt
 \begin{equation}
 (x_1,y_1)\sce (x_2,y_1) \Leftrightarrow (x_1,y_2)\sce (x_2,y_2),
 \end{equation}
+und
+\begin{equation}
+(x_1,y_1)\sce (x_1,y_2) \Leftrightarrow (x_2,y_1)\sce (x_2,y_2).
+\end{equation}
 \end{theorem}
 
 Bemerkungen
@@ -1261,14 +1266,16 @@ f(x_1) + g(y_2) \ge f(x_2) + g(y_2)
 \end{align}
 $\hfill\Box$
 
+Der Beweis der zweiten Äquivalenz erfolgt analog durch Kürzen von $f(x_1)$ bzw. $f(x_2)$.
+
 
 # Repräsentation additiv-konjunkter Strukturen
 \footnotesize
 \begin{definition}[Komponentenordnungen]
 \justifying
 $(X,Y,\sce)$ sei eine additiv-konjunkte Struktur. Dann sind die zu $(X,Y,\sce)$
-gehörenden \textit{Komponentenordnungen} $(X,\sce_x)$ und $(Y,\sce_y)$ für
-alle $x_1,x_2 \in X$ und $y_1,y_2 \in Y$ definiert durch
+gehörenden \textit{Komponentenordnungen} $(X,\sce_x)$ und $(Y,\sce_y)$
+definiert durch
 \begin{equation}
 x_1 \sce_x x_2 \Leftrightarrow (x_1,y) \sce (x_2,y) \mbox{ für ein } y \in Y
 \end{equation}
@@ -1298,7 +1305,7 @@ konstanten Komponente abhängt.
 \begin{theorem}[Komponentenordnungen]
 \justifying
 \normalfont
-$(X,Y,\sce)$ sei eine additiv-konjunkte Struktur $(X,\sce_x)$ und $(Y,\sce_y)$
+$(X,Y,\sce)$ sei eine additiv-konjunkte Struktur und $(X,\sce_x)$ und $(Y,\sce_y)$
 seien die zu $(X,Y,\sce)$ gehörenden Komponentenordnungen. Dann sind $(X,\sce_x)$
 und $(Y,\sce_y)$ schwache Ordnungen.
 \end{theorem}
@@ -1472,7 +1479,7 @@ Das Vorgehen in der Beweisskizze der Repräsentation besteht im Wesentlichen aus
 1. Konstruktion rationaler Repräsentationswerte mithilfe dyadischer Verfeinerungen
 1. Konstruktion reeller Repräsentationswerte mithilfe von Dedekindschen Schnitten
 
-Zum Gelingen dieser Schritte sind  unter anderem die Eigenschaften (4), (5) und (6)
+Zum Gelingen dieser Schritte sind unter anderem die Eigenschaften (4), (5) und (6)
 additiv-konjunkter Strukturen wesentlich. Die einzelnen Schritte haben dabei mehr
 (Konstruktion ganzzahliger Repräsentationswerte) oder weniger (Konstruktion rationaler
 und reeller Repräsentationswerte) experimentelle Bedeutung.
@@ -1559,13 +1566,13 @@ Schließlich setzen wir dieses Vorgehen induktiv fort und erhalten verzahnte Sta
 (x_0,y_j) \sim (x_1, y_{j-1}) & \;\Rightarrow\; g(y_j) := j \in \mathbb{N}_0 \\
 \end{split}
 \end{align}
-Die Doppelaufhebung garantiert dabei, dass dieses Vorgehen über mehrere Schritte hinweg funktioniert
+Die Doppelaufhebung garantiert dabei, dass dieses Vorgehen über mehrere Schritte hinweg funktioniert.
 Dies wird auch als *strukturelle Konsistenz* bezeichnet, was wir aber nicht weiter vertiefen werden.
 
 
 *\noindent (2) Konstruktion rationaler Repräsentationswerte*
 
-Durch obiges Vorgehen erhalten wir ganzzahlige Repräsentation $f : X \to \mathbb{N}_0$ und $g : Y \to \mathbb{N}_0$. Zur Konstruktion rationaler Repräsentationen $f : X \to \mathbb{Q}$ und $g : Y \to \mathbb{Q}$ kann man wie folgt vorgehen.
+Durch obiges Vorgehen erhalten wir ganzzahlige Repräsentationen $f : X \to \mathbb{N}_0$ und $g : Y \to \mathbb{N}_0$. Zur Konstruktion rationaler Repräsentationen $f : X \to \mathbb{Q}$ und $g : Y \to \mathbb{Q}$ kann man wie folgt vorgehen.
 
 # Repräsentation additiv-konjunkter Strukturen
 \footnotesize
@@ -1573,7 +1580,7 @@ Durch obiges Vorgehen erhalten wir ganzzahlige Repräsentation $f : X \to \mathb
 
 
 
-Wir wählen ein $x \in X$ und finden aufgrund der unrestringierten Lösbarkeit ein $y_{1/2} \in Y$, so dass
+Wir wählen ein $x \in X$ und finden unter Nutzung der Strukturbedingungen, insbesondere der unrestringierten Lösbarkeit, ein $y_{1/2} \in Y$, so dass
 \begin{align}
 \begin{split}
 (x,y_0) \sim (x_0,y_{1/2}) \wedge (x_1,y_0) \sim (x,y_{1/2})
@@ -1636,10 +1643,10 @@ die absoluten Werte von $f$ und $g$ festlegt, sondern nur die Differenzen
 zwischen Werten $f(x)$ und $f(x')$ bzw. $g(y)$ und $g(y')$. Dies
 ist ja bekanntlich das charakterisierende Merkmal von Intervallskalen (man denke
 z.B. an die Temperaturmessung in Celsius ("$f(x)$") und Fahrenheit ("$\tilde{f}(x)$")).
-Der Beweis besteht aus folgenden Schritten
+Der Beweis besteht aus folgenden Schritten:
 
 1. Folgerung von numerischen Differenzgleichungen aus qualitativen Indifferenzen
-1. Implikation der Gleichheit von $\tilde{f}$-Differenzen in der Gleichheit von $f$-Differenzen
+1. Implikation der Gleichheit von $f$-Differenzen in der Gleichheit von $\tilde{f}$-Differenzen
 1. Affin-lineare Eindeutigkeiten der Repräsentationen von $\sce_x$ und $\sce_y$
 1. Identität der affin-linearen Konstante $\alpha$
 
@@ -1666,7 +1673,7 @@ und ebenso
 \end{split}
 \end{align}
 
-*\noindent(2) Implikation der Gleichheit von $\tilde{f}$-Differenzen in der Gleichheit von $f$-Differenzen*
+*\noindent(2) Implikation der Gleichheit von $f$-Differenzen in der Gleichheit von $\tilde{f}$-Differenzen*
 
 Wir zeigen, dass wenn zwei Differenzen der Repräsentation $f$ von $\sce_x$
 gleich sind, dann auch die entsprechenden Differenzen der Repräsentation $\tilde{f}$
