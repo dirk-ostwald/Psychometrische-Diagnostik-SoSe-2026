@@ -3052,10 +3052,10 @@ d) $f(b) = 1.00$
 \vfill
 \center
 \huge
-Ergänzungen
+Jensensche Ungleichung
 \vfill
 
-# Ergänzungen
+# Jensensche Ungleichung
 \footnotesize
 \setstretch{1.2}
 \begin{theorem}[Jensensche Ungleichung]\label{thm:jensensche-ungleichung}
@@ -3086,7 +3086,7 @@ Bemerkungen
 * Bei konkavem $g$ liegt der Funktionsgraph über der Geraden von $g(x_1)$ zu $g(x_2)$.
 * Der Logarithmus ist eine konkave Funktion, also gilt $\mathbb{E}(\ln \xi) \le \ln \mathbb{E}(\xi)$.
 
-# Ergänzungen
+# Jensensche Ungleichung
 \small
 \vspace{2mm}
 Visualisierung einer konvexen Funktion
@@ -3178,7 +3178,7 @@ knitr::include_graphics("2-Abbildungen/psd-2-jensensche-ungleichung.pdf")
 
 \textcolor{gray}{---} $t(x) := g(x_0) + g'(x_0)(x-x_0)$ für $x_0 := 1$
 
-# Ergänzungen
+# Jensensche Ungleichung
 \footnotesize
 \underline{Beweis}
 
@@ -3213,8 +3213,7 @@ folgt dann die Jensensche Ungleichung für konkave Funktionen aus
 \mathbb{E}(g(\xi)) & \le g(\mathbb{E}(\xi)).
 \end{split}
 \end{align}
-$\hfill \Box$      -->
-
+$\hfill \Box$
 
 # Referenzen {.allowframebreaks}
 \footnotesize
