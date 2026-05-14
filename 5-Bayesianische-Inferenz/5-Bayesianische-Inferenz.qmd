@@ -1,0 +1,3221 @@
+---
+fontsize: 8pt
+format:
+    beamer:
+        include-in-header: "5-Header.tex"
+bibliography: 5-Referenzen.bib
+csl: https://www.zotero.org/styles/apa
+---
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics("5-Abbildungen/psd-5-otto.png")
+```
+
+\huge
+Psychometrische Diagnostik
+\vspace{3mm}
+
+\large
+MSc Psychologie
+
+MSc Umweltpsychologie / Mensch-Technik-Interaktion
+
+\vspace{2mm}
+SoSe 2026
+
+\vspace{1mm}
+\normalsize
+Prof. Dr. Dirk Ostwald
+
+
+# {.plain}
+\vfill
+\center
+\huge
+\textcolor{black}{(5) Bayesianische Inferenz}
+\vfill
+
+
+#
+\large
+\vfill
+\setstretch{2.3}
+Das Bayesianische Paradigma
+
+Inferenzzusammenfassungen
+
+Konjugierte Inferenz
+
+Numerische Inferenz
+
+Variationale Inferenz
+\vfill
+
+#
+\large
+\vfill
+\setstretch{2.3}
+**Das Bayesianische Paradigma**
+
+Inferenzzusammenfassungen
+
+Konjugierte Inferenz
+
+Numerische Inferenz
+
+Variationale Inferenz
+\vfill
+
+
+# Das Bayesianische Paradigma
+\vfill
+Zentrale Postulate frequentistischer Inferenz
+\vspace{3mm}
+
+* \itemsep4mm \justifying Wahrscheinlichkeiten werden als Grenzwerte relativer Häufigkeiten interpretiert und als objektive Eigenschaften der realen Welt betrachtet.
+* Parameter sind feste, unbekannte Konstanten, die als *wahre, aber unbekannte* Werte bezeichnet werden. Über Parameter werden keine Wahrscheinlichkeitsaussagen gemacht.
+* Statistische Verfahren werden so konzipiert, dass sie gute Langzeit-Frequenzeigenschaften besitzen, und werden typischerweise durch Untersuchung ihrer Stichprobenverteilungen bewertet.
+\vfill
+
+
+# Das Bayesianische Paradigma
+\vfill
+Zentrale Postulate Bayesianischer Inferenz
+\vspace{3mm}
+
+* \itemsep4mm \justifying Wahrscheinlichkeiten werden als Grade der Überzeugung interpretiert, nicht als Grenzhäufigkeiten. Aussagen wie „die Wahrscheinlichkeit, dass es heute Nachmittag regnet, beträgt 0.5“ sind sinnvoll.
+* Parameter sind feste, unbekannte Konstanten, über die probabilistische Aussagen gemacht werden können, die unsere Unsicherheit über ihren wahren, aber unbekannten Wert quantifizieren.
+* Probabilistische Aussagen über Parameter werden mithilfe von Wahrscheinlichkeitsverteilungen gemacht, aus denen weitere Inferenzen, wie Punkt- oder Intervallschätzungen, abgeleitet werden können.
+
+
+
+# Das Bayesianische Paradigma
+\footnotesize
+\begin{definition}[Probabilistisches Modell]
+\justifying
+Ein \textit{probabilistisches Modell} ist eine gemeinsame Verteilung einer Familie direkt
+beobachtbarer zufälliger Entitäten $\upsilon := (\upsilon_1,\ldots,\upsilon_n)$, die üblicherweise
+Daten modellieren, und einer Familie nicht direkt beobachtbarer zufälliger Entitäten
+$\vartheta := (\vartheta_1,...,\vartheta_p)$, die üblicherweise Parameter modellieren,
+die in Form einer gemeinsamen Dichtefunktion oder Wahrscheinlichkeitsfunktion
+spezifiziert ist
+\begin{equation}
+p(y,\theta).
+\end{equation}
+Probabilistische Modelle werden auch als \textit{generative Modelle} bezeichnet.
+Typischerweise werden probabilistische Modelle in Form des Produkts einer marginalen Dichtefunktion
+oder Wahrscheinlichkeitsfunktion von $\vartheta$ und einer bedingten Dichtefunktion oder Wahrscheinlichkeitsfunktion von $\upsilon$ definiert, in der Form
+\begin{equation}
+p(y,\theta) = p(y|\theta)p(\theta).
+\end{equation}
+Hier wird $p(\theta)$ als \textit{Prior-Verteilung} bezeichnet und $p(y|\theta)$
+als \textit{Likelihood}. Oft wird angenommen, dass die beobachtbaren zufälligen Entitäten
+$\upsilon_1,...,\upsilon_n$ \textit{bedingt unabhängig und identisch verteilt} sind, d.h.,
+\begin{equation}
+p(y|\theta) := \prod_{i=1}^n p(y_i|\theta) \mbox{ und } p(y_i|\theta) = p(y_1|\theta) \mbox{ für } i = 2,\ldots,n.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* Zufällige Entitäten umfassen Zufallsvariablen, Zufallsvektoren, Zufallsmatrizen und Zufallsfunktionen.
+* Wir nehmen durchgehend die Existenz der jeweiligen Wahrscheinlichkeitsfunktionen und/oder Dichtefunktionen an.
+
+
+# Das Bayesianische Paradigma
+\footnotesize
+\begin{definition}[Posterior-Verteilung]
+\justifying
+Gegeben ein probabilistisches Modell $p(y,\theta)$ wird die bedingte Verteilung der
+nicht direkt beobachtbaren zufälligen Entität $\vartheta$ gegeben die beobachtbare zufällige
+Entität $\upsilon$ als \textit{Posterior-Verteilung} bezeichnet. Mithilfe des Satzes von Bayes
+für Wahrscheinlichkeitsfunktionen oder Dichtefunktionen kann die Posterior-Verteilung in Form der
+Dichtefunktion oder Wahrscheinlichkeitsfunktion ausgewertet werden als
+\begin{equation}
+p(\theta|y) = \frac{p(y|\theta)p(\theta)}{\int p(y|\theta)p(\theta) \,d\theta}.
+\end{equation}
+Der Nenner der rechten Seite oben wird manchmal als \textit{Evidenz} bezeichnet,
+sodass eine Eselsbrücke für die Posterior-Verteilung gegeben ist durch
+\begin{equation}
+\mbox{Posterior} = \frac{\mbox{Likelihood} \times \mbox{Prior}}{\mbox{Evidenz}}.
+\end{equation}
+Da die Evidenz unabhängig von $\vartheta$ und für eine gegebene Realisierung
+von $\upsilon$ konstant ist, entspricht sie einer Normierungskonstante des Produkts aus Prior
+und Likelihood, die dieses Produkt zu einer gültigen Dichtefunktion oder Wahrscheinlichkeitsfunktion macht. Wenn nur die
+funktionale Form der Dichtefunktion oder Wahrscheinlichkeitsfunktion des Posteriors von Interesse ist, genügt die unnormalisierte
+Version, oft geschrieben als
+\begin{equation}
+p(\theta|y) \propto p(y|\theta)p(\theta).
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* Die Auswertung der Posterior-Verteilung kann auf *Batch*- oder *rekursive* Weise erfolgen.
+
+# Das Bayesianische Paradigma
+
+\small
+Batch-Bayesianische Schätzung
+\vspace{1mm}
+\footnotesize
+
+\setstretch{1.6}
+Angenommen, es sind $n$ Datenpunkte $y_i, i = 1,...,n$, d.h. Beobachtungen von $\upsilon_i, i = 1,...,n$, verfügbar.
+
+Dann erfolgt Bayesianische Schätzung typischerweise wie folgt:
+
+(1) Spezifikation einer Prior-Verteilung $p(\theta)$.
+(2) Spezifikation der Daten-Likelihood gegeben den Parameter, wobei oft angenommen wird, dass die
+beobachteten zufälligen Entitäten $\upsilon_i, i = 1,...,n$ bedingt
+unabhängig gegeben $\theta$ sind, sodass
+\begin{equation}
+p(y|\theta) = \prod_{i=1}^n p(y_i|\theta).
+\end{equation}
+(3) Auswertung von
+\begin{equation}
+p(\theta|y) = \frac{p(\theta)\prod_{i=1}^n p(y_i|\theta)}{\int p(\theta)\prod_{i=1}^n p(y_i|\theta)\,d\theta}.
+\end{equation}
+
+
+
+# Das Bayesianische Paradigma
+\small
+Rekursive Bayesianische Schätzung
+\vspace{1mm}
+\footnotesize
+
+\justifying
+Angenommen, Datenpunkte $y_1,y_2,\ldots$, d.h. Beobachtungen von $\upsilon_1,\upsilon_2,\ldots$,
+sind nacheinander verfügbar. Dann erfolgt Bayesianische Schätzung wie folgt:
+
+(1) Spezifikation der Prior-Verteilung $p(\theta)$.
+(2) Spezifikation der Daten-Likelihood gegeben den Parameter, wobei angenommen wird, dass die beobachteten
+zufälligen Entitäten $\upsilon_i, i = 1,...,n$ bedingt
+unabhängig gegeben $\theta$ sind, sodass
+\begin{equation}
+p(y_1|\theta) = p(y_2|\theta) = \cdots
+\end{equation}
+(3) Auswertung von
+\begin{align}
+\begin{split}
+p(\theta|y_1)
+& = \frac{p(y_1|\theta)p(\theta)}{\smallint p(y_1|\theta)p(\theta)\,d\theta}
+\\
+p(\theta|y_{1:2})
+& = \frac{p(y_2|\theta)p(\theta|y_1)}{\smallint p(y_2|\theta)p(\theta|y_1)\,d\theta}
+\\
+& \cdots
+\end{split}
+\end{align}
+
+\noindent Hier dient für $i = 1,2,...$ die Posterior-Verteilung bei $i-1$ als
+Prior-Verteilung bei $i$ („der Posterior von gestern ist der Prior von heute“).
+Für $n$ Datenpunkte sind Batch- und rekursive Bayesianische Schätzung äquivalent:
+\begin{equation*}
+p(\theta|y)
+= \frac{p(\theta)\prod_{i=1}^n p(y_i|\theta)}{ \int p(\theta)\prod_{i=1}^n p(y_i|\theta)\,d\theta}
+= \frac{p(y_n|\theta)p(\theta|y_{1:n-1})}{\int p(y_n|\theta)p(\theta|y_{1:n-1})\,d\theta}.
+\end{equation*}
+
+
+# Das Bayesianische Paradigma
+\footnotesize
+\begin{definition}[Marginale Likelihood]
+\justifying
+Sei $p(y,\theta)$ die Wahrscheinlichkeitsfunktion oder Dichtefunktion eines probabilistischen Modells. Dann wird die
+marginale Dichtefunktion oder Wahrscheinlichkeitsfunktion der beobachtbaren zufälligen Entitäten
+\begin{equation}
+p(y)
+= \int p(y,\theta)\,d\theta
+= \int p(y|\theta)p(\theta)\,d\theta
+\end{equation}
+als \textit{marginale (Daten-)Likelihood} oder \textit{Modellevidenz} bezeichnet.
+\end{definition}
+
+Bemerkungen
+
+* Die Evidenz ist „die Wahrscheinlichkeit(sdichte) eines Datensatzes unter einem probabilistischen Modell“.
+* $p(y)$ wird manchmal als \textit{Prior-prädiktive Verteilung} bezeichnet.
+
+# Das Bayesianische Paradigma
+\footnotesize
+
+\begin{definition}[Bayes-Faktor]
+Für zwei probabilistische Modelle $p_1(y,\theta_1)$ und $p_2(y,\theta_2)$ mit
+identischem Datenergebnis und möglicherweise unterschiedlichen Parameterräumen wird das Verhältnis der marginalen Likelihoods
+\begin{equation}
+\mbox{BF} = \frac{p_1(y)}{p_2(y)}
+\end{equation}
+als \textit{Bayes-Faktor} bezeichnet.
+\end{definition}
+
+Bemerkung
+
+* Der Bayes-Faktor dient als grundlegendes Modellvergleichskriterium in der Bayesianischen Statistik.
+
+# Das Bayesianische Paradigma
+\footnotesize
+\begin{definition}[Posterior-prädiktive Verteilung]
+\justifying
+Sei $p(y,\theta)$ die Dichtefunktion oder Wahrscheinlichkeitsfunktion eines probabilistischen Modells. Dann wird die
+bedingte Verteilung einer beobachtbaren zufälligen Entität $\upsilon_{n+1}$ gegeben die
+beobachteten zufälligen Entitäten $\upsilon$ als \textit{posterior-prädiktive Verteilung} bezeichnet.
+Eine Wahrscheinlichkeitsfunktion oder Dichtefunktion der posterior-prädiktiven Verteilung ist gegeben durch
+\begin{equation}
+p(y_{n+1}|y) = \int p(y_{n+1}|\theta)p(\theta|y)\,d\theta,
+\end{equation}
+wobei typischerweise
+\begin{equation}
+p(y_{n+1}|\theta) = p(y_i|\theta) \mbox{ für } i = 1,...,n.
+\end{equation}
+\end{definition}
+
+Bemerkung
+
+* Im Gegensatz zu $p_{\hat{\theta}}(y_{n+1})$ für eine Punktschätzung $\hat{\theta}$ von $\theta$ berücksichtigt $p(y_{n+1}|\theta)$ Schätzunsicherheit.
+
+# Das Bayesianische Paradigma
+\setstretch{2.5}
+Zusammenfassung
+\center
+\begin{tabular}{lll}
+Bezeichnung                  & Mathematischer Charakter    & Notation          \\\hline
+Probabilistisches Modell     & Gemeinsame Verteilung       & $p(y,\theta)$     \\
+Prior-Verteilung             & Marginale Verteilung        & $p(\theta)$       \\
+Likelihood                   & Bedingte Verteilung         & $p(y|\theta)$     \\
+Posterior-Verteilung         & Bedingte Verteilung         & $p(\theta|y)$     \\
+Marginale Likelihood         & Marginale Verteilung        & $p(y)$            \\
+\end{tabular}
+
+
+# Inferenzzusammenfassungen
+Bayesianische Punktschätzung
+\setstretch{2.7}
+
+* Die zentrale Entität der Bayesianischen Inferenz ist die Posterior-Verteilung.
+* In angewandten Kontexten sind Punktschätzungen jedoch oft nützlich.
+* Bayesianische Punktschätzung ist ein entscheidungstheoretisches Problem.
+* Entscheidungstheorie beruht auf den Begriffen von Nutzen- oder Verlustfunktionen.
+
+
+# Inferenzzusammenfassungen
+\footnotesize
+\begin{definition}[Verlustfunktion, erwarteter posteriorer Verlust, Bayes-Schätzer]
+Sei $p(y,\theta)$ ein probabilistisches Modell und sei $\hat{\theta}$ eine Punktschätzung
+für den wahren, aber unbekannten Wert des Parameters des probabilistischen Modells.
+Dann heißt eine reellwertige Funktion
+\begin{equation}
+l : \Theta \times \Theta \to \mathbb{R}, (\hat{\theta},\theta) \mapsto l(\hat{\theta},\theta)
+\end{equation}
+die die Unerwünschtheit der Wahl der Punktschätzung $\hat{\theta}$ misst,
+wenn der wahre, aber unbekannte Parameterwert $\theta$ ist, eine \textit{Verlustfunktion}.
+Der Erwartungswert der Verlustfunktion bezüglich der Posterior-Verteilung von
+$\vartheta$ wird als \textit{erwarteter posteriorer Verlust} bezeichnet und hat die Form
+\begin{equation}
+l_p : \Theta \to \mathbb{R}, \hat{\theta} \mapsto l_p(\hat{\theta}) := \int l(\hat{\theta},\theta)p(\theta|y)\,d\theta.
+\end{equation}
+Der Punktschätzer
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny B}} := \argmin_{\hat{\theta} \in \Theta} l_p(\hat{\theta})
+\end{equation}
+der den erwarteten posterioren Verlust minimiert, ist als \textit{Bayes-Schätzer} bekannt.
+\end{definition}
+
+# Inferenzzusammenfassungen
+\setstretch{1.1}
+\footnotesize
+\begin{theorem}[Quadratische Verlustfunktion, posteriorer Erwartungswert]
+\justifying
+Sei $p(y,\theta)$ ein probabilistisches Modell mit skalarem Parameter $\vartheta$
+und sei die \textit{quadratische Verlustfunktion} definiert als
+\begin{equation}
+l : \Theta \times \Theta \to \mathbb{R}, (\hat{\theta},\theta) \mapsto l(\hat{\theta},\theta) := (\hat{\theta}-\theta)^2.
+\end{equation}
+Dann ist der Bayes-Schätzer der posterior erwartete Wert des Parameters, d.h.,
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny B}} = \argmin_{\hat{\theta} \in \Theta} l_p(\hat{\theta}) = \int \theta\, p(\theta|y)\,d\theta.
+\end{equation}
+Dieser Schätzer wird auch als \textit{Minimum Mean Squared Error (MMSE)}-Schätzer bezeichnet.
+\end{theorem}
+
+\underline{Beweis}
+
+Die erwartete posteriore Verlustfunktion ist gegeben durch
+\begin{equation}
+l_p : \Theta \to \mathbb{R}, \hat{\theta} \mapsto l_p(\hat{\theta})
+:= \smallint (\hat{\theta} - \theta)^2 p(\theta|y)\,d\theta
+\end{equation}
+Ihre Ableitung bezüglich $\hat{\theta}$ ergibt
+\begin{equation}
+\frac{d}{d\hat{\theta}}l_p(\hat{\theta})
+= \smallint \frac{d}{d\hat{\theta}}(\hat{\theta} - \theta)^2 p(\theta|y)\,d\theta
+= 2\smallint(\hat{\theta} - \theta) p(\theta|y)\,d\theta.
+\end{equation}
+Nullsetzen liefert
+\begin{equation}
+\smallint(\hat{\theta} - \theta) p(\theta|y)\,d\theta = 0
+\Leftrightarrow
+\hat{\theta}  - \smallint \theta p(\theta|y)\,d\theta = 0
+\Leftrightarrow
+\hat{\theta} = \smallint \theta p(\theta|y)\,d\theta.
+\end{equation}
+$\hfill \Box$
+
+
+# Inferenzzusammenfassungen
+\footnotesize
+\begin{theorem}[Null-Eins-Verlustfunktion, posteriorer Modus]
+\justifying
+Sei $p(y,\theta)$ ein probabilistisches Modell und sei die \textit{Null-Eins-Verlustfunktion} definiert als
+\begin{equation}
+l : \Theta \times \Theta \to \mathbb{R},
+(\hat{\theta},\theta) \mapsto l(\hat{\theta},\theta)
+:= 1 - 1_{\hat{\theta}}(\theta)
+= \begin{cases}
+0, & \theta = \hat{\theta} \\
+1, & \theta \neq \hat{\theta}
+\end{cases}
+\end{equation}
+Dann ist der Bayes-Schätzer der posteriore Modus des Parameters, d.h.,
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny B}}
+= \argmin_{\hat{\theta} \in \Theta} l_p(\hat{\theta})
+= \argmax_{\hat{\theta} \in \Theta} p(\hat{\theta}|y).
+\end{equation}
+Dieser Schätzer wird auch als \textit{Maximum-a-posteriori (MAP)}-Schätzer bezeichnet.
+\end{theorem}
+
+\underline{Beweis}
+
+Die erwartete posteriore Verlustfunktion ist gegeben durch
+\begin{align}
+\begin{split}
+l_p : \Theta \to \mathbb{R}, \hat{\theta} \mapsto l_p(\hat{\theta})
+& := \smallint (1 - 1_{\hat{\theta}}(\theta)) p(\theta|y)\,d\theta \\
+& = \smallint 1\,p(\theta|y)\,d\theta - \smallint 1_{\hat{\theta}}(\theta)\,p(\theta|y)\,d\theta\\
+& = 1 - p(\hat{\theta}|y)
+\end{split}
+\end{align}
+Die Minimierung von $l_p(\hat{\theta})$ bezüglich $\hat{\theta}$ ist somit äquivalent
+zur Maximierung von $p(\hat{\theta}|y)$ bezüglich $\hat{\theta}$.
+$\hfill \Box$
+
+# Inferenzzusammenfassungen
+\setstretch{2.7}
+Bayesianische Intervallschätzung
+
+* Die zentrale Entität der Bayesianischen Inferenz ist die Posterior-Verteilung.
+* In angewandten Kontexten sind Intervallschätzungen oft nützlich.
+* Bayesianische Intervallschätzungen werden als *Kredibilitätsintervalle* bezeichnet.
+* Kredibilitätsintervalle sind „intuitiver“ als Konfidenzintervalle.
+* *Kredibilitätsregionen* verallgemeinern Kredibilitätsintervalle für nicht-skalare Parameter.
+
+
+# Inferenzzusammenfassungen
+\footnotesize
+\begin{definition}[$\delta$-Kredibilitätsregion, $\delta$-Kredibilitätsintervall]
+\justifying
+Sei $p(y,\theta)$ ein probabilistisches Modell mit Parameterraum $\Theta$ und
+sei $p(\theta|y)$ die Posterior-Verteilung. Dann wird jede Region $R_\delta \subset \Theta$,
+sodass
+\begin{equation}
+\int_{R_\delta} p(\theta|y) \,d\theta = \delta \mbox{ für } \delta \in ]0,1[
+\end{equation}
+als posteriore $\delta$-Kredibilitätsregion bezeichnet. Wenn $R_\delta \subset \mathbb{R}$
+ein Intervall ist, dann wird $R_\delta$ auch als \textit{$\delta$-Kredibilitätsintervall} bezeichnet.
+\end{definition}
+Bemerkungen
+
+\begin{itemize}
+\item $\delta$-Kredibilitätsintervalle sind typischerweise nicht eindeutig definiert ... Konfidenzintervalle sind es aber auch nicht
+\item Ansätze zur eindeutigen Spezifikation von $\delta$-Kredibilitätsintervallen umfassen die Auswahl von
+
+\begin{itemize}
+\footnotesize
+\item $\delta$-Kredibilitätsintervallen höchster posteriorer Dichte (minimaler Größe),
+\item symmetrischen $\delta$-Kredibilitätsintervallen um den posterioren Erwartungswert,
+\item $\delta$-Kredibilitätsintervallen mit gleicher oberer und unterer Randwahrscheinlichkeit.
+\end{itemize}
+\end{itemize}
+
+
+# Inferenzzusammenfassungen
+
+Zusammenfassung
+\setstretch{3}
+\small
+
+* Parameter-Punktschätzungen und Intervallschätzungen können aus $p(\theta|y)$ abgeleitet werden.
+* Bayes-Schätzer minimieren den erwarteten posterioren Verlust (EPL) bzgl. einer Verlustfunktion.
+* Der posteriore Erwartungswert minimiert den EPL bezüglich einer quadratischen Verlustfunktion.
+* Der MAP-Schätzer minimiert den EPL bezüglich einer Null-Eins-Verlustfunktion.
+* Der wahre, aber unbekannte Parameter liegt mit Wahrscheinlichkeit $\delta$ innerhalb eines $\delta$-Kredibilitätsintervalls.
+
+
+#
+\large
+\vfill
+\setstretch{2.3}
+Das Bayesianische Paradigma
+
+Inferenzzusammenfassungen
+
+**Konjugierte Inferenz**
+
+Numerische Inferenz
+
+Variationale Inferenz
+\vfill
+
+
+# Konjugierte Inferenz
+\small
+\begin{definition}[Konjugierte Verteilungsfamilie und Hyperparameter]
+\justifying
+Sei
+\begin{equation}
+p(\theta, y) = \prod_{i=1}^n p(y_i|\theta)p(\theta)
+\end{equation}
+ein probabilistisches Modell mit bedingt unabhängigen und identisch
+verteilten beobachteten zufälligen Entitäten $\upsilon_1,...,\upsilon_n$ und nicht direkt beobachteter
+zufälliger Entität $\vartheta$. Sei $\phi$ eine Verteilungsfamilie von
+$\vartheta$. $\phi$ heißt \textit{konjugierte Verteilungsfamilie bezüglich
+$p(y_i|\theta)$}, wenn die Posterior-Verteilung $p(\theta|y)$ ein Element von
+$\phi$ ist, unabhängig von der Prior-Verteilung $p(\theta) \in \phi$ und den
+Beobachtungen $y_1,...,y_n$ von $\upsilon_1,...,\upsilon_n$. Wenn sowohl die Prior- als auch
+die Posterior-Verteilung Elemente von $\phi$ bezüglich $p(y_i|\theta), i = 1,...,n$, sind, sagt man auch, dass $\phi$
+\textit{unter Stichprobenziehung abgeschlossen} ist. Da $\vartheta$ häufig Parameter
+modelliert, werden die Parameter der Verteilungen in $\phi$ häufig als
+\textit{Hyperparameter} bezeichnet.
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* Die Prior- und Posterior-Verteilungen der konjugierten Inferenz sind vom gleichen Typ.
+* Die Parameter des Posteriors ergeben sich aus den Parametern des Priors und den Daten.
+* Die Aktualisierungsformel für die Hyperparameter kann analytisch gefunden werden.
+
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+\footnotesize
+\begin{definition}[Binomiale Zufallsvariable]
+Sei $\upsilon$ eine Zufallsvariable mit Ergebnismenge $\mathcal{Y} := \mathbb{N}_n^0$
+und Wahrscheinlichkeitsfunktion
+\begin{equation}
+p : \mathcal{Y} \to [0,1],
+y\mapsto p(y) :=
+\begin{pmatrix}
+n \\ y
+\end{pmatrix}
+\theta^{y}(1 - \theta)^{n-y} \mbox{ für } \theta \in [0,1].
+\end{equation}
+Dann heißt $\upsilon$ gemäß einer \textit{Binomialverteilung}
+mit Parametern $\theta \in [0,1]$ und $n \in \mathbb{N}$ verteilt, wofür wir
+$\upsilon \sim \mbox{Bin}(\theta,n)$ schreiben. Wir bezeichnen die Wahrscheinlichkeitsfunktion einer
+binomialen Zufallsvariable mit
+\begin{equation}
+\mbox{Bin}(y;\theta,n) :=
+\begin{pmatrix}
+n \\ y
+\end{pmatrix}
+\theta^{y}(1 - \theta)^{n-y}
+\end{equation}
+\end{definition}
+Bemerkungen
+
+* $\mbox{Bin}(y;\theta,1) = \mbox{Bern}(y;\theta)$, was als *Bernoulli-Verteilung* bezeichnet wird.
+* Wenn wir 0 und 1 „Misserfolg“ und „Erfolg“ mit Wahrscheinlichkeiten $1-\theta$ bzw. $\theta$ in einem einzelnen Versuch modellieren,
+  dann modelliert $\mbox{Bin}(\theta,n)$ die Verteilung der Summe der Erfolge in $n$ Versuchen.
+
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+
+```{r, eval = F, echo = F}
+# Parameter
+n         = c(5, 10, 15)
+mu        = c(.1, .5, .7)
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-binomial-wahrscheinlichkeitsfunktion.pdf",
+width     = 7,
+height    = 3)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, length(mu)),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.4)
+for (i in seq_along(n)){
+  y       = 0:n[i]
+  plot(
+  y,
+  dbinom(y, n[i], mu[i]),
+  type      = "h",
+  lwd       = 2,
+  col       = "Black",
+  ylab      = " ",
+  xlab      = "y",
+  xlim      = c(-.1, n[i] + .1),
+  ylim      = c(0, .6))
+  title(sprintf("Bin(y;%g,%g)", mu[i], n[i]))
+}
+dev.off()
+```
+
+\vfill
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-binomial-wahrscheinlichkeitsfunktion.pdf")
+```
+\vfill
+
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+\footnotesize
+\begin{definition}[Beta-Zufallsvariable]
+\justifying
+Sei $\vartheta$ eine Zufallsvariable mit Ergebnismenge $\Theta := [0,1]$ und
+Dichtefunktion
+\begin{equation}
+p : \Theta \to \mathbb{R}_{\ge 0}, \theta \mapsto p(\theta)
+:= \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}
+\theta^{\alpha-1}(1-\theta)^{\beta-1} \mbox{ für } \alpha,\beta \in \mathbb{R}_{>0},
+\end{equation}
+wobei $\Gamma$ die Gammafunktion bezeichnet. Dann heißt $\vartheta$ gemäß einer
+\textit{Beta-Verteilung} mit Parametern $\alpha,\beta$ verteilt,
+wofür wir $\vartheta \sim \mbox{Beta}(\alpha,\beta)$ schreiben. Wir bezeichnen die
+Dichtefunktion einer Beta-Zufallsvariable mit
+\begin{equation}
+\mbox{Beta}(\theta;\alpha,\beta)
+:= \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}
+\theta^{\alpha-1}(1-\theta)^{\beta-1}.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+\setstretch{1.6}
+
+* Eine Beta-Zufallsvariable kann zur Modellierung der Verteilung einer Wahrscheinlichkeit $\theta$ verwendet werden, da $\theta \in [0,1]$.
+* Der Erwartungswert einer Beta-Zufallsvariable ist $\mathbb{E}(\vartheta) = \frac{\alpha}{\alpha + \beta}$.
+* Die Varianz einer Beta-Zufallsvariable ist $\mathbb{V}(\vartheta) = \frac{\alpha\beta}{(\alpha + \beta)^2(\alpha+\beta+1)}$.
+* $\mbox{Beta}(\theta;1,1) = U(\theta;0,1)$, die stetige Gleichverteilung auf $[0,1]$.
+* Für $\alpha < 1, \beta < 1$ ist die Ergebnismenge $\Theta := ]0,1[$.
+
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+```{r, echo = F, eval = F}
+# Parameter
+library(latex2exp)
+x_min     = 0
+x_max     = 1
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+alpha     = c(1, 3, 10)
+beta      = c(1, 2, 5)
+titles    = c(
+TeX("Beta($\\theta$;1,1)"),
+TeX("Beta($\\theta$;3,2)"),
+TeX("Beta($\\theta$;10,5)"))
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-beta-dichtefunktion.pdf",
+width     = 7,
+height    = 3)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, length(alpha)),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.4)
+for (i in seq_along(alpha)){
+  plot(
+  x,
+  dbeta(x, alpha[i], beta[i]),
+  type      = "l",
+  lwd       = 1.5,
+  col       = "Black",
+  ylab      = " ",
+  xlab      = TeX("$\\theta$"),
+  ylim      = c(0, 4))
+  title(titles[i])
+}
+dev.off()
+```
+
+\vfill
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-beta-dichtefunktion.pdf")
+```
+\vfill
+
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+\footnotesize
+\begin{theorem}[Das Beta-Binomial-Modell]
+\normalfont
+Betrachte das probabilistische Modell
+\begin{equation}
+p(y,\theta)
+=  p(y|\theta) p(\theta)
+:= \mbox{Bin}(y;\theta,n) \mbox{Beta}(\theta;\alpha, \beta).
+\end{equation}
+Dann ist die Posterior-Verteilung gegeben durch
+\begin{equation}
+p(\theta|y) = \mbox{Beta}(\theta;\alpha + y, \beta + n - y)
+\end{equation}
+und die MMSE- und MAP-Bayes-Schätzer sind
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny MMSE}} = \frac{\alpha + y}{\alpha + \beta + n}
+\mbox{ und }
+\hat{\theta}_{\mbox{\tiny MAP}}  = \frac{\alpha + y - 1}{\alpha + \beta + n - 2}.
+\end{equation}
+\end{theorem}
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+\footnotesize
+\setstretch{1.6}
+Bemerkungen
+
+* Die Prior-Verteilung ist $p(\theta)=\mbox{Beta}(\theta;\alpha, \beta)$.
+* Die Likelihood ist $p(y|\theta)=\mbox{Bin}(y;\theta,n)$.
+* Kredibilitätsintervalle können mithilfe der Verteilungsfunktion der Beta-Verteilungsdichte $p(\theta|y)$ abgeleitet werden.
+* Der MMSE-Schätzer des Beta-Binomial-Modells kann geschrieben werden als
+\begin{align}
+\begin{split}
+\hat{\theta}_{\mbox{\tiny MMSE}}
+& = \frac{\alpha + y}{\alpha + \beta + n}                                                                   \\
+& = \frac{\alpha}{\alpha + \beta + n} + \frac{y}{\alpha + \beta + n}                                        \\
+& = \frac{\alpha(\alpha + \beta)}{(\alpha + \beta + n)(\alpha + \beta)} + \frac{yn}{(\alpha + \beta + n)n}  \\
+& = \frac{\alpha + \beta}{\alpha + \beta +n} \cdot \frac{\alpha}{\alpha + \beta} + \frac{n}{\alpha + \beta + n} \cdot \frac{y}{n}
+\end{split}
+\end{align}
+* Der MMSE-Schätzer des Beta-Binomial-Modells ist ein gewichteter Durchschnitt aus Prior-Erwartungswert und ML-Schätzer $\frac{y}{n}$.
+* Die Gewichtungskonstanten sind proportional zu (1) der Anzahl virtueller Prior-Beobachtungen
+  $\alpha + \beta$ und (2) der Anzahl tatsächlicher Beobachtungen $n$.
+
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+\footnotesize
+\underline{Beweis}
+
+\textit{Posterior-Verteilung}
+
+Wir stellen zunächst fest, dass bis auf Proportionalitätskonstanten die Posterior-Verteilung gegeben ist durch
+\begin{align}
+\begin{split}
+p(\theta|y)
+& \propto p(y|\theta)p(\theta) \\
+& = \mbox{Bin}(y;\theta,n) \mbox{Beta}(\theta;\alpha, \beta) \\
+& \propto \theta^y(1 - \theta)^{n-y} \theta^{\alpha-1}(1 - \theta)^{\beta - 1} \\
+& = \theta^{\alpha + y - 1}(1 - \theta)^{\beta + n - y - 1} \\
+\end{split}
+\end{align}
+
+Die rechte Seite oben entspricht dem Kern der Dichtefunktion einer Beta-
+Verteilung mit Parametern $\alpha + y$ und $\beta + n - y$. Die Posterior-
+Verteilung ist somit gegeben durch
+\begin{equation}
+p(\theta|y) = \mbox{Beta}(\theta; \alpha + y, \beta + n - y)
+\end{equation}
+
+\textit{MMSE- und MAP-Bayes-Schätzer}
+
+Der Erwartungswert und der Modus einer Zufallsvariable $\vartheta \sim \mbox{Beta}(\alpha,\beta)$ sind gegeben durch
+\begin{equation}
+\mathbb{E}\left(\vartheta\right) = \frac{\alpha}{\alpha + \beta} \mbox{ und }
+\mathbb{M}\left(\vartheta\right) = \frac{\alpha - 1}{\alpha + \beta - 2} (\alpha,\beta > 1)
+\end{equation}
+Einsetzen der Parameter der Posterior-Verteilung liefert somit direkt die MMSE- und MAP-Bayes-Schätzer.
+
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+Beispiel
+\footnotesize
+\setstretch{1.7}
+\vspace{-2mm}
+
+* Betrachte Interesse an der Wirksamkeit einer „Behandlung“.
+* Sei 0 das Behandlungsergebnis „Misserfolg“ und 1 das Behandlungsergebnis „Erfolg“.
+* Sei $\theta_{\mbox{\tiny TBU}} \in [0,1]$ der wahre, aber unbekannte Anteil von „Erfolgs“-Ergebnissen.
+* Angenommen, die Prior-Unsicherheit über $\theta_{\mbox{\tiny TBU}}$ wird angemessen durch $\mbox{Beta}(\theta;1,1)$ beschrieben.
+* Betrachte eine Studie mit $n = 30$ experimentellen Einheiten und einer Beobachtung von $y = 18$ „Erfolgs“-Ergebnissen.
+* Dann wird die Posterior-Unsicherheit über $\theta_{\mbox{\tiny TBU}}$ beschrieben durch  $\mbox{Beta}(\theta;1+18,1+30-18)=\mbox{Beta}(\theta;19,13)$.
+* Aus der Posterior-Verteilung sind Punktschätzungen für $\theta_{\mbox{\tiny TBU}}$ gegeben durch
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny MMSE}} = \frac{1 + 18}{1 + 1 + 30} = \frac{19}{32} = 0.59.
+\mbox{ und }
+\hat{\theta}_{\mbox{\tiny MAP}}  = \frac{18}{30} = 0.60.
+\end{equation}
+* In Bezug auf Kredibilitätsintervalle können wir zum Beispiel ableiten, dass die posteriore Wahrscheinlichkeit von $\vartheta \ge 0.5$ ist
+\begin{equation}
+\mathbb{P}(\vartheta \ge 0.5) = 1 - \mathbb{P}(\vartheta \le 0.5) = 1 - P(0.5) = 1 - 0.14 = 0.86,
+\end{equation}
+während die Prior-Wahrscheinlichkeit von $\vartheta \ge 0.5$ $0.5$ betrug.
+* Beachte, dass für dieselbe Prior-Verteilung und $n = 1$ und $y = 1$ gilt
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny} ML} = 1\mbox{, aber } \hat{\theta}_{\mbox{\tiny MMSE}} = \frac{1 + 1}{1 + 1 + 1} = \frac{2}{3} = 0.6\bar{6}.
+\end{equation}
+
+# Konjugierte Inferenz | Das Beta-Binomial-Modell
+Beispiel
+
+```{r, echo = F, eval = F}
+# Parameter
+library(latex2exp)
+x_min     = 0
+x_max     = 1
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+alpha     = c(1, 19)
+beta      = c(1, 13)
+titles    = c(
+TeX("p($\\theta$) = Beta($\\theta$;1,1)"),
+TeX("p($\\theta$|y=18) = Beta($\\theta$;19,13)"))
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-beta-binomial-beispiel.pdf",
+width     = 8,
+height    = 4)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, length(alpha)),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.1)
+for (i in seq_along(alpha)){
+  plot(
+  x,
+  dbeta(x, alpha[i], beta[i]),
+  type      = "l",
+  lwd       = 1.5,
+  col       = "Black",
+  ylab      = " ",
+  xlab      = TeX("$\\theta$"),
+  ylim      = c(0, 5))
+  title(titles[i])
+}
+dev.off()
+```
+
+\vfill
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-beta-binomial-beispiel.pdf")
+```
+\vfill
+
+
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+\footnotesize
+\begin{definition}[Gaußsche Zufallsvariable]
+\justifying
+Sei $\upsilon$ eine Zufallsvariable mit Ergebnismenge $\mathbb{R}$ und Dichtefunktion
+\begin{equation}
+p : \mathbb{R} \to \mathbb{R}_{>0}, y\mapsto p(y)
+:= \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y - \theta)^2\right).
+\end{equation}
+Dann heißt $\upsilon$ gemäß einer \textit{Gauß-Verteilung
+mit Parametern $\theta \in \mathbb{R}$ und $\sigma^2 > 0$} verteilt und heißt eine
+\textit{Gaußsche Zufallsvariable}, wofür wir $\upsilon \sim N(\theta,\sigma^2)$ schreiben.
+Wir bezeichnen die Dichtefunktion einer Gaußschen Zufallsvariable mit
+\begin{equation}
+N(y;\theta,\sigma^2) := \frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(y - \theta)^2\right).
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* $\theta$ entspricht dem Wert höchster Wahrscheinlichkeitsdichte und $\mathbb{E}(\upsilon)=\theta$.
+* $\sigma^2$ spezifiziert die Breite von $N(y;\theta,\sigma^2)$ und $\mathbb{V}(\upsilon) = \sigma^2$.
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+
+```{r, echo = F, eval = F}
+# Parameter
+x_min     = -10
+x_max     = 10
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+mu        = c(0, -2.5, 3)
+sigsqr    = c(1, 10, 0.5)
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-gauss-dichtefunktion.pdf",
+width     = 7,
+height    = 3)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, length(mu)),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.4)
+for (i in seq_along(mu)){
+  plot(
+  x,
+  dnorm(x, mu[i], sqrt(sigsqr[i])),
+  type      = "l",
+  lwd       = 1.5,
+  col       = "Black",
+  ylab      = " ",
+  xlab      = "y",
+  ylim      = c(0, .6))
+  title(sprintf("N(y;%g,%g)", mu[i], sigsqr[i]))
+}
+dev.off()
+```
+\vfill
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-gauss-dichtefunktion.pdf")
+```
+\vfill
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+\footnotesize
+\begin{theorem}[Das univariate Gauß-Gauß-Modell]
+\normalfont
+Für $y := (y_1,...,y_n)$ betrachte das probabilistische Modell
+\begin{equation}
+p(y,\theta)
+ = p(y|\theta)p(\theta)
+:=  \prod_{i=1}^n p(y_i|\theta) p(\theta)
+:= \prod_{i=1}^n N(y_i;\theta,\sigma_y^2)N(\theta;\mu_\theta,\sigma_\theta^2).
+\end{equation}
+Dann ist die Posterior-Verteilung gegeben durch
+\begin{equation}
+p(\theta|y) =
+N\left(\theta;
+\left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2} \right)^{-1}
+\left(\frac{\mu_\theta}{\sigma_\theta^2} + \frac{n\bar{y}}{\sigma_y^2} \right),
+\left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2}\right)^{-1}
+\right),
+\end{equation}
+wobei $\bar{y} := \frac{1}{n}\sum_{i=1}^n y_i$ den Stichprobenmittelwert bezeichnet, und die
+MMSE- und MAP-Bayes-Schätzer sind
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny MMSE}} =  \hat{\theta}_{\mbox{\tiny MAP}} =
+\left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2} \right)^{-1}
+\left(\frac{\mu_\theta}{\sigma_\theta^2} + \frac{n\bar{y}}{\sigma_y^2} \right).
+\end{equation}
+\end{theorem}
+
+
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+\footnotesize
+Bemerkungen
+\setstretch{1.8}
+
+* Die Prior-Verteilung ist $p(\theta)=N(\theta;\mu_\theta,\sigma_\theta^2)$.
+* Die Likelihood ist $p(y|\theta)=\prod_{i=1}^n N(y_i;\theta,\sigma_y^2)$.
+* $\sigma_y^2 > 0$ wird als bekannt angenommen und daher im vorliegenden Szenario nicht mit einer Prior-Verteilung versehen.
+* Kredibilitätsintervalle können mithilfe der Verteilungsfunktion der Gaußschen Dichte $p(\theta|y)$ abgeleitet werden.
+* Der MMSE-Schätzer des univariaten Gauß-Gauß-Modells hat die Form
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny MMSE}} \propto
+\frac{1}{\sigma_\theta^2}\mu_\theta + \frac{n}{\sigma_y^2} \bar{y}.
+\end{equation}
+* $\hat{\theta}_{\mbox{\tiny MMSE}}$ ist somit ein gewichteter Durchschnitt des Prior-Erwartungswerts und des ML-Schätzers.
+* Die Gewichtungskonstanten sind gegeben durch (1) die Prior-Präzision (reziproke Varianz) $1/\sigma^2_\theta$ und (2) die Datenpräzision $1/\sigma_y^2$ und die Anzahl der Beobachtungen.
+* Der Posterior-Varianzparameter
+\begin{equation}
+\left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2}\right)^{-1}
+\end{equation}
+steht in reziproker Beziehung zur Anzahl der Beobachtungen.
+
+
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+\footnotesize
+\vspace{2mm}
+\underline{Beweis}
+
+\textit{Posterior-Verteilung}
+
+Indem wir uns auf die Tatsache konzentrieren, dass die Posterior-Verteilung eine Funktion von $\theta$
+ist, und daher multiplikative Konstanten, die unabhängig von $\theta$ sind, in
+Proportionalitätsaussagen zusammenfassen, haben wir
+\begin{align}
+\begin{split}
+p(\theta|y)
+& \propto \prod_{i=1}^n N(y_i;\theta,\sigma_y^2)N(\theta;\mu_\theta,\sigma_\theta^2) \\
+& =
+\prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma_y^2}}\exp\left(-\frac{1}{2\sigma_y^2}(y_i - \theta)^2 \right)
+\frac{1}{\sqrt{2\pi\sigma_\theta^2}}\exp\left(-\frac{1}{2\sigma_\theta^2}(\theta - \mu_{\theta})^2 \right)\\
+& \propto
+\exp\left(-\frac{1}{2}\left(
+  \frac{\sum_{i=1}^n(y_i - \theta)^2}{\sigma_y^2}
++ \frac{(\theta - \mu_\theta)^2}{\sigma_\theta^2}
+\right)\right) \\
+& =
+\exp\left(-\frac{1}{2}\left(
+  \frac{\sum_{i=1}^n(y_i^2 - 2y_i\theta + \theta^2)}{\sigma_y^2}
++ \frac{\theta^2 - 2\theta\mu_\theta + \mu_\theta^2}{\sigma_\theta^2}
+\right)\right) \\
+& =
+\exp\left(-\frac{1}{2}\left(
+  \frac{\sum_{i=1}^n y_i^2 - 2n\bar{y}\theta + n\theta^2}{\sigma_y^2}
++ \frac{\theta^2 - 2\theta\mu_\theta + \mu_\theta^2}{\sigma_\theta^2}
+\right)\right) \\
+& \propto
+\exp\left(-\frac{1}{2}\left(
+  \frac{- 2n\bar{y}\theta + n\theta^2}{\sigma_y^2}
++ \frac{\theta^2 - 2\theta\mu_\theta}{\sigma_\theta^2}
+\right)\right).
+\end{split}
+\end{align}
+
+
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+\footnotesize
+\vspace{2mm}
+\underline{Beweis (Fortsetzung)}
+
+Daher
+\begin{align}
+\begin{split}
+p(\theta|y)
+& \propto
+\exp\left(-\frac{1}{2}\left(
+  \frac{\theta^2n - 2n\bar{y}\theta}{\sigma_y^2}
++ \frac{\theta^2 - 2\theta\mu_\theta}{\sigma_\theta^2}
+\right)\right) \\
+& =
+\exp\left(-\frac{1}{2}\left(
+  \theta^2\frac{n}{\sigma_y^2} - 2\theta\frac{n\bar{y}}{\sigma_y^2}
++ \theta^2\frac{1}{\sigma_\theta^2} - 2\theta\frac{\mu_\theta}{\sigma_\theta^2}
+\right)\right) \\
+& =
+\exp\left(
+-\frac{1}{2}\theta^2\frac{n}{\sigma_y^2} - \frac{1}{2}\theta^2\frac{1}{\sigma_\theta^2}
++ \theta\frac{n\bar{y}}{\sigma_y^2} + \theta\frac{\mu_\theta}{\sigma_\theta^2}
+\right)
+\\
+& =
+\exp\left(
+-\frac{1}{2}\theta^2\left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2}\right)
++ \theta\left(\frac{\mu_\theta}{\sigma_\theta^2} + \frac{n\bar{y}}{\sigma_y^2}\right)
+\right).
+\end{split}
+\end{align}
+
+Durch Definition von
+\begin{equation}
+\phi_1 := \left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2}\right)^{-1} \mbox{ und  }
+\phi_2 := \phi_1\left(\frac{\mu_\theta}{\sigma_\theta^2} + \frac{n\bar{y}}{\sigma_y^2}\right)
+\end{equation}
+haben wir dann
+\begin{align}
+\begin{split}
+p(\theta|y)
+& \propto
+\exp\left(
+-\frac{1}{2\phi_1}\theta^2
++ \frac{1}{\phi_1} \theta \phi_2
+\right) \\
+& \propto
+\exp\left(
+-\frac{1}{2\phi_1}\theta^2
++ \frac{1}{\phi_1} \theta \phi_2
+-\frac{1}{2\phi_1}\phi_2^2
+\right).
+\end{split}
+\end{align}
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+\footnotesize
+\underline{Beweis (Fortsetzung)}
+
+Daher
+\begin{align}
+\begin{split}
+p(\theta|y)
+& \propto
+\exp\left(-\frac{1}{2\phi_1}(\theta - \phi_2)^2\right)
+\end{split}
+\end{align}
+Ausgehend von der Normierungskonstante der Gaußschen Dichtefunktion haben wir somit
+\begin{align}
+\begin{split}
+p(\theta|y)
+& = \frac{1}{\sqrt{2\pi\phi_1}}\exp\left(-\frac{1}{2\phi_1}(\theta - \phi_2)^2\right) \\
+& = N(\theta;\phi_2,\phi_1),
+\end{split}
+\end{align}
+sodass die Posterior-Verteilung durch eine univariate Gaußsche Dichtefunktion mit Erwartungswertparameter gegeben ist
+\begin{equation}
+\phi_2 =
+\left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2}\right)^{-1}
+\left(\frac{\mu_\theta}{\sigma_\theta^2} + \frac{n\bar{y}}{\sigma_y^2}\right)
+\end{equation}
+und Varianzparameter
+\begin{equation}
+\phi_1 = \left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2}\right)^{-1}.
+\end{equation}
+$\hfill \Box$
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+Beispiel
+\footnotesize
+\setstretch{1.8}
+
+* \justifying Betrachte Interesse am gemeinsamen Erwartungswert $\theta \in \mathbb{R}$ Gauß-
+  verteilter Entitäten $\upsilon_i,i = 1,...,n$, z.B. dem Erwartungswert einer Gruppe von
+  Voxel-Aktivitätsmessungen in einer Mehrpersonen-fMRT-Studie mit $n$ Teilnehmenden.
+* Angenommen, die gemeinsame Varianz dieser Entitäten $\sigma_y^2 := 2$ ist bekannt.
+* Sei $\theta_{\mbox{\tiny TBU}} \in \mathbb{R}$ der wahre, aber unbekannte gemeinsame Erwartungswert.
+* Angenommen, die Prior-Unsicherheit über $\theta_{\mbox{\tiny TBU}}$ wird angemessen durch $N(\theta;0,10)$ beschrieben.
+* Betrachte eine Studie mit 12 experimentellen Einheiten (Teilnehmenden) und Stichprobenmittelwert $\bar{y} = 3.14$.
+* Dann
+\begin{equation}
+\left(\frac{n}{\sigma_y^2} + \frac{1}{\sigma_\theta^2} \right)^{-1}
+= \left(\frac{12}{2} + \frac{1}{10} \right)^{-1} \approx 0.16
+\end{equation}
+und
+\begin{equation}
+\frac{\mu_\theta}{\sigma_\theta^2} + \frac{n\bar{y}}{\sigma_y^2}
+= \frac{0}{10} + \frac{12 \cdot 3.14}{2} = 18.84.
+\end{equation}
+
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+Beispiel (Fortsetzung)
+\footnotesize
+\setstretch{1.6}
+
+* Die Posterior-Unsicherheit über $\theta_{\mbox{\tiny TBU}}$ wird somit beschrieben durch
+\begin{equation}
+N\left(\theta;\mu_{\theta|y},\sigma_{\theta|y}^2\right) \mbox{ mit } \mu_{\theta|y} \approx 0.16 \cdot 18.84 = 3.01  \mbox{ und } \sigma_{\theta|y}^2 = 0.16.
+\end{equation}
+* Aus der Posterior-Verteilung sind Punktschätzungen für $\theta_{\mbox{\tiny TBU}}$ gegeben durch
+\begin{equation}
+\hat{\theta}_{\mbox{\tiny MMSE}} =  \hat{\theta}_{\mbox{\tiny MAP}} \approx 3.01.
+\end{equation}
+* In Bezug auf Kredibilitätsintervalle können wir zum Beispiel ableiten, dass die posteriore Wahrscheinlichkeit von $\vartheta \ge 0$ ist
+\begin{equation}
+\mathbb{P}(\vartheta \ge 0) = 1 - \mathbb{P}(\vartheta \le 0) = 1 - P(0) \approx 1 - 0 = 1.
+\end{equation}
+während die Prior-Wahrscheinlichkeit von $\vartheta \ge 0$ 0.5 betrug.
+* Die Z-Statistik und der p-Wert für den Nullhypothesenparameter $\mu_0 = 0$ in einem solchen Z-Test-Szenario entsprechen
+\begin{equation}
+Z := \sqrt{n}\left(\frac{\bar{y} - \mu_0}{\sigma_y}\right) = \sqrt{12}\cdot \frac{3.14}{\sqrt{2}} \approx 7.69 \mbox{ und } \mbox{p-Wert} \approx 0.
+\end{equation}
+
+# Konjugierte Inferenz | Das Gauß-Gauß-Modell
+Beispiel (Fortsetzung)
+\footnotesize
+
+```{r, echo = F, eval = F}
+# Parameter
+library(latex2exp)
+x_min     = -5
+x_max     = 5
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+mu        = c(0, 3.01)
+sigsqr    = c(10, 0.16)
+titles    = c(
+TeX("p($\\theta$) = N($\\theta$;0,10)"),
+TeX("p($\\theta$|y) = N($\\theta$;3.01,0.16)"))
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-gauss-beispiel.pdf",
+width     = 8,
+height    = 4)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, length(mu)),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.1)
+for (i in seq_along(mu)){
+  plot(
+  x,
+  dnorm(x, mu[i], sqrt(sigsqr[i])),
+  type      = "l",
+  lwd       = 1.5,
+  col       = "Black",
+  ylab      = " ",
+  xlab      = TeX("$\\theta$"),
+  ylim      = c(0, 1))
+  title(titles[i])
+}
+dev.off()
+```
+\vfill
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-gauss-beispiel.pdf")
+```
+
+#
+\setstretch{2}
+Weitere häufig anzutreffende konjugierte Modelle umfassen
+
+* das Dirichlet-Multinomial-Modell,
+* das Gauß-Gamma-Gauß-Modell,
+* das multivariate Gauß-Gauß-Modell,
+* das Gauß-Wishart-Gauß-Modell.
+
+Eine umfassende Theorie für konjugierte Analyse wird bereitgestellt durch
+
+* Konjugierte Inferenz in der Exponentialfamilie.
+
+#
+\large
+\vfill
+\setstretch{2.3}
+Das Bayesianische Paradigma
+
+Inferenzzusammenfassungen
+
+Konjugierte Inferenz
+
+**Numerische Inferenz**
+
+Variationale Inferenz
+\vfill
+
+
+
+# Numerische Inferenz
+\footnotesize
+\begin{definition}[Cauchy-Zufallsvariable]
+\justifying
+Sei $\upsilon$ eine Zufallsvariable mit Ergebnismenge $\mathbb{R}$ und
+Dichtefunktion
+\begin{equation}
+p : \mathbb{R} \to \mathbb{R}_{>0}, y \mapsto p(y)
+:= \frac{1}{\pi s}\left(1 + \left(\frac{y - \theta}{s} \right)^2 \right)^{-1}
+\end{equation}
+Dann heißt $\upsilon$ gemäß einer \textit{Cauchy-Verteilung} mit
+Lageparameter $\theta \in \mathbb{R}$ und Skalenparameter $s > 0$ verteilt,
+wofür wir $\upsilon \sim \mbox{C}(\theta,s)$ schreiben. Wir bezeichnen die
+Dichtefunktion einer Cauchy-Zufallsvariable mit
+\begin{equation}
+\mbox{C}(y;\theta,s)
+:= \frac{1}{\pi s}\left(1 + \left(\frac{y - \theta}{s} \right)^2 \right)^{-1}
+\end{equation}
+\end{definition}
+
+Bemerkungen
+\setstretch{1.6}
+
+* Cauchy-Verteilungen modellieren Phänomene mit höheren Wahrscheinlichkeiten für Extremwerte als die Gauß-Verteilung.
+* Sowohl der Erwartungswert als auch die Varianz einer Cauchy-Zufallsvariable sind nicht definiert.
+* Der Modus und der Median einer Cauchy-Zufallsvariable sind durch $\theta$ gegeben.
+* Das Verhältnis zweier standardnormalverteilter Zufallsvariablen ist gemäß $\mbox{C}(0,1)$ verteilt.
+
+# Numerische Inferenz
+```{r, echo = F, eval = F}
+# Parameter
+library(latex2exp)
+x_min     = -5
+x_max     = 5
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+theta     = c(0, 1, 1)
+s         = c(1, 1, 2)
+titles    = c(
+TeX("C(y;0,1)"),
+TeX("C(y;1,1)"),
+TeX("C(y;1,2)"))
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-cauchy-dichtefunktion.pdf",
+width     = 7,
+height    = 3)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, length(theta)),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.4)
+for (i in seq_along(theta)){
+  plot(
+  x,
+  dcauchy(x, theta[i], s[i]),
+  type      = "l",
+  lwd       = 1.5,
+  col       = "Black",
+  ylab      = " ",
+  xlab      = TeX("y"),
+  ylim      = c(0, .4))
+  title(titles[i])
+}
+dev.off()
+```
+\vfill
+Cauchy-Dichtefunktionen
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-cauchy-dichtefunktion.pdf")
+```
+\vfill
+
+
+# Numerische Inferenz
+\small
+\setstretch{1.2}
+
+Die Posterior-Verteilung ist zentral für die Bayesianische Inferenz.
+
+Prior und Likelihood sind Modellierungsentscheidungen, aber der Normierungsfaktor
+\begin{equation}
+p(y) = \smallint p(y|\theta)p(\theta)\,d\theta
+\end{equation}
+muss ausgewertet werden.
+
+In konjugierten Modellen ist die Auswertung des Posteriors analytisch handhabbar.
+
+In nicht-konjugierten Modellen ist dies möglicherweise nicht der Fall.
+
+Zum Beispiel ergeben $p(\theta) = N(\theta;\mu,\sigma^2)$ und $p(y|\theta) = \prod_{i=1}^n\mbox{C}(y_i;\theta,1)$
+\begin{equation}
+p(\theta|y)
+\propto \exp\left(-\frac{1}{2\sigma^2}(\theta - \mu)^2 \right)\prod_{i=1}^n \left(1 + (y_i - \theta)^2\right)^{-1}.
+\end{equation}
+Die rechte Seite kann nicht analytisch integriert werden.
+
+Selbst wenn die Posterior-Verteilung analytisch handhabbar ist, kann die Auswertung Bayesianischer Schätzer
+\begin{equation}
+\hat{\theta}_B
+= \mathbb{E}_{p(\theta|y)}(f(\theta))
+= \smallint f(\theta)p(\theta|y)\,d\theta
+\end{equation}
+analytisch unmöglich sein.
+
+$\Rightarrow$ Bayesianische Inferenz erfordert häufig Methoden zur numerischen Integration.
+
+# Numerische Inferenz
+\vfill
+Beispiel
+
+\small
+\center
+$p(\theta) := N(\theta;0,1)$ und $p(y_i|\theta) := \mbox{C}(y_i;\theta,1), i = 1,...,n$ für $n := 1$ und $y_1 := 2$
+
+```{r, echo = F, eval = F}
+# Parameter
+library(latex2exp)
+x_min     = -5
+x_max     = 5
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-normal-cauchy-beispiel-1.pdf",
+width     = 10,
+height    = 5)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, 3),
+mgp       = c(2, 1, 0),
+font.main = 2,
+cex.main  = 1,
+cex       = 1)
+plot(
+x,
+dnorm(x, 0, 1),
+type      = "l",
+lwd       = 1.5,
+col       = "Black",
+ylab      = " ",
+xlab      = TeX("$\\theta$"),
+ylim      = c(0, .4))
+title(TeX("$p(\\theta) = N(\\theta;0,1)$"))
+plot(
+x,
+dcauchy(x, 0, 1),
+type      = "l",
+lwd       = 1.5,
+col       = "Black",
+ylab      = " ",
+xlab      = TeX("$y$"),
+ylim      = c(0, .4))
+title(TeX("$p(y_1|0) = C(y_1;0,1)$"))
+plot(
+x,
+dnorm(x, 0, 1)*dcauchy(2, x, 1),
+type      = "l",
+lwd       = 1.5,
+col       = "Black",
+ylab      = " ",
+xlab      = TeX("$\\theta$"),
+ylim      = c(0, .045))
+title(TeX("$p(\\theta|2) \\propto N(\\theta;0,1)C(2;\\theta,1)$"))
+dev.off()
+```
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-normal-cauchy-beispiel-1.pdf")
+```
+\vfill
+
+
+# Numerische Inferenz
+\small
+\setstretch{1.2}
+Hier geben wir einen Überblick über die folgenden numerischen Integrationsmethoden
+
+* Quadraturansätze als klassische Mittel zur numerischen Integration,
+* die Laplace-Approximation als analytische Integralapproximationsmethode und
+* Monte-Carlo-Integration, d.h. numerische Integration durch Stichprobenziehung und Schätzung.
+
+\vspace{1mm}
+
+Zusätzlich betrachten wir
+
+* Importance Sampling
+* Acceptance-Rejection-Sampling
+
+als spezialisierte Stichprobenverfahren für Monte-Carlo-Integration.
+\vspace{3mm}
+
+Der Kürze halber verzichten wir darauf,
+
+* die Vor- und Nachteile verschiedener Methoden zu diskutieren,
+* Markov-Ketten-basierte Stichprobenverfahren (MCMC) zu betrachten.
+
+# Numerische Inferenz | Quadratur
+Quadratur
+\setstretch{1.5}
+\justifying
+
+... ist ein Synonym für deterministische numerische Integration.
+
+... ist ein Thema der numerischen Mathematik.
+
+... funktioniert typischerweise gut für niedrigdimensionale Integrationsprobleme.
+
+... umfasst viele verschiedene Methoden, wie etwa
+
+* Riemann-Summen
+* Trapezregel
+* Simpson-Regel
+* Newton-Cotes-Formeln
+
+Wir wiederholen kurz Riemann-Summen als Beispiel.
+
+
+# Numerische Inferenz | Quadratur
+\footnotesize
+\begin{definition}[Riemann-Summe und Riemann-Integral]
+\justifying
+Sei $f: [a,b] \to \mathbb{R}$ eine univariate reellwertige Funktion auf $[a,b]\subset \mathbb{R}$.
+Sei
+\begin{equation}
+P_n := \{[x_0,x_1],[x_1,x_2], ... , [x_{n-1},x_n]\}
+\end{equation}
+mit
+\begin{equation}
+a =: x_0 < x_1 < x_2 < \cdots < x_n := b
+\end{equation}
+eine Partition des Intervalls $[a,b]$. Dann ist die \textit{Riemann-Summe} $S_n$ von
+$f$ über dem Intervall $[a,b]$ basierend auf der Partition $P_n$ definiert als
+\begin{equation}
+S_n := \sum_{i = 1}^n f(x_i^*)\Delta x_i \mbox{ mit }
+\Delta x_i := x_i - x_{i-1} \mbox{ und }
+x_i^* \in [x_{i-1},x_i].
+\end{equation}
+Das \textit{bestimmte Riemann-Integral} von $f$ auf $[a,b]$ ist definiert als
+\begin{equation}
+\int_a^b f(x) \,dx
+= \lim_{\Delta x \to 0} \sum_{i = 1}^n f(x_i^*)\Delta x_i,
+\end{equation}
+falls der Grenzwert auf der rechten Seite existiert.
+\end{definition}
+Bemerkung
+
+* Eine grundlegende Quadraturidee ist es, Integrale durch Riemann-Summen zu approximieren.
+
+# Numerische Inferenz | Quadratur
+\footnotesize
+\begin{definition}[Linksregel, Rechtsregel, Mittelpunktregel]
+Sei $f: [a,b] \to \mathbb{R}$ und angenommen, das Ziel ist es, das Integral
+\begin{equation}
+I = \int_a^b f(x)\,dx
+\end{equation}
+mithilfe einer Riemann-Summe $S_n$ zu approximieren. Dann heißt das Setzen von
+\begin{itemize}
+\item $x^*_i := x_{i-1}$ die \textit{Linksregel},
+\item $x^*_i := x_i$ die \textit{Rechtsregel}, und
+\item $x^*_i := \frac{1}{2}(x_i + x_{i-1})$ die \textit{Mittelpunktregel}.
+\end{itemize}
+\end{definition}
+
+Bemerkungen
+
+* Für $\Delta x \to 0$ spielt die Wahl von $x^*_i$ für das Riemann-Integral keine Rolle.
+* Häufig werden Äquidistantzerlegungen der Form $\Delta x = (b-a)/n$ verwendet.
+* $f$ wird durch stückweise konstante Funktionen approximiert.
+
+# Numerische Inferenz | Quadratur
+\vspace{2cm}
+
+\begin{minipage}{.32\linewidth}
+\begin{center}
+Linksregel
+\vspace{2mm}
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-linksregel.pdf")
+```
+\end{center}
+\end{minipage}
+\begin{minipage}{.32\linewidth}
+\begin{center}
+Rechtsregel
+\vspace{2mm}
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-rechtsregel.pdf")
+```
+\end{center}
+\end{minipage}
+\begin{minipage}{.32\linewidth}
+\begin{center}
+Mittelpunktregel
+\vspace{2mm}
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-mittelpunktregel.pdf")
+```
+\end{center}
+\end{minipage}
+\vspace{1.5cm}
+
+\footnotesize
+\begin{flushright}
+\url{https://en.wikipedia.org/wiki/Riemann_sum}
+\end{flushright}
+
+# Numerische Inferenz | Quadratur
+Beispiele
+
+\footnotesize
+Numerische Integration univariater reellwertiger Funktionen in R mithilfe der Quadraturmethoden von @piessens1983
+\vspace{2mm}
+
+\tiny
+```{r}
+# Integral der Gaußschen Dichte auf ]-Inf,Inf[
+px = function(x,mu,sigsqr) {(1/sqrt(2*pi*sigsqr))*exp(-(1/(2*sigsqr))*(x-mu)^2)}
+cat("Integral von f(x) = N(x;2,3) auf ]-Inf,Inf[ :", integrate(px,-Inf,Inf  , mu = 2, sigsqr=3)$value, "\n")
+```
+\vspace{3mm}
+
+```{r}
+# Integral der Standard-Gauß-Dichte auf ]-1.96,1.96[
+px = function(x,mu,sigsqr) {(1/sqrt(2*pi*sigsqr))*exp(-(1/(2*sigsqr))*(x-mu)^2)}
+cat("Integral von f(x) = N(x;0,1) von -1.96 bis 1.96:", integrate(px,-1.96,1.96, mu = 0, sigsqr=1)$value, "\n")
+```
+\vspace{3mm}
+
+```{r}
+# Erwartungswert
+xpx = function(x,mu,sigsqr) {x*(1/sqrt(2*pi*sigsqr))*exp(-(1/(2*sigsqr))*(x-mu)^2)}
+cat("Integral von f(x) = xN(x;2,3) auf ]-Inf,Inf[ :", integrate(xpx,-Inf, Inf, mu = 2, sigsqr=3)$value, "\n")
+```
+\vspace{3mm}
+
+```{r}
+# Varianz
+xmm2px = function(x,mu,sigsqr) {((x-mu)^2)*(1/sqrt(2*pi*sigsqr))*exp(-(1/(2*sigsqr))*(x-mu)^2)}
+cat("Integral von f(x) = (x-2)^2N(x;2,3) auf ]-Inf,Inf[ :", integrate(xmm2px, -Inf,Inf,mu = 2,sigsqr=3)$value, "\n")
+```
+
+# Numerische Inferenz | Quadratur
+Beispiele
+
+\footnotesize
+Numerische Integration univariater reellwertiger Funktionen in R mithilfe der Quadraturmethoden von @piessens1983
+\vspace{2mm}
+\tiny
+```{r}
+# Normierungskonstante p(y) der unnormalisierten Gauß-Cauchy-Posterior-"Dichte" für n = 1 auf [-2,2]
+f = function(theta, mu, sigsqr,y_1) {exp(-(1/(2*sigsqr))*(theta-mu)^2)*(1/(1 + y_1 - theta)^2)}
+cat("Integral von N(theta;0,1)C(2;theta,1) auf [-2,2]:", integrate(f,-2,2,mu=0,sigsqr=1,y_1=2)$value, "\n")
+```
+\vspace{5mm}
+
+```{r}
+# Normalisierte Gauß-Cauchy-Posterior-"Dichte" für n = 1 auf [-2,2]
+py = integrate(f,-2,2,mu=0,sigsqr=1,y_1=2)$value
+g = function(theta, mu, sigsqr,y_1) {(1/py)*exp(-(1/(2*sigsqr))*(theta-mu)^2)*(1/(1 + y_1 - theta)^2)}
+cat("Integral von (1/p(2))*N(theta;0,1)C(2;theta,1) auf [-2,2]:", integrate(g,-2,2,mu=0,sigsqr=1,y_1=2)$value, "\n")
+```
+
+\vspace{5mm}
+```{r}
+# Erwartungswert der normalisierten Gauß-Cauchy-Posterior-"Dichte" für n = 1 auf [-2,2]
+h = function(theta, mu, sigsqr,y_1) {theta*(1/py)*exp(-(1/(2*sigsqr))*(theta-mu)^2)*(1/(1 + y_1 - theta)^2)}
+cat("Integral von theta*(1/p(2))*N(theta;0,1)C(2;theta,1) auf [-2,2]:", integrate(h,-2,2,mu=0,sigsqr=1,y_1=2)$value, "\n")
+```
+
+
+# Numerische Inferenz | Laplace-Approximation
+Die Laplace-Approximation
+
+* ... ist eine Methode zur Approximation posteriorer Erwartungswerte des Typs
+\begin{equation}
+\mathbb{E}_{p(\theta|y)}\left(f(\theta)\right)
+= \int f(\theta)p(\theta|y)\,d\theta,
+\end{equation}
+wie etwa des posterioren Erwartungswerts
+\begin{equation}
+\mathbb{E}_{p(\theta|y)} =
+\int \theta\, p(\theta|y)\,d\theta.
+\end{equation}
+* ... benötigt nicht die funktionale Form der Posterior-Verteilung.
+* ... ist eine Anwendung von \textit{Laplaces Integralapproximationsmethode}.
+
+
+# Numerische Inferenz | Laplace-Approximation
+\footnotesize
+\setstretch{1.2}
+\begin{definition}[Laplaces Integralapproximationsmethode]
+\justifying
+\normalfont
+Für eine univariate, reellwertige, konvexe und zweimal differenzierbare Funktion $f$ mit einem Minimum bei $\tilde{x}$ ist eine sinnvolle Approximation des Integrals
+\begin{equation}
+I_n = \int_{-\infty}^{\infty} \exp\left(-nf(x)\right) \,dx
+\end{equation}
+gegeben durch
+\begin{equation}
+I_n \approx \exp\left(-nf(\tilde{x})\right) \sqrt{\frac{2\pi}{n\kappa}},
+\end{equation}
+wobei
+\begin{equation}
+\kappa := f''(\tilde{x}) > 0
+\end{equation}
+die zweite Ableitung von $f$ an seiner Minimumstelle $\tilde{x}$ bezeichnet.
+\end{definition}
+
+Bemerkungen
+
+* Die Minimumstelle $\tilde{x}$ und $\kappa = f''(\tilde{x})$ müssen ausgewertet werden.
+* Die Approximation beruht auf einer Taylor-Approximation zweiter Ordnung von $f$ in $\tilde{x}$ und
+\begin{equation}
+\int_{-\infty}^{\infty} \exp\left(-a(x - b)^2 \right)\,dx = \sqrt{\pi/a}.
+\end{equation}
+* „Sinnvoll“ bedeutet, dass der Approximationsfehler für $n\to \infty$ abnimmt.
+
+
+# Numerische Inferenz | Laplace-Approximation
+\footnotesize
+\vspace{1mm}
+\setstretch{1}
+\underline{Motivation von Laplaces Integralapproximationsmethode}
+
+Betrachte die Taylor-Approximation zweiter Ordnung von $f$ in $\tilde{x}$,
+\begin{equation}
+f(x) \approx f(\tilde{x}) + f'(\tilde{x})(x - \tilde{x}) + \frac{1}{2}f''(\tilde{x})(x - \tilde{x})^2.
+\end{equation}
+Da $\tilde{x}$ ein Minimum von $f$ ist, gilt $f'(\tilde{x}) = 0$ und $\kappa := f''(\tilde{x}) > 0$. Wir haben dann
+\vspace{-1mm}
+\begin{tiny}
+\begin{align}
+\begin{split}
+I_n
+& = \smallint_{-\infty}^{\infty} \exp\left(-nf(x)\right) \,dx \\
+& \approx \smallint_{-\infty}^{\infty} \exp\left(-n\left(f(\tilde{x}) + \frac{1}{2}\kappa(x - \tilde{x})^2 \right)\right)\,dx \\
+& = \smallint_{-\infty}^{\infty} \exp\left(-nf(\tilde{x}) - \frac{n}{2}\kappa(x - \tilde{x})^2 \right)\,dx \\
+& = \smallint_{-\infty}^{\infty} \exp\left(-n f(\tilde{x}) \right)\exp\left(-\frac{n}{2}\kappa(x - \tilde{x})^2\right)\,dx \\
+& = \exp\left(-n f(\tilde{x}) \right)\smallint_{-\infty}^{\infty} \exp\left(-\frac{n\kappa}{2}(x - \tilde{x})^2\right)\,dx.
+\end{split}
+\end{align}
+\end{tiny}
+Mit
+\begin{equation}
+\smallint_{-\infty}^{\infty} \exp\left(-a(x - b)^2 \right)\,dx = \sqrt{\pi/a},
+\end{equation}
+folgt dann
+\begin{equation}
+I_n  = \exp\left(-n f(\tilde{x}) \right)\sqrt{\frac{2\pi}{n\kappa}}.
+\end{equation}
+
+
+
+# Numerische Inferenz | Laplace-Approximation
+\footnotesize
+\begin{definition}[Laplace-Approximation]
+Sei
+\begin{equation}
+p(\theta,y) = p(y|\theta)p(\theta)
+\end{equation}
+ein probabilistisches Modell mit skalarem Parameter $\theta$ und bezeichne $\upsilon = (\upsilon_1,..,\upsilon_n)$
+eine Zufallsstichprobe mit Dichte-/Wahrscheinlichkeitsfunktion $p(y_i|\theta)$ für $i = 1,...,n$. Betrachte
+das Problem der Auswertung eines Posterior-Verteilungserwartungswerts der Form
+\begin{equation}
+\mathbb{E}_{p(\theta|y)}\left(f(\theta)\right) \mbox{ für } f : \mathbb{R} \to \mathbb{R}, \theta \mapsto f(\theta).
+\end{equation}
+Eine sinnvolle Approximation eines solchen Merkmals ist gegeben durch
+\begin{equation}
+\mathbb{E}_{p(\theta|y)}\left(f(\theta)\right)
+\approx \sqrt{\frac{\kappa_1}{\kappa_2}}\exp\left(-n\left(h_2(\tilde{\theta}_2) - h_1(\tilde{\theta}_1)\right) \right),
+\end{equation}
+wobei
+\begin{align}
+\begin{split}
+h_1 : \mathbb{R} \to \mathbb{R}, \theta \mapsto h_1(\theta) & := - \ln f(\theta ) - \ln p(y_i|\theta) - \ln p(\theta) \\
+h_2 : \mathbb{R} \to \mathbb{R}, \theta \mapsto h_2(\theta) & := - \ln p(y_i|\theta) - \ln p(\theta),
+\end{split}
+\end{align}
+$\tilde{\theta}_1$ und $\tilde{\theta}_2$ Minimumstellen von $h_1$ bzw. $h_2$ sind, und
+\begin{equation}
+\kappa_1 := h_1''(\tilde{\theta}_1) > 0 \mbox{ und } \kappa_2 := h_2''(\tilde{\theta}_2) > 0.
+\end{equation}
+\end{definition}
+\vspace{-1mm}
+Bemerkungen
+\vspace{-1mm}
+
+* „Sinnvoll“ bedeutet, dass der Approximationsfehler für $n\to \infty$ abnimmt.
+* Wenn $\kappa_1,\kappa_2, \tilde{\theta}_1, \tilde{\theta}_2$ nicht analytisch verfügbar sind, werden sie numerisch ausgewertet.
+
+
+# Numerische Inferenz | Laplace-Approximation
+\footnotesize
+\underline{Motivation der Laplace-Approximation}
+
+Wir stellen zunächst fest, dass wir mit den Definitionen von $h_1$ und $h_2$ haben
+\vspace{-1mm}
+
+\begin{tiny}
+\begin{align}
+\begin{split}
+\mathbb{E}_{p(\theta|y)}(f(\theta))
+& = \smallint f(\theta)p(\theta|y)\,d\theta \\
+& = \smallint f(\theta)\frac{p(y|\theta)p(\theta)}{\smallint p(y|\theta)p(\theta) \,d\theta}\,d\theta \\
+& = \frac{\smallint f(\theta)p(y|\theta)p(\theta)\,d\theta}{\smallint p(y|\theta)p(\theta)\,d\theta} \\
+& = \frac{\smallint \exp\left(\ln\left(f(\theta)p(y|\theta)p(\theta)\right)\right)\,d\theta}{\smallint \exp\left(\ln\left(p(y|\theta)p(\theta)\right)\right)\,d\theta} \\
+& = \frac{\smallint \exp\left(\ln \left(f(\theta)\prod_{i=1}^n p(y_i|\theta)p(\theta)\right)\right)\,d\theta}{\smallint \exp\left(\ln \left(\prod_{i=1}^n p(y_i|\theta) p(\theta)\right)\right)\,d\theta} \\
+& = \frac{\smallint \exp\left(\ln \left(\prod_{i=1}^n f(\theta)p(y_i|\theta)p(\theta)\right)\right)\,d\theta}{\smallint \exp\left(\ln \left(\prod_{i=1}^n p(y_i|\theta) p(\theta)\right)\right)\,d\theta} \\
+& = \frac{\smallint \exp\left(n \ln f(\theta) + n \ln p(y_i|\theta) + n \ln p(\theta)\right)\,d\theta}{\smallint \exp\left(n \ln p(y_i|\theta) + n \ln p(\theta)\right)\,d\theta} \\
+& = \frac{\smallint \exp(-nh_2(\theta))\,d\theta}{\smallint \exp(-nh_1(\theta))\,d\theta}.
+\end{split}
+\end{align}
+\end{tiny}
+
+# Numerische Inferenz | Laplace-Approximation
+\footnotesize
+\underline{Motivation der Laplace-Approximation (Fortsetzung)}
+
+Anwendung von Laplaces Integralapproximationsmethode auf Zähler und Nenner von
+\begin{equation}
+\mathbb{E}_{p(\theta|y)}(\theta) =  \frac{\smallint \exp(-nh_2(\theta))\,d\theta}{\smallint \exp(-nh_1(\theta))\,d\theta}
+\end{equation}
+liefert dann
+\begin{align}
+\begin{split}
+\mathbb{E}_{p(\theta|y)}(\theta)
+& \approx
+\frac{\exp(-nh_1(\tilde{\theta_1}))\sqrt{\frac{2\pi}{n\kappa_1}}}{\exp(-nh_2(\tilde{\theta_2}))\sqrt{\frac{2\pi}{n\kappa_2}}} \\
+& = \sqrt{\frac{2\pi}{n\kappa_1}\frac{n\kappa_2}{2\pi}}\exp\left(-nh_1(\tilde{\theta}_1 + nh_2(\tilde{\theta}_2) \right)\\
+& = \sqrt{\frac{\kappa_1}{\kappa_2}}\exp\left(-n \left(h_1(\tilde{\theta}_1) - h_2(\tilde{\theta}_2)\right) \right).
+\end{split}
+\end{align}
+
+# Numerische Inferenz | Monte-Carlo Integration
+\setstretch{2}
+Monte-Carlo-Integration
+
+* ... ist ein Mittel zur Approximation von Integralen mithilfe zufälliger Stichprobenziehung.
+* ... war angeblich ein Codewort im Manhattan-Projekt.
+* ... wird für hochdimensionale Integration mit starker Lokalisierung verwendet.
+* ... ersetzt deterministische Stützpunkte durch zufällige Stützpunkte.
+
+# Numerische Inferenz | Monte-Carlo Integration
+\footnotesize
+\begin{definition}[Monte-Carlo-Schätzer, Monte-Carlo-Algorithmus]
+\justifying
+Für eine univariate stetige Zufallsvariable $\xi$ mit Verteilung $\mathbb{P}$ und
+Dichte $p$ und eine univariate reellwertige Funktion $f$ sei
+\begin{equation}
+I := \mathbb{E}_{\mathbb{P}}(f(\xi)) := \int_{\mathcal{X}} f(x)p(x)\,dx.
+\end{equation}
+Ferner seien $\xi_1,...,\xi_m$ eine Stichprobe unabhängiger Kopien
+von $\xi$. Dann heißt
+\begin{equation}
+\hat{I}_m = \frac{1}{m}\sum_{i=1}^m f(\xi_i)
+\end{equation}
+der \textit{Monte-Carlo-Schätzer} des Integrals $I$. Ein \textit{Monte-Carlo-Algorithmus}
+zur Gewinnung einer Monte-Carlo-Schätzung von $I$ ist gegeben durch
+\begin{itemize}
+\item[(1)] Ziehe $\xi_1,...,\xi_m \sim \mathbb{P}$.
+\item[(2)] Werte $\hat{I}_m = \frac{1}{m}\sum_{i=1}^m f(\xi_i)$ aus und gib ihn zurück.
+\end{itemize}
+\end{definition}
+
+# Numerische Inferenz | Monte-Carlo Integration
+\small
+\begin{theorem}[Unverzerrtheit und Konsistenz des Monte-Carlo-Schätzers]
+\normalfont
+Der Monte-Carlo-Schätzer ist unverzerrt und konsistent.
+\end{theorem}
+
+\footnotesize
+\underline{Beweis}
+\vspace{1mm}
+
+\textit{Unverzerrtheit}
+
+\begin{equation}
+\mathbb{E}_{\mathbb{P}}\left(\hat{I}_m \right)
+= \mathbb{E}_{\mathbb{P}}\left(\frac{1}{m}\sum_{i=1}^m f(\xi_i) \right)
+= \frac{1}{m}\sum_{i=1}^m \mathbb{E}_{\mathbb{P}}\left(f(\xi_i)\right)
+= \frac{1}{m} m \mathbb{E}_{\mathbb{P}}\left(f(\xi)\right)
+= \mathbb{E}_{\mathbb{P}}(f(\xi)).
+\end{equation}
+
+\textit{Konsistenz}
+
+Das schwache Gesetz der großen Zahlen besagt, dass
+\begin{equation}
+\lim_{n \to \infty} \mathbb{P}
+\left(\vert \frac{1}{m}\sum_{i=1}^m f(\xi_i) - \mathbb{E}_{\mathbb{P}}(f(\xi)) \vert \ge \epsilon\right) = 0
+\end{equation}
+was die Konsistenz des Schätzers $\hat{I}_m = \frac{1}{m}\sum_{i=1}^m f(\xi_i)$ impliziert
+
+$\hfill \Box$
+
+# Numerische Inferenz | Monte-Carlo Integration
+Beispiel
+
+\footnotesize
+
+Betrachte die Auswertung des Integrals
+\begin{equation}
+I = \int_0^1 f(x)\,dx \mbox{ für } f : \mathbb{R} \to \mathbb{R}, x \mapsto f(x) := x^2.
+\end{equation}
+Wir stellen zunächst fest, dass
+\begin{equation}
+\int_0^1 x^2\,dx  = \int_0^1 x^2 \cdot 1\,dx = \int_0^1 x^2 \cdot p(x)\,dx \mbox{ für } p(x) := 1, x \in [0,1].
+\end{equation}
+Eine Zufallsvariable $\xi$ mit Ergebnisraum $\mathcal{X} = [0,1]$ und $p(x):=1$ ist $\xi \sim U(0,1)$.
+
+Somit ist ein Monte-Carlo-Schätzer von $I$
+\begin{equation}
+\hat{I}_m = \frac{1}{m}\sum_{i = 1}^m  x^2_i,
+\end{equation}
+wobei $x_1,...,x_m$ $m$ unabhängige Realisierungen von
+Zufallsvariablen $\xi_1,...,\xi_m \sim U(0,1)$ bezeichnen.
+
+# Numerische Inferenz | Monte-Carlo Integration
+Beispiel (Fortsetzung)
+\footnotesize
+
+Analytisch haben wir mit der Stammfunktion $F(x) = \frac{1}{3}x^3$ von $f(x) = x^2$
+\begin{equation}
+I = \int_0^1 x^2\,dx = F(1) - F(0) = \frac{1}{3}1^3 - \frac{1}{3}0^3 = \frac{1}{3}.
+\end{equation}
+
+Numerische Integration mithilfe von Quadratur
+\vspace{1mm}
+\setstretch{1.2}
+```{r}
+f = function(x) {x^2}
+cat("Quadraturapproximation des Integrals von x^2 auf [0,1]:", integrate(f,0,1)$value, "\n")
+```
+\vspace{3mm}
+
+Numerische Integration mithilfe von Monte-Carlo-Schätzung
+\vspace{1mm}
+```{r}
+# Numerische Integration mithilfe von Monte-Carlo-Schätzung
+m      = 1e6
+x_i    = runif(m,0,1)
+I_hat  = mean(x_i^2)
+cat("Monte-Carlo-Schätzung des Integrals von x^2 auf [0,1]:",I_hat, "\n")
+```
+
+# Numerische Inferenz | Importance Sampling
+\setstretch{3}
+
+Importance Sampling
+
+* ... ist eine Methode zur Approximation von Erwartungswerten $\mathbb{E}_{p}\left(f(\xi)\right)$.
+* ... funktioniert durch Ziehen von Stichproben $\xi \sim q$ anstelle von $\xi \sim p$.
+* ... kann auch angewendet werden, wenn die Normierungskonstanten von $q$ und $p$ unbekannt sind.
+* ... kann verwendet werden, um die Varianz von Monte-Carlo-Schätzern zu reduzieren.
+
+# Numerische Inferenz | Importance Sampling
+\footnotesize
+\begin{theorem}[Importance-Sampling-Identität]
+\justifying
+\normalfont
+Seien $p$ und $q$ Dichtefunktionen auf $\mathcal{X} \subseteq \mathbb{R}$,
+sodass $q(x) > 0$ für alle $x \in \mathcal{X}$ mit $p(x)>0$. Dann gilt für jede
+Funktion $f : \mathcal{X} \to \mathbb{R}$
+\begin{equation}
+\mathbb{E}_{p}\left(f(\xi)\right) = \mathbb{E}_{q}\left(f(\xi)w(\xi)\right),
+\end{equation}
+wobei
+\begin{equation}
+w : \mathcal{X} \to \mathbb{R}_{>0}, x \mapsto w(x) := \frac{p(x)}{q(x)}
+\end{equation}
+die \textit{Importance-Gewichtsfunktion} bezeichnet.
+\end{theorem}
+
+\underline{Beweis}
+
+\begin{tiny}
+\begin{equation}
+\mathbb{E}_{p}\left(f(\xi)\right)
+= \int_{\mathcal{X}}f(x)p(x)\,dx
+= \int_{\mathcal{X}}f(x)\frac{p(x)}{q(x)}q(x)\,dx
+= \int_{\mathcal{X}}f(x)w(x)q(x)\,dx
+ =\mathbb{E}_{q}\left(f(\xi)w(\xi)\right)
+\end{equation}
+$\hfill \Box$
+\end{tiny}
+
+Bemerkungen
+
+* Beachte, dass der Erwartungswert von $f$ unter $p$ gleich dem Erwartungswert von $f\cdot w$ unter $q$ ist.
+* $p$ und $q$ werden als \textit{nominale Verteilung} bzw. \textit{Importance-Verteilung} bezeichnet.
+
+
+# Numerische Inferenz | Importance Sampling
+\footnotesize
+\setstretch{1.2}
+\begin{theorem}[Importance-Sampling-Schätzer]
+\normalfont
+\justifying
+Seien $p$ und $q$ Dichtefunktionen auf $\mathcal{X}\subseteq \mathbb{R}$
+und sei $f : \mathcal{X} \to \mathbb{R}$ eine Funktion, sodass
+\begin{equation}
+I := \mathbb{E}_{p}(f(\xi))
+\end{equation}
+existiert. Angenommen, $q(x) > 0$ für alle $x \in \mathcal{X}$ mit $p(x)f(x) \neq 0$. Schließlich sei angenommen, dass $\xi_1,...,\xi_m \sim q$.
+Dann ist
+\begin{equation}
+\hat{I}_m := \frac{1}{m}\sum_{i=1}^m f(\xi_i)w(\xi_i)
+\end{equation}
+ein unverzerrter und konsistenter Schätzer von $I$.
+\end{theorem}
+
+\footnotesize
+\underline{Beweis}
+
+Wir haben
+\begin{equation}
+\mathbb{E}_{q}\left(\hat{I}_m\right)
+= \mathbb{E}_{q}\left(\frac{1}{m}\sum_{i=1}^m f(\xi_i)w(\xi_i)\right)
+= \frac{1}{m} m \, \mathbb{E}_{q}\left(f(\xi_i)w(\xi_i)\right)
+= \mathbb{E}_{p}\left(f(\xi_i)\right)
+\end{equation}
+und daher ist der Schätzer unverzerrt. Konsistenz folgt mit dem Gesetz der großen Zahlen.
+
+$\hfill \Box$
+
+Bemerkungen
+
+* $\xi_1,...,\xi_m \sim q$ und $\hat{I}_m := \frac{1}{m}\sum_{i=1}^m f(\xi_i)\frac{p(\xi_i)}{q(\xi_i)}$ werden verwendet, um $\mathbb{E}_{p}(f(\xi))$ zu schätzen.
+
+# Numerische Inferenz | Importance Sampling
+\footnotesize
+\begin{theorem}[Normalisierte Importance-Sampling-Identität]
+\justifying
+\normalfont
+Für Normierungskonstanten $c_p,c_q$ seien $p := \tilde{p}/c_p$ und $q =\tilde{q}/c_q$
+Dichtefunktionen auf $\mathcal{X}\subseteq \mathbb{R}$, sodass $q(x) > 0$
+für alle $x \in \mathcal{X}$ mit $p(x)>0$. Dann gilt für jede Funktion $f : \mathcal{X} \to \mathbb{R}$
+\begin{equation}
+\mathbb{E}_{p}\left(f(\xi)\right)
+= \frac{\mathbb{E}_{q}\left(f(\xi)\tilde{w}(\xi)\right)}{\mathbb{E}_{q}\left(\tilde{w}(\xi)\right)},
+\end{equation}
+wobei $\tilde{w}$ die Importance-Gewichtsfunktion bezeichnet
+\begin{equation}
+\tilde{w} : \mathcal{X} \to \mathbb{R}_{>0}, x \mapsto \tilde{w}(x) := \frac{\tilde{p}(x)}{\tilde{q}(x)}.
+\end{equation}
+\end{theorem}
+Bemerkung
+
+* $\mathbb{E}_{p}\left(f(\xi)\right)$ wird hier auf Basis einer „unnormalisierten Dichte“ $\tilde{p} = c_pp$ geschätzt.
+
+# Numerische Inferenz | Importance Sampling
+\footnotesize
+\vspace{1mm}
+\underline{Beweis}
+\begin{align}
+\begin{split}
+\frac{\mathbb{E}_q\left(f(\xi)\tilde{w}(\xi)\right)}
+{\mathbb{E}_q\left(\tilde{w}(\xi)\right)}
+& =
+\frac{\mathbb{E}_q\left(f(\xi)\frac{\tilde{p}(\xi)}{\tilde{q}(\xi)}\right)}
+{\mathbb{E}_q\left(\frac{\tilde{p}(\xi)}{\tilde{q}(\xi)}\right)} \\
+& =
+\frac{\mathbb{E}_q\left(f(\xi)\frac{c_pc_q\tilde{p}(\xi)}{c_pc_q\tilde{q}(\xi)}\right)}
+{\mathbb{E}_q\left(\frac{c_pc_q\tilde{p}(\xi)}{c_pc_q\tilde{q}(\xi)}\right)} \\
+& =
+\frac{\mathbb{E}_q\left(f(\xi)\frac{c_qp(\xi)}{c_pq(\xi)}\right)}
+{\mathbb{E}_q\left(\frac{c_qp(\xi)}{c_pq(\xi)}\right)} \\
+& =
+\frac{\int_{\mathcal{X}} f(x)\frac{c_qp(x)}{c_pq(x)} q(x) \,dx}
+{\int_{\mathcal{X}} \frac{c_qp(x)}{c_pq(x)} q(x) \,dx} \\
+& =
+\frac{\int_{\mathcal{X}} f(x)\frac{c_qp(x)}{c_p} \,dx}
+{\int_{\mathcal{X}} \frac{c_qp(x)}{c_p} \,dx} \\
+& =
+\frac{\frac{c_q}{c_p}\int_{\mathcal{X}} f(x)p(x) \,dx}
+{\frac{c_q}{c_p} \int_{\mathcal{X}} p(x)\,dx} \\
+& =
+\smallint_{\mathcal{X}} f(x)p(x) \,dx
+= \mathbb{E}_{p}(f(\xi))
+\end{split}
+\end{align}
+
+# Numerische Inferenz | Importance Sampling
+\footnotesize
+\begin{definition}[Normalisierter Importance-Sampling-Schätzer]
+\normalfont
+\justifying
+Für eine unbekannte Normierungskonstante $c_p$ und $c_q := 1$ seien $p := \tilde{p}/c_p$ und $q := \tilde{q}/c_q$ Dichtefunktionen auf $\mathcal{X}\subseteq \mathbb{R}$, sodass $q(x) > 0$ für alle $x \in \mathcal{X}$ mit $p(x)>0$. Sei $f : \mathcal{X} \to \mathbb{R}$ eine Funktion, sodass
+\begin{equation}
+I := \mathbb{E}_{p}(f(\xi))
+\end{equation}
+existiert. Angenommen, $q(x) > 0$ für alle $x \in \mathcal{X}$ mit $p(x)f(x) \neq 0$. Schließlich sei angenommen, dass $\xi_1,...,\xi_m \sim q$. Dann heißt
+\begin{equation}
+\hat{I}_m := \frac{\sum_{i=1}^n f(\xi_i)\tilde{w}(\xi_i)}{\sum_{i=1}^n \tilde{w}(\xi_i)}
+\end{equation}
+der \textit{normalisierte Importance-Sampling-Schätzer} von $I$.
+\end{definition}
+
+Bemerkungen
+
+* $\xi_1,...,\xi_m \sim q$ und $\hat{I}_m$ werden verwendet, um $I$ für die „unnormalisierte Dichte“ $\tilde{p}$ zu schätzen.
+* Der Stichprobenmittelwertfaktor $m^{-1}$ kürzt sich im Bruch von $\hat{I}_m$ heraus.
+* Es kann gezeigt werden, dass $\hat{I}_m$ verzerrt, aber asymptotisch unverzerrt und konsistent ist.
+
+
+# Numerische Inferenz | Importance Sampling
+Beispiel
+\footnotesize
+\setstretch{1.5}
+
+* Wir betrachten die Approximation des posterioren Erwartungswerts eines Gauß-Gauß-Modells für $n:= 1$
+\begin{equation}
+p(y,\theta) = p(y|\theta)p(\theta) := N(y;\theta,\sigma^2_y)N(\theta;\mu_\theta,\sigma^2).
+\end{equation}
+* Wir betrachten somit die Approximation des Erwartungswerts von
+\begin{equation}
+\tilde{p}(\theta) := p(y|\theta)p(\theta) = N(y;\theta,\sigma^2_y)N(\theta;\mu_\theta,\sigma^2) \propto p(\theta|y).
+\end{equation}
+* Wir nehmen $y = 4$, $\sigma^2_y = 2$, $\mu_\theta := 0$, $\sigma_\theta^2 = 10$ an.
+* Aus den analytischen Ergebnissen in (2) Konjugierte Inferenz haben wir
+\tiny
+\begin{align*}
+\begin{split}
+\mathbb{E}_{p(\theta|y)}(\theta)
+= \left(\frac{n}{\sigma^2_y} + \frac{1}{\sigma^2_\theta} \right)^{-1}\left(\frac{\mu_\theta}{\sigma_\theta^2} + \frac{n\bar{y}}{\sigma^2_y}\right)
+= \left(\frac{1}{2} + \frac{1}{10} \right)^{-1}\left(\frac{0}{10} + \frac{4}{2}\right)
+= \frac{10\cdot 2}{6}
+\approx 3.3\bar{3}.
+\end{split}
+\end{align*}
+\footnotesize
+* Wir betrachten die Stichprobenziehung $\vartheta_1,...,\vartheta_m \sim N(0,1)$, d.h. $q(\theta):=N(\theta;0,1)$.
+* In Bezug auf den normalisierten Importance-Sampling-Schätzer haben wir somit
+\begin{equation}
+x := \theta, f = \mbox{id}_{\mathbb{R}}, \tilde{p}(\theta) := N(4;\theta,2)N(\theta;0,10), \tilde{q}(\theta) = N(\theta;0,1)
+\end{equation}
+und
+\begin{equation}
+\tilde{w}(\theta) := \frac{N(4;\theta,2)N(\theta;0,10)}{N(\theta;0,1)}
+\end{equation}
+
+# Numerische Inferenz | Importance Sampling
+Beispiel (Fortsetzung)
+\vspace{2mm}
+\setstretch{1.8}
+\tiny
+```{r}
+# Definition der Gewichtsfunktion
+w_tilde = function(theta) {(dnorm(4,theta, sqrt(2))*dnorm(theta,0,sqrt(10)))/dnorm(theta,0,1)}
+
+# Numerische Inferenz | Importance Sampling
+set.seed(11)                                                     # Startwert des Zufallszahlengenerators zur Reproduzierbarkeit
+m              = as.integer(1e6)                                 # Anzahl der Stichproben
+theta          = rnorm(m)                                        # Realisierungen von \vartheta_1,..., \vartheta_m
+w_tilde_theta  = w_tilde(theta)                                  # transformierte Realisierungen der Gewichtsfunktion
+I_hat          = sum(theta*w_tilde_theta)/sum(w_tilde_theta)     # normalisierter Importance-Sampling-Schätzer
+
+# Ergebnis
+cat("Approximierter posteriorer Erwartungswert:", sprintf("%.4f", I_hat), "\n")
+
+```
+
+# Numerische Inferenz | Acceptance-Rejection-Sampling
+\setstretch{2}
+Acceptance-Rejection-Sampling
+
+* ... ist eine Methode, um Stichproben aus $\upsilon \sim p_Y$ durch Stichprobenziehung $X \sim p_X$ zu erhalten.
+* ... ist eine algorithmische Alternative zur Wahrscheinlichkeitsintegraltransformation.
+* ... funktioniert durch strategisches Verwerfen von Stichproben aus $X$.
+* ... funktioniert durch Induktion eines Stichprobenbias in den Stichproben aus $X$.
+* ... kann in MC-Integration verwendet werden, wenn Stichprobenziehung aus dem Posterior schwierig ist.
+
+# Numerische Inferenz | Acceptance-Rejection-Sampling
+\setstretch{1}
+\footnotesize
+\begin{theorem}[Acceptance-Rejection-Sampling]
+\justifying
+\normalfont
+Seien $p_X$ und $p_Y$ zwei Dichtefunktionen, bezeichnet als \textit{Vorschlagsdichte} bzw. \textit{Zieldichte}, sodass
+\begin{itemize}
+\item[o] Zufallsstichproben von $X \sim p_X$ gewonnen werden können,
+\item[o] die Funktion $p_Y/p_X$ ausgewertet werden kann, und
+\item[o] $p_Y \le cp_X$ für eine Konstante $c \in \mathbb{R}$.
+\end{itemize}
+Betrachte den folgenden \textit{Acceptance-Rejection-Algorithmus}
+\begin{enumerate}
+\item Ziehe eine Realisierung $X \sim p_X$ der Vorschlagsdichte.
+\item Ziehe eine Realisierung $U \sim \mbox{U}(0,1)$ der Gleichverteilung auf $[0,1]$.
+\item Falls
+\begin{equation}
+U \le \frac{p_Y(X)}{cp_X(X)}
+\end{equation}
+gib $Y = X$ zurück. Andernfalls kehre zu Schritt 1 zurück.
+\end{enumerate}
+Dann ist $Y$ gemäß der Zieldichte verteilt, $Y \sim p_Y$.
+\end{theorem}
+Bemerkungen
+\begin{itemize}
+\justifying
+\item Beachte, dass der Algorithmus $X \sim p_X$ bedingt auf $U \le \frac{p_Y(X)}{cp_X(X)}$ zurückgibt.
+\item Die Aussage des Theorems kann somit äquivalent ausgedrückt werden als
+\begin{equation}
+\mathbb{P}\left(X \le x\bigg\vert U\le \frac{p_Y(X)}{cp_X(X)}\right) = \int_{-\infty}^x p_Y(\xi)\,d\xi.
+\end{equation}
+\end{itemize}
+
+# Numerische Inferenz | Acceptance-Rejection-Sampling
+\footnotesize
+\underline{Beweis}
+
+Wir wollen zeigen, dass die bedingte Verteilung von $X$ gegeben das Ereignis
+$U \le p_Y(X)/cp_X(X)$ der Zieldichte $p_Y$ entspricht. Zur Vereinfachung der Notation sei
+\begin{equation}
+f(X) := p_Y(X)/cp_X(X).
+\end{equation}
+Die bedingte Wahrscheinlichkeit des Ereignisses $X \le x$ gegeben das Ereignis $U \le f(X)$ kann dann geschrieben werden als
+\begin{equation}
+\mathbb{P}\left(X \le x \vert U \le f(X)\right)
+= \frac{\mathbb{P}\left(X \le x,  U \le f(X)\right)}{\mathbb{P}\left(U \le f(X)\right)}.
+\end{equation}
+Um den Zähler der rechten Seite oben auszuwerten, stellen wir zunächst fest, dass
+\begin{align}
+\begin{split}
+\mathbb{P}(X \le x, U \le f(X))
+& = \mathbb{P}(U \le f(X)|X \le x) \mathbb{P}(X \le x) \\
+& = \mathbb{P}(U \le f(x))\mathbb{P}(X \le x) \\
+& = \smallint_{-\infty}^x \mathbb{P}\left(U \le f(\xi) \right)p_X(\xi)\,d\xi.
+\end{split}
+\end{align}
+Mit der Verteilungsfunktion der stetigen Gleichverteilung auf $[0,1]$ und der Definition
+von $f(X)$ erhalten wir dann
+
+
+# Numerische Inferenz | Acceptance-Rejection-Sampling
+\footnotesize
+\setstretch{.8}
+\underline{Beweis (Fortsetzung)}
+
+\begin{align}
+\begin{split}
+\mathbb{P}(X \le x, U \le f(X))
+& = \smallint_{-\infty}^x \mathbb{P}\left(U \le f(\xi) \right)p_X(\xi)\,d\xi \\
+& = \smallint_{-\infty}^x f(\xi) p_X(\xi)\,d\xi \\
+& = \smallint_{-\infty}^x \frac{p_Y(\xi)}{cp_X(\xi)}p_X(\xi)\,d\xi \\
+& = \frac{1}{c}\smallint_{-\infty}^x p_Y(\xi)\,d\xi.
+\end{split}
+\end{align}
+Als Nächstes werten wir den Nenner oben aus und erhalten
+\begin{align}
+\begin{split}
+\mathbb{P}(U \le f(X))
+& = \smallint_{-\infty}^\infty \mathbb{P}(U \le f(X)|X = x) \mathbb{P}(X = x) \,dx \\
+& = \smallint_{-\infty}^\infty \mathbb{P}(U \le f(x))\mathbb{P}(X = x) \,dx \\
+& = \smallint_{-\infty}^\infty \mathbb{P}\left(U \le f(\xi) \right)p_X(\xi)\,d\xi \\
+& = \smallint_{-\infty}^\infty \frac{p_Y(\xi)}{cp_X(\xi)}p_X(\xi)\,d\xi\\
+& = \frac{1}{c}.
+\end{split}
+\end{align}
+
+# Numerische Inferenz | Acceptance-Rejection-Sampling
+\footnotesize
+\underline{Beweis (Fortsetzung)}
+
+Zusammenfassend erhalten wir
+\begin{equation}
+\mathbb{P}\left(X \le x \vert U \le f(X)\right)
+= \frac{\frac{1}{c}\int_{-\infty}^x p_Y(\xi)\,d\xi}{\frac{1}{c}}\,d\xi
+= \int_{-\infty}^x p_Y(\xi)
+\end{equation}
+
+Die bedingte Verteilung von $X$ gegeben $U \le \frac{p_Y(X)}{cp_X(X)}$ hat somit
+Dichte $p_Y$. Da wir die gemäß dieser Verteilung verteilte Zufallsvariable
+$Y$ nennen, haben wir $Y \sim p_Y$ erhalten.
+
+$\hfill \Box$
+
+
+#
+\large
+\vfill
+\setstretch{2.3}
+Das Bayesianische Paradigma
+
+Inferenzzusammenfassungen
+
+Konjugierte Inferenz
+
+Numerische Inferenz
+
+Variationale Inferenz
+\vfill
+
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{definition}[Variationales Inferenzproblem]
+\justifying
+Sei $\upsilon := (\upsilon_1,...,\upsilon_n)$ eine Menge beobachtbarer zufälliger
+Entitäten, und sei $\zeta := (\zeta_1,...,\zeta_m)$ eine Menge latenter zufälliger
+Variablen. Angenommen, $\upsilon$ und $\zeta$ bilden ein \textit{probabilistisches Modell}
+mit Dichte-/Wahrscheinlichkeitsfunktion
+\begin{equation}
+p(y,z) = p(y|z)p(z).
+\end{equation}
+Dann besteht das \textit{variationale Inferenzproblem} darin,
+\begin{itemize}
+\item[(1)] die bedingte Verteilung $p(z|y)$ und
+\item[(2)] die logarithmische Modellevidenz $\ln p(y) = \ln \int p(y,z)\,dz$
+\end{itemize}
+zu approximieren.
+\end{definition}
+
+Bemerkungen
+
+* Bedingte Dichten und marginale Likelihoods sind zentral in der Bayesianischen Inferenz.
+* Variationale Inferenz ist auch als Variational Bayes oder neuerdings als „variational autoencoding“ bekannt.
+* Die latenten Variablen können Parameter oder latente Zustände repräsentieren.
+* Es ist üblicher, dass $p(y,z)$ eine Dichtefunktion als eine Wahrscheinlichkeitsfunktion ist.
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{theorem}[Zerlegung der logarithmischen Modellevidenz]
+\justifying
+\normalfont
+Sei $p(y,z)$ ein probabilistisches Modell und sei $q(z)$ die Dichte-/Wahrscheinlichkeitsfunktion einer
+Verteilung über die latenten zufälligen Variablen, bezeichnet als \textit{variationale Verteilung}.
+Dann gilt die folgende Zerlegung der logarithmischen Modellevidenz
+\begin{equation}
+\ln p(y) = \mbox{ELBO}(q(z)) + \mbox{KL}(q(z)||p(z|y)),
+\end{equation}
+wobei
+\begin{equation}
+\mbox{ELBO}(q(z)) := \int q(z) \ln \left(\frac{p(y,z)}{q(z)}\right)\,dz
+\end{equation}
+als \textit{evidence lower bound}
+bezeichnet wird und
+\begin{equation}
+\mbox{KL}(q(z)||p(z|y)) := \int q(z) \ln \left(\frac{q(z)}{p(z|y)}\right)\,dz
+\end{equation}
+als \textit{Kullback-Leibler-Divergenz} zwischen $q(z)$ und $p(z|y)$
+bezeichnet wird.
+\end{theorem}
+Bemerkungen
+
+* Parameter von $q(z)$ werden als \textit{Variationsparameter} bezeichnet.
+* Die ELBO wird manchmal als \textit{variationelle freie Energie} bezeichnet.
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\underline{Beweis}
+
+Mit den Definitionen der evidence lower bound und der Kullback-Leibler-Divergenz haben wir
+\begin{align}
+\begin{split}
+\mbox{ELBO}(q(z))
+& = \int q(z) \ln \left(\frac{p(y,z)}{q(z)} \right) \,dz \\
+& = \int q(z) \ln \left(\frac{p(y)p(z|y)}{q(z)} \right) \,dz \\
+& = \int q(z) \ln p(y) \,dz + \int q(z) \ln \left(\frac{p(z|y)}{q(z)} \right) \,dz \\
+& = \ln p(y) \int q(z) \,dz  - \int q(z)\ln \left(\frac{q(z)}{p(z|y)} \right) \,dz \\
+& = \ln p(y) - \mbox{KL}(q(z) \vert \vert p(z|y)),
+\end{split}
+\end{align}
+woraus die Zerlegung der logarithmischen Modellevidenz unmittelbar folgt.
+$\hfill \Box$
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{theorem}[Kullback-Leibler-Divergenz]
+\justifying
+\normalfont
+Die \textit{Kullback-Leibler (KL)-Divergenz} zweier Dichten $q(z)$ und $p(z)$ ist definiert als
+\begin{equation}
+\mbox{KL}\left(q(z)||p(z)\right) := \int q(z) \ln \left(\frac{q(z)}{p(z)}\right)\,dz
+\end{equation}
+Sie dient als Unähnlichkeitsmaß von $q(z)$ und $p(z)$. Insbesondere gilt
+\begin{equation}
+\mbox{KL}\left(q(z)||p(z)\right) > 0 \mbox{ für } q(z) \neq p(z).
+\end{equation}
+und
+\begin{equation}
+\mbox{KL}\left(q(z)||p(z)\right) = 0 \mbox{ für } q(z) = p(z)
+\end{equation}
+\end{theorem}
+
+Bemerkungen
+
+* Die Nichtnegativität der KL-Divergenz ist zentral für variationale Inferenz.
+* Die KL-Divergenz ist keine Metrik, aber $\frac{1}{2}\left(\mbox{KL}\left(q(z)||p(z)\right) + \mbox{KL}\left(p(z)||q(z)\right)\right)$ ist eine.
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\underline{Beweis}
+\vspace{1mm}
+
+Wir stellen zunächst fest, dass für eine Dichte $q(z)$ und eine konvexe Funktion $f$ die Jensen-Ungleichung gilt, d.h.
+\begin{equation}
+\int q(z)f(z)\,dz \ge f\left(\int q(z) z \,dz \right).
+\end{equation}
+Da $\ln$ eine konkave Funktion ist und somit $-\ln$ eine konvexe Funktion ist, haben wir
+\begin{align}
+\begin{split}
+\mbox{KL}\left(q(z)||p(z)\right)
+& :=     \int q(z) \ln \left(\frac{q(z)}{p(z)} \right)\,dz 		\\
+&  =   - \int q(z) \ln \left(\frac{p(z)}{q(z)} \right)\,dz 		\\
+&  \ge - \ln \left(\int q(z) \frac{p(z)}{q(z)}\right) \,dz
+   =   - \ln \left(\int p(z)\right) \,dz
+   =   - \ln 1
+   =   0.
+\end{split}
+\end{align}
+Schließlich gilt für $q(z) = p(z)$
+\begin{equation}
+\mbox{KL}\left(q(z)||p(z)\right)
+= \int q(z) \ln \left(\frac{q(z)}{p(z)} \right)\,dz
+= \int q(z) \cdot \ln 1 \,dz
+= \int q(z) \cdot 0 \,dz
+= 0.
+\end{equation}
+
+
+# Variationale Inferenz | Grundlagen
+Beispiel
+
+KL-Divergenzen univariater Gauß-Verteilungen
+
+\footnotesize
+\begin{equation}
+\mbox{KL}\left(N(x;\mu_q,\sigma_q^2)||N(x;\mu_p,\sigma_p^2)\right), \mu_q := 0, \sigma_q^2 := 1.
+\end{equation}
+\vspace{1mm}
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("5-Abbildungen/psd-5-kl-gauss.pdf")
+```
+
+
+# Variationale Inferenz | Grundlagen
+Hintergrund
+\footnotesize
+
+\begin{theorem}[Jensen-Ungleichung, diskreter Fall]
+\justifying
+\normalfont
+Sei $f : \mathbb{R} \to \mathbb{R}$ eine konvexe Funktion auf $]a,b[$, d.h.,
+für $0 \le q \le 1$ und $x_1,x_2 \in ]a,b[$ gilt
+\begin{equation}
+qf(x_1) + (1-q)f(x_2) \ge f(qx_1 + (1-q)x_2),
+\end{equation}
+und seien $x_1,...,x_n \in ]a,b[$ und $q_1,...,q_n$ mit $q_i \ge 0$ und
+$\sum_{i=1}^n q_i = 1$. Dann gilt
+\begin{equation}
+\sum_{i=1}^n q_i f(x_i) \ge f\left(\sum_{i=1}^n q_i x_i\right)
+\end{equation}
+\end{theorem}
+
+Bemerkung
+
+* Intuitiv ergibt sich durch $n \to \infty$ und damit $q_i \mapsto q(x)$ mit $\smallint q(x)\,dx = 1$
+und $f(x_i) \mapsto f(x)$ für $x \in \mathbb{R}$
+\begin{equation}
+\smallint q(x)f(x)\,dx \ge f\left(\smallint q(x) x \,dx\right)
+\end{equation}
+
+
+# Variationale Inferenz | Grundlagen
+Hintergrund (Fortsetzung)
+\tiny
+
+\footnotesize
+\underline{Beweis}
+\vspace{1mm}
+
+Wir beweisen das Theorem durch Induktion bezüglich $n$.
+
+\textit{Induktionsanfang}
+\setstretch{1.8}
+
+Sei $n = 2$. Dann impliziert die Konvexität von $f$, dass für $q_1 := q$ und
+$q_2 := 1 - q$ mit $0 \le q \le 1$ und somit $q_i \ge 0,i = 1,2$ und $\sum_{i=1}^2 q_i = 1$ gilt
+\begin{align*}
+\begin{split}
+\sum_{i=1}^2 q_i f(x_i)
+& = q_1 f(x_1) + q_2f(x_2)        \\
+& = qf(x_1) + (1 - q)f(x_2) 			\\
+& \ge f(qx_1 + (1-q)x_2)          \\
+& = f(q_1 x_1 + q_2 x_2)          \\
+& = f\left(\sum_{i=1}^2 q_i x_i\right)
+\end{split}
+\end{align*}
+
+
+# Variationale Inferenz | Grundlagen
+Hintergrund (Fortsetzung)
+\footnotesize
+
+Wir nehmen an, dass die Induktionsvoraussetzung für ein $n = k$ gilt, d.h.
+\begin{equation}
+\sum_{i=1}^k q_if(x_i) \ge f\left(\sum_{i=1}^k q_ix_i\right)
+\end{equation}
+und dass für $q_i \ge 0, i = 1,...,k+1$ gilt
+\begin{align}
+\begin{split}
+\sum_{i=1}^{k+1}q_i
+& = 1
+\Leftrightarrow
+\\
+\sum_{i=1}^k q_i
+& = 1 - q_{k+1}
+\Leftrightarrow
+\\
+\frac{1}{1 - q_{k+1}} \sum_{i=1}^k q_i
+& = \frac{1 - q_{k+1}}{1 - q_{k+1}}
+\\
+\Leftrightarrow
+\sum_{i=1}^k \frac{q_i}{1 - q_{k+1}}
+& = 1.
+\end{split}
+\end{align}
+Wir haben dann durch zweimalige Verwendung der Konvexität von $f$
+
+# Variationale Inferenz | Grundlagen
+Hintergrund (Fortsetzung)
+
+\footnotesize
+\underline{Beweis}
+\begin{align}
+\begin{split}
+f\left(\sum_{i=1}^{k+1} q_i x_i\right)
+& = f\left(\sum_{i=1}^{k} q_i x_i + q_{k+1}x_{k+1}\right) \\
+& = f\left((1-q_{k+1})\sum_{i=1}^{k} \frac{q_i}{1 - q_{k+1}}x_i + q_{k+1}x_{k+1}\right) \\
+& \le (1-q_{k+1})f\left(\sum_{i=1}^{k} \frac{q_i}{1 - q_{k+1}}x_i\right) + q_{k+1}f(x_{k+1}) \\
+& \le (1-q_{k+1})\sum_{i=1}^{k} \frac{q_i}{1 - q_{k+1}}f(x_i) + q_{k+1}f(x_{k+1}) \\
+& =  \frac{1-q_{k+1}}{1 - q_{k+1}} \sum_{i=1}^{k} q_i f(x_i) + q_{k+1}f(x_{k+1})
+  =  \sum_{i=1}^{k+1} q_i f(x_i),
+\end{split}
+\end{align}
+sodass die Ungleichung auch für $n := k + 1$ gilt.
+$\hfill \Box$
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{theorem}[Evidence lower bound]
+\justifying
+\normalfont
+Die ELBO ist eine untere Schranke der logarithmischen Modellevidenz,
+\begin{equation}
+\mbox{ELBO}(q(z)) \le \ln p(y).
+\end{equation}
+\end{theorem}
+
+\underline{Beweis}
+\vspace{1mm}
+
+\footnotesize
+Die Eigenschaft der ELBO als untere Schranke folgt direkt aus der Zerlegung der logarithmischen Modellevidenz
+\begin{equation}
+\ln p(y) = \mbox{ELBO}(q(z)) + \mbox{KL}(q(z)||p(z|y))
+\end{equation}
+und der Nichtnegativität der KL-Divergenz
+\begin{equation}
+\mbox{KL}(q(z)||p(z|y)) \ge 0.
+\end{equation}
+$\hfill \Box$
+
+# Variationale Inferenz | Grundlagen
+Bemerkungen
+\setstretch{1.2}
+\small
+
+* Für einen festen Datensatz $y$ ist $\ln p(y)$ eine feste skalare Größe.
+
+```{r, echo = FALSE, out.width = "55%"}
+knitr::include_graphics("5-Abbildungen/psd-5-modellevidenz-zerlegung.pdf")
+```
+* Die ELBO-Eigenschaft legt zwei äquivalente Optionen zur Lösung des VI-Problems nahe.
+
+\begin{small}
+\begin{itemize}
+\item[(1)] Minimiere $\mbox{KL}(q(z)||p(z|y))$ bezüglich $q(z)$
+\begin{flushright}
+$\Rightarrow q(z) \to p(z|y) \mbox{ und } \mbox{ELBO}(q(z)) \to \ln p(y)$.
+\end{flushright}
+\item[(2)] Maximiere $\mbox{ELBO}(q(z))$ bezüglich $q(z)$
+\begin{flushright}
+$\Rightarrow \mbox{ELBO}(q(z)) \to \ln p(y) \mbox{ und } q(z) \to p(z|y)$.
+\end{flushright}
+\end{itemize}
+\end{small}
+
+* Variationale Inferenz folgt typischerweise dem letzteren Ansatz.
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{definition}[Mean-field-Variationsapproximation, Inferenz]
+\justifying
+Sei $\zeta = (\zeta_1,...,\zeta_m)$ die latenten Zufallsvariablen eines probabilistischen
+Modells im Rahmen des variationalen Inferenzproblems, und sei $\mathcal{S} := (\zeta_{s_1},...,\zeta_{s_S})$
+eine Partition von $\zeta$ in $S$ paarweise disjunkte Teilmengen, sodass $\cup_{i = 1}^S \zeta_{s_i} = \zeta$
+und  $\zeta_{s_i} \cap \zeta_{s_j} = \emptyset$ für $i \neq j$. Dann wird die Annahme, dass
+$\zeta_{s_1}, ..., \zeta_{s_S}$ Teilmengen unabhängiger Variablen bilden, d.h.,
+\begin{equation}
+q(z) := \prod_{i = 1}^S q(z_{s_i}),
+\end{equation}
+wobei $q(z_{s_i})$ die Dichte-/Wahrscheinlichkeitsfunktion der Verteilung der Elemente von
+$\zeta_{s_i}, i = 1,...,S$ bezeichnet, als \textit{Mean-field-Approximation}
+der variationalen Verteilung bezeichnet. Die Verwendung einer Mean-field-Approximation für die
+variationale Verteilung in variationaler Inferenz wird als
+\textit{Mean-field-Variationsinferenz} bezeichnet.
+\end{definition}
+
+Bemerkungen
+\setstretch{1.6}
+
+* Gängige Mean-field-Approximationen in variationaler Inferenz sind
+\begin{itemize}
+\begin{footnotesize}
+\item[o] $q(z) = \prod_{i = 1}^m q(z_i)$ (vollständige Faktorisierung)
+\item[o] $q(z) = q(z_s)q(z_{\setminus s})$, wobei $Z_s \subset \zeta$ und $\zeta_{\setminus s} := \zeta \setminus Z_s$ (binäre Faktorisierung)
+\end{footnotesize}
+\end{itemize}
+* Mean-field-Variationsinferenz vernachlässigt potenzielle Nicht-Unabhängigkeiten von $p(z|y)$.
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{theorem}[Free-form Mean-field-Variationsinferenz]
+\justifying
+\normalfont
+Sei $p(y,z)$ ein probabilistisches Modell, das beobachtbare Zufallsvariablen
+$\upsilon = (y_1,...,y_n)$ und latente Zufallsvariablen $\zeta = (\zeta_1,...,\zeta_m)$ umfasst. Sei $q(z)$
+eine variationale Verteilung und angenommen, dass $q(z)$ binär faktorisiert,
+d.h. $q(z) = q(z_s)q(z_{\setminus s})$ mit $Z_s \subset \zeta$
+und $\zeta_{\setminus s} := \zeta \setminus Z_s$. Dann maximiert das Setzen von
+\begin{equation}
+q(z_s) := \frac{1}{\gamma_s} \exp \left(\int q(z_{\setminus s}) \ln p(y,z) \,dz_{\setminus s}\right),
+\end{equation}
+wobei $\gamma_s$ eine von $z_s$ unabhängige Normierungskonstante bezeichnet,
+die evidence lower bound bezüglich $q(z_s)$.
+\end{theorem}
+
+Bemerkungen
+
+* \justifying Das Vertauschen der Rollen von $q(z_s)$ und $q(z_{\setminus s})$ maximiert die ELBO
+bezüglich $q(z_{\setminus s})$, was einen koordinatenweisen ELBO-Maximierungsansatz
+impliziert.
+* Die funktionale Form der maximierenden variationalen Verteilungen hängt von der
+rechten Seite der Proportionalitätsaussage ab, daher „free-form“.
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\underline{Beweis}
+\vspace{-2mm}
+
+Unten zeigen wir, dass für eine Mean-field-Approximation $q(z) = q(z_s)q(z_{\setminus s})$
+die ELBO umgeschrieben werden kann als
+\begin{equation}
+\mbox{ELBO}\left(q(z_s),q(z_{\setminus s})\right) =
+- \mbox{KL}\left(q(z_s) \bigg| \bigg| \frac{1}{\gamma_s} \exp \left(\smallint q(z_{\setminus s}) \ln p(y,z) \,dz_{\setminus s} \right) \right) - c,
+\end{equation}
+wobei $c \in \mathbb{R}$ eine Konstante ist, die nicht von $q(z_s)$ abhängt. Die Maximierung dieser
+negativen KL-Divergenz durch Setzen von
+\begin{equation}
+q(z_s) :=  \frac{1}{\gamma_s} \exp \left(\smallint q(z_{\setminus s}) \ln p(y,z) \,dz_{\setminus s} \right)
+\end{equation}
+maximiert somit $\mbox{ELBO}\left(q(z_s)q(z_{\setminus s})\right)$ bezüglich $q(z_s)$.
+\vspace{1mm}
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\underline{Beweis (Fortsetzung)}
+
+\textit{ELBO-Umformulierung}
+\vspace{-2mm}
+\begin{tiny}
+\begin{align*}
+\begin{split}
+& \mbox{ELBO}\left(q(z_s),q(z_{\setminus s})\right)                                                            \\
+& =  \iint{q(z_s)q(z_{\setminus s})\ln\left(\frac{p(y,z)}{q(z_s)q(z_{\setminus s})}\right)dz_s dz_{\setminus s}}				  \\
+& =  \iint{q(z_s)q(z_{\setminus s})\left(\ln p(y,z) - \ln q(z_s) - \ln q(z_{\setminus s})\right)}dz_sdz_{\setminus s}			\\
+& =  \iint{q(z_s)q(z_{\setminus s})\left(\ln p(y,z)-\ln q(z_s) \right)dz_{\setminus s}dz_s}
+   - \iint{q(z_s)q(z_{\setminus s})\ln q(z_{\setminus s})dz_sdz_{\setminus s}}												\\
+& =  \iint{q(z_s)q(z_{\setminus s})(\ln p(y,z)-\ln q(z_s))}dz_{\setminus s}dz_s
+	- \int{q(z_{\setminus s})\ln q(z_{\setminus s})}\left(\int q(z_s)dz_s\right) dz_{\setminus s} 							\\
+& =  \iint{q(z_s)q(z_{\setminus s})(\ln p(y,z)-\ln q(z_s))}dz_{\setminus s}dz_s
+	- \int{q(z_{\setminus s})\ln q(z_{\setminus s})}dz_{\setminus s} 															\\
+& =   \iint{q(z_s)q(z_{\setminus s})\ln p(y,z)}dz_{\setminus s}dz_s - \iint{q(z_s)q(z_{\setminus s})\ln q(z_s)dz_{\setminus s}dz_s}	+ c_1\\
+\end{split}
+\end{align*}
+\end{tiny}
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\setstretch{1.2}
+\vspace{2mm}
+\underline{Beweis (Fortsetzung)}
+\vspace{-3mm}
+\begin{tiny}
+\begin{align*}
+\begin{split}
+& =   \smallint{q(z_s)\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s} \right)}dz_s- \smallint{q(z_s)\ln q(z_s)\left(\smallint{q(z_{\setminus s})dz_{\setminus s}}\right)}dz_s + c_1 	\\
+& =   \smallint{q(z_s)\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s} \right)}dz_s - \smallint{q(z_s)\ln q(z_s)}dz_s + c_1 											\\
+& =   \smallint{q(z_s)\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s} \right)}dz_s - \smallint{q(z_s)\ln q(z_s)}dz_s
+ 	+ \smallint{q(z_s)} \ln \gamma_s dz_s - \smallint{q(z_s)} \ln \gamma_s dz_s + c_1 																			\\
+& = \smallint \left(q(z_s)\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s} \right) - q(z_s)\ln q(z_s) - q(z_s) \ln \gamma_s \right) dz_s  + c_2					\\
+& = \smallint q(z_s)\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s} - \ln q(z_s) - \ln \gamma_s \right)  dz_s  + c_2											\\
+& = \smallint q(z_s)\left(\ln\left(\exp\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s}  \right) \right)- \ln q(z_s) - \ln \gamma_s \right)  dz_s  + c_2			\\
+& = \smallint q(z_s) \left(\ln\left(\frac{\frac{1}{\gamma_s}\exp\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s} \right)}{q(z_s)} \right) \right) dz_s  + c_2	\\
+& = - \smallint q(z_s) \left(\ln\left(\frac{q(z_s)}{\frac{1}{\gamma_s}\exp\left(\smallint q(z_{\setminus s})\ln p(y,z) dz_{\setminus s} \right)} \right) \right) dz_s  + c_2	\\
+& = - \mbox{KL}\left(q(z_s) \bigg| \bigg| \frac{1}{\gamma_s} \exp \left(\smallint q(z_{\setminus s}) \ln p(y,z) \,dz_{\setminus s} \right), \right) + c_2
+\end{split}
+\end{align*}
+wobei wir definiert haben
+\begin{align}
+c_1 := - \smallint{q(z_{\setminus s})\ln q(z_{\setminus s})}dz_{\setminus s} \mbox{ und }
+c_2  :=  c_1  + \smallint q(z_s) \ln \gamma_s dz_s =   c_1  + \ln \gamma_s.
+\end{align}
+\end{tiny}
+
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{definition}[Coordinate-ascent variational inference (CAVI)]
+\justifying
+Sei $p(y,z)$ ein probabilistisches Modell, das beobachtbare Zufallsvariablen
+$\upsilon = (\upsilon_1,...,\upsilon_n)$ und latente Zufallsvariablen $\zeta = (\zeta_1,...,\zeta_m)$ umfasst.
+Sei $q(z)$ die Dichte-/Wahrscheinlichkeitsfunktion einer variationalen Verteilung und angenommen, dass $q(z)$
+binär faktorisiert. Dann maximiert der folgende Algorithmus, bezeichnet als
+\textit{coordinate-ascent variational inference}, die evidence lower bound:
+
+\vspace{2mm}
+\noindent Initialisierung
+
+\begin{itemize}
+\begin{justifying}
+\item[(0)] \justifying Initialisiere $q^{(0)}(z_s)$ und $q^{(0)}(z_{\setminus s})$ angemessen,
+z.B. durch Setzen von $q^{(0)}(z_s) := \smallint p(z)\,dz_{\setminus s}$ und
+$q^{(0)}(z_{\setminus s}) :=  \smallint p(z)\,dz_s$, werte
+$\mbox{ELBO}\left(q^{(0)}(z_s)q^{(0)}(z_{\setminus s})\right)$ aus und wähle ein
+Konvergenzkriterium $\delta > 0$.
+\end{justifying}
+\end{itemize}
+\vspace{1mm}
+
+\noindent Für $i = 0,1,2,...$ bis $|\mbox{ELBO}\left(q^{(i+1)}(z_s)q^{(i+1)}(z_{\setminus s})\right) -
+\mbox{ELBO}\left(q^{(i)}(z_s)q^{(i)}(z_{\setminus s})\right)| < \delta$
+
+\begin{itemize}
+\item[(1)] Setze $q^{(i+1)}(z_s) := \frac{1}{\gamma_s} \exp \left(\smallint q^{(i)}(z_{\setminus s}) \ln p(y,z) \,dz_{\setminus s} \right)$
+\item[(2)] Setze $q^{(i+1)}(z_{\setminus s}) := \frac{1}{\gamma_{\setminus s}} \exp \left(\smallint q^{(i+1)}(z_s) \ln p(y,z) \,dz_s \right)$
+\item[(3)] Werte $\mbox{ELBO}\left(q^{(i+1)}(z_s), q^{(i+1)}(z_{\setminus s})\right)$ aus.
+\end{itemize}
+Gib zurück
+$p(z|y) \approx q^{(i+1)}(z_s)q^{(i+1)}(z_{\setminus s}) \mbox{ und } \ln p(y) \approx \mbox{ELBO}\left(q^{(i+1)}(z_s)q^{(i+1)}(z_{\setminus s})\right)$.
+\end{definition}
+
+
+
+# Variationale Inferenz | Grundlagen
+
+Coordinate-ascent variationale Inferenz
+\vspace{1mm}
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-cavi.pdf")
+```
+
+
+# Variationale Inferenz | Grundlagen
+\footnotesize
+\begin{definition}[Fixed-form variationale Inferenz]
+\justifying
+\normalfont
+Sei $p(y,z)$ ein probabilistisches Modell, das beobachtbare Zufallsvariablen
+$\upsilon = (\upsilon_1,...,\upsilon_n)$ und latente Zufallsvariablen $\zeta = (\zeta_1,...,\zeta_m)$ umfasst.
+Sei $q_\theta(z)$ die Dichte-/Wahrscheinlichkeitsfunktion einer variationalen Verteilung von vordefinierter
+parametrischer Form mit Parameter $\theta \in \Theta$. Angenommen weiter, dass das resultierende
+Integral der evidence lower bound
+\begin{equation}
+\mbox{ELBO}(q_\theta(z)) = \int q_\theta(z) \ln \left(\frac{p(y,z)}{q_\theta(z)} \right) \,dz
+\end{equation}
+analytisch ausgewertet oder zumindest analytisch approximiert werden kann. Dann nimmt die
+evidence lower bound die Form einer reellwertigen Funktion an
+\begin{equation}
+f : \Theta \to \mathbb{R}, \theta \mapsto f(\theta) := \mbox{ELBO}(q_\theta(z))
+\end{equation}
+Die Maximierung von $f$ bezüglich $\theta$ maximiert somit die (approximative) evidence lower bound.
+\end{definition}
+
+Bemerkung
+
+* \justifying Die funktionale Form der variationalen Verteilung ist vordefiniert, zum Beispiel
+\begin{equation}
+q(z) := N(z; \theta_q,\Sigma_q),
+\end{equation}
+daher „fixed-form“.
+* Im Kontext des Free-Energy-Prinzips/Active Inference wird die Verwendung Gaußscher
+Verteilungen als variationale Verteilungen oft als *Variational Laplace* bezeichnet.
+
+
+# Variationale Inferenz | VI für das ALM
+\footnotesize
+\begin{definition}[Gamma-Zufallsvariable]
+\justifying
+Sei $\xi$ eine Zufallsvariable mit Ergebnisraum $\mathcal{X} := \mathbb{R}_{>0}$
+und Dichtefunktion
+\begin{equation}
+p : \mathbb{R}_{>0} \to \mathbb{R}_{>0},  x \mapsto p(x) :=
+\frac{1}{\Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}\exp\left(-\frac{x}{\beta}\right),
+\end{equation}
+wobei $\Gamma$ die Gammafunktion bezeichnet. Dann heißt $\xi$ gemäß einer
+\textit{Gamma-Verteilung mit Formparameter $\alpha >0$ und Skalenparameter
+$\beta > 0$} verteilt, wofür wir $\xi \sim G(\alpha,\beta)$ schreiben. Wir bezeichnen die Dichtefunktion
+einer gammaverteilten Zufallsvariable mit
+\begin{equation}
+G(x;\alpha,\beta) := \frac{1}{\Gamma(\alpha)\beta^{\alpha}}x^{\alpha-1}\exp\left(-\frac{x}{\beta}\right).
+\end{equation}
+\end{definition}
+
+Bemerkung
+
+* $G\left(\frac{n}{2},2\right)$ wird auch als $\chi^2$-Verteilung mit Freiheitsgradparameter $n$ bezeichnet.
+
+
+# Wahrscheinlichkeitsdichtefunktionen
+Dichtefunktionen der Gamma-Verteilung
+\vspace{1cm}
+
+```{r, echo = F, eval = F}
+# Parameter
+x_min     = 0
+x_max     = 10
+x_res     = 1e3
+x         = seq(x_min, x_max, len = x_res)
+shape     = c(1, 2, 5)
+scale     = c(1, 2, 1)
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-gamma-dichtefunktion.pdf",
+width     = 7,
+height    = 3)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, length(shape)),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.4)
+for (i in seq_along(shape)){
+  plot(
+  x,
+  dgamma(x, shape[i], scale[i]),
+  type      = "l",
+  lwd       = 1.5,
+  col       = "Black",
+  ylab      = " ",
+  xlab      = "x",
+  ylim      = c(0, 1))
+  title(sprintf("G(x; %g,%g)", shape[i], scale[i]))
+}
+dev.off()
+```
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("5-Abbildungen/psd-5-gamma-dichtefunktion.pdf")
+```
+
+# Variationale Inferenz | VI für das ALM
+\footnotesize
+\begin{definition}[Das allgemeine lineare Modell]
+\justifying
+Sei
+\begin{equation}\label{eq:alm}
+y = X\beta + \varepsilon,
+\end{equation}
+wobei
+\begin{itemize}
+\item $y$ einen $n$-dimensionalen beobachtbaren Zufallsvektor bezeichnet, der als \textit{Daten} bezeichnet wird,
+\item die Matrix $X \in \mathbb{R}^{n \times p}$ mit $p \le n$ als \textit{Designmatrix} bezeichnet wird,
+\item der Vektor $\beta \in \mathbb{R}^p$ als \textit{Beta-Parametervektor} bezeichnet wird, und
+\item $\varepsilon$ einen $n$-dimensionalen Zufallsvektor bezeichnet, der als \textit{Zufallsfehler} bezeichnet wird, mit
+\begin{equation}
+\varepsilon \sim N(0_n, \sigma^2I_n) \mbox{ und } \sigma^2 > 0.
+\end{equation}
+\end{itemize}
+Dann wird \eqref{eq:alm} als \textit{allgemeines lineares Modell in generativer Form} bezeichnet.
+\end{definition}
+Bemerkungen
+
+* Zur Erinnerung: Im frequentistischen Setting impliziert das GLM $p(y) = N(y;X\beta,\sigma^2I_n)$.
+* Zur Erinnerung: $X := 1_n \in \mathbb{R}^{n \times 1}$ und $\beta := \mu \in \mathbb{R}$ entspricht $n$ i.i.d. Stichproben einer univariaten Gauß-Verteilung.
+
+
+# Variationale Inferenz | VI für das ALM
+\footnotesize
+\begin{definition}[Gauß-Gamma-Regressionsmodell]
+\justifying
+Das \textit{Gauß-Gamma-Regressionsmodell} ist ein probabilistisches Modell in Dichteform
+\begin{equation}
+p(y,\beta,\lambda) = p(y|\beta,\lambda)p(\beta)p(\lambda),
+\end{equation}
+wobei
+\begin{align}
+p(y|\beta,\lambda) := N(y; X\beta, \lambda^{-1}I_n), \quad
+p(\beta) := N(\beta; 0_p, \alpha^{-1}I_p),	 \quad
+p(\lambda) := G(\lambda;\beta_\lambda, \gamma_\lambda),
+\end{align}
+wobei $y$ ein $n$-dimensionaler beobachteter Zufallsvektor ist, der Daten modelliert, $\beta$ ein
+$p$-dimensionaler unbeobachteter Zufallsvektor von Regressionsgewichten ist, $\lambda > 0$
+eine unbeobachtete Zufallsvariable ist, die die Datenrauschpräzision modelliert, $X \in \mathbb{R}^{n \times p}$
+eine Designmatrix ist, und $\alpha,\beta_\lambda,\gamma_\lambda > 0$ Hyperparameter sind.
+\end{definition}
+
+Bemerkungen
+
+* Der unbeobachtbare Zufallsvektor nimmt die Form $z = (\beta,\lambda)$ an.
+* Das Modell ist ein exemplarisches nicht-konjugiertes Bayesianisches Regressionsmodell.
+
+
+
+# Variationale Inferenz | VI für das ALM
+\footnotesize
+\begin{theorem}[Free-form VI für das Gauß-Gamma-Modell]
+\justifying
+\normalfont
+Die Anwendung des Theorems der free-form Mean-field-Variationsinferenz auf das
+Gauß-Gamma-Modell für die Mean-field-Approximation
+\begin{equation}
+q(\beta,\lambda) := q(\beta)q(\lambda)
+\end{equation}
+liefert den folgenden CAVI-Algorithmus:
+\vspace{2mm}
+
+\noindent \textit{Initialisierung}
+\begin{enumerate}
+\item [0.] Setze
+\begin{equation}
+q^{(0)}(\beta)   := N\left(\beta; m_\beta^{(0)}, S_\beta^{(0)}\right) \mbox{ und }
+q^{(0)}(\lambda) := G\left(\lambda; b_\lambda^{(0)}, c_\lambda^{(0)}\right)
+\end{equation}
+mit Variationsparametern
+\begin{equation}
+m_\beta^{(0)} := 0_p,\,
+S_\beta^{(0)} := \alpha^{-1}I_p
+\mbox{ und }
+b_\lambda^{(0)} := \beta_\lambda,\,
+c_\lambda^{(0)} := \frac{n}{2} + \gamma_\lambda,
+\end{equation}
+jeweils. Definiere ein Konvergenzkriterium $\Delta\mbox{ELBO} > 0$ und eine maximale Anzahl von Iterationen $n_i$.
+\end{enumerate}
+\end{theorem}
+
+
+
+# Variationale Inferenz | VI für das ALM
+\footnotesize
+\begin{theorem}[Free-form VI für das Gauß-Gamma-Modell (Fortsetzung)]
+\justifying
+\normalfont
+\textit{Iterationen}
+\vspace{1mm}
+
+Für $i = 1,...,n_i$ oder bis Konvergenz erreicht ist
+
+\begin{enumerate}
+\item \underline{$q(\beta)$-Update}
+
+\noindent Setze
+\begin{equation}
+q^{(i)}(\beta)   := N\left(\beta; m_\beta^{(i)}, S_\beta^{(i)}\right),
+\end{equation}
+wobei
+\begin{align}
+S_\beta^{(i)} := \left(b_\lambda^{(i-1)}c_\lambda^{(i-1)}X^T X + \alpha I_p \right)^{-1}
+\mbox{ und }\,
+m_\beta^{(i)} := b_\lambda^{(i-1)}c_\lambda^{(i-1)}S_\beta^{(i)}X^T y.
+\end{align}
+
+\item \underline{$q(\lambda)$-Update}
+
+\noindent Setze
+\begin{equation}
+q^{(i)}(\lambda) := G\left(\lambda; b_\lambda^{(i)}, c_\lambda^{(i)}\right),
+\end{equation}
+wobei
+\begin{equation}
+b_\lambda^{(i)} :=
+  \left(\frac{1}{2}
+  \left(\mbox{tr}\left(S_\beta^{(i)} X^T X \right)
++ \left(y - X m_\beta^{(i)}\right)^T\left(y - X m_\beta^{(i)} \right)\right)
++ \frac{1}{\beta_\lambda}\right)^{-1}
+\end{equation}
+und
+\begin{equation}
+c_\lambda^{(i)} := \frac{n}{2} + \gamma_\lambda.
+\end{equation}
+Beachte, dass $c_\lambda^{(i)}$ durchgehend konstant bleibt.
+
+\end{enumerate}
+\end{theorem}
+
+# Variationale Inferenz | VI für das ALM
+\footnotesize
+\begin{theorem}[Free-form VI für das Gauß-Gamma-Modell (Fortsetzung)]
+\justifying
+\normalfont
+\begin{enumerate}
+\item[3.] \underline{$\mbox{ELBO}\left(q(\beta),q(\lambda)\right)$-Update}
+
+\noindent Setze
+\begin{equation}
+\mbox{ELBO}^{(i)} := \mbox{ELBO}\left(q^{(i)}(\beta),q^{(i)}(\lambda)\right),
+\end{equation}
+wobei
+\begin{align}
+\mbox{ELBO}\left(q^{(i)}(\beta)q^{(i)}(\lambda)\right)
+& := L_{a}^{(i)}
+- \mbox{KL}\left(q^{(i)}(\beta) || p(\beta) \right)
+- \mbox{KL}\left(q^{(i)}(\lambda)||p(\lambda) \right),
+\end{align}
+wobei mit der Digamma-Funktion $\psi$, $L_{a}^{(i)}$ den durchschnittlichen Likelihood-Term bezeichnet
+\begin{align}
+L_{a}^{(i)} :=
+ & -\frac{n}{2} \ln 2 \pi
+   -\frac{1}{2} b_\lambda^{(i)}c_\lambda^{(i)}\left(y - X m_\beta^{(i)}\right)^T\left(x - X m_\beta^{(i)} \right) \\
+ & -\frac{1}{2} b_\lambda^{(i)}c_\lambda^{(i)}\mbox{tr}\left(S_\beta^{(i)} X^T X \right)
+   +\frac{n}{2} \psi\left(c_\lambda^{(i)}\right) + \ln b_\lambda^{(i)}
+\end{align}
+
+\item[4.] \underline{Konvergenzbeurteilung}
+
+Falls $i > 1$, werte $\Delta\mbox{ELBO} =  \mbox{ELBO}^{(i)} -  \mbox{ELBO}^{(i-1)}$ aus.
+Dann, falls $\Delta\mbox{ELBO} < 0$, gib eine Warnung aus und beende den Algorithmus, falls
+$0 < \Delta\mbox{ELBO} < \delta$, beende den Algorithmus und erkläre Konvergenz, andernfalls gehe zu 1.
+
+\end{enumerate}
+\end{theorem}
+
+Bemerkungen
+
+* Für eine Herleitung des Algorithmus siehe @penny2003.
+
+# Variationale Inferenz | VI für das ALM
+Beispiel
+\footnotesize
+\vspace{2mm}
+
+```{r}
+# Bibliotheken
+set.seed(1)                                    # Reproduzierbarkeit
+library(MASS)                                  # multivariate Gauß-Verteilung
+
+# wahre, aber unbekannte Modellformulierung
+n       = 10                                   # Anzahl der Datenpunkte
+p       = 1                                    # Anzahl der Beta-Parameter
+X       = matrix(rep(1,n), nrow = n)           # Designmatrix für n i.i.d. Gauß-Stichproben
+I_n     = diag(n)                              # n x n Identitätsmatrix
+beta    = 2                                    # wahrer, aber unbekannter Beta-Parameter
+lambda  = 1                                    # wahrer, aber unbekannter Parameter lambda = 1/sigsqr
+
+# Datenrealisierung
+y       = mvrnorm(1, X %*% beta, 1/lambda*I_n)
+print(y)
+```
+
+# Variationale Inferenz | VI für das ALM
+\vspace{2mm}
+Beispiel
+\footnotesize
+\vspace{2mm}
+
+
+
+```{r}
+# Formulierung des Prior-Unsicherheitsmodells
+mu_beta      = matrix(rep(0,p), nrow = p)      # Prior-Erwartungswert von beta
+alpha        = 1/10                            # Prior-Varianz von beta
+I_p          = diag(p)                         # p x p Identitätsmatrix
+beta_lambda  = 1                               # Prior-Formparameter von lambda
+gamma_lambda = 1                               # Prior-Skalenparameter von lambda
+```
+
+```{r, echo = F, eval = F}
+# Parameter
+library(latex2exp)
+x_beta_min   = -10
+x_beta_max   = 10
+x_lambda_min = 0
+x_lambda_max = 10
+x_res        = 1e3
+x_beta       = seq(x_beta_min, x_beta_max, len = x_res)
+x_lambda     = seq(x_lambda_min, x_lambda_max, len = x_res)
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-alm-prior.pdf",
+width     = 8,
+height    = 4)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, 2),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.2)
+plot(
+x_beta,
+dnorm(x_beta, 0, sqrt(10)),
+type      = "l",
+lwd       = 1.5,
+col       = "Black",
+ylab      = " ",
+xlab      = TeX("$\\beta$"),
+ylim      = c(0, .2))
+title(TeX("$N(\\beta; 0_p,\\alpha^{-1}I_p)$"))
+lines(
+2,
+0,
+type      = "p",
+pch       = 16,
+xpd       = TRUE)
+plot(
+x_lambda,
+dgamma(x_lambda, 1, 1),
+type      = "l",
+lwd       = 1.5,
+col       = "Black",
+ylab      = " ",
+xlab      = TeX("$\\lambda$"),
+ylim      = c(0, 1))
+title(TeX("$G(\\lambda;\\beta_{\\lambda},\\gamma_{\\lambda})$"))
+lines(
+1,
+0,
+type      = "p",
+pch       = 16,
+xpd       = TRUE)
+dev.off()
+```
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics("5-Abbildungen/psd-5-alm-prior.pdf")
+```
+\vspace{-5mm}
+\center
+$-$ Prior-Dichte, $\bullet$ Wahrer, aber unbekannter Wert
+
+# Variationale Inferenz | VI für das ALM
+Beispiel
+
+\tiny
+\vspace{1mm}
+\setstretch{.9}
+
+```{r}
+# Initialisierung
+# ------------------------------------------------------------------------------
+# Algorithmuseigenschaften
+n_i           = 2^3 + 1                   # maximale Anzahl von Iterationen
+delta         = 1e-1                      # Konvergenzkriterium
+
+# Initialisierung der (Hyper-)Parameterlisten
+m_beta        = list()                    # Erwartungswertparameter von q(\beta)
+S_beta        = list()                    # Kovarianzparameter von q(\beta)
+b_lambda      = list()                    # Formparameter von q(\lambda)
+c_lambda      = list()                    # Skalenparameter von q(\lambda)
+
+# Initialisierung des CAVI-Algorithmus
+m_beta[1]     = mu_beta                   # m_beta^{(0)}
+S_beta[1]     = alpha^{-1}*I_p            # S_beta^{(0)}
+b_lambda[1]   = beta_lambda               # b_lambda^{(0)}
+c_lambda[1]   = n/2 + gamma_lambda        # c_lambda^{(0)}
+
+
+# Iterationen
+# ------------------------------------------------------------------------------
+for(i in 2:n_i){
+
+  # q(\beta)-Update
+  S_beta[i]   = solve(b_lambda[[i-1]]*c_lambda[[i-1]]*t(X) %*% X + alpha*I_p)
+  m_beta[i]   = b_lambda[[i-1]]*c_lambda[[i-1]]*S_beta[[i]]*t(X) %*% y
+
+  # q(\lambda)-Update
+  b_lambda[i] = solve((1/2*sum(diag(S_beta[[i]]))* t(X) %*% X)
+                 + t(y - X %*% m_beta[[i]]) %*% (y - X %*% m_beta[[i]]) + 1/beta_lambda)
+  c_lambda[i] = n/2 + gamma_lambda
+
+}
+```
+
+# Variationale Inferenz | VI für das ALM
+Beispiel
+
+```{r, echo = F, eval = F}
+# Parameter
+library(latex2exp)
+x_beta_min   = -10
+x_beta_max   = 10
+x_lambda_min = 0
+x_lambda_max = 10
+x_res        = 1e3
+x_beta       = seq(x_beta_min, x_beta_max, len = x_res)
+x_lambda     = seq(x_lambda_min, x_lambda_max, len = x_res)
+
+# Visualisierung
+pdf(
+file      = "5-Abbildungen/psd-5-alm-posterior.pdf",
+width     = 8,
+height    = 4)
+par(
+family    = "sans",
+pty       = "s",
+bty       = "l",
+lwd       = 1,
+las       = 1,
+mfcol     = c(1, 2),
+mgp       = c(2, 1, 0),
+font.main = 1,
+cex.main  = 1.2)
+plot(
+x_beta,
+dnorm(x_beta, 0, sqrt(10)),
+type      = "l",
+lwd       = 1,
+col       = "Black",
+ylab      = " ",
+xlab      = TeX("$\\beta$"),
+ylim      = c(0, 1.5))
+title(TeX("$N\\left(\\beta; m_\\beta^{(i)}, S_\\beta^{(i)}\\right)$"))
+lines(
+2,
+0,
+type      = "p",
+pch       = 16,
+xpd       = TRUE)
+lines(
+x_beta,
+dnorm(x_beta, m_beta[[length(m_beta)]], sqrt(S_beta[[length(S_beta)]])),
+col       = "Red")
+lines(
+m_beta[[length(m_beta)]],
+0,
+type      = "p",
+pch       = 16,
+col       = "Red",
+xpd       = TRUE)
+plot(
+x_lambda,
+dgamma(x_lambda, 1, 1),
+type      = "l",
+lwd       = 1.5,
+col       = "Black",
+ylab      = " ",
+xlab      = TeX("$\\lambda$"),
+ylim      = c(0, 1))
+title(TeX("$G\\left(\\lambda;b_{\\lambda}^{(i)},c_{\\lambda}^{(i)}\\right)$"))
+lines(
+.1,
+0,
+type      = "p",
+pch       = 16,
+xpd       = TRUE)
+lines(
+x_lambda,
+dgamma(x_lambda, b_lambda[[length(b_lambda)]], c_lambda[[length(c_lambda)]]),
+col       = "Red")
+lines(
+b_lambda[[length(b_lambda)]]*c_lambda[[length(c_lambda)]],
+0,
+type      = "p",
+pch       = 16,
+col       = "Red",
+xpd       = TRUE)
+dev.off()
+```
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics("5-Abbildungen/psd-5-alm-posterior.pdf")
+```
+\vspace{-5mm}
+\center
+$\bullet$ Wahrer, aber unbekannter Wert, $-$ Prior-Dichte, \textcolor{red}{$-$} Posterior-Dichte, \textcolor{red}{$\bullet$} posteriorer Erwartungswert.
+
+
+# Referenzen {.allowframebreaks}
+\footnotesize

@@ -1,0 +1,683 @@
+---
+fontsize: 8pt
+format:
+    beamer:
+        include-in-header: "6-Header.tex"
+bibliography: 6-Referenzen.bib
+csl: https://www.zotero.org/styles/apa
+---
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics("6-Abbildungen/psd-6-otto.png")
+```
+
+\huge
+Psychometrische Diagnostik
+\vspace{3mm}
+
+\large
+MSc Psychologie
+
+MSc Umweltpsychologie / Mensch-Technik-Interaktion
+
+\vspace{2mm}
+SoSe 2026
+
+\vspace{1mm}
+\normalsize
+Prof. Dr. Dirk Ostwald
+
+
+# {.plain}
+\vfill
+\center
+\huge
+\textcolor{black}{(6) Modellvergleichskriterien}
+\vfill
+
+#
+\setstretch{1.6}
+\footnotesize
+\begin{table}[ht]
+\centering
+\footnotesize
+\begin{tabular}{llll}
+\toprule
+Kriterium
+& Formel
+& Approximand
+& Referenz
+\\
+\midrule
+AIC
+& $-2\ell(\hat{\theta}_n) + 2k$
+& $-2\,\mathbb{E}_{\tilde{y}}\!\left(\ln p(\tilde{y}\mid y)\right)$
+& Akaike (1974)
+\\
+AICc
+& $-2\ell(\hat{\theta}_n) + 2k + \frac{2k(k+1)}{n-k-1}$
+& $-2\,\mathbb{E}_{\tilde{y}}\!\left(\ln p(\tilde{y}\mid y)\right)$
+& Hurvich und Tsai (1989)
+\\
+BIC
+& $-2\ell(\hat{\theta}_n) + k\ln(n)$
+& $-2\ln p(y)$
+& Schwarz (1978)
+\\
+SABIC
+& $-2\ell(\hat{\theta}_n) + k\ln\left(\frac{n+2}{24}\right)$
+& $-2\ln p(y)$
+& Sclove (1987)
+\\
+CAIC
+& $-2\ell(\hat{\theta}_n) + k\left(\ln(n)+1\right)$
+& $-2\ln p(y)$
+& Bozdogan (1987)
+\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+# Akaike Information Criterion
+
+\footnotesize
+\begin{definition}[Kullback-Leibler-Informationskriterium]
+\justifying
+$y$ sei ein $d \times 1$-dimensionaler Datenvektor mit wahrer, aber unbekannter
+Wahrscheinlichkeitsdichtefunktion $g$ und $p_\theta$ sei die WDF eines
+parametrischen Inferenzmodells für die Verteilung von $y$ mit Parametervektor
+$\theta \in \Theta \subseteq \mathbb{R}^k$. Dann wird die Kullback-Leibler-Divergenz
+von $g$ und $p_\theta$ als Funktion von $\theta$,
+\begin{equation}
+K : \Theta \to [0,\infty[,
+\theta \mapsto K(\theta)
+:= \mbox{KL}(g || p_\theta)
+= \int g(y) \ln \left(\frac{g(y)}{p_\theta(y)}\right)\,dy,
+\end{equation}
+als \textit{Kullback-Leibler-Informationskriterium (KLIC)} bezeichnet.
+\end{definition}
+
+Bemerkung
+
+* Für festes $g$ hängt $K$ sowohl von $\theta$ als auch von der Modellklasse $\{p_\theta:\theta \in \Theta\}$ ab.
+* Intuitiv misst $K$ unsere Unwissenheit über die wahre, aber unbekannte, Verteilung $g$.
+
+# Akaike Information Criterion
+
+\footnotesize
+\begin{theorem}[Zerlegung des Kullback-Leibler-Informationskriteriums]
+\justifying
+\normalfont
+Das Kullback-Leibler-Informationskriterium kann äquivalent geschrieben werden als
+\begin{equation}
+K(\theta)
+= -\mathbb{H}(g) - \mathbb{E}_{g}\left(\ln p_\theta(y)\right),
+\end{equation}
+wobei
+\begin{equation}
+\mathbb{H}(g)
+:= -\int g(y)\ln g(y)\,dy
+\end{equation}
+die \textit{differentielle Entropie der wahren, aber unbekannten Verteilung von $y$}
+bezeichnet und
+\begin{equation}
+\mathbb{E}_{g}\left(\ln p_\theta(y)\right)
+:= \int g(y)\ln p_\theta(y)\,dy
+\end{equation}
+der \textit{erwartete Log-Likelihood-Wert unter der generativen Verteilung} ist.
+\end{theorem}
+
+\underline{Beweis}
+
+Es gilt
+\begin{align*}
+K(\theta)
+= \int g(y) \ln \left(\frac{g(y)}{p_\theta(y)}\right)\,dy
+= \int g(y)\ln g(y)\,dy - \int g(y)\ln p_\theta(y)\,dy
+= -\mathbb{H}(g)- \mathbb{E}_{g}\left(\ln p_\theta(y)\right).
+\end{align*}
+$\hfill\Box$
+
+
+# Akaike Information Criterion
+
+\footnotesize
+\begin{definition}[KLIC-Minimierer]
+\justifying
+Für $g$ und $p_\theta$ sei $K$ das Kullback-Leibler-Informationskriterium. Dann heißt
+eine Minimalstelle von $K$,
+\begin{equation}
+\theta_* \in \arg \min_{\theta \in \Theta} K(\theta),
+\end{equation}
+\textit{KLIC-Minimierer}.
+\end{definition}
+
+Bemerkung
+
+* $\theta_*$ ist der Parameterwert, für den $p_\theta$ der wahren, aber unbekannten Verteilung $g$ am nächsten kommt.
+* Da $-\mathbb{H}(g)$ nicht von $\theta$ abhängt, ist die Minimierung von $K(\theta)$ äquivalent zur Maximierung von $\mathbb{E}_{g}\left(\ln p_\theta(y)\right)$.
+
+
+# Akaike Information Criterion
+
+\vspace{2mm}
+\setstretch{1.2}
+\footnotesize
+\begin{definition}[Maximum-Likelihood-Schätzer]
+\justifying
+$p_\theta$ sei die WDF eines parametrischen Inferenzmodells für die Verteilung eines
+Datenvektors $y$. Für die gemeinsame WDF $\pi_\theta$ einer Stichprobe $y_1,...,y_n$ gelte
+\begin{equation}
+\pi_\theta(y_1,\dots,y_n) = \prod_{i=1}^n p_\theta(y_i).
+\end{equation}
+Dann heißt
+\begin{equation}
+\ell_n : \Theta \to \mathbb{R}, \theta \mapsto \ell_n(\theta)
+:= \frac{1}{n}\sum_{i=1}^n \ln p_\theta(y_i)
+\end{equation}
+die \textit{normierte Log-Likelihood-Funktion} von $y_1,\dots,y_n$ und
+\begin{equation}
+\hat{\theta}_n
+\in \arg \max_{\theta \in \Theta} \ell_n(\theta)
+\end{equation}
+heißt ein \textit{Maximum-Likelihood-Schätzer} von $\theta$.
+\end{definition}
+
+Bemerkungen
+
+* Da $\ell_n$ eine Funktion von $y_1,...,y_n$ ist, ist $\hat{\theta}_n$ eine Funktion von
+$y_1,...,y_n$, mnemonisch
+\begin{equation}
+\hat{\theta}_n
+= \hat{\theta}_n(y_1,\dots,y_n).
+\end{equation}
+* Die Normierung mit $1/n$ ändert den Maximierer nicht, erleichtert aber die
+  asymptotische Darstellung.
+
+
+# Akaike Information Criterion
+
+\vspace{3mm}
+\setstretch{1.2}
+\footnotesize
+\begin{theorem}[Eigenschaften eines Maximum-Likelihood-Schätzers]
+\justifying
+\normalfont
+Die WDF der gemeinsamen Verteilung von Datenvektor $y_1,...,y_n$ unter einem
+Inferenzmodell $p_\theta$ sei
+\begin{equation}
+\pi_{\theta}(y_1,\dots,y_n)
+= \prod_{i=1}^n p_{\theta}(y_i).
+\end{equation}
+Sei $\hat{\theta}_n$ ein Maximum-Likelihood-Schätzer des wahren, aber unbekannten, Parameters $\theta_0$. Dann gelten:
+\begin{itemize}
+\item[(1)] $\hat{\theta}_n$ ist ein konsistenter Schätzer von $\theta_0$, also
+\begin{equation}
+\lim_{n\to \infty}
+\mathbb{P}
+\left(\left\Vert \hat{\theta}_n-\theta_0 \right\Vert > \epsilon \right)
+= 0
+\quad
+\Leftrightarrow
+\quad
+\hat{\theta}_n \xrightarrow{P} \theta_0
+\quad \mbox{für } n \to \infty .
+\end{equation}
+\item[(2)] $\hat{\theta}_n$ ist asymptotisch normalverteilt. Speziell gelten mit
+\begin{equation}
+S(\theta)
+:= \nabla_\theta \ln p_\theta(y)
+\mbox{ und }
+I(\theta)
+:= \mathbb{E}_{p_\theta(y)}
+\left(
+S(\theta)S(\theta)^T
+\right)
+\end{equation}
+dass
+\begin{equation}
+\sqrt{n}\left(\hat{\theta}_n-\theta_0\right)
+\stackrel{a}{\sim}
+N\left(0_k, I(\theta_0)^{-1}\right).
+\end{equation}
+\end{itemize}
+\end{theorem}
+
+\vspace{-1mm}
+Bemerkungen
+\vspace{-1mm}
+
+* Für einen Beweis verweisen wir auf @konishi2008, Abschnitt 3.3.
+
+# Akaike Information Criterion
+
+\vspace{2mm}
+\setstretch{1.2}
+\footnotesize
+\begin{definition}[Quasi-Maximum-Likelihood-Schätzer]
+\justifying
+$g$ sei die wahre, aber unbekannte WDF der Verteilung von $n$ unabhängige verteilten
+Datenvektoren $y_1,\dots,y_n$, so dass für die gemeinsame WDF $\gamma$ der $y_1,\dots,y_n$ gilt, dass
+\begin{equation}
+\gamma(y_1,\dots,y_n)
+= \prod_{i=1}^n g(y_i).
+\end{equation}
+$p_\theta$ sei die WDF eines parametrischen Inferenzmodells für die Verteilung
+eines solchen $y_i$ und für die gemeinsame WDF $\pi_\theta$ der $y_1,\dots,y_n$
+unter diesem Inferenzmodell gelte ebenfalls
+\begin{equation}
+\pi_\theta(y_1,\dots,y_n)
+= \prod_{i=1}^n p_\theta(y_i).
+\end{equation}
+Dann heißt
+\begin{equation}
+\ell_n : \Theta \to \mathbb{R},
+\qquad
+\theta \mapsto \ell_n(\theta)
+:= \frac{1}{n}\sum_{i=1}^n \ln p_\theta(y_i)
+\end{equation}
+die \textit{Quasi-Log-Likelihood-Funktion} von $y_1,\dots,y_n$ und
+\begin{equation}
+\hat{\theta}_n
+\in \arg \max_{\theta \in \Theta} \ell_n(\theta)
+\end{equation}
+heißt ein \textit{Quasi-Maximum-Likelihood-Schätzer} von $\theta$.
+\end{definition}
+
+Bemerkung
+
+* Da $\ell_n$ eine Funktion von $y_1,...,y_n$ ist, ist $\hat{\theta}_n$ eine Funktion von
+$y_1,...,y_n$, mnemonisch
+\begin{equation}
+\hat{\theta}_n = \hat{\theta}_n(y_1,\dots,y_n).
+\end{equation}
+
+
+# Akaike Information Criterion
+
+\vspace{3mm}
+\setstretch{1.2}
+\footnotesize
+\begin{theorem}[Eigenschaften eines Quasi-Maximum-Likelihood-Schätzers]
+\justifying
+\normalfont
+Die wahre, aber unbekannte WDF der gemeinsamen Verteilung von Datenvektoren
+$y_1,\dots,y_n$ sei gegeben durch
+\begin{equation}
+\gamma(y_1,\dots,y_n)
+= \prod_{i=1}^n g(y_i).
+\end{equation}
+Das parametrische Inferenzmodell sei
+\begin{equation}
+\pi_\theta(y_1,\dots,y_n)
+= \prod_{i=1}^n p_\theta(y_i).
+\end{equation}
+Sei $\theta_*$ der eindeutige KLIC-Minimierer und $\hat{\theta}_n$ ein
+Quasi-Maximum-Likelihood-Schätzer. Dann gelten:
+\begin{itemize}
+\item[(1)] $\hat{\theta}_n$ ist ein konsistenter Schätzer von $\theta_*$, also
+\begin{equation}
+\lim_{n\to \infty}
+\mathbb{P}
+\left(\left\Vert \hat{\theta}_n-\theta_* \right\Vert > \epsilon \right)
+= 0
+\quad
+\Leftrightarrow
+\quad
+\hat{\theta}_n \xrightarrow{P} \theta_*
+\quad \mbox{für } n \to \infty .
+\end{equation}
+\item[(2)] $\hat{\theta}_n$ ist asymptotisch normalverteilt. Speziell gelten mit
+\begin{equation*}
+S(\theta) := \nabla_\theta \ln p_\theta(y),
+I(\theta)
+:= \mathbb{E}_{g(y)}
+\left(
+S(\theta)S(\theta)^T
+\right)
+\mbox{ und }
+J(\theta)
+:= -\mathbb{E}_{g(y)}
+\left(
+\nabla_\theta^2 \ln p_\theta(y)
+\right),
+\end{equation*}
+gilt
+\begin{equation}
+\sqrt{n}\left(\hat{\theta}_n-\theta_*\right)
+\xrightarrow{d}
+\mathcal{N}
+\left(
+0_k,
+J(\theta_*)^{-1}I(\theta_*)J(\theta_*)^{-1}
+\right).
+\end{equation}
+\end{itemize}
+\end{theorem}
+
+\vspace{-1mm}
+Bemerkungen
+\vspace{-1mm}
+
+* Für einen Beweis verweisen wir auf @konishi2008, Abschnitt 3.3.
+
+# Akaike Information Criterion
+
+\footnotesize
+\begin{definition}[KLIC-basiertes Modellvergleichskriterium]
+\justifying
+$g$ sei die WDF der wahren, aber unbekannten Verteilung eines $d \times 1$-dimensionalen
+Datenvektors $y$, $p_{\theta}$ sei die WDF eines parametrischen Inferenzmodells für
+$y$ mit Parametervektor $\theta \in \Theta \subseteq \mathbb{R}^{k}$ und
+$\hat{\theta}_n$ sei ein Quasi-Maximum-Likelihood-Schätzer von $\theta$.
+Dann gilt für $y$ unabhängig von $y_1,...,y_n$
+\begin{equation}
+K(\hat{\theta}_n)
+= -\mathbb{H}(g) - \mathbb{E}_{g(y)}\left(\ln p_{\hat{\theta}_n}(y)\right).
+\end{equation}
+und
+\begin{equation}
+\mbox{K}
+:=
+\mathbb{E}_{g(y)}\left(\ln p_{\hat{\theta}_n}(y)\right)
+=
+\int g(y)\ln p_{\hat{\theta}_n}(y)\,dy.
+\end{equation}
+wird \textit{KLIC-basiertes Modellvergleichskriterium} des frequentistischen Inferenzmodells genannt.
+\end{definition}
+
+Bemerkung
+
+* Die Wahl von $\hat{\theta}_n \in \Theta$ ist durch seine Konsistenz für $\theta_*$ gerechtfertigt.
+* $-\mathbb{H}(g)$ ist für beliebige Modelle $p_\theta$ identisch.
+* Je größer $\mbox{K}$, desto näher ist Modell $p_{\hat{\theta}_n}$ dem wahren, aber unbekannten Modell $g$.
+* $\mbox{K}$ ist unbekannt und muss geschätzt werden, da $g$ unbekannt ist.
+
+
+# Akaike Information Criterion
+
+\footnotesize
+\begin{theorem}[MC-Schätzer des KLIC-basierten Modellvergleichskriteriums]
+\justifying
+\normalfont
+$g$ sei die WDF der wahren, aber unbekannten Verteilung eines $d \times 1$-dimensionalen
+Datenvektors $y$, $p_{\theta}$ sei die WDF eines parametrischen Inferenzmodells für
+$y$ mit Parametervektor $\theta \in \Theta \subseteq \mathbb{R}^{k}$ und
+$\hat{\theta}_n$ sei ein Quasi-Maximum-Likelihood-Schätzer von $\theta$.
+Dann ist der Monte-Carlo-Schätzer
+\begin{equation}
+\hat{\mbox{K}}
+:= \ell_n(\hat{\theta}_n)
+ = \frac{1}{n}\sum_{i=1}^n \ln p_{\hat{\theta}_n}(y_i)
+\end{equation}
+für das KLIC-basierte Modellvergleichskriterium
+\begin{equation}
+\mbox{K}
+:=
+\mathbb{E}_{g(y)} \left(\ln p_{\hat{\theta}_n}(y)\right)
+\end{equation}
+ein verzerrter Schätzer von $\mbox{K}$. Speziell gilt für den Bias $B(\hat{\mbox{K}})$
+von $\hat{\mbox{K}}$, dass
+\begin{equation}
+B(\hat{\mbox{K}})
+=
+\mathbb{E}_{\gamma(y_1,\dots,y_n)}
+\left(
+\hat{\mbox{K}}
+-
+\mathbb{E}_{g(y)}
+\left(
+\ln p_{\hat{\theta}_n}(y)
+\right)
+\right)
+= \frac{1}{n}
+\mathbb{E}_{\gamma(y_1,\dots,y_n)}
+\left(
+\ln \pi_{\hat{\theta}_n}(y_1,\dots,y_n)
+-n\mathbb{E}_{g(y)}
+\left(
+\ln p_{\hat{\theta}_n}(y)
+\right)
+\right).
+\end{equation}
+und asymptotisch
+\begin{equation}
+nB(\hat{\mbox{K}})
+\to
+\mbox{tr}
+\left(
+I(\theta_*)J(\theta_*)^{-1}
+\right)
+\qquad
+\mbox{für } n \to \infty.
+\end{equation}
+\end{theorem}
+Bemerkung
+
+* Für einen Beweis verweisen wir auf @konishi2008, Abschnitt 3.4.
+
+
+# Akaike Information Criterion
+
+\footnotesize
+\begin{theorem}[Akaike Information Criterion]
+\justifying
+\normalfont
+$g$ sei die WDF der wahren, aber unbekannten Verteilung eines $d \times 1$-dimensionalen
+Datenvektors $y$, $p_{\theta}$ sei die WDF eines parametrischen Inferenzmodells für
+$y$ mit Parametervektor $\theta \in \Theta \subseteq \mathbb{R}^{k}$ für ein
+eindeutiges $\theta_0 \in \Theta$ gelte
+\begin{equation}
+g(y) = p_{\theta_0}(y).
+\end{equation}
+Dann gelten
+\begin{equation}
+I(\theta_0) = J(\theta_0)
+\mbox{ und }
+\mbox{tr}\left(I(\theta_0)J(\theta_0)^{-1}\right)=k
+\end{equation}
+und
+\begin{equation}
+\mbox{AIC}
+:= \ell_n(\hat{\theta}_n)-\frac{k}{n}
+= \frac{1}{n}\sum_{i=1}^n \ln p_{\hat{\theta}_n}(y_i) -\frac{k}{n}
+\end{equation}
+ein asymptotisch erwartungstreuer Schätzer von $\mbox{K}$.
+\end{theorem}
+
+Bemerkung
+
+* Verwendung der unnormierten Log-Likelihood
+\begin{equation}
+\ell(\hat{\theta}_n)=n\ell_n(\hat{\theta}_n)
+\end{equation}
+resultiert in der äquivalenten
+Minimierungskonvention
+\begin{equation}
+\mbox{AIC}_{-2}
+:=
+-2n\,\mbox{AIC}
+=
+-2\ell(\hat{\theta}_n)+2k.
+\end{equation}
+
+# Akaike Information Criterion
+
+
+
+Hurvich und Tsai (1989) schlagen eine Korrektur der AIC-Formel vor, um die Verzerrung des AIC-Schätzers für kleine Stichproben zu reduzieren. Das resultierende Kriterium, das als AICc bezeichnet wird, ist definiert als
+\begin{equation}
+\mbox{AICc}
+:= \mbox{AIC} + \frac{2k(k+1)}{n-k-1}
+= -2\ell(\hat{\theta}_n) + 2k + \frac{2k(k+1)}{n-k-1}.
+\end{equation}
+Die AICc-Formel enthält einen zusätzlichen Term, der die Anzahl der Parameter $k$ und die Stichprobengröße $n$ berücksichtigt. Für große Stichproben nähert sich die AICc-Formel der AIC-Formel an, da der zusätzlicheTerm gegen Null geht. Für kleine Stichproben kann die AICc-Formel jedoch einebessere Schätzung des KLIC-basierten Modellvergleichskriteriums liefern als die AIC-Formel, da sie die Verzerrung des AIC-Schätzers korrigiert.
+
+# Bayesian Information Criterion
+
+\footnotesize
+\setstretch{1.2}
+
+\begin{definition}[Bayesian Information Criterion (BIC)]
+\justifying
+Gegeben sei ein Bayesianisches Inferenzmodell mit Parameterraum $\Theta \subseteq \mathbb{R}^k$
+und unabhängig und identisch verteilten Beobachtungen $y = (y_1,\ldots,y_n)$,
+sodass die gemeinsame Dichte der Parameter und Daten gegeben ist durch
+\begin{equation}
+p(\theta,y) = p(\theta)p(y|\theta) = p(\theta)\prod_{i=1}^n p(y_i|\theta),
+\end{equation}
+Weiterhin sei
+\begin{equation}
+\ell : \Theta \to \mathbb{R}, \theta \mapsto \ell(\theta) := \ln p(y|\theta)
+\end{equation}
+die Log-Likelihood-Funktion des Modells, und es sei
+\begin{equation}
+\hat{\theta}_n \in \arg\max_{\theta \in \Theta} \ell(\theta)
+\end{equation}
+eine Maximalstelle dieser Funktion. Dann ist das \textit{Bayesian Information Criterion}
+definiert als
+\begin{equation}
+\mbox{BIC} := \ell(\hat{\theta}_n) - \frac{k}{2}\ln n.
+\end{equation}
+\end{definition}
+\vspace{-1mm}
+
+Bemerkungen
+\vspace{-1mm}
+
+* Im Anwendungskontext wird häufig folgende Konvention genutzt:
+\begin{equation}
+\mbox{BIC}_{-2} := -2\mbox{BIC} = -2\ell(\hat{\theta}_n) + k\ln n.
+\end{equation}
+
+# Bayesian Information Criterion
+
+\footnotesize
+
+\begin{theorem}[Motivation der BIC-Formel]
+\justifying
+\normalfont
+Gegeben sei ein probabilistisches Modell mit Parameterraum
+$\Theta \subseteq \mathbb{R}^k$. Weiterhin sei
+\begin{equation}
+f : \Theta \to \mathbb{R},
+\theta \mapsto
+f(\theta) := -\frac{1}{n}\left(\ln p(y|\theta) + \ln p(\theta)\right),
+\end{equation}
+und sei $\tilde{\theta}$ ein Minimierer von $f$. Dann ergibt sich aus der
+Laplace-Approximation der logarithmierten marginalen Likelihood
+\begin{equation}
+\ln p(y) =  \ln \int p(y|\theta)p(\theta)\,d\theta
+\end{equation}
+die Näherung
+\begin{equation}
+\ln p(y) \approx
+\frac{k}{2}\ln 2\pi -
+\frac{k}{2} \ln n -
+\frac{1}{2} \ln |H^f(\tilde{\theta})| +
+\ln p(y|\tilde{\theta}) +
+\ln p(\tilde{\theta}),
+\end{equation}
+wobei $H^f(\tilde{\theta})$ die Hesse-Matrix von $f$ an der Stelle
+$\tilde{\theta}$ bezeichnet. Das BIC erhält aus dieser Näherung durch Vernachlässigung
+der Terme
+\begin{equation}
+\frac{k}{2}\ln 2\pi,
+\qquad
+\ln p(\tilde{\theta}),
+\qquad
+-\frac{1}{2} \ln |H^f(\tilde{\theta})|
+\end{equation}
+sowie durch die asymptotische Ersetzung von $\tilde{\theta}$ durch
+$\hat{\theta}_n$ und die Identifikation
+$\ell(\hat{\theta}_n) = \ln p(y|\hat{\theta}_n)$.
+\end{theorem}
+
+# Bayesian Information Criterion
+
+\footnotesize
+
+\underline{Beweis}
+
+Wir erinnern zunächst an die Laplace-Approximation von Integralen. Sei dazu
+$f : \mathbb{R}^k \to \mathbb{R}$ eine zweimal differenzierbare konvexe Funktion mit
+einem Minimum bei $\tilde{x} \in \mathbb{R}^k$. Dann besteht die Laplace-Approximation
+darin, das Integral
+\begin{equation}
+I_n := \int_{\mathbb{R}^k} \exp(-nf(x))\,dx
+\end{equation}
+für $n \in \mathbb{N}$ wie folgt zu approximieren:
+\begin{equation}\label{eq:laplace_int_approx}
+I_n \approx
+\left(\frac{2\pi}{n} \right)^{\frac{k}{2}}
+|H^f(\tilde{x})|^{-\frac{1}{2}}
+\exp(-nf(\tilde{x})),
+\end{equation}
+wobei $|H^f(\tilde{x})|$ die Determinante der Hesse-Matrix von $f$ an der Stelle
+$\tilde{x}$ bezeichnet. Für Motivation und Herleitung der Laplace-Approximation
+siehe z. B. @lauritzen2009.
+
+Wir definieren nun die Funktion
+\begin{equation}
+f : \Theta \to \mathbb{R},
+\theta \mapsto f(\theta) := -\frac{1}{n}\left(\ln p(y|\theta) + \ln p(\theta)\right),
+\end{equation}
+und bezeichnen mit $\tilde{\theta}$ einen Minimierer von $f$.
+
+# Bayesian Information Criterion
+
+\footnotesize
+
+\underline{Beweis (fortgeführt)}
+
+Dann ergibt sich die Laplace-Approximation der logarithmierten marginalen Likelihood wie folgt:
+\begin{align*}
+\ln p(y)
+& = \ln \int p(y|\theta)p(\theta)\,d\theta \\
+& = \ln \int \exp\left(\ln\left(p(y|\theta)p(\theta)\right)\right)\,d\theta \\
+& = \ln \int \exp\left(\ln p(y|\theta) + \ln p(\theta)\right)\,d\theta \\
+& = \ln \int \exp\left(-n\left(-\frac{1}{n}\left(\ln p(y|\theta) + \ln p(\theta)\right)\right)\right)\,d\theta \\
+& = \ln \int \exp\left(-n f(\theta)\right)\,d\theta \\
+& \approx
+    \ln \left(\left(\frac{2\pi}{n} \right)^{\frac{k}{2}}|H^f(\tilde{\theta})|^{-\frac{1}{2}}\exp(-nf(\tilde{\theta}))\right) \\
+& = \frac{k}{2}\ln 2\pi
+    - \frac{k}{2} \ln n
+    - \frac{1}{2} \ln |H^f(\tilde{\theta})|
+    + \ln p(y|\tilde{\theta})
+    + \ln p(\tilde{\theta}).
+\end{align*}
+Die BIC-Formel ergibt sich schließlich aus der Vernachlässigung der Terme
+$\frac{k}{2}\ln 2\pi$, $\ln p(\tilde{\theta})$ und
+$- \frac{1}{2} \ln |H^f(\tilde{\theta})|$ sowie durch die asymptotische
+Ersetzung von $\tilde{\theta}$ durch $\hat{\theta}_n$ und die Identifikation
+$\ell(\hat{\theta}_n) = \ln p(y|\hat{\theta}_n)$. Damit folgt
+\begin{equation}
+\ln p(y) \approx \ell(\hat{\theta}_n) - \frac{k}{2}\ln n = \mbox{BIC}.
+\end{equation}
+
+
+# Bayesian Information Criterion
+
+SABIC
+
+Sclove (1987) schlägt eine modifizierte Version der BIC-Formel vor, die als Sample-Size Adjusted BIC (SABIC) bezeichnet wird. Die SABIC-Formel lautet
+\begin{equation}
+\mbox{SABIC} := \ell(\hat{\theta}_n) - \frac{k}{2}\ln\left(\frac{n+2}{24}\right).
+\end{equation}
+Die SABIC-Formel enthält einen modifizierten Strafterm, der die Anzahl der Parameter $k$ und die Stichprobengröße $n$ berücksichtigt. Im Vergleich zur BIC-Formel, die einen Strafterm von $\frac{k}{2}\ln n$ verwendet, verwendet die SABIC-Formel einen Strafterm von $\frac{k}{2}\ln\left(\frac{n+2}{24}\right)$. Diese Modifikation soll die Leistung des BIC-Formel insbesondere bei kleinen Stichproben verbessern, da der modifizierte Strafterm weniger streng ist als der Strafterm der BIC-Formel. Für große Stichproben nähert sich die SABIC-Formel der BIC-Formel an, da der modifizierte Strafterm gegen $\frac{k}{2}\ln n$ geht.
+
+# Bayesian Information Criterion
+
+CAIC
+
+Bozdogan (1987) schlägt eine modifizierte Version der BIC-Formel vor, die als Consistent Akaike Information Criterion (CAIC) bezeichnet wird. Die CAIC-Formel lautet
+\begin{equation}
+\mbox{CAIC} := \ell(\hat{\theta}_n) - \frac{k}{2}\ln(n+1).
+\end{equation}
+Die CAIC-Formel enthält einen modifizierten Strafterm, der die Anzahl der Parameter $k$ und die Stichprobengröße $n$ berücksichtigt. Im Vergleich zur BIC-Formel, die einen Strafterm von $\frac{k}{2}\ln n$ verwendet, verwendet die CAIC-Formel einen Strafterm von $\frac{k}{2}\ln(n+1)$. Diese Modifikation soll die Leistung des BIC-Formel insbesondere bei kleinen Stichproben verbessern, da der modifizierte Strafterm weniger streng ist als der Strafterm der BIC-Formel. Für große Stichproben nähert sich die CAIC-Formel der BIC-Formel an, da der modifizierte Strafterm gegen $\frac{k}{2}\ln n$ geht.
+
+
+# Referenzen
+\footnotesize

@@ -109,8 +109,9 @@ Item-Response-Theorien bilden eine große Modellfamilie
 \vspace{-2mm}
 
 * Von eindimensionalen Personeneigenschaften zu mehrdimensionalen Personeneigenschaften
-* Von dichotomen Antwortformaten zu polytomen Antwortformaten
-* Wir betrachten hier nur eindimensionale Personeneigenschaften und dichotome Antwortformate
+* Von dichotomen Items zu polytomen Items
+* Wir betrachten hier nur eindimensionale Personeneigenschaften und dichotome Items
+* Dichotome Items werden hier als binär ausgewerte Items verstanden
 
 Weite Verbreitung in Bildungsforschung (PISA, GRE), Medizin (PROMIS), Psychometrie und Sozialwissenschaften
 
@@ -130,7 +131,7 @@ Statistische Tradition
 \footnotesize
 \vspace{-1mm}
 
-* Datenanalytisch geprägter US-amerikanischer Ansatz nach @mosier1940, @richardson1936, @lawley1943, @lord1951
+* Datenanalytisch geprägter Ansatz nach @mosier1940, @richardson1936, @lawley1943, @lord1951
 * Seminale Arbeiten von Allan Birnbaum (1923 - 1976) in @lord1968 (vgl. auch @birnbaum1962)
 * 1PL-, 2PL- und 3PL-Modelle als Weiterentwicklung des Normal-Ogive-Modells
 * Marginal-Maximum-Likelihood / Expectation-Maximization
@@ -164,7 +165,7 @@ Simulierter Datensatz basierend auf den 10 dichotomen Items
 \setstretch{1}
 \setlength{\tabcolsep}{1.5pt}
 ```{r, echo = F, message = F}
-y               = read.csv("./2-Daten/2-irt.csv")               # Dateneinlesen
+y               = read.csv("2-Daten/2-irt.csv")               # Dateneinlesen
 n               = nrow(y)                                       # Personenanzahl
 m               = ncol(y)                                       # Itemanzahl
 rownames(y)     = paste("P", 1:n)                               # Personenlabel
@@ -597,7 +598,7 @@ ylab      = TeX("$p_{\\kappa_j}(y_{ij} = 1|x_i)$"),
 xlab      = TeX("$x_i$"),
 ylim      = c(0, 1),
 xlim      = c(-6,6),
-main      = "Effekt des Itemschwierigkeitsparameters")
+main      = TeX("Effekt des Itemschwierigkeitsparameters bei $a_j = 1$, c_j = 0$"))
 abline(x,
 0,
 0.5,
@@ -624,7 +625,7 @@ for (j in 1:5){
 }
 labs      =
 sapply(1:5,
-function(j) {TeX(sprintf("$b_{%d} = %1.3g",j,b_j[j]))})
+function(j) {TeX(sprintf("$b_j = %1.3g",b_j[j]))})
 legend(
 "topleft",
 legend    = labs,
@@ -691,7 +692,7 @@ ylab      = TeX("$p_{\\kappa_j}(y_{ij} = 1|x_i)$"),
 xlab      = TeX("$x_i$"),
 ylim      = c(0, 1),
 xlim      = c(-6,6),
-main      = "Effekt des Itemdiskriminationsparameters")
+main      = TeX("Effekt des Itemdiskriminationsparameters bei $b_j = 0, c_j = 0$"))
 abline(x,
 0,
 0.5,
@@ -718,7 +719,7 @@ for (j in 1:5){
 }
 labs      =
 sapply(1:5,
-function(j) {TeX(sprintf("$a_{%d} = %1.3g",j, a_j[j]))})
+function(j) {TeX(sprintf("$a_j = %1.3g", a_j[j]))})
 legend(
 "topleft",
 legend    = labs,
@@ -778,7 +779,7 @@ ylab      = TeX("$p_{\\kappa_j}(y_{ij} = 1|x_i)$"),
 xlab      = TeX("$x_i$"),
 ylim      = c(0, 1),
 xlim      = c(-6,6),
-main      = "Effekt des Itemrateparameters")
+main      = TeX("Effekt des Itemrateparameters bei $a_j = 1, b_j = 0$"))
 abline(x,
 0,
 0.5,
@@ -805,7 +806,7 @@ for (j in 1:5){
 }
 labs      =
 sapply(1:5,
-function(j) {TeX(sprintf("$c_{%d} = %1.3g",j, c_j[j]))})
+function(j) {TeX(sprintf("$c_j = %1.3g", c_j[j]))})
 legend(
 "topleft",
 legend    = labs,
@@ -862,29 +863,9 @@ for(i in 1:n){                                                # Personeniteratio
   }
 }
 colnames(Y) = paste("I", 1:m, sep = "")                       # Itemlabel
-write.csv(Y, "./2-Daten/2-irt.csv", row.names = FALSE)        # Datenspeicherung
+write.csv(Y, "2-Daten/2-irt.csv", row.names = FALSE)          # Datenspeicherung
 ```
 
-# Birnbaum-Modell
-Anwendungsbeispiel
-\footnotesize
-
-Simulierter Datensatz basierend auf den 18 dichotomen Items der GEB Scale (@kaiser1998)
-
-\tiny
-\setstretch{1}
-\setlength{\tabcolsep}{1.5pt}
-```{r, echo = F, message = F}
-y               = read.csv("./2-Daten/2-irt.csv")               # Dateneinlesen
-n               = nrow(y)                                       # Personenanzahl
-m               = ncol(y)                                       # Itemanzahl
-rownames(y)     = paste("P", 1:n)                               # Personenlabel
-colnames(y)     = paste("I", 1:m)                               # Itemlabel
-knitr::kable(y[1:20,], digits = 2, "pipe")                      # Visualisierung
-```
-
-\flushright
-$n = 20$ von $n = 1000$ Personen, keine KA-Antworten
 
 # Birnbaum-Modell
 \setstretch{1.8}
@@ -1166,7 +1147,7 @@ lassen und damit eng mit der Perspektive von @woodruff1996 verbunden sind.
 \setstretch{1}
 \footnotesize
 \begin{definition}[Verteilungsform des Birnbaum-Modells nach Woodruff (1996)]
-Für $i = 1,...,n$ Personen, $j = 1,...,m$ dichotome Items, und $s = 1,...,r$ diskrete Fähigkeitswerte seien
+Für $i = 1,...,n$ Personen, $j = 1,...,m$ dichotome Items, und $s = 1,...,r$ diskrete Eigenschaftswerte seien
 \begin{itemize}
 \item $x_i$ die Zufallsvariable zur Modellierung der Eigenschaft von Person $i$ mit Wertebereich $\{\xi_1,...,\xi_r\}\subset\mathbb{R}$,
 \item $x := (x_1,...,x_n)$ der Zufallsvektor der $x_i$,
@@ -1878,59 +1859,93 @@ für $j = 1,...,m$.
 # Birnbaum-Modell
 \footnotesize
 \setbeamerfont{block title}{size=\small}
-\begin{theorem}[Log-Marginal-Likelihood-Funktion im Bock-Aitkin-EM-Algorithmus]
+\begin{theorem}[Log-Marginal-Likelihood-Funktion des Bock-Aitkin-EM-Algorithmus]
 \justifying
 \normalfont
 Gegeben sei die Verteilungsform des Birnbaum-Modells nach Bock-Aitkin (1981)
-mit festen Gauss-Hermite-Stützstellen $\xi_1,...,\xi_r$ und Gewichten
-$\pi_1,...,\pi_r$. Dann ist die durch Quadratur approximierte
-\textit{Log-Marginal-Likelihood-Funktion} gegeben durch
+mit festen Stützstellen $\xi_1,...,\xi_r$ und festen Gewichten
+$\pi_1,...,\pi_r$ mit $\pi_s > 0$ und $\sum_{s=1}^r \pi_s = 1$.
+Dann ist die \textit{Log-Marginal-Likelihood-Funktion} als Funktion von
+$\kappa$ gegeben durch
 \begin{equation}
-\ell(\kappa)
-:= \ln p_\kappa(y)
-= \sum_{i=1}^n
+\ell : \Kappa \to \mathbb{R}, \kappa \mapsto \ell(\kappa)
+:= \sum_{i=1}^n
 \ln\left(
 \sum_{s=1}^r
-\pi_s \prod_{j=1}^m
+\pi_s
+\prod_{j=1}^m
 \left(\mu_{sj}^{\kappa}\right)^{y_{ij}}
 \left(1-\mu_{sj}^{\kappa}\right)^{1-y_{ij}}
-\right).
+\right),
 \end{equation}
-Dabei ist
+wobei
 \begin{equation}
-\mu_{sj}^{\kappa} := c_j + (1-c_j)\frac{1}{1+\exp\left(-a_j(\xi_s-b_j)\right)}.
+\mu_{sj}^{\kappa}
+:= c_j + (1-c_j)\frac{1}{1+\exp\left(-a_j(\xi_s-b_j)\right)}
 \end{equation}
-Für die EM-Iteranden $\kappa^{(0)},\kappa^{(1)},...$ werden also die Werte
-$\ell\left(\kappa^{(0)}\right),\ell\left(\kappa^{(1)}\right),...$ betrachtet.
+für $\kappa := (a_j,b_j,c_j)_{j=1,...,m}$.
 \end{theorem}
 \setbeamerfont{block title}{size=\normalsize}
 
 
 # Birnbaum-Modell
 \footnotesize
+
 \underline{Beweis}
 
-Mit der Unabhängigkeitsannahme über Personen gilt
-\begin{equation}
-p_\kappa(y)
-= \prod_{i=1}^n p_\kappa(y_i).
-\end{equation}
-Für eine einzelne Person ergibt die Marginalisierung über die diskreten
-Quadraturstützstellen
+Es gilt
 \begin{align*}
-p_\kappa(y_i)
-&= \sum_{s=1}^r p(x_i=\xi_s)p_\kappa(y_i|x_i=\xi_s) \\
-&= \sum_{s=1}^r \pi_s \prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i=\xi_s) \\
-&= \sum_{s=1}^r \pi_s \prod_{j=1}^m
+\ell(\kappa)
+& := \ln \sum_x p_\theta(x,y)
+\\
+& = \ln \sum_{x_1}\cdots\sum_{x_n}
+\prod_{i=1}^n p_\theta(x_i,y_i)
+\\
+&=
+\ln \sum_{x_1}\cdots\sum_{x_n}
+\prod_{i=1}^n p(x_i)p_\kappa(y_i|x_i)
+\\
+&=
+\ln \prod_{i=1}^n
+\sum_{x_i} p(x_i)p_\kappa(y_i|x_i)
+\\
+& =
+\sum_{i=1}^n
+\ln
+\sum_{x_i} p(x_i)p_\kappa(y_i|x_i)
+\\
+&=
+\sum_{i=1}^n
+\ln
+\sum_{s=1}^r p(x_i=\xi_s)p_\kappa(y_i|x_i=\xi_s)
+\\
+&=
+\sum_{i=1}^n
+\ln
+\sum_{s=1}^r
+\pi_s
+\prod_{j=1}^m p_{\kappa_j}(y_{ij}|x_i=\xi_s)
+\\
+&=
+\sum_{i=1}^n
+\ln
+\sum_{s=1}^r
+\pi_s
+\prod_{j=1}^m
 \left(\mu_{sj}^{\kappa}\right)^{y_{ij}}
 \left(1-\mu_{sj}^{\kappa}\right)^{1-y_{ij}}.
 \end{align*}
-Einsetzen in $p_\kappa(y)=\prod_{i=1}^n p_\kappa(y_i)$ und anschließendes
-Logarithmieren liefert $\ell(\kappa)$. $\hfill\Box$
+$\hfill\Box$
+
 
 
 # Birnbaum-Modell
+\small
+\vspace{1mm}
+EM-Algorithmus nach @bock1981
 \vspace{2mm}
+
+\setstretch{1.2}
 \tiny
 ```{r, echo = TRUE}
 # 3PL Modell Bernoulli-Erwartungswertparameter
@@ -1963,11 +1978,16 @@ ell = function(kappa, y, xi, pi){
 ```
 
 # Birnbaum-Modell
+\small
+\vspace{1mm}
+EM-Algorithmus nach @bock1981 (fortgesetzt)
+\vspace{2mm}
+
 \tiny
 ```{r, echo = TRUE, eval = FALSE}
 # Einlesen der Daten
 library(statmod)
-y         = read.csv("./2-Daten/2-irt.csv")                 # Dateneinlesen
+y         = read.csv("2-Daten/2-irt.csv")                   # Dateneinlesen
 n         = nrow(y)                                         # Personenanzahl
 m         = ncol(y)                                         # Itemanzahl
 
@@ -1989,9 +2009,12 @@ opt       = list(method  = "L-BFGS-B",                      # Optimierungsalgori
 ```
 
 # Birnbaum-Modell
+\small
+\vspace{1mm}
+EM-Algorithmus nach @bock1981 (fortgesetzt)
+\vspace{2mm}
+
 \tiny
-
-
 ```{r, echo = TRUE, eval = FALSE}
 # Initialisierung
 kappa[,,1] = matrix(c(.1,.1,.1), nrow = m, ncol = 3, byrow = TRUE)    # Initialisierung der Itemparameter
@@ -2012,7 +2035,11 @@ for(k in 1:k_max){                                                    # EM-Itera
 ```
 
 # Birnbaum-Modell
+\small
 \vspace{2mm}
+EM-Algorithmus nach @bock1981 (fortgesetzt)
+\vspace{2mm}
+
 \tiny
 \setstretch{1.2}
 ```{r, echo = TRUE, eval = FALSE}
@@ -2048,14 +2075,11 @@ ell_hat   = ell_k[k+1]                                                # Speicher
 ```
 
 
-
-# Birnbaum-Modell
-
 \tiny
 ```{r, echo = FALSE, eval = FALSE}
 # Einlesen der Daten
 library(statmod)
-y         = read.csv("./2-Daten/2-irt.csv")                           # Dateneinlesen
+y         = read.csv("2-Daten/2-irt.csv")                           # Dateneinlesen
 n         = nrow(y)                                                   # Personenanzahl
 m         = ncol(y)                                                   # Itemanzahl
 
@@ -2152,22 +2176,26 @@ plot_kappa = function(x, y, main, alabs){
   add_y_label(alabs[2])
   abline(0, 1, lwd = 1.5, lty = 2, col = cols[1])
 }
-# Visualisierung Log-Marginal-Likelihood
+
+# Gemeinsame Visualisierung des Bock-Aitkin-EM-Algorithmus
 pdf(
-file      = "2-Abbildungen/psd-2-bock-aitkin-em-loglik.pdf",
-width     = 5,
-height    = 4)
+file      = "2-Abbildungen/psd-2-bock-aitkin-em-visualisierung.pdf",
+width     = 9,
+height    = 5)
+layout(matrix(c(1,1,2,3,4,5), nrow = 2, byrow = TRUE))
 par(
 family    = "sans",
-pty       = "m",
 bty       = "l",
 lwd       = 2,
 las       = 1,
 mgp       = c(2,1,0),
 font.main = 1,
 cex.main  = 1,
-cex       = 0.85,
-mar       = c(3.2,4.8,1.2,0.8))
+cex       = 0.72,
+mar       = c(3.1,4.4,1.4,0.7))
+
+# Evolution der Log-Marginal-Likelihood
+par(pty = "m")
 plot(
 0:k_max,
 ell_k,
@@ -2177,86 +2205,32 @@ lwd       = 2,
 col       = cols[2],
 ylab      = "",
 xlab      = "Iteration",
-main      = "",
+main      = "Log-Marginal-Likelihood",
 xaxt      = "n")
 axis(1, at = 0:k_max)
-dev.off()
 
-# Visualisierung Itemparameter
-pdf(
-file      = "2-Abbildungen/psd-2-bock-aitkin-em-itemparameter.pdf",
-width     = 9,
-height    = 3)
-par(
-family    = "sans",
-pty       = "s",
-bty       = "l",
-lwd       = 2,
-las       = 1,
-mfcol     = c(1,3),
-mgp       = c(2,1,0),
-font.main = 1,
-cex.main  = 1,
-cex       = 0.85,
-mar       = c(3.2,4.8,1.2,0.8))
+
+# Personeneigenschaften-Recovery
+par(pty = "s")
+X_map = xi[max.col(p_xgy_hat, ties.method = "first")]
+plot_kappa(X_tbu[,1], X_map, "Personen", c(TeX("$x_i$"), TeX("$\\hat{x}_i$")))
+
+# Itemparameter-Recovery
 plot_kappa(kappa_tbu[1,], kappa_hat[,1], "Diskrimination", c(TeX("$a_j$"), TeX("$\\hat{a}_j$")))
 plot_kappa(kappa_tbu[2,], kappa_hat[,2], "Schwierigkeit", c(TeX("$b_j$"), TeX("$\\hat{b}_j$")))
 plot_kappa(kappa_tbu[3,], kappa_hat[,3], "Raten", c(TeX("$c_j$"), TeX("$\\hat{c}_j$")))
 dev.off()
-
-# Visualisierung Personeneigenschaften
-pdf(
-file      = "2-Abbildungen/psd-2-bock-aitkin-em-personenparameter.pdf",
-width     = 3.5,
-height    = 3.5)
-par(
-family    = "sans",
-pty       = "s",
-bty       = "l",
-lwd       = 2,
-las       = 1,
-mfcol     = c(1,1),
-mgp       = c(2,1,0),
-font.main = 1,
-cex.main  = 1,
-cex       = 0.85,
-mar       = c(3.2,4.8,1.2,0.8))
-X_map = xi[max.col(p_xgy_hat, ties.method = "first")]
-plot_kappa(X_tbu[,1], X_map, "Personeneigenschaften",  c(TeX("$x_i$"), TeX("$\\hat{x}_i$")))
-dev.off()
 ```
 
 # Birnbaum-Modell
 \vspace{2mm}
 \flushleft
-Evolution der Log-Marginal-Likelihood
-
-\centering
-\vspace{2mm}
-```{r, echo = FALSE, out.width = "60%"}
-knitr::include_graphics("2-Abbildungen/psd-2-bock-aitkin-em-loglik.pdf")
-```
-
-# Birnbaum-Modell
-\vspace{2mm}
-\flushleft
-Itemparameter-Recovery
+EM-Algorithmus nach Bock-Aitkin
 
 \centering
 \vspace{2mm}
 ```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("2-Abbildungen/psd-2-bock-aitkin-em-itemparameter.pdf")
-```
-
-# Birnbaum-Modell
-\vspace{2mm}
-\flushleft
-Personeneigenschaften-Recovery
-
-\centering
-\vspace{2mm}
-```{r, echo = FALSE, out.width = "50%"}
-knitr::include_graphics("2-Abbildungen/psd-2-bock-aitkin-em-personenparameter.pdf")
+knitr::include_graphics("2-Abbildungen/psd-2-bock-aitkin-em-visualisierung.pdf")
 ```
 
 
@@ -2593,7 +2567,7 @@ Conditional-Maximum-Likelihood-Schätzung (CML)
 * Personeneigenschaften werden durch eine suffiziente Statistik aus der Likelihood "herauskonditioniert"
 * Die Itemparameter werden dann durch Maximierung dieser bedingten Likelihood geschätzt
 * Itemparameterschätzungen sind konsistent, ohne dass Annahmen über Eigenschaftsverteilungen nötig sind
-* Ausschließliche Anwendung beim Rasch-Modell, auf 2PL oder 3PL nicht anwendbar (keine suffizienten Statistiken)
+* Anwendung nur beim Rasch-Modell, auf 2PL oder 3PL nicht anwendbar (keine suffizienten Statistiken)
 * Klare Trennung zwischen "Itemkalibrierung" und "Personenmessung"
 
 Suffiziente Statistik
@@ -3031,22 +3005,6 @@ Rasch-Modell
 1. Erläutern Sie die invarianten Vergleichseigenschaften des Rasch-Modells auf Parameterebene.
 1. Erläutern Sie die invarianten Vergleichseigenschaften des Rasch-Modells auf Odds-Ratio-Ebene.
 
-# Beispielklausurfrage
-\footnotesize
-
-Welche Aussage zur logistischen Funktion
-\begin{equation*}
-f:\mathbb{R} \to ]0,1[, x \mapsto f(x) := \frac{1}{1 + \exp(-a(x-b))} \mbox{ mit }  a, b \in \mathbb{R}
-\end{equation*}
-für $a > 0$ trifft zu?
-
-a) $f(b) = 0.00$
-
-b) $f(b) = 0.25$
-
-c) $f(b) = 0.50$
-
-d) $f(b) = 1.00$
 
 # {.plain}
 \vfill

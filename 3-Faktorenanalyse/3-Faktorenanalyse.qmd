@@ -3308,9 +3308,378 @@ dev.off()
 knitr::include_graphics("3-Abbildungen/psd-3-chi-square.pdf")
 ```
 
-* Es tritt eine leichte Verzerrung aufgrund der Datenzensierung auf.
+* Es tritt eine leichte Verzerrung aufgrund der Datenzensierung auf. -->
 
-#
+# Modellvergleichskriterien | RMSEA
+
+Rooted Mean Square Error of Approximation (RMSEA)
+
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+\begin{definition}[Approximationsfehler, Schätzfehler, Gesamtfehler]
+\justifying
+
+Gegeben sei ein Faktorenanalysemodell mit einer Menge $\{\Sigma_\theta \mid \theta \in \Theta\}$
+von durch das Modell darstellbaren Kovarianzmatrizen sowie eine \textit{Diskrepanzfunktion}
+\begin{equation}
+d :
+\mathbb{R}^{m \times m}_{>0}
+\times
+\mathbb{R}^{m \times m}_{>0}
+\to
+\mathbb{R}_{\geq 0},
+(A,B)
+\mapsto
+d(A,B)
+\mbox{ mit }
+A = B
+\Leftrightarrow
+d(A,B) = 0.
+\end{equation}
+Weiterhin seien
+\begin{itemize}
+\item $\Sigma$ die wahre, aber unbekannte, Kovarianzmatrix,
+\item $S$ die Stichprobenkovarianzmatrix,
+\item $\theta_* \in \arg\min_{\theta \in \Theta} d(\Sigma_\theta,\Sigma)$
+\item $\hat{\theta} \in \arg\min_{\theta \in \Theta} d(\Sigma_\theta,S)$
+\end{itemize}
+Dann werden
+\begin{itemize}
+\item $d(\Sigma_{\theta_*},\Sigma)$ als \textit{Approximationsfehler},
+\item $d(\Sigma_{\hat{\theta}},\Sigma_{\theta_*})$ als \textit{Schätzfehler}, und
+\item $d(\Sigma_{\hat{\theta}},\Sigma)$ als \textit{Gesamtfehler}
+\end{itemize}
+bezeichnet.
+\end{definition}
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+
+Bemerkungen
+
+* Ein Beispiel für eine häufig betrachtete Diskrepanzfunktion ist die Likelihood-basierte Diskrepanzfunction
+\begin{equation}
+d(A,B) :=  \ln |B| + \mbox{tr}\left(AB^{-1}\right) - \ln|A| - m
+\end{equation}
+des Normalverteilungsmodells der Faktorenanalyse.
+* Da $\Sigma$ war, aber unbekannt ist, ist auch $Sigma_{\theta_*}$, nicht-zufällig, aber unbekannt.
+* Der Approximationsfehler $d(\Sigma_{\theta_*},\Sigma)$ ist also eine unbekannte Konstante.
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+
+\begin{theorem}[Feste Alternative der $\chi^2$-Teststatistik]
+\justifying
+\normalfont
+Gegeben sei das Normalverteilungsmodell der Faktorenanalyse mit restringiertem
+Kovarianzmodell
+\begin{equation}
+\mathcal{M}_0
+:=
+\left\{
+\Sigma_\theta = L\Phi L^T+\Psi
+\,\middle|\,
+\theta \in \Theta
+\right\},
+\end{equation}
+sowie die Teststatistik
+\begin{equation}
+T_n := nF_Y(\hat\theta),
+\qquad
+df := \frac{m(m+1)}{2}-n_\theta.
+\end{equation}
+Eine \textit{feste Alternative} ist eine Populationskovarianzmatrix
+\begin{equation}
+\Sigma_0 \notin \mathcal{M}_0
+\end{equation}
+mit positiver Populationsdiskrepanz
+\begin{equation}
+F_0
+:=
+\min_{\theta \in \Theta}
+F(\Sigma_0,\Sigma_\theta)
+> 0.
+\end{equation}
+Dann gilt unter geeigneten Regularitätsbedingungen
+\begin{equation}
+\frac{T_n}{n}
+\overset{p}{\to}
+F_0,
+\end{equation}
+und damit
+\begin{equation}
+T_n \to \infty
+\qquad
+\mbox{in Wahrscheinlichkeit}.
+\end{equation}
+Insbesondere existiert unter festen Alternativen keine feste nichtzentrale
+$\chi^2$-Grenzverteilung.
+\end{theorem}
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+
+\begin{theorem}[Lokale Alternative der $\chi^2$-Teststatistik]
+\justifying
+\normalfont
+Gegeben sei das Normalverteilungsmodell der Faktorenanalyse mit restringiertem
+Kovarianzmodell
+\begin{equation}
+\mathcal{M}_0
+:=
+\left\{
+\Sigma_\theta = L\Phi L^T+\Psi
+\,\middle|\,
+\theta \in \Theta
+\right\},
+\end{equation}
+sowie die Teststatistik
+\begin{equation}
+T_n := nF_Y(\hat\theta),
+\qquad
+df := \frac{m(m+1)}{2}-n_\theta.
+\end{equation}
+Sei $\Sigma_{\theta_0} \in \mathcal{M}_0$ eine reguläre Modellkovarianzmatrix.
+Eine \textit{lokale Alternative} ist eine Folge von Populationskovarianzmatrizen
+\begin{equation}
+\Sigma_n
+=
+\Sigma_{\theta_0}
++
+\frac{\Delta}{\sqrt n},
+\qquad
+\Delta = \Delta^T,
+\end{equation}
+mit
+\begin{equation}
+\Sigma_n \notin \mathcal{M}_0
+\quad
+\mbox{für alle hinreichend großen } n,
+\qquad
+\Sigma_n \to \Sigma_{\theta_0}.
+\end{equation}
+Falls
+\begin{equation}
+\lambda
+:=
+\lim_{n\to\infty}
+n
+\min_{\theta \in \Theta}
+F(\Sigma_n,\Sigma_\theta)
+\end{equation}
+existiert und endlich ist, gilt unter geeigneten Regularitätsbedingungen
+\begin{equation}
+T_n
+\overset{d}{\to}
+\chi^2_{df}(\lambda).
+\end{equation}
+\end{theorem}
+
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+\begin{definition}[Schätzer des Approximationsfehlers]
+\justifying
+\normalfont
+Gegeben sei das Normalverteilungsmodell der Faktorenanalyse mit restringiertem
+Kovarianzmodell
+\begin{equation}
+\mathcal{M}_0
+:=
+\left\{
+\Sigma_\theta = L\Phi L^T+\Psi
+\,\middle|\,
+\theta \in \Theta
+\right\},
+\end{equation}
+wobei $\theta \in \Theta \subseteq \mathbb{R}^{n_\theta}$ die unikalen skalaren
+Modellparameter bezeichnet. Für $m$ manifeste Variablen seien die Freiheitsgrade
+des Modells definiert als
+\begin{equation}
+df
+:=
+\frac{m(m+1)}{2}-n_\theta.
+\end{equation}
+Weiterhin sei
+\begin{equation}
+T_n := nF_Y(\hat\theta)
+\end{equation}
+die $\chi^2$-Teststatistik des Modells. Der Schätzer des
+Populationsapproximationsfehlers
+\begin{equation}
+F_0
+:=
+\min_{\theta \in \Theta}
+F(\Sigma_0,\Sigma_\theta)
+\end{equation}
+ist definiert als
+\begin{equation}
+\hat F_0
+:=
+\max\left(
+F_Y(\hat\theta)-\frac{df}{n},0
+\right).
+\end{equation}
+\end{definition}
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+\begin{theorem}[Momentbasierter asymptotischer Plug-in-Schätzer]
+\justifying
+\normalfont
+Gegeben seien die Voraussetzungen der obigen Definition. Weiterhin gelte unter
+lokaler Missspezifikation des restringierten Faktorenanalysemodells
+\begin{equation}
+T_n
+=
+nF_Y(\hat\theta)
+\dot{\sim}
+\chi^2_{df}(\lambda),
+\end{equation}
+wobei $\chi^2_{df}(\lambda)$ eine nichtzentrale Chi-Quadrat-Verteilung mit
+$df$ Freiheitsgraden und Nichtzentralitätsparameter $\lambda$ bezeichnet.
+
+Dann ist
+\begin{equation}
+\hat F_0
+=
+\max\left(
+F_Y(\hat\theta)-\frac{df}{n},0
+\right)
+\end{equation}
+ein momentbasierter asymptotischer Plug-in-Schätzer des
+Populationsapproximationsfehlers
+\begin{equation}
+F_0
+=
+\min_{\theta \in \Theta}
+F(\Sigma_0,\Sigma_\theta).
+\end{equation}
+\end{theorem}
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+\underline{Beweis}
+
+Unter lokaler Missspezifikation gilt approximativ
+\begin{equation}
+T_n
+=
+nF_Y(\hat\theta)
+\dot{\sim}
+\chi^2_{df}(\lambda).
+\end{equation}
+Für eine nichtzentrale Chi-Quadrat-verteilte Zufallsvariable
+\begin{equation}
+X \sim \chi^2_{df}(\lambda)
+\end{equation}
+gilt
+\begin{equation}
+\mathbb{E}(X)
+=
+df+\lambda.
+\end{equation}
+Damit folgt approximativ
+\begin{equation}
+\mathbb{E}(T_n)
+\approx
+df+\lambda.
+\end{equation}
+Momentbasiertes Gleichsetzen des beobachteten Wertes $T_n$ mit seinem
+approximativen Erwartungswert liefert
+\begin{equation}
+T_n
+\approx
+df+\lambda.
+\end{equation}
+Daraus ergibt sich der Momentenschätzer
+\begin{equation}
+\hat\lambda
+=
+T_n-df.
+\end{equation}
+Da der Nichtzentralitätsparameter nicht negativ ist, wird dieser Schätzer bei
+null abgeschnitten:
+\begin{equation}
+\hat\lambda
+=
+\max(T_n-df,0).
+\end{equation}
+
+# Modellvergleichskriterien | RMSEA
+\footnotesize
+\underline{Beweis}
+
+Unter der lokalen Alternative gilt weiterhin
+\begin{equation}
+\lambda
+\approx
+nF_0.
+\end{equation}
+Ein Plug-in-Schätzer für $F_0$ ist daher
+\begin{equation}
+\hat F_0
+=
+\frac{\hat\lambda}{n}.
+\end{equation}
+Einsetzen von $T_n=nF_Y(\hat\theta)$ ergibt
+\begin{equation}
+\hat F_0
+=
+\frac{\max(T_n-df,0)}{n}
+=
+\max\left(
+\frac{T_n}{n}-\frac{df}{n},0
+\right)
+=
+\max\left(
+F_Y(\hat\theta)-\frac{df}{n},0
+\right).
+\end{equation}
+Damit ist $\hat F_0$ ein momentbasierter asymptotischer Plug-in-Schätzer des
+Populationsapproximationsfehlers.
+\end{proof}
+
+# Modellvergleichskriterien | RMSEA
+\vspace{2mm}
+Anwendungsbeispiel
+\footnotesize
+
+Äquivalent ist folgender Black-Box-Ansatz mit dem **R** Paket `lavaan` möglich, aber intransparent
+\vspace{2mm}
+
+\tiny
+```{r, message = F, echo = T}
+library(lavaan)                                             # Lavaan Paket
+Y               = read.csv("3-Daten/3-fa-keller-small.csv") # Erste 9 BDi-II Items Datensatz
+colnames(Y)     = paste('I', 1:9, sep = "")                 # Vereinfachte Itemvariablennamen
+m               = ncol(Y)                                   # Datendimension
+n               = nrow(Y)                                   # Stichprobenumfang
+fam             = 'x_1 =~  I1 + I2 + I3 + I4
+                   x_2 =~  I1 + I5 + I6 + I7 + I8 + I9'     # Spezifikation des restringierten Modells
+fam             = cfa(fam, data = Y)                        # CFA Faktorenanalysemodelle und -schätzung
+```
+
+```{r, echo = FALSE}
+# Ausgabe der Lavaan Ergebnisse
+rmsea =
+fitMeasures(
+fam,
+c("rmsea", "rmsea.ci.lower", "rmsea.ci.upper", "rmsea.pvalue", "rmsea.notclose.pvalue"))
+
+# Ausgabe der RMSEA Ergebnisse
+cat(
+"Root Mean Square Error of Approximation:\n\n",
+sprintf("  RMSEA                                          %0.3f\n", rmsea["rmsea"]),
+sprintf("  90 Percent confidence interval - lower         %0.3f\n", rmsea["rmsea.ci.lower"]),
+sprintf("  90 Percent confidence interval - upper         %0.3f\n", rmsea["rmsea.ci.upper"]),
+sprintf("  P-value H_0: RMSEA <= 0.050                    %0.3f\n", rmsea["rmsea.pvalue"]),
+sprintf("  P-value H_0: RMSEA >= 0.080                    %0.3f\n", rmsea["rmsea.notclose.pvalue"]),
+sep = "")
+```
+
+<!-- #
 \vfill
 \setstretch{2.2}
 \large
@@ -5215,7 +5584,7 @@ R_{{y}_{ij}}
 & = \frac{1}{\sqrt{(C)_{ii}}}(C)_{ij}\frac{1}{\sqrt{(C)_{jj}}}    \\
 & = (DCD)_{ij}.
 \end{split}
-\end{align}
+\end{align} -->
 
 # Referenzen {.allowframebreaks}
 \footnotesize
